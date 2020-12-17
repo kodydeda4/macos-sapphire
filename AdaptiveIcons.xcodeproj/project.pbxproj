@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3360CA82258BF80B008350BB /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 3360CA81258BF80B008350BB /* Grid */; };
 		33897AB9258BCCA8002A547A /* AppList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33897AB8258BCCA8002A547A /* AppList.swift */; };
 		33897ABE258BCCD8002A547A /* AppGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33897ABD258BCCD8002A547A /* AppGrid.swift */; };
-		33897AD0258BF414002A547A /* QGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 33897ACF258BF414002A547A /* QGrid */; };
 		33A556AE258AB5EE00C7F6B8 /* CustomApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A556AD258AB5EE00C7F6B8 /* CustomApps.swift */; };
 		33E1B17C2589600000A1FDC1 /* AdaptiveIconsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* AdaptiveIconsApp.swift */; };
 		33E1B17E2589600000A1FDC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17D2589600000A1FDC1 /* ContentView.swift */; };
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33897AD0258BF414002A547A /* QGrid in Frameworks */,
+				3360CA82258BF80B008350BB /* Grid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,7 +160,7 @@
 			);
 			name = AdaptiveIcons;
 			packageProductDependencies = (
-				33897ACF258BF414002A547A /* QGrid */,
+				3360CA81258BF80B008350BB /* Grid */,
 			);
 			productName = AdaptiveIcons;
 			productReference = 33E1B1782589600000A1FDC1 /* AdaptiveIcons.app */;
@@ -234,7 +234,7 @@
 			);
 			mainGroup = 33E1B16F2589600000A1FDC1;
 			packageReferences = (
-				33897ACE258BF414002A547A /* XCRemoteSwiftPackageReference "QGrid" */,
+				3360CA80258BF80B008350BB /* XCRemoteSwiftPackageReference "swiftui-grid" */,
 			);
 			productRefGroup = 33E1B1792589600000A1FDC1 /* Products */;
 			projectDirPath = "";
@@ -607,21 +607,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		33897ACE258BF414002A547A /* XCRemoteSwiftPackageReference "QGrid" */ = {
+		3360CA80258BF80B008350BB /* XCRemoteSwiftPackageReference "swiftui-grid" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Q-Mobile/QGrid";
+			repositoryURL = "https://github.com/spacenation/swiftui-grid";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.4;
+				minimumVersion = 1.0.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		33897ACF258BF414002A547A /* QGrid */ = {
+		3360CA81258BF80B008350BB /* Grid */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 33897ACE258BF414002A547A /* XCRemoteSwiftPackageReference "QGrid" */;
-			productName = QGrid;
+			package = 3360CA80258BF80B008350BB /* XCRemoteSwiftPackageReference "swiftui-grid" */;
+			productName = Grid;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
