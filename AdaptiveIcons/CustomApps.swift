@@ -30,14 +30,12 @@ struct CustomApp: Identifiable {
         .replacingOccurrences(of: ".app", with: "")
     }
     
-        var defaultIconPath: String {
-            let rv = "\(path)/Contents/Resources/\(AppBundlePlist?["CFBundleIconFile"] ?? AppBundlePlist?["Icon file"] ?? "AppIcon")"
-            return rv.contains(".icns")
-                ? rv
-                : rv + ".icns"
-        }
-
-    
+    var defaultIconPath: String {
+        let rv = "\(path)/Contents/Resources/\(AppBundlePlist?["CFBundleIconFile"] ?? AppBundlePlist?["Icon file"] ?? "AppIcon")"
+        return rv.contains(".icns")
+            ? rv
+            : rv + ".icns"
+    }
     
     var description: String { "AnApp<\(name)> \n path: \(path), \n defaultIconPath: \(defaultIconPath)" }
     
