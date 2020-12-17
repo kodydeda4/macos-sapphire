@@ -17,24 +17,12 @@ extension Image {
 }
 
 
-struct AppList : View {
-    var body: some View {
-        List(apps) { app in
-            HStack {
-                Image(contentsOfFile: app.defaultIconPath)?.resizable()
-                    .frame(width: 20, height: 20)
-    
-                Text(app.name)
-
-            }
-        }
-    }
-}
-
 struct ContentView : View {
     var body: some View {
         NavigationView {
             AppList()
+            AppScrollView()
+            
         }
     }
 }
