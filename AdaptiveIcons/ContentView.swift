@@ -25,10 +25,16 @@ let apps =
     .sorted(by: { $0.name < $1.name })
 
 struct ContentView : View {
+    
     var body: some View {
         NavigationView {
             AppList()
             AppGrid()
+            .toolbar {
+                Button(action: {}) {
+                    Label("Record Progress", systemImage: "book.circle")
+                }
+            }
         }
     }
 }

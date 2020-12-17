@@ -12,6 +12,7 @@ struct AppGrid: View {
     var body: some View {
         ScrollView {
             Grid(apps) { AppGridCell(app: $0) }
+                .padding(.all, 12)
             .gridStyle(
                 ModularGridStyle(columns: .min(100), rows: .fixed(100))
             )
@@ -34,6 +35,7 @@ struct AppGridCell: View {
                 .frame(width: 90, height: 30, alignment: .top)
         }
         .frame(width: 100, height: 100)
+        
     }
 }
 
