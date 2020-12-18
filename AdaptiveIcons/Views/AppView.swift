@@ -20,35 +20,40 @@ let apps =
 struct AppView: View {
     @State var showRightPane = true
     @State var selectedApp = apps[0]
-
+    
     var body: some View {
         HSplitView {
-            
-            AppGrid()
-                .toolbar {
- 
-                    ToolbarItem(placement: .automatic) {
-                        Button(action: {}, label: {
-                            Text("Apply Theme")
-//                            Image(systemName: "sidebar.left")
-                        })
-                    }
-                    ToolbarItem(placement: .automatic) {
-                        Toggle(isOn: $showRightPane, label: {
-                            Image(systemName: "info.circle")
-                        })
-                    }
-                }
-
+            grid
             if showRightPane {
-                InspectorPane(app: selectedApp)
+                inspectorPane
             }
         }
     }
+    
+    var grid: some View {
+        AppGrid()
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button(
+                    action: {},
+                    label: { Text("Apply Theme") }
+                )
+            }
+            ToolbarItem(placement: .automatic) {
+                Button(
+                    action: { withAnimation { self.showRightPane.toggle() } },
+                    label:  { Image(systemName: "info.circle") }
+                )
+            }
+        }
+    }
+    
+    var inspectorPane: some View {
+        InspectorPane(app: selectedApp)
+            .transition(.slide)
+    }
+    
 }
-
-
-
 
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {

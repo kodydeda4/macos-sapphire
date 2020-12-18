@@ -19,6 +19,7 @@ struct AppGrid: View {
         }
         .layoutPriority(1)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        
     }
 }
 
