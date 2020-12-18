@@ -8,6 +8,15 @@
 import SwiftUI
 import Grid
 
+let apps =
+    try!
+    FileManager
+    .default
+    .contentsOfDirectory(atPath: "/Applications")
+    .filter { $0.contains(".app") && !$0.hasPrefix(".") }
+    .map { CustomApp(path: "/Applications/\($0)" ) }
+    .sorted(by: { $0.name < $1.name })
+
 struct AppGrid: View {
     var body: some View {
         ScrollView {
@@ -17,6 +26,13 @@ struct AppGrid: View {
                 ModularGridStyle(columns: .min(100), rows: .fixed(100))
             )
         }
+        .toolbar {
+            ToolbarItem(placement: .navigation){
+                Button(action: {}, label: {
+                    Label("Info", systemImage: "info.circle")
+                })
+            }
+        }
     }
 }
 
@@ -24,18 +40,32 @@ struct AppGridCell: View {
     let app: CustomApp
     
     var body: some View {
-        VStack(alignment: .center, spacing: 6) {
-            Image(contentsOfFile: app.defaultIconPath)?
-                .resizable()
-                .scaledToFill()
-                .frame(width: 55, height: 55)
-            Text(app.name)
-                .font(.system(size: 11, weight: .regular))
-                .multilineTextAlignment(.center)
-                .frame(width: 90, height: 30, alignment: .top)
-        }
-        .frame(width: 100, height: 100)
         
+        Button(action: {
+            print("plain")
+        }) {
+            VStack(alignment: .center, spacing: 6) {
+                Image(contentsOfFile: app.defaultIconPath)?
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 55, height: 55)
+                
+                Text(app.name)
+                    .font(.system(size: 11, weight: .regular))
+                    .multilineTextAlignment(.center)
+                    .frame(width: 90, height: 30, alignment: .top)
+            }
+            .frame(width: 100, height: 100)
+
+        }.buttonStyle(BorderlessButtonStyle())
+    }
+}
+
+extension Image {
+    public init?(contentsOfFile: String) {
+        guard let image = NSImage(contentsOfFile: contentsOfFile)
+            else { return nil }
+        self.init(nsImage: image)
     }
 }
 
