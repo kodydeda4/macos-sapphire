@@ -8,15 +8,40 @@
 import SwiftUI
 
 struct InspectorPane: View {
+    var app: CustomApp
+    
     var body: some View {
-        VStack {
-            Text("Inspector")
+        ScrollView {
+            VStack(alignment: .center) {
+                Image(contentsOfFile: app.defaultIconPath)?
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 55, height: 55)
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Name:")
+                        Text(app.name)
+                    }
+                    HStack {
+                        Text("Path:")
+                        Text(app.path)
+                    }
+                    HStack {
+                        Text("Icon Path:")
+                        Text(app.defaultIconPath)
+                    }
+                    
+                }
+
+            }
+            .padding(.all)
         }
-        .frame(maxWidth: 250)
+        .frame(minWidth: 250, maxWidth: 250)
     }
 }
 struct InspectorPane_Previews: PreviewProvider {
     static var previews: some View {
-        InspectorPane()
+        InspectorPane(app: apps[0])
     }
 }

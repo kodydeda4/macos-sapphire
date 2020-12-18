@@ -17,14 +17,8 @@ struct AppGrid: View {
                 ModularGridStyle(columns: .min(100), rows: .fixed(100))
             )
         }
-        .frame(minWidth: 600)
-        .toolbar {
-            ToolbarItem(placement: .automatic){
-                Button(action: {}, label: {
-                    Label("Info", systemImage: "info.circle")
-                })
-            }
-        }
+        .layoutPriority(1)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -66,3 +60,4 @@ struct AppGrid_Previews: PreviewProvider {
         AppGrid()
     }
 }
+

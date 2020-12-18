@@ -16,21 +16,35 @@ let apps =
     .map { CustomApp(path: "/Applications/\($0)" ) }
     .sorted(by: { $0.name < $1.name })
 
+
 struct AppView: View {
+    @State var showRightPane = true
+    @State var selectedApp = apps[0]
+
     var body: some View {
-        NavigationView {
+        HSplitView {
             AppGrid()
-            InspectorPane()
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Toggle(isOn: $showRightPane, label: {
+                        Image(systemName: "info.circle")
+                    })
+                }
+            }
+            if showRightPane {
+                InspectorPane(app: selectedApp)
+            }
         }
-        .navigationViewStyle(DoubleColumnNavigationViewStyle())
     }
 }
+
+
+
 
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
         AppView()
     }
 }
-
 
 
