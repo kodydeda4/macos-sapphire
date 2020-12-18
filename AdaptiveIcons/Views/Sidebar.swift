@@ -9,41 +9,17 @@ import SwiftUI
 
 struct Sidebar: View {
     var body: some View {
-        List {
-            //Caption
-            Text("Services")
-            
-            //Navigation links
+        List {            
+            Text("Themes")
             Group{
                 NavigationLink(destination: AppView()) {
-                    Label("Apps", systemImage: "square.grid.3x3")
+                    Label("Default", systemImage: "square.grid.3x3")
                 }
                 NavigationLink(destination: AppView()) {
-                    Label("Weather", systemImage: "cloud.sun")
-                }
-                NavigationLink(destination: AppView()) {
-                    Label("Charge", systemImage: "bolt.car")
-                }
-                NavigationLink(destination: AppView()) {
-                    Label("HealthCare", systemImage: "pills")
-                }
-                NavigationLink(destination: AppView()) {
-                    Label("Ticket", systemImage: "ticket")
-                }
-                NavigationLink(destination: AppView()) {
-                    Label("Calculator", systemImage: "function")
+                    Label("My Theme", systemImage: "folder")
                 }
             }
-            
-            Spacer()
-            
-            Text("More")
-            NavigationLink(destination: AppView()) {
-                Label("Shortcut", systemImage: "option")
-            }
-            NavigationLink(destination: AppView()) {
-                Label("Customize", systemImage: "slider.horizontal.3")
-            }
+
             
             Spacer()
             Divider()

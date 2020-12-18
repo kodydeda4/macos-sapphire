@@ -12,27 +12,30 @@ struct InspectorPane: View {
     
     var body: some View {
         ScrollView {
+            
             VStack(alignment: .center) {
+                Spacer()
                 Image(contentsOfFile: app.defaultIconPath)?
                     .resizable()
                     .scaledToFill()
                     .frame(width: 55, height: 55)
                 
-                VStack(alignment: .leading) {
+                VStack {
                     HStack {
-                        Text("Name:")
                         Text(app.name)
+                            .font(.title2)
                     }
-                    HStack {
+                    HStack(alignment: .top) {
                         Text("Path:")
                         Text(app.path)
                     }
-                    HStack {
+                    HStack(alignment: .top) {
                         Text("Icon Path:")
                         Text(app.defaultIconPath)
                     }
                     
                 }
+                Spacer()
 
             }
             .padding(.all)

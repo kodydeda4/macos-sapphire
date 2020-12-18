@@ -23,14 +23,23 @@ struct AppView: View {
 
     var body: some View {
         HSplitView {
+            
             AppGrid()
-            .toolbar {
-                ToolbarItem(placement: .automatic) {
-                    Toggle(isOn: $showRightPane, label: {
-                        Image(systemName: "info.circle")
-                    })
+                .toolbar {
+ 
+                    ToolbarItem(placement: .automatic) {
+                        Button(action: {}, label: {
+                            Text("Apply Theme")
+//                            Image(systemName: "sidebar.left")
+                        })
+                    }
+                    ToolbarItem(placement: .automatic) {
+                        Toggle(isOn: $showRightPane, label: {
+                            Image(systemName: "info.circle")
+                        })
+                    }
                 }
-            }
+
             if showRightPane {
                 InspectorPane(app: selectedApp)
             }
