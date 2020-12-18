@@ -17,7 +17,7 @@ let apps =
     .sorted(by: { $0.name < $1.name })
 
 struct AppView: View {
-    @State var showRightPane = true
+    @State var showRightPane = false
     @State var selectedApp = apps[0]
 
     var body: some View {
@@ -40,7 +40,7 @@ struct AppView: View {
             }
             ToolbarItem(placement: .automatic) {
                 Button(
-                    action: { withAnimation { self.showRightPane.toggle() } },
+                    action: { self.showRightPane.toggle() },
                     label:  { Image(systemName: "info.circle") }
                 )
             }
@@ -49,7 +49,6 @@ struct AppView: View {
     
     var inspectorPane: some View {
         InspectorPane(app: selectedApp)
-            .transition(.slide)
     }
     
 }
