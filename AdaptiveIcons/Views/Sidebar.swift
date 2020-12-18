@@ -15,22 +15,22 @@ struct Sidebar: View {
             
             //Navigation links
             Group{
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: AppView()) {
                     Label("Apps", systemImage: "square.grid.3x3")
                 }
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: AppView()) {
                     Label("Weather", systemImage: "cloud.sun")
                 }
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: AppView()) {
                     Label("Charge", systemImage: "bolt.car")
                 }
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: AppView()) {
                     Label("HealthCare", systemImage: "pills")
                 }
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: AppView()) {
                     Label("Ticket", systemImage: "ticket")
                 }
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: AppView()) {
                     Label("Calculator", systemImage: "function")
                 }
             }
@@ -38,17 +38,17 @@ struct Sidebar: View {
             Spacer()
             
             Text("More")
-            NavigationLink(destination: ContentView()) {
+            NavigationLink(destination: AppView()) {
                 Label("Shortcut", systemImage: "option")
             }
-            NavigationLink(destination: ContentView()) {
+            NavigationLink(destination: AppView()) {
                 Label("Customize", systemImage: "slider.horizontal.3")
             }
             
             Spacer()
             Divider()
             
-            NavigationLink(destination: ContentView()) {
+            NavigationLink(destination: AppView()) {
                 Label("Settings", systemImage: "gear")
             }
         }

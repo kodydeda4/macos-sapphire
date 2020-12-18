@@ -1,5 +1,5 @@
 //
-//  AppScrollView.swift
+//  AppsGrid.swift
 //  AdaptiveIcons
 //
 //  Created by Kody Deda on 12/17/20.
@@ -7,15 +7,6 @@
 
 import SwiftUI
 import Grid
-
-let apps =
-    try!
-    FileManager
-    .default
-    .contentsOfDirectory(atPath: "/Applications")
-    .filter { $0.contains(".app") && !$0.hasPrefix(".") }
-    .map { CustomApp(path: "/Applications/\($0)" ) }
-    .sorted(by: { $0.name < $1.name })
 
 struct AppGrid: View {
     var body: some View {
@@ -26,8 +17,9 @@ struct AppGrid: View {
                 ModularGridStyle(columns: .min(100), rows: .fixed(100))
             )
         }
+        .frame(minWidth: 600)
         .toolbar {
-            ToolbarItem(placement: .navigation){
+            ToolbarItem(placement: .automatic){
                 Button(action: {}, label: {
                     Label("Info", systemImage: "info.circle")
                 })
@@ -74,5 +66,3 @@ struct AppGrid_Previews: PreviewProvider {
         AppGrid()
     }
 }
-
-

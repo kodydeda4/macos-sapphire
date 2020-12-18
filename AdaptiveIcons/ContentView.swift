@@ -11,7 +11,7 @@ struct ContentView : View {
     var body: some View {
         NavigationView {
             Sidebar()
-            AppGrid()
+            AppView()
         }
     }
 }
@@ -21,3 +21,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
+
