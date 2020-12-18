@@ -12,7 +12,7 @@ struct Sidebar: View {
         List {            
             Text("Themes")
             Group{
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: AppView()) {
                     Label("Default", systemImage: "square.grid.3x3")
                 }
                 NavigationLink(destination: ContentView()) {
@@ -20,11 +20,10 @@ struct Sidebar: View {
                 }
             }
 
-            
             Spacer()
             Divider()
             
-            NavigationLink(destination: ContentView()) {
+            NavigationLink(destination: AppView()) {
                 Label("Settings", systemImage: "gear")
             }
         }
