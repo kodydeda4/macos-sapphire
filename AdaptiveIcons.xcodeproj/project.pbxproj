@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		335C8E8A258C4BF00068240A /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335C8E87258C4BF00068240A /* Sidebar.swift */; };
-		335C8E8B258C4BF00068240A /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335C8E88258C4BF00068240A /* AppView.swift */; };
-		335C8E8C258C4BF00068240A /* AppList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335C8E89258C4BF00068240A /* AppList.swift */; };
-		335C8E94258C58550068240A /* InspectorPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335C8E93258C58550068240A /* InspectorPane.swift */; };
-		335C8E9C258C58970068240A /* AppGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335C8E9B258C58970068240A /* AppGrid.swift */; };
 		3360CA82258BF80B008350BB /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 3360CA81258BF80B008350BB /* Grid */; };
 		33A556AE258AB5EE00C7F6B8 /* CustomApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A556AD258AB5EE00C7F6B8 /* CustomApps.swift */; };
 		33E1B17C2589600000A1FDC1 /* AdaptiveIconsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* AdaptiveIconsApp.swift */; };
@@ -40,11 +35,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		335C8E87258C4BF00068240A /* Sidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
-		335C8E88258C4BF00068240A /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
-		335C8E89258C4BF00068240A /* AppList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppList.swift; sourceTree = "<group>"; };
-		335C8E93258C58550068240A /* InspectorPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorPane.swift; sourceTree = "<group>"; };
-		335C8E9B258C58970068240A /* AppGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGrid.swift; sourceTree = "<group>"; };
 		33A556AD258AB5EE00C7F6B8 /* CustomApps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomApps.swift; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* AdaptiveIcons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptiveIcons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* AdaptiveIconsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveIconsApp.swift; sourceTree = "<group>"; };
@@ -87,18 +77,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		335C8E86258C4BF00068240A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				335C8E87258C4BF00068240A /* Sidebar.swift */,
-				335C8E88258C4BF00068240A /* AppView.swift */,
-				335C8E89258C4BF00068240A /* AppList.swift */,
-				335C8E93258C58550068240A /* InspectorPane.swift */,
-				335C8E9B258C58970068240A /* AppGrid.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		33E1B16F2589600000A1FDC1 = {
 			isa = PBXGroup;
 			children = (
@@ -122,7 +100,6 @@
 		33E1B17A2589600000A1FDC1 /* AdaptiveIcons */ = {
 			isa = PBXGroup;
 			children = (
-				335C8E86258C4BF00068240A /* Views */,
 				33A556AD258AB5EE00C7F6B8 /* CustomApps.swift */,
 				33E1B17B2589600000A1FDC1 /* AdaptiveIconsApp.swift */,
 				33E1B17D2589600000A1FDC1 /* ContentView.swift */,
@@ -296,11 +273,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				33A556AE258AB5EE00C7F6B8 /* CustomApps.swift in Sources */,
-				335C8E94258C58550068240A /* InspectorPane.swift in Sources */,
-				335C8E8C258C4BF00068240A /* AppList.swift in Sources */,
-				335C8E9C258C58970068240A /* AppGrid.swift in Sources */,
-				335C8E8B258C4BF00068240A /* AppView.swift in Sources */,
-				335C8E8A258C4BF00068240A /* Sidebar.swift in Sources */,
 				33E1B17E2589600000A1FDC1 /* ContentView.swift in Sources */,
 				33E1B17C2589600000A1FDC1 /* AdaptiveIconsApp.swift in Sources */,
 			);
