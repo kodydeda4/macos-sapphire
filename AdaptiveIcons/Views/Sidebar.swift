@@ -7,7 +7,12 @@
 
 import SwiftUI
 
+
+
 struct Sidebar: View {
+    
+    
+    
     var body: some View {
         List {            
             Text("Themes")
@@ -30,10 +35,8 @@ struct Sidebar: View {
         .listStyle(SidebarListStyle())
         .navigationTitle("Explore")
         
-        //Set Sidebar Width (and height)
         .frame(minWidth: 200, idealWidth: 250, maxWidth: 300)
         .toolbar {
-            //Toggle Sidebar Button
             ToolbarItem(placement: .primaryAction){
                 Button(action: toggleSidebar, label: {
                     Image(systemName: "sidebar.left")
