@@ -11,11 +11,6 @@ import SwiftUI
 struct Icon: View {
     let app: CustomApp
     
-    enum Shape {
-        case bigSur
-        case circle
-    }
-    
     var body: some View {
         VStack(alignment: .center, spacing: 6) {
             iconImage

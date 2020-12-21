@@ -22,13 +22,8 @@ let iconPacks = [
         textblock: "Handmade icons from ....... and ..... and even ....."
     ),
     IconPack(
-        imageName: "app",
-        name: "Big Sur",
-        textblock: "Handmade icons from ....... and ..... and even ....."
-    ),
-    IconPack(
-        imageName: "circle",
-        name: "Circles",
+        imageName: "folder",
+        name: "My Theme",
         textblock: "Handmade icons from ....... and ..... and even ....."
     ),
 ]

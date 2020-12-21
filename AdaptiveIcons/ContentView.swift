@@ -72,8 +72,8 @@ struct PrimaryView: View {
 
     var body: some View {
         ScrollView {
-            Grid(apps) {
-                Icon(app: $0)
+            Grid(apps) { app in
+                Icon(app: app)
             }
             .padding(.all, 12)
             .gridStyle(ModularGridStyle(columns: .min(100), rows: .fixed(100)))
@@ -93,51 +93,47 @@ struct PrimaryView: View {
 // MARK:- DetailView
 
 struct DetailView: View {
-    @State var username: String = ""
-    @State var isPrivate: Bool = true
-    @State var notificationsEnabled: Bool = false
-    @State private var previewIndex = 0
-    var previewOptions = ["Always", "When Unlocked", "Never"]
+    
+    @State private var selectedShape = 0
+    var shapes = ["Rounded Rectangle", "Circle"]
+    
+    @State private var selectedIconPack = 0
+    var iconPack = ["Default"]
+    
+    @State var adaptiveIcons: Bool = false
+    @State private var selectedColor = Color.white
 
     var body: some View {
-        VStack {
-
-            Form {
-                Section(header: Text("PROFILE")) {
-                    TextField("Username", text: $username)
-                    Toggle(isOn: $isPrivate) {
-                        Text("Private Account")
-                    }
-                }
+        ScrollView {
+            VStack {
+                RoundedRectangle(cornerRadius: 25.0)
+                    .frame(width: 200, height: 200)
+                    .foregroundColor(selectedColor)
                 
-                Section(header: Text("NOTIFICATIONS")) {
-                    Toggle(isOn: $notificationsEnabled) {
-                        Text("Enabled")
-                    }
-                    Picker(selection: $previewIndex, label: Text("Show Previews")) {
-                        ForEach(0 ..< previewOptions.count) {
-                            Text(self.previewOptions[$0])
+                Form {
+                    Section(header: Text("Icon Pack")) {
+                        Picker("", selection: $selectedIconPack) {
+                            ForEach(0 ..< iconPack.count) {
+                                Text(self.iconPack[$0])
+                            }
                         }
-                    }
-                }
-                
-                Section(header: Text("ABOUT")) {
-                    HStack {
-                        Text("Version")
                         Spacer()
-                        Text("2.2.1")
+                        Toggle(isOn: $adaptiveIcons) {
+                            Text("Adaptive Shape")
+                        }
+                        Spacer()
+                        Picker("", selection: $selectedShape) {
+                            ForEach(0 ..< shapes.count) {
+                                Text(self.shapes[$0])
+                            }
+                        }.disabled(!adaptiveIcons)
+                        Spacer()
+                        Text("Color")
+                        ColorPicker("", selection: $selectedColor)
+                        Spacer()
                     }
-                }
-                
-                Section {
-                    Button(action: {
-                        print("Perform an action here...")
-                    }) {
-                        Text("Reset All Settings")
-                    }
-                }
+                }.padding()
             }
-            
         }
         .padding()
     }
