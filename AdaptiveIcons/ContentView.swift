@@ -30,10 +30,10 @@ struct Sidebar: View {
     var body: some View {
         VStack(alignment: .leading) {
             List {
-                Section(header: Text("Icon Pack")) {
+                Section(header: Text("Icon Packs")) {
                     ForEach(iconPacks) { iconPack in
                         NavigationLink(destination: PrimaryView(iconPack: iconPack)) {
-                            Label(iconPack.name, systemImage: "square.grid.3x3")
+                            Label(iconPack.name, systemImage: iconPack.imageName)
                         }
                     }
                 }
@@ -73,7 +73,7 @@ struct PrimaryView: View {
     var body: some View {
         ScrollView {
             Grid(apps) {
-                Icon(app: $0, theme: iconPack.iconTheme)
+                Icon(app: $0)
             }
             .padding(.all, 12)
             .gridStyle(ModularGridStyle(columns: .min(100), rows: .fixed(100)))
@@ -93,9 +93,53 @@ struct PrimaryView: View {
 // MARK:- DetailView
 
 struct DetailView: View {
-    var body: some View {
-        Text("Editor")
+    @State var username: String = ""
+    @State var isPrivate: Bool = true
+    @State var notificationsEnabled: Bool = false
+    @State private var previewIndex = 0
+    var previewOptions = ["Always", "When Unlocked", "Never"]
 
+    var body: some View {
+        VStack {
+
+            Form {
+                Section(header: Text("PROFILE")) {
+                    TextField("Username", text: $username)
+                    Toggle(isOn: $isPrivate) {
+                        Text("Private Account")
+                    }
+                }
+                
+                Section(header: Text("NOTIFICATIONS")) {
+                    Toggle(isOn: $notificationsEnabled) {
+                        Text("Enabled")
+                    }
+                    Picker(selection: $previewIndex, label: Text("Show Previews")) {
+                        ForEach(0 ..< previewOptions.count) {
+                            Text(self.previewOptions[$0])
+                        }
+                    }
+                }
+                
+                Section(header: Text("ABOUT")) {
+                    HStack {
+                        Text("Version")
+                        Spacer()
+                        Text("2.2.1")
+                    }
+                }
+                
+                Section {
+                    Button(action: {
+                        print("Perform an action here...")
+                    }) {
+                        Text("Reset All Settings")
+                    }
+                }
+            }
+            
+        }
+        .padding()
     }
 }
 

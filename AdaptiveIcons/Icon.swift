@@ -10,7 +10,6 @@ import SwiftUI
 
 struct Icon: View {
     let app: CustomApp
-    let theme: IconTheme
     
     enum Shape {
         case bigSur
@@ -20,9 +19,9 @@ struct Icon: View {
     var body: some View {
         VStack(alignment: .center, spacing: 6) {
             iconImage
-                .background(theme.backgroundColor)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .shadow(color: Color.black.opacity(0.2), radius: 1, y: 1)
+//                .background(theme.backgroundColor)
+//                .clipShape(RoundedRectangle(cornerRadius: 10))
+//                .shadow(color: Color.black.opacity(0.2), radius: 1, y: 1)
             iconName
         }
         .frame(width: 100, height: 100)
@@ -61,6 +60,6 @@ extension Image {
 
 struct Icon_Previews: PreviewProvider {
     static var previews: some View {
-        Icon(app: apps[0], theme: iconPacks[0].iconTheme)
+        Icon(app: apps[0])
     }
 }
