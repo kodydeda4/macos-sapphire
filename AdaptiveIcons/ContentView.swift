@@ -9,12 +9,37 @@ import SwiftUI
 import Grid
 
 struct ContentView : View {
+    @State var showRightPane = false
+    
     var body: some View {
         NavigationView {
-            Sidebar()
-            AppView()
+            sidebar
+            primaryView
+                .toolbar {
+                    ToolbarItem(placement: .automatic) {
+                        Button(
+                            action: {},
+                            label: { Text("Apply Theme") }
+                        )
+                    }
+                    ToolbarItem(placement: .automatic) {
+                        Button(
+                            action: { self.showRightPane.toggle() },
+                            label:  { Image(systemName: "info.circle") }
+                        )
+                    }
+                }
+            showRightPane
+                ? DetailView()
+                    .transition(.move(edge: .trailing))
+                    .animation(.easeIn)
+                : nil
         }
     }
+    
+    var sidebar = Sidebar()
+    var primaryView = PrimaryView()
+    var detailView = DetailView()
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -26,35 +51,49 @@ struct ContentView_Previews: PreviewProvider {
 // MARK:- Sidebar
 
 struct Sidebar: View {
+    let themes = [
+        NavigationLink(destination: PrimaryView()) { Label("My Theme", systemImage: "folder") },
+        NavigationLink(destination: PrimaryView()) { Label("My Theme", systemImage: "folder") },
+        NavigationLink(destination: PrimaryView()) { Label("My Theme", systemImage: "folder") },
+    ]
     
     var body: some View {
-        List {
-            Text("Themes")
-            Group{
-                NavigationLink(destination: AppView()) {
-                    Label("Default", systemImage: "square.grid.3x3")
+        VStack(alignment: .leading) {
+            List {
+                Section(header: Text("Icon Pack")) {
+                    NavigationLink(destination: PrimaryView()) {
+                        Label("Default", systemImage: "square.grid.3x3")
+                    }
                 }
-                NavigationLink(destination: ContentView()) {
-                    Label("My Theme", systemImage: "folder")
+                
+                Section(header: Text("My Themes")) {
+                    Group {
+                        ForEach(0 ..< 3) { _ in
+                            NavigationLink(destination: PrimaryView()) {
+                                Label("My Theme", systemImage: "folder")
+                            }
+                        }
+                    }
                 }
             }
-
-            Spacer()
-            Divider()
-            
-            NavigationLink(destination: AppView()) {
-                Label("Settings", systemImage: "gear")
+            .listStyle(SidebarListStyle())
+            .frame(minWidth: 180, idealWidth: 250, maxWidth: 300)
+            .toolbar {
+                ToolbarItem(placement: .primaryAction){
+                    Button(action: toggleSidebar, label: {
+                        Image(systemName: "sidebar.left")
+                    })
+                }
             }
-        }
-        .listStyle(SidebarListStyle())
-        .navigationTitle("Explore")
-        
-        .frame(minWidth: 200, idealWidth: 250, maxWidth: 300)
-        .toolbar {
-            ToolbarItem(placement: .primaryAction){
-                Button(action: toggleSidebar, label: {
-                    Image(systemName: "sidebar.left")
+            HStack {
+                Button(action: {}, label: {
+                    HStack {
+                        Image(systemName: "plus.circle")
+                        Text("Add Theme")
+                    }
                 })
+                .buttonStyle(BorderlessButtonStyle())
+                .padding(6)
             }
         }
     }
@@ -64,59 +103,30 @@ func toggleSidebar() {
     NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar), with: nil)
 }
 
-// MARK:- AppView
+// MARK:- PrimaryView
 
-struct AppView: View {
-    @State var showRightPane = false
+struct PrimaryView: View {
     @State var selectedApp = apps[0]
 
     var body: some View {
-        HSplitView {
-            grid
-            if showRightPane {
-                inspectorPane
-            }
-        }
-    }
-    
-    var grid: some View {
         AppGrid()
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                Button(
-                    action: {},
-                    label: { Text("Apply Theme") }
-                )
-            }
-            ToolbarItem(placement: .automatic) {
-                Button(
-                    action: { self.showRightPane.toggle() },
-                    label:  { Image(systemName: "info.circle") }
-                )
-            }
-        }
     }
-    
-    var inspectorPane: some View {
-        InspectorPane(app: selectedApp)
-    }
-    
 }
 
-// MARK:- AppGrid
-
 struct AppGrid: View {
+    
+    @State var selectedApp = apps[0]
+
     var body: some View {
         ScrollView {
-            Grid(apps) { AppGridCell(app: $0) }
-                .padding(.all, 12)
-            .gridStyle(
-                ModularGridStyle(columns: .min(100), rows: .fixed(100))
-            )
+            Grid(apps) {
+                AppGridCell(app: $0)
+            }
+            .padding(.all, 12)
+            .gridStyle(ModularGridStyle(columns: .min(100), rows: .fixed(100)))
         }
         .layoutPriority(1)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        
     }
 }
 
@@ -135,7 +145,7 @@ struct AppGridCell: View {
                         .padding(4)
                 }
                 .frame(width: 55, height: 55)
-                .clipShape(Circle())
+                .clipShape(RoundedRectangle(cornerRadius: 10))
                 .shadow(color: Color.black.opacity(0.2), radius: 1, y: 1)
                 
                 Text(app.name)
@@ -148,8 +158,6 @@ struct AppGridCell: View {
     }
 }
 
-// MARK:- Image
-
 extension Image {
     public init?(contentsOfFile: String) {
         guard let image = NSImage(contentsOfFile: contentsOfFile)
@@ -158,43 +166,17 @@ extension Image {
     }
 }
 
+// MARK:- DetailView
 
-
-// MARK:- InspectorPane
-
-struct InspectorPane: View {
-    var app: CustomApp
+struct DetailView: View {
     
     var body: some View {
         ScrollView {
-            
-            VStack(alignment: .center) {
-                Spacer()
-                Image(contentsOfFile: app.defaultIconPath)?
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 55, height: 55)
-                
-                VStack {
-                    HStack {
-                        Text(app.name)
-                            .font(.title2)
-                    }
-                    HStack(alignment: .top) {
-                        Text("Path:")
-                        Text(app.path)
-                    }
-                    HStack(alignment: .top) {
-                        Text("Icon Path:")
-                        Text(app.defaultIconPath)
-                    }
-                    
-                }
-                Spacer()
-
-            }
-            .padding(.all)
+            Text("DetailView")
         }
-        .frame(minWidth: 250, maxWidth: 250)
+        .padding(.all)
+//        .frame(minWidth: 250, maxWidth: 250)
     }
 }
+
+
