@@ -19,14 +19,23 @@ struct IconView: View {
     var shapeColor: Color
     var shapeShadow: Double
     var iconShadow: Double
-//    var shadowToggle
 
     var body: some View {
         VStack(alignment: .center, spacing: 6) {
             ZStack {
                 iconShape
-                iconImage
-                    
+                
+                if shape == .roundedRectangle {
+                    iconImage
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                }
+                
+                if shape == .circle {
+                    iconImage
+                        .clipShape(Circle())
+                }
+                
+
             }
             .frame(width: 55, height: 55)
             iconLabel

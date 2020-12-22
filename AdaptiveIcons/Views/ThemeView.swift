@@ -10,16 +10,19 @@ import Grid
 
 struct ThemeView: View {
     let iconPack: IconPackModel
-    @State var shape = IconView.IconShape.roundedRectangle
-    @State var color = Color.white
+
     @State var iconShadow: Double = 0.2
+    
+    @State var shape = IconView.IconShape.roundedRectangle
+    @State var shapeColor = Color.white
     @State var shapeShadow: Double = 0.2
+    
 
     var body: some View {
         NavigationView {
-            AppGridView(iconPack: iconPack, shape: $shape, color: $color, iconShadow: $iconShadow, shapeShadow: $shapeShadow)
+            AppGridView(iconPack: iconPack, shape: $shape, color: $shapeColor, iconShadow: $iconShadow, shapeShadow: $shapeShadow)
                 .frame(minWidth: 500)
-            IconCustomizeView(iconPack: iconPack, shape: $shape, color: $color, iconShadow: $iconShadow, shapeShadow: $shapeShadow)
+            IconCustomizeView(iconPack: iconPack, shape: $shape, color: $shapeColor, iconShadow: $iconShadow, shapeShadow: $shapeShadow)
                 .frame(width: 250)
         }
     }
@@ -64,6 +67,14 @@ struct IconCustomizeView: View {
             IconView(app: apps[0], shape: shape, shapeColor: color, shapeShadow: shapeShadow, iconShadow: iconShadow)
             
             VStack(alignment: .leading) {
+                
+
+                Section(header: Text("Icon")) {
+                    Text("Icon Shadow")
+                    Slider(value: $iconShadow, in: 0...1, step: 0.1)
+                    
+                }
+                Divider()
                 Section(header: Text("Shape")) {
                     Picker("", selection: $shape) {
                         ForEach(IconView.IconShape.allCases, id: \.self) {
@@ -76,12 +87,7 @@ struct IconCustomizeView: View {
                     Text("Background Color")
                     ColorPicker("", selection: $color)
                 }
-                Divider()
 
-                Section(header: Text("Icon")) {
-                    Text("Icon Shadow")
-                    Slider(value: $iconShadow, in: 0...1, step: 0.1)
-                }
             }
         }.padding()
     }
