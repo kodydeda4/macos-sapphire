@@ -13,7 +13,7 @@ struct ContentView : View {
         NavigationView {
             Sidebar()
             PrimaryView(iconPack: iconPacks[0])
-            DetailView()
+//            DetailView()
         }
     }
 }
@@ -69,80 +69,111 @@ func toggleSidebar() {
 
 struct PrimaryView: View {
     let iconPack: IconPack
+    @State private var shape = Icon.IconShape.roundedRectangle
+    @State private var color = Color.white
 
     var body: some View {
-        ScrollView {
-            Grid(apps) { app in
-                Icon(app: app)
+        NavigationView {
+            ScrollView {
+                Grid(apps) { app in
+                    Icon(app: app, shape: shape, bgColor: color)
+                }
+                .padding(.all, 12)
+                .gridStyle(ModularGridStyle(columns: .min(100), rows: .fixed(100)))
             }
-            .padding(.all, 12)
-            .gridStyle(ModularGridStyle(columns: .min(100), rows: .fixed(100)))
-        }
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                Button(
-                    action: {},
-                    label: { Text("Apply Theme") }
-                )
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Button(
+                        action: {},
+                        label: { Text("Apply Theme") }
+                    )
+                }
             }
-        }
-    }
-}
-
-
-// MARK:- DetailView
-
-
-struct DetailView: View {
-    
-    @State private var selectedShape = 0
-    var shapes = ["Rounded Rectangle", "Circle"]
-    
-    @State private var selectedIconPack = 0
-    var iconPack = ["Default"]
-    
-    @State var adaptiveIcons: Bool = false
-    @State private var selectedColor = Color.white
-    
-    var body: some View {
-        ScrollView {
             VStack {
-                RoundedRectangle(cornerRadius: 25.0)
-                    .frame(width: 200, height: 200)
-                    .foregroundColor(selectedColor)
-                    .shadow(color: Color.black.opacity(0.2), radius: 1, y: 1)
-                
-                Form {
-                    Section(header: Text("Icon Pack")) {
-                        Picker("", selection: $selectedIconPack) {
-                            ForEach(0 ..< iconPack.count) {
-                                Text(self.iconPack[$0])
-                            }
-                        }
-                        Spacer()
-                        Toggle(isOn: $adaptiveIcons) {
-                            Text("Adaptive Shape")
-                        }
-                        Spacer()
-                        Picker("", selection: $selectedShape) {
-                            ForEach(0 ..< shapes.count) {
-                                Text(self.shapes[$0])
-                            }
-                        }.disabled(!adaptiveIcons)
-                        Spacer()
-                        Text("Color")
-                        ColorPicker("", selection: $selectedColor)
-                        Spacer()
+                Icon(app: apps[0], shape: shape, bgColor: color)
+                Picker("Shape", selection: $shape) {
+                    ForEach(Icon.IconShape.allCases, id: \.self) {
+                        Text($0.rawValue)
                     }
-                }.padding()
-            }
+                }
+                ColorPicker("", selection: $color)
+            }.padding()
         }
-        .padding()
     }
 }
 
-struct DetailView_Previews: PreviewProvider {
+//
+
+
+struct Icon: View {
+    let app: CustomApp
+    
+    enum IconShape: String, CaseIterable {
+        case roundedRectangle = "Rounded Rectangle"
+        case circle = "Circle"
+    }
+    
+    var shape: IconShape
+    var bgColor: Color
+    
+
+    var body: some View {
+        VStack(alignment: .center, spacing: 6) {
+            ZStack {
+                getShape(shape: shape)
+                    .foregroundColor(bgColor)
+                iconImage
+                    .shadow(color: Color.black.opacity(0.2), radius: 1, y: 1)
+            }
+            .frame(width: 55, height: 55)
+            iconName
+        }
+        .frame(width: 100, height: 100)
+    }
+    
+    var iconImage: some View {
+        Image(contentsOfFile: app.defaultIconPath)?
+            .resizable()
+            .scaledToFill()
+            .padding(4)
+
+    }
+    
+    var iconName: some View {
+        Text(app.name)
+            .font(.system(size: 11, weight: .regular))
+            .multilineTextAlignment(.center)
+            .frame(width: 90, height: 30, alignment: .top)
+    }
+
+
+    func getShape(shape: IconShape) -> some View {
+        switch shape {
+        case .roundedRectangle:
+            return AnyView(RoundedRectangle(cornerRadius: 10))
+        case .circle:
+            return AnyView(Circle())
+        }
+    }
+}
+
+struct BasicViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        return content
+    }
+}
+
+
+extension Image {
+    public init?(contentsOfFile: String) {
+        guard let image = NSImage(contentsOfFile: contentsOfFile)
+            else { return nil }
+        self.init(nsImage: image)
+    }
+}
+
+struct Icon_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView()
+        Icon(app: apps[0], shape: .roundedRectangle, bgColor: .white)
     }
 }
