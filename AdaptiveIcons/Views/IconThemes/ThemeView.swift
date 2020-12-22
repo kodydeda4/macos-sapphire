@@ -8,33 +8,6 @@
 import SwiftUI
 import Grid
 
-struct ThemeViewModel: Identifiable {
-    var id = UUID()
-    var name: String
-    var theme: IconThemeModel
-    var icons: [IconView] {
-        apps.map{ IconView(app: $0, theme: theme) }
-    }
-}
-
-let themes: [ThemeViewModel] = [
-    ThemeViewModel(
-        name: "My Theme 1",
-        theme: IconThemeModel()
-    ),
-    
-    ThemeViewModel(
-        name: "My Theme 2",
-        theme: IconThemeModel(
-            iconShadow: 0.4,
-            iconShape: .roundedRectangle,
-            iconShapeColor: .white,
-            iconShapeShadow: 0
-       )
-    )
-]
-
-
 struct ThemeView: View {
     var theme: ThemeViewModel
     

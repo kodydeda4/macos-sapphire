@@ -1,5 +1,5 @@
 //
-//  CustomApps.swift
+//  AppModel.swift
 //  AdaptiveIcons
 //
 //  Created by Kody Deda on 12/16/20.
@@ -17,7 +17,6 @@ let apps =
     .sorted(by: { $0.name < $1.name })
 
 struct AppModel: Identifiable {
-
     enum IconState {
         case normal
         case adaptive

@@ -26,6 +26,3 @@ struct IconView_Previews: PreviewProvider {
         IconView(app: apps[0], theme: IconThemeModel())
     }
 }
-
-
-

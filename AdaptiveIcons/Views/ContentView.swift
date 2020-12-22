@@ -11,7 +11,7 @@ struct ContentView : View {
     var body: some View {
         NavigationView {
             SidebarView()
-            ThemeView(theme: themes[1])
+            ThemeView(theme: themes[0])
             
 //            DetailView()
         }
