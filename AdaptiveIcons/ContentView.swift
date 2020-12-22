@@ -92,6 +92,7 @@ struct PrimaryView: View {
 
 // MARK:- DetailView
 
+
 struct DetailView: View {
     
     @State private var selectedShape = 0
@@ -102,13 +103,14 @@ struct DetailView: View {
     
     @State var adaptiveIcons: Bool = false
     @State private var selectedColor = Color.white
-
+    
     var body: some View {
         ScrollView {
             VStack {
                 RoundedRectangle(cornerRadius: 25.0)
                     .frame(width: 200, height: 200)
                     .foregroundColor(selectedColor)
+                    .shadow(color: Color.black.opacity(0.2), radius: 1, y: 1)
                 
                 Form {
                     Section(header: Text("Icon Pack")) {
