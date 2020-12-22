@@ -16,30 +16,36 @@ struct IconView: View {
     }
     
     var shape: IconShape
-    var bgColor: Color
-    
+    var shapeColor: Color
+    var shapeShadow: Double
+    var iconShadow: Double
+//    var shadowToggle
 
     var body: some View {
         VStack(alignment: .center, spacing: 6) {
             ZStack {
-                getShape(shape: shape)
-                    .foregroundColor(bgColor)
+                iconShape
                 iconImage
+                    
             }
-            .shadow(color: Color.black.opacity(0.2), radius: 1, y: 1)
             .frame(width: 55, height: 55)
             iconLabel
         }
         .frame(width: 100, height: 100)
     }
 
+    var iconShape: some View {
+        getShape(shape: shape)
+            .foregroundColor(shapeColor)
+            .shadow(color: Color.black.opacity(shapeShadow), radius: 1, y: 1)
+    }
     
     var iconImage: some View {
         Image(contentsOfFile: app.defaultIconPath)?
             .resizable()
             .scaledToFill()
             .padding(4)
-
+            .shadow(color: Color.black.opacity(iconShadow), radius: 1, y: 1)
     }
     
     var iconLabel: some View {
@@ -70,7 +76,7 @@ extension Image {
 
 struct IconView_Previews: PreviewProvider {
     static var previews: some View {
-        IconView(app: apps[0], shape: .roundedRectangle, bgColor: .white)
+        IconView(app: apps[0], shape: .roundedRectangle, shapeColor: .white, shapeShadow: 0.2, iconShadow: 0.2)
     }
 }
 
