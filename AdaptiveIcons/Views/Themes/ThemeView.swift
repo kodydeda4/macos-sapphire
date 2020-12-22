@@ -52,7 +52,7 @@ struct ThemeDetailView: View {
     
     var body: some View {
         VStack {
-            Text(theme.name)s
+            Text(theme.name)
         }
     }
 }
