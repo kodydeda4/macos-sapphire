@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-struct IconThemeModel {
-    var iconShadow: Double?
-    var iconShape: IconViewModel.IconShape?
-    var iconShapeColor: Color?
-    var iconShapeShadow: Double?
-}
-
 struct IconViewModel: View {
     enum IconShape: String, CaseIterable {
         case roundedRectangle = "Rounded Rectangle"
@@ -23,7 +16,8 @@ struct IconViewModel: View {
     var name: String
     var image: Image?
     var theme: IconThemeModel?
-
+    var iconPack: IconPackModel?
+    
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
             image?
@@ -51,7 +45,8 @@ struct IconViewModel_Previews: PreviewProvider {
         IconViewModel(
             name: "Model",
             image: Image(systemName: "cube"),
-            theme: IconThemeModel()
+            theme: IconThemeModel(),
+            iconPack: iconPacks[0]
         )
     }
 }

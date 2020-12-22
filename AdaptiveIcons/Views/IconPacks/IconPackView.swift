@@ -12,6 +12,17 @@ struct IconPackView: View {
     var iconPack: IconPackModel
     
     var body: some View {
+        NavigationView {
+            IconPackPrimaryView(iconPack: iconPack)
+            IconPackDetailView(iconPack: iconPack)
+        }
+    }
+}
+
+struct IconPackPrimaryView: View {
+    var iconPack: IconPackModel
+    
+    var body: some View {
         ScrollView {
             Grid(iconPack.icons) { icon in
                 icon
@@ -29,6 +40,19 @@ struct IconPackView: View {
         }
     }
 }
+
+struct IconPackDetailView: View {
+    var iconPack: IconPackModel
+    
+    var body: some View {
+        VStack {
+            Text(iconPack.name)
+            Text(iconPack.description)
+            
+        }
+    }
+}
+    
 
 struct IconPackView_Previews: PreviewProvider {
     static var previews: some View {

@@ -19,6 +19,6 @@ let iconPacks = [
     IconPackModel(
         name: "Default",
         description: "The default icons.",
-        icons: apps.map { IconView(app: $0, theme: IconThemeModel()) }
+        icons: apps.map { IconView(app: $0, theme: IconThemeModel(), iconPack: nil) }
     ),
 ]

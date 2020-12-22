@@ -7,6 +7,16 @@
 
 import SwiftUI
 
+struct ThemeViewModel: Identifiable {
+    var id = UUID()
+    var name: String
+    var theme: IconThemeModel
+    
+    var icons: [IconView] {
+        apps.map{ IconView(app: $0, theme: theme, iconPack: iconPacks[0]) }
+    }
+}
+
 let themes: [ThemeViewModel] = [
     ThemeViewModel(
         name: "My Theme 1",
@@ -23,12 +33,3 @@ let themes: [ThemeViewModel] = [
        )
     )
 ]
-
-struct ThemeViewModel: Identifiable {
-    var id = UUID()
-    var name: String
-    var theme: IconThemeModel
-    var icons: [IconView] {
-        apps.map{ IconView(app: $0, theme: theme) }
-    }
-}

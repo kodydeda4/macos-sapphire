@@ -13,12 +13,13 @@ struct ThemeView: View {
     
     var body: some View {
         NavigationView {
-            AppGridView(theme: theme)
+            ThemePrimaryView(theme: theme)
+            ThemeDetailView(theme: theme)
         }
     }
 }
 
-struct AppGridView: View {
+struct ThemePrimaryView: View {
     var theme: ThemeViewModel
     
     var body: some View {
@@ -46,12 +47,17 @@ struct ThemeView_Previews: PreviewProvider {
     }
 }
 
+struct ThemeDetailView: View {
+    let theme: ThemeViewModel
+    
+    var body: some View {
+        VStack {
+            Text(theme.name)s
+        }
+    }
+}
 
-
-
-
-//
-//struct IconCustomizeView: View {
+//struct ThemeDetailView: View {
 //    let iconPack: IconPackModel
 //    @Binding var shape: IconView.IconShape
 //    @Binding var color: Color

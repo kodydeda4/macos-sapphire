@@ -16,6 +16,7 @@ let apps =
     .map { AppModel(path: "/Applications/\($0)" ) }
     .sorted(by: { $0.name < $1.name })
 
+
 struct AppModel: Identifiable {
     enum IconState {
         case normal
