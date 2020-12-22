@@ -12,9 +12,9 @@ struct SidebarView: View {
         VStack(alignment: .leading) {
             List {
                 Section(header: Text("Icon Packs")) {
-                    ForEach(iconPacks) { iconPack in
-                        NavigationLink(destination: ThemeView(iconPack: iconPack)) {
-                            Label(iconPack.name, systemImage: iconPack.imageName)
+                    ForEach(themes) { theme in
+                        NavigationLink(destination: ThemeView(theme: theme)) {
+                            Label(theme.name, systemImage: "folder")
                         }
                     }
                 }

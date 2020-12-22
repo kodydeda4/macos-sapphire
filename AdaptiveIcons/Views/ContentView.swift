@@ -11,7 +11,8 @@ struct ContentView : View {
     var body: some View {
         NavigationView {
             SidebarView()
-            ThemeView(iconPack: iconPacks[0])
+            ThemeView(theme: themes[1])
+            
 //            DetailView()
         }
     }
@@ -22,8 +23,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-
 
 
 
