@@ -13,10 +13,10 @@ let apps =
     .default
     .contentsOfDirectory(atPath: "/Applications")
     .filter { $0.contains(".app") && !$0.hasPrefix(".") }
-    .map { CustomApp(path: "/Applications/\($0)" ) }
+    .map { AppModel(path: "/Applications/\($0)" ) }
     .sorted(by: { $0.name < $1.name })
 
-struct CustomApp: Identifiable {
+struct AppModel: Identifiable {
 
     enum IconState {
         case normal

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct IconPack: Identifiable {
+struct IconPackModel: Identifiable {
     let id = UUID()
     let imageName: String
     let name: String
@@ -16,12 +16,12 @@ struct IconPack: Identifiable {
 }
 
 let iconPacks = [
-    IconPack(
+    IconPackModel(
         imageName: "square.grid.3x3",
         name: "Default",
         textblock: "Handmade icons from ....... and ..... and even ....."
     ),
-    IconPack(
+    IconPackModel(
         imageName: "folder",
         name: "My Theme",
         textblock: "Handmade icons from ....... and ..... and even ....."

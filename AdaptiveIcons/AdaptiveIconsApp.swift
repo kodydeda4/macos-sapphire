@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 @main
 struct AdaptiveIconsApp: App {
     var body: some Scene {
