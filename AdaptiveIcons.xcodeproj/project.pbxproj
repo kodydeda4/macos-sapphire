@@ -15,6 +15,10 @@
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
 		33E1B18F2589600100A1FDC1 /* AdaptiveIconsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B18E2589600100A1FDC1 /* AdaptiveIconsTests.swift */; };
 		33E1B19A2589600100A1FDC1 /* AdaptiveIconsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B1992589600100A1FDC1 /* AdaptiveIconsUITests.swift */; };
+		B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = B7453A352594E99900F8BE5A /* ComposableArchitecture */; };
+		B757D94E2594E9FB000FDB10 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D94D2594E9FB000FDB10 /* AppState.swift */; };
+		B757D9562594EAB3000FDB10 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D9552594EAB3000FDB10 /* Logger.swift */; };
+		B757D95C2594EAF9000FDB10 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D95B2594EAF9000FDB10 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,9 @@
 		33E1B1952589600100A1FDC1 /* AdaptiveIconsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdaptiveIconsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B1992589600100A1FDC1 /* AdaptiveIconsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveIconsUITests.swift; sourceTree = "<group>"; };
 		33E1B19B2589600100A1FDC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B757D94D2594E9FB000FDB10 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		B757D9552594EAB3000FDB10 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		B757D95B2594EAF9000FDB10 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */,
 				3360CA82258BF80B008350BB /* Grid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,13 +108,16 @@
 		33E1B17A2589600000A1FDC1 /* AdaptiveIcons */ = {
 			isa = PBXGroup;
 			children = (
+				33E1B1852589600100A1FDC1 /* AdaptiveIcons.entitlements */,
 				33E1B17B2589600000A1FDC1 /* AdaptiveIconsApp.swift */,
 				33C3E93125941811007670AB /* ContentView.swift */,
-				3300BA272592442E002E8373 /* SidebarView.swift */,
 				33E1B17F2589600100A1FDC1 /* Assets.xcassets */,
-				33E1B1842589600100A1FDC1 /* Info.plist */,
-				33E1B1852589600100A1FDC1 /* AdaptiveIcons.entitlements */,
+				B757D9CF2594ED42000FDB10 /* Common */,
+				B757D95A2594EAEB000FDB10 /* Model */,
 				33E1B1812589600100A1FDC1 /* Preview Content */,
+				B757D94C2594E9DE000FDB10 /* State */,
+				B757D9D02594ED52000FDB10 /* Views */,
+				33E1B1842589600100A1FDC1 /* Info.plist */,
 			);
 			path = AdaptiveIcons;
 			sourceTree = "<group>";
@@ -137,6 +148,38 @@
 			path = AdaptiveIconsUITests;
 			sourceTree = "<group>";
 		};
+		B757D94C2594E9DE000FDB10 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				B757D94D2594E9FB000FDB10 /* AppState.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		B757D95A2594EAEB000FDB10 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B757D95B2594EAF9000FDB10 /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B757D9CF2594ED42000FDB10 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B757D9552594EAB3000FDB10 /* Logger.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B757D9D02594ED52000FDB10 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3300BA272592442E002E8373 /* SidebarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -155,6 +198,7 @@
 			name = AdaptiveIcons;
 			packageProductDependencies = (
 				3360CA81258BF80B008350BB /* Grid */,
+				B7453A352594E99900F8BE5A /* ComposableArchitecture */,
 			);
 			productName = AdaptiveIcons;
 			productReference = 33E1B1782589600000A1FDC1 /* AdaptiveIcons.app */;
@@ -229,6 +273,7 @@
 			mainGroup = 33E1B16F2589600000A1FDC1;
 			packageReferences = (
 				3360CA80258BF80B008350BB /* XCRemoteSwiftPackageReference "swiftui-grid" */,
+				B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 33E1B1792589600000A1FDC1 /* Products */;
 			projectDirPath = "";
@@ -272,9 +317,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B757D9562594EAB3000FDB10 /* Logger.swift in Sources */,
 				3300BA282592442E002E8373 /* SidebarView.swift in Sources */,
 				33E1B17C2589600000A1FDC1 /* AdaptiveIconsApp.swift in Sources */,
+				B757D95C2594EAF9000FDB10 /* Model.swift in Sources */,
 				33C3E93225941811007670AB /* ContentView.swift in Sources */,
+				B757D94E2594E9FB000FDB10 /* AppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,7 +409,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -416,7 +464,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -435,7 +483,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"AdaptiveIcons/Preview Content\"";
-				DEVELOPMENT_TEAM = W6LQK45783;
+				DEVELOPMENT_TEAM = 9EQ43UZ3FN;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = AdaptiveIcons/Info.plist;
@@ -443,7 +491,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kswift.AdaptiveIcons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -460,7 +507,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"AdaptiveIcons/Preview Content\"";
-				DEVELOPMENT_TEAM = W6LQK45783;
+				DEVELOPMENT_TEAM = 9EQ43UZ3FN;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = AdaptiveIcons/Info.plist;
@@ -468,7 +515,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kswift.AdaptiveIcons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -609,6 +655,14 @@
 				minimumVersion = 1.0.4;
 			};
 		};
+		B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -616,6 +670,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3360CA80258BF80B008350BB /* XCRemoteSwiftPackageReference "swiftui-grid" */;
 			productName = Grid;
+		};
+		B7453A352594E99900F8BE5A /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
