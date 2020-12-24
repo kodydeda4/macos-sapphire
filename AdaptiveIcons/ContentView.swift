@@ -11,7 +11,7 @@ import Grid
 // MARK:- ContentView
 
 struct ContentView: View {
-    @State var selectedIconViews: [IconButtonView] = []
+    @State var selectedIconViews: [IconView] = []
     
     var body: some View {
         NavigationView {
@@ -23,20 +23,28 @@ struct ContentView: View {
     }
 }
 
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+// MARK:- ThemeView
+
 struct ThemePrimaryView: View {
-    @Binding var selectedIconViews: [IconButtonView]
+    @Binding var selectedIconViews: [IconView]
 
     var body: some View {
         ScrollView {
             Grid(apps) { icon in
-                IconButtonView(app: icon, selectedIconViews: $selectedIconViews)
+                IconView(app: icon, selectedIconViews: $selectedIconViews)
             }.padding(16)
         }
     }
 }
 
 struct ThemeDetailView: View {
-    @Binding var selectedIconViews: [IconButtonView]
+    @Binding var selectedIconViews: [IconView]
 
     var body: some View {
         ScrollView {
@@ -47,13 +55,19 @@ struct ThemeDetailView: View {
     }
 }
 
+// MARK:- IconButton
 
-struct IconButtonView: View, Identifiable {
+enum IconShape: String, CaseIterable {
+    case roundedRectangle = "Rounded Rectangle"
+    case circle = "Circle"
+}
+
+struct IconView: View, Identifiable {
     var id = UUID()
     var app: AppModel
 
     @State var isSelected = false
-    @Binding var selectedIconViews: [IconButtonView]
+    @Binding var selectedIconViews: [IconView]
 
     var backgroundColor: Color { Color.accentColor.opacity(isSelected ? 1 : 0) }
 
@@ -92,19 +106,16 @@ struct IconButtonView: View, Identifiable {
     }
 }
 
+
+
+// MARK:- Extensions
+
 extension Image {
     public init?(contentsOfFile: String) {
         guard let image = NSImage(contentsOfFile: contentsOfFile)
         else { return nil }
         self.init(nsImage: image)
     }
-}
-
-// MARK:- Extensions
-
-enum IconShape: String, CaseIterable {
-    case roundedRectangle = "Rounded Rectangle"
-    case circle = "Circle"
 }
 
 extension View {
@@ -120,12 +131,6 @@ extension View {
         default:
             return AnyView(self)
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
 
