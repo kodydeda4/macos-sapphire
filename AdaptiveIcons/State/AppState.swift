@@ -13,6 +13,7 @@ import SwiftUI
 
 struct AppState: Equatable {
     var appIcons = [Model.App]()
+    var selectedAppIcons = Set<Model.App>()
 }
 
 // MARK: - AppAction
@@ -41,7 +42,7 @@ let mockupStore = Store(
     initialState: AppState(
         appIcons: [
             Model.App(path: "/Applications/Xcode.app"),
-            Model.App(path: "/Applications/WhatSize.app")
+            Model.App(path: "/Applications/Pages.app")
         ]),
     reducer: appReducer,
     environment: AppEnvironment(

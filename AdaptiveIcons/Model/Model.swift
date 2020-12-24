@@ -8,7 +8,7 @@
 import Foundation
 
 struct Model {
-    struct App: Identifiable, Equatable {
+    struct App: Identifiable, Equatable, Hashable {
         enum IconState {
             case normal
             case adaptive
