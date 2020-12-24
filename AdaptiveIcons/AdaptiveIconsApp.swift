@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct AdaptiveIconsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(store: defaultStore)
         }
     }
 }

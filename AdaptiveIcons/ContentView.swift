@@ -7,10 +7,13 @@
 
 import SwiftUI
 import Grid
+import ComposableArchitecture
 
 // MARK:- ContentView
 
 struct ContentView: View {
+    let store: Store<AppState, AppAction>
+    
     @State var selectedIconViews: [IconView] = []
     
     var body: some View {
@@ -25,13 +28,15 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(store: mockupStore)
     }
 }
 
 // MARK:- ThemeView
 
 struct ThemePrimaryView: View {
+    let store: Store<AppState, AppAction>
+
     @Binding var selectedIconViews: [IconView]
 
     var body: some View {
@@ -64,7 +69,7 @@ enum IconShape: String, CaseIterable {
 
 struct IconView: View, Identifiable {
     var id = UUID()
-    var app: AppModel
+    var app: Model.App
 
     @State var isSelected = false
     @Binding var selectedIconViews: [IconView]

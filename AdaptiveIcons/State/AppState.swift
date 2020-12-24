@@ -37,6 +37,19 @@ let defaultStore = Store(
     )
 )
 
+let mockupStore = Store(
+    initialState: AppState(
+        appIcons: [
+            Model.App(path: "/Applications/Xcode.app"),
+            Model.App(path: "/Applications/WhatSize.app")
+        ]),
+    reducer: appReducer,
+    environment: AppEnvironment(
+        mainQueue: DispatchQueue.main.eraseToAnyScheduler(),
+        uuid: UUID.init
+    )
+)
+
 // MARK: - Reducer (AppState, AppAction)
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     Reducer { state, action, environment in
