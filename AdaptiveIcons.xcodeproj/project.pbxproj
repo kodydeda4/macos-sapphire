@@ -8,18 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3300BA282592442E002E8373 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300BA272592442E002E8373 /* SidebarView.swift */; };
-		3300BA5325928261002E8373 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300BA5225928261002E8373 /* Extensions.swift */; };
-		3300BA702592893E002E8373 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300BA6F2592893E002E8373 /* ThemeView.swift */; };
-		3300BA79259290DC002E8373 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300BA78259290DC002E8373 /* IconView.swift */; };
-		3300BA81259290F6002E8373 /* IconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300BA80259290F6002E8373 /* IconViewModel.swift */; };
-		3300BA932592915F002E8373 /* IconPackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300BA922592915F002E8373 /* IconPackModel.swift */; };
-		3300BA9E25929193002E8373 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300BA9D25929193002E8373 /* AppModel.swift */; };
-		3300BAB7259292A6002E8373 /* ThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300BAB6259292A6002E8373 /* ThemeViewModel.swift */; };
-		3300BAC5259293EC002E8373 /* IconPackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300BAC4259293EC002E8373 /* IconPackView.swift */; };
-		3300BAD025929CA6002E8373 /* IconThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300BACF25929CA6002E8373 /* IconThemeModel.swift */; };
 		3360CA82258BF80B008350BB /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 3360CA81258BF80B008350BB /* Grid */; };
+		33C3E93225941811007670AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C3E93125941811007670AB /* ContentView.swift */; };
 		33E1B17C2589600000A1FDC1 /* AdaptiveIconsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* AdaptiveIconsApp.swift */; };
-		33E1B17E2589600000A1FDC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17D2589600000A1FDC1 /* ContentView.swift */; };
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
 		33E1B18F2589600100A1FDC1 /* AdaptiveIconsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B18E2589600100A1FDC1 /* AdaptiveIconsTests.swift */; };
@@ -45,18 +36,9 @@
 
 /* Begin PBXFileReference section */
 		3300BA272592442E002E8373 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
-		3300BA5225928261002E8373 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		3300BA6F2592893E002E8373 /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
-		3300BA78259290DC002E8373 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
-		3300BA80259290F6002E8373 /* IconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconViewModel.swift; sourceTree = "<group>"; };
-		3300BA922592915F002E8373 /* IconPackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPackModel.swift; sourceTree = "<group>"; };
-		3300BA9D25929193002E8373 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
-		3300BAB6259292A6002E8373 /* ThemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewModel.swift; sourceTree = "<group>"; };
-		3300BAC4259293EC002E8373 /* IconPackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPackView.swift; sourceTree = "<group>"; };
-		3300BACF25929CA6002E8373 /* IconThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconThemeModel.swift; sourceTree = "<group>"; };
+		33C3E93125941811007670AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* AdaptiveIcons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptiveIcons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* AdaptiveIconsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveIconsApp.swift; sourceTree = "<group>"; };
-		33E1B17D2589600000A1FDC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		33E1B17F2589600100A1FDC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		33E1B1842589600100A1FDC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -95,48 +77,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3300BA1925924393002E8373 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				33E1B17D2589600000A1FDC1 /* ContentView.swift */,
-				3300BA9D25929193002E8373 /* AppModel.swift */,
-				3300BA5225928261002E8373 /* Extensions.swift */,
-				3300BA272592442E002E8373 /* SidebarView.swift */,
-				3300BA77259290CE002E8373 /* Icons */,
-				3300BA4925928051002E8373 /* Themes */,
-				3300BA9125929145002E8373 /* IconPacks */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		3300BA4925928051002E8373 /* Themes */ = {
-			isa = PBXGroup;
-			children = (
-				3300BA6F2592893E002E8373 /* ThemeView.swift */,
-				3300BAB6259292A6002E8373 /* ThemeViewModel.swift */,
-				3300BACF25929CA6002E8373 /* IconThemeModel.swift */,
-			);
-			path = Themes;
-			sourceTree = "<group>";
-		};
-		3300BA77259290CE002E8373 /* Icons */ = {
-			isa = PBXGroup;
-			children = (
-				3300BA78259290DC002E8373 /* IconView.swift */,
-				3300BA80259290F6002E8373 /* IconViewModel.swift */,
-			);
-			path = Icons;
-			sourceTree = "<group>";
-		};
-		3300BA9125929145002E8373 /* IconPacks */ = {
-			isa = PBXGroup;
-			children = (
-				3300BAC4259293EC002E8373 /* IconPackView.swift */,
-				3300BA922592915F002E8373 /* IconPackModel.swift */,
-			);
-			path = IconPacks;
-			sourceTree = "<group>";
-		};
 		33E1B16F2589600000A1FDC1 = {
 			isa = PBXGroup;
 			children = (
@@ -161,7 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				33E1B17B2589600000A1FDC1 /* AdaptiveIconsApp.swift */,
-				3300BA1925924393002E8373 /* Views */,
+				33C3E93125941811007670AB /* ContentView.swift */,
+				3300BA272592442E002E8373 /* SidebarView.swift */,
 				33E1B17F2589600100A1FDC1 /* Assets.xcassets */,
 				33E1B1842589600100A1FDC1 /* Info.plist */,
 				33E1B1852589600100A1FDC1 /* AdaptiveIcons.entitlements */,
@@ -331,18 +272,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3300BAB7259292A6002E8373 /* ThemeViewModel.swift in Sources */,
-				3300BAC5259293EC002E8373 /* IconPackView.swift in Sources */,
-				3300BA9E25929193002E8373 /* AppModel.swift in Sources */,
-				3300BA81259290F6002E8373 /* IconViewModel.swift in Sources */,
-				3300BAD025929CA6002E8373 /* IconThemeModel.swift in Sources */,
-				3300BA702592893E002E8373 /* ThemeView.swift in Sources */,
-				3300BA79259290DC002E8373 /* IconView.swift in Sources */,
-				33E1B17E2589600000A1FDC1 /* ContentView.swift in Sources */,
-				3300BA932592915F002E8373 /* IconPackModel.swift in Sources */,
 				3300BA282592442E002E8373 /* SidebarView.swift in Sources */,
-				3300BA5325928261002E8373 /* Extensions.swift in Sources */,
 				33E1B17C2589600000A1FDC1 /* AdaptiveIconsApp.swift in Sources */,
+				33C3E93225941811007670AB /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

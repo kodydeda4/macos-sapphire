@@ -12,18 +12,18 @@ struct SidebarView: View {
         VStack(alignment: .leading) {
             List {
                 Section(header: Text("Icon Packs")) {
-                    ForEach(iconPacks) { iconPack in
-                        NavigationLink(destination: IconPackView(iconPack: iconPack)) {
-                            Label(iconPack.name, systemImage: "square.grid.3x3")
-                        }
-                    }
+//                    ForEach(iconPacks) { iconPack in
+//                        NavigationLink(destination: IconPackView(iconPack: iconPack)) {
+//                            Label(iconPack.name, systemImage: "square.grid.3x3")
+//                        }
+//                    }
                 }
                 Section(header: Text("My Themes")) {
-                    ForEach(themes) { theme in
-                        NavigationLink(destination: ThemeView(theme: theme)) {
-                            Label(theme.name, systemImage: "folder")
-                        }
-                    }
+//                    ForEach(themes) { theme in
+//                        NavigationLink(destination: ThemeView(theme: theme)) {
+//                            Label(theme.name, systemImage: "folder")
+//                        }
+//                    }
                 }
             }
             .listStyle(SidebarListStyle())
