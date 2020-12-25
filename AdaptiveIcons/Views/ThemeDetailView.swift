@@ -26,6 +26,6 @@ struct ThemeDetailView: View {
 
 struct ThemeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ThemeDetailView(store: mockupStore)
+        ThemeDetailView(store: defaultStore)
     }
 }

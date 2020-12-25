@@ -16,7 +16,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List {}
+            SidebarView()
             ThemePrimaryView(store: store)
             ThemeDetailView(store: store)
         }
@@ -25,6 +25,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(store: mockupStore)
+        ContentView(store: defaultStore)
     }
 }
