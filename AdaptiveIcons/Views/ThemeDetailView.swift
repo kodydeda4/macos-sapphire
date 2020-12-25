@@ -8,18 +8,19 @@
 import SwiftUI
 import Combine
 import ComposableArchitecture
+import Grid
 
 struct ThemeDetailView: View {
     let store: Store<AppState, AppAction>
-//    @Binding var selectedIconViews: [IconView]
 
     var body: some View {
-        Text("Detail")
-//        ScrollView {
-//            Grid(selectedIconViews) { iconView in
-//                iconView
-//            }.padding(16)
-//        }
+        WithViewStore(store) { viewStore in
+            ScrollView {
+                Grid(Array(viewStore.selectedAppIcons)) { appIcon in
+                    IconView(store: store, app: appIcon)
+                }.padding(16)
+            }
+        }
     }
 }
 

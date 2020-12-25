@@ -8,22 +8,19 @@
 import SwiftUI
 import Combine
 import ComposableArchitecture
+import Grid
 
 struct ThemePrimaryView: View {
     let store: Store<AppState, AppAction>
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            Text("1234")
+            ScrollView {
+                Grid(viewStore.appIcons) { appIcon in
+                    IconView(store: store, app: appIcon)
+                }.padding(16)
+            }
         }
-//        WithViewStore(store) { viewStore
-////
-////            ScrollView {
-////                Grid(viewStore.appIcons) { icon in
-////                    IconView(app: icon, selectedIconViews: $selectedIconViews)
-////                }.padding(16)
-////            }
-//        }
     }
 }
 

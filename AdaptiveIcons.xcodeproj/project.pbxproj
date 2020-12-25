@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3300BA282592442E002E8373 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3300BA272592442E002E8373 /* SidebarView.swift */; };
+		33538355259501F400259A23 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33538354259501F400259A23 /* View+Extensions.swift */; };
 		3360CA82258BF80B008350BB /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 3360CA81258BF80B008350BB /* Grid */; };
 		3381689C2594F3E000092597 /* ThemePrimaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381689B2594F3E000092597 /* ThemePrimaryView.swift */; };
 		33C3E93225941811007670AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C3E93125941811007670AB /* ContentView.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		3300BA272592442E002E8373 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		33538354259501F400259A23 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		3381689B2594F3E000092597 /* ThemePrimaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePrimaryView.swift; sourceTree = "<group>"; };
 		33C3E93125941811007670AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* AdaptiveIcons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptiveIcons.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				B757D9552594EAB3000FDB10 /* Logger.swift */,
+				33538354259501F400259A23 /* View+Extensions.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				B757D95C2594EAF9000FDB10 /* Model.swift in Sources */,
 				33F760E42594F5DB00BC589C /* IconView.swift in Sources */,
 				33C3E93225941811007670AB /* ContentView.swift in Sources */,
+				33538355259501F400259A23 /* View+Extensions.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* AppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

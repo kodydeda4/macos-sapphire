@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AppKit
 
 struct Model {
     struct App: Identifiable, Equatable, Hashable {
@@ -22,12 +23,28 @@ struct Model {
 }
 
 extension Model.App {
+    static var iconsByPath = [String: NSImage]()
+    
     var name: String {
         path
         .replacingOccurrences(of: "/Applications/", with: "")
         .replacingOccurrences(of: ".app", with: "")
     }
 
+    var appIcon: NSImage {
+        let iconPath = defaultIconPath
+        var icon = Self.iconsByPath[iconPath]
+        
+        if icon == nil {
+            let start = Date()
+            icon = NSImage(contentsOfFile: defaultIconPath)!
+            Self.iconsByPath[iconPath] = icon
+            iddlog("loaded in: '\(start.timeIntervalSince(Date()) * -1000) ms'")
+        }
+        
+        return icon!
+    }
+    
     var defaultIconPath: String {
         let rv = "\(path)/Contents/Resources/\(AppBundlePlist?["CFBundleIconFile"] ?? AppBundlePlist?["Icon file"] ?? "AppIcon")"
         return rv.contains(".icns")
@@ -50,5 +67,20 @@ extension Model.App {
             }
         }
         return ["":""]
+    }
+}
+
+extension Model.App {
+    static func loadAppIcons(fromPath: String) -> [Model.App] {
+        let start = Date()
+        let rv = try? FileManager
+            .default
+            .contentsOfDirectory(atPath: "/Applications")
+            .filter { $0.contains(".app") && !$0.hasPrefix(".") }
+            .map { Model.App(path: "/Applications/\($0)" ) }
+            .sorted(by: { $0.name < $1.name })
+        
+        iddlog("loaded in: '\(start.timeIntervalSince(Date()) * -1000) ms'")
+        return rv ?? []
     }
 }

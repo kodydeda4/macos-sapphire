@@ -20,6 +20,7 @@ struct AppState: Equatable {
 
 enum AppAction {
     case loadIcons
+    case toggle(Model.App)
 }
 
 // MARK: - AppEnvironment
@@ -30,12 +31,17 @@ struct AppEnvironment {
 }
 
 let defaultStore = Store(
-    initialState: AppState(),
-    reducer: appReducer,
-    environment: AppEnvironment(
-        mainQueue: DispatchQueue.main.eraseToAnyScheduler(),
-        uuid: UUID.init
-    )
+    initialState:
+        AppState(
+            appIcons: Model.App.loadAppIcons(fromPath: "/Applications")
+        ),
+    reducer:
+        appReducer,
+    environment:
+        AppEnvironment(
+            mainQueue: DispatchQueue.main.eraseToAnyScheduler(),
+            uuid: UUID.init
+        )
 )
 
 let mockupStore = Store(
@@ -43,7 +49,9 @@ let mockupStore = Store(
         appIcons: [
             Model.App(path: "/Applications/Xcode.app"),
             Model.App(path: "/Applications/Pages.app")
-        ]),
+        ],
+        selectedAppIcons: Set(arrayLiteral: Model.App(path: "/Applications/Pages.app"))
+    ),
     reducer: appReducer,
     environment: AppEnvironment(
         mainQueue: DispatchQueue.main.eraseToAnyScheduler(),
@@ -55,18 +63,19 @@ let mockupStore = Store(
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     Reducer { state, action, environment in
         iddlog("action: '\(action)'")
-
+        
         switch action {
-            case .loadIcons:
-                let appIcons = try? FileManager
-                    .default
-                    .contentsOfDirectory(atPath: "/Applications")
-                    .filter { $0.contains(".app") && !$0.hasPrefix(".") }
-                    .map { Model.App(path: "/Applications/\($0)" ) }
-                    .sorted(by: { $0.name < $1.name })
-
-                state.appIcons = appIcons ?? [Model.App]()
-                return .none
+        case .loadIcons:
+            state.appIcons = Model.App.loadAppIcons(fromPath: "/Applications")
+            return .none
+            
+        case let .toggle(appIcon):
+            if state.selectedAppIcons.contains(appIcon) {
+                state.selectedAppIcons.remove(appIcon)
+            } else {
+                state.selectedAppIcons.insert(appIcon)
+            }
+            return .none
         }
     }
 )
