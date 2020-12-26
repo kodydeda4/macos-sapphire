@@ -11,17 +11,21 @@ import SwiftUI
 
 struct AppState: Equatable {
     var appIcons = [Model.App]()
-    var selectedAppIcons = Set<Model.App>()
+    
+    var selectedAppIcons: [Model.App] {
+        appIcons.filter(\.isSelected)
+    }
+    var background = Color.red
 }
 
 enum AppAction {
     case loadIcons
-    case toggle(Model.App)
-    case addBackground(Color)
+    case toggleSelection(Model.App)
+    case setBackgroundForSelectedApps(Color)
 }
 
 struct AppEnvironment {
-
+    
 }
 
 let defaultStore = Store(
@@ -39,17 +43,20 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.appIcons = Model.App.loadAppIcons(fromPath: "/Applications")
             return .none
             
-        case let .toggle(appIcon):
-            if state.selectedAppIcons.contains(appIcon) {
-                state.selectedAppIcons.remove(appIcon)
-            } else {
-                state.selectedAppIcons.insert(appIcon)
-            }
+        case let .toggleSelection(appIcon):
+            guard let index = state.appIcons.firstIndex(of: appIcon)
+            else { return .none }
+            state.appIcons[index].isSelected.toggle()
             return .none
-                
-        case .addBackground(let color):
-            print("add a white background to \(state.selectedAppIcons.map(\.name))")
             
+        case let .setBackgroundForSelectedApps(color):
+            iddlog("add a white background to \(state.selectedAppIcons.map(\.name))")
+                        
+            state.appIcons = state.appIcons.reduce(into: [Model.App]()) { partial, nextItem in
+                var item = nextItem
+                item.isSelected ? item.background = color : ()
+                partial.append(item)
+            }
             return .none
         }
     }

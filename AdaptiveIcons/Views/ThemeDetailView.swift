@@ -12,26 +12,26 @@ import Grid
 
 struct ThemeDetailView: View {
     let store: Store<AppState, AppAction>
-
+    
+    
     var body: some View {
         WithViewStore(store) { viewStore in
-            
             VStack {
-                HStack {
-                    Button(action: {
-                            viewStore.send(.addBackground(Color.white))
-                    }) {
-                        Text("Add White Background")
-                        
-                    }
-                }
                 ScrollView {
                     Grid(Array(viewStore.selectedAppIcons)) { appIcon in
                         IconView(store: store, app: appIcon)
                     }.padding(16)
                 }
+                Spacer()
+                HStack {
+                    Button(action: {
+                        viewStore.send(.setBackgroundForSelectedApps(Color.white))
+                    }) {
+                        Text("Add White Background")
+                    }
+                }
+                Spacer()
             }
-
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import AppKit
 
 struct Model {
@@ -19,6 +20,8 @@ struct Model {
         let id = UUID()
         let path: String
         let iconState: IconState = .normal
+        var isSelected = false
+        var background = Color.clear
     }
 }
 

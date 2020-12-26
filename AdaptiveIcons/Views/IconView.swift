@@ -28,7 +28,7 @@ struct IconView: View {
         return WithViewStore(store) { viewStore in
             Button(action: {
                     iddlog("toggle \(app.name)")
-                    viewStore.send(.toggle(app))
+                    viewStore.send(.toggleSelection(app))
                 }) {
                 
                 VStack(alignment: .center, spacing: 3) {
@@ -38,7 +38,7 @@ struct IconView: View {
                         .frame(width: 40, height: 40)
                         .padding(8)
                         //.background(backgroundColor(viewStore))
-                        .background(Color.white)
+                        .background(app.background)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .shadow(color: Color.black.opacity(0.25), radius: 1.6, y: 2.0)
                     
