@@ -14,7 +14,7 @@ struct IconView: View {
     let store: Store<AppState, AppAction>
     var app: Model.App
             
-    private func backgroundColor(_ viewStore: ViewStore<AppState, AppAction>) -> Color {
+    private func selectionColor(_ viewStore: ViewStore<AppState, AppAction>) -> Color {
         Color.accentColor.opacity(isSelected(viewStore) ? 1 : 0)
     }
 
@@ -30,14 +30,17 @@ struct IconView: View {
                     iddlog("toggle \(app.name)")
                     viewStore.send(.toggle(app))
                 }) {
+                
                 VStack(alignment: .center, spacing: 3) {
                     Image(nsImage: app.appIcon)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 55, height: 55)
-                        .padding(12)
-                        .background(backgroundColor(viewStore))
-                        .clipShape(RoundedRectangle(cornerRadius: 3))
+                        .frame(width: 40, height: 40)
+                        .padding(8)
+                        //.background(backgroundColor(viewStore))
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .shadow(color: Color.black.opacity(0.25), radius: 1.6, y: 2.0)
                     
                     Text(app.name)
                         .font(.system(size: 11, weight: .regular))
@@ -45,8 +48,10 @@ struct IconView: View {
                         .padding(3)
                         .clipShape(RoundedRectangle(cornerRadius: 3))
                 }
-                 .frame(width: 100, height: 100, alignment: .top)
+                
+                .frame(width: 100, height: 100, alignment: .top)
             }
+            .border(selectionColor(viewStore))
             .buttonStyle(BorderlessButtonStyle())
             .onAppear {
                 iddlog("body \(app.name)")

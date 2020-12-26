@@ -17,6 +17,7 @@ struct AppState: Equatable {
 enum AppAction {
     case loadIcons
     case toggle(Model.App)
+    case addBackground(Color)
 }
 
 struct AppEnvironment {
@@ -44,6 +45,11 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             } else {
                 state.selectedAppIcons.insert(appIcon)
             }
+            return .none
+                
+        case .addBackground(let color):
+            print("add a white background to \(state.selectedAppIcons.map(\.name))")
+            
             return .none
         }
     }
