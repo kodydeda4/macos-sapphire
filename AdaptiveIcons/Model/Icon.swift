@@ -11,15 +11,8 @@ import AppKit
 
 
 struct Icon: Identifiable, Equatable, Hashable {
-    enum IconState {
-        case normal
-        case adaptive
-        case custom
-    }
-
     let id = UUID()
     let path: String
-    let iconState: IconState = .normal
     var isSelected = false
     var background = Color.clear
 }

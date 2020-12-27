@@ -9,8 +9,6 @@ import SwiftUI
 import Grid
 import ComposableArchitecture
 
-// MARK:- ContentView
-
 struct ContentView: View {
     let store: Store<AppState, AppAction>
     

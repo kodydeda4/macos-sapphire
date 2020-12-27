@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-// MARK:- Extensions
-
 extension Image {
     public init?(contentsOfFile: String) {
         guard let image = NSImage(contentsOfFile: contentsOfFile)
@@ -33,9 +31,4 @@ extension View {
     }
 }
 
-// MARK:- IconButton
 
-enum IconShape: String, CaseIterable {
-    case roundedRectangle = "Rounded Rectangle"
-    case circle = "Circle"
-}

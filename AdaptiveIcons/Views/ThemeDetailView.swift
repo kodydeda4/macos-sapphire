@@ -25,7 +25,7 @@ struct ThemeDetailView: View {
                 Spacer()
                 HStack {
                     Button(action: {
-                        viewStore.send(.setBackgroundForSelectedApps(Color.white))
+                        viewStore.send(.setBackgroundForSelectedIcons(Color.white))
                     }) {
                         Text("Add White Background")
                     }
