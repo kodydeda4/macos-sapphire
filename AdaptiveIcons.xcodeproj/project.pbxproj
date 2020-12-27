@@ -22,7 +22,7 @@
 		B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = B7453A352594E99900F8BE5A /* ComposableArchitecture */; };
 		B757D94E2594E9FB000FDB10 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D94D2594E9FB000FDB10 /* AppState.swift */; };
 		B757D9562594EAB3000FDB10 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D9552594EAB3000FDB10 /* Logger.swift */; };
-		B757D95C2594EAF9000FDB10 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D95B2594EAF9000FDB10 /* Model.swift */; };
+		B757D95C2594EAF9000FDB10 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D95B2594EAF9000FDB10 /* Icon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +63,7 @@
 		33F760E82594F61200BC589C /* ThemeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDetailView.swift; sourceTree = "<group>"; };
 		B757D94D2594E9FB000FDB10 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B757D9552594EAB3000FDB10 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		B757D95B2594EAF9000FDB10 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		B757D95B2594EAF9000FDB10 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,7 +166,7 @@
 		B757D95A2594EAEB000FDB10 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B757D95B2594EAF9000FDB10 /* Model.swift */,
+				B757D95B2594EAF9000FDB10 /* Icon.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -335,7 +335,7 @@
 				33E1B17C2589600000A1FDC1 /* AdaptiveIconsApp.swift in Sources */,
 				33F760E92594F61200BC589C /* ThemeDetailView.swift in Sources */,
 				339666B8259697EB00AA5E79 /* IconView.swift in Sources */,
-				B757D95C2594EAF9000FDB10 /* Model.swift in Sources */,
+				B757D95C2594EAF9000FDB10 /* Icon.swift in Sources */,
 				33C3E93225941811007670AB /* ContentView.swift in Sources */,
 				33538355259501F400259A23 /* View+Extensions.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* AppState.swift in Sources */,

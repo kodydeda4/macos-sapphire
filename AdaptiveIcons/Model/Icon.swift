@@ -2,30 +2,30 @@
 //  Model.swift
 //  AdaptiveIcons
 //
-//  Created by Klajd Deda on 12/24/20.
+//  Created by Kody Deda on 12/24/20.
 //
 
 import Foundation
 import SwiftUI
 import AppKit
 
-struct Model {
-    struct App: Identifiable, Equatable, Hashable {
-        enum IconState {
-            case normal
-            case adaptive
-            case custom
-        }
 
-        let id = UUID()
-        let path: String
-        let iconState: IconState = .normal
-        var isSelected = false
-        var background = Color.clear
+struct Icon: Identifiable, Equatable, Hashable {
+    enum IconState {
+        case normal
+        case adaptive
+        case custom
     }
+
+    let id = UUID()
+    let path: String
+    let iconState: IconState = .normal
+    var isSelected = false
+    var background = Color.clear
 }
 
-extension Model.App {
+
+extension Icon {
     static var iconsByPath = [String: NSImage]()
     
     var name: String {
@@ -73,14 +73,14 @@ extension Model.App {
     }
 }
 
-extension Model.App {
-    static func loadAppIcons(fromPath: String) -> [Model.App] {
+extension Icon {
+    static func loadIcons(fromPath: String) -> [Icon] {
         let start = Date()
         let rv = try? FileManager
             .default
             .contentsOfDirectory(atPath: "/Applications")
             .filter { $0.contains(".app") && !$0.hasPrefix(".") }
-            .map { Model.App(path: "/Applications/\($0)" ) }
+            .map { Icon(path: "/Applications/\($0)" ) }
             .sorted(by: { $0.name < $1.name })
         
         iddlog("loaded in: '\(start.timeIntervalSince(Date()) * -1000) ms'")

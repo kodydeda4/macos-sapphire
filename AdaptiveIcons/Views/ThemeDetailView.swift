@@ -18,8 +18,8 @@ struct ThemeDetailView: View {
         WithViewStore(store) { viewStore in
             VStack {
                 ScrollView {
-                    Grid(Array(viewStore.selectedAppIcons)) { appIcon in
-                        IconView(store: store, app: appIcon)
+                    Grid(Array(viewStore.icons.filter(\.isSelected))) { icon in
+                        IconView(store: store, icon: icon)
                     }.padding(16)
                 }
                 Spacer()

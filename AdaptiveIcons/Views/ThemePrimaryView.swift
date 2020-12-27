@@ -16,8 +16,8 @@ struct ThemePrimaryView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView {
-                Grid(viewStore.appIcons) { appIcon in
-                    IconView(store: store, app: appIcon)
+                Grid(viewStore.icons) { icon in
+                    IconView(store: store, icon: icon)
                 }.padding(16)
             }
         }
