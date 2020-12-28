@@ -11,13 +11,14 @@ import SwiftUI
 
 struct AppState: Equatable {
     var icons = [Icon]()
-    //var background = Color.red
+    var iconShapeSelection = IconShape.roundedRectangle
 }
 
 enum AppAction {
     case loadIcons
-    case toggleSelection(Icon)
+    case toggleIsSelected(Icon)
     case setBackgroundForSelectedIcons(Color)
+    case setIconShapeSelection(IconShape)
 }
 
 struct AppEnvironment {
@@ -40,7 +41,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.icons = Icon.loadIcons(fromPath: "/Applications")
             return .none
             
-        case let .toggleSelection(appIcon):
+        case let .toggleIsSelected(appIcon):
             guard let index = state.icons.firstIndex(of: appIcon)
             else { return .none }
             state.icons[index].isSelected.toggle()
@@ -49,9 +50,13 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case let .setBackgroundForSelectedIcons(color):
             state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
                 var item = nextItem
-                item.isSelected ? item.background = color : ()
+                item.isSelected ? item.backgroundColor = color : ()
                 partial.append(item)
             }
+            return .none
+
+        case let .setIconShapeSelection(iconShape):
+            state.iconShapeSelection = iconShape
             return .none
         }
     }

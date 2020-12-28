@@ -10,13 +10,13 @@ import SwiftUI
 import AppKit
 
 
-struct Icon: Identifiable, Equatable, Hashable {
+struct Icon: Identifiable, Hashable {
     let id = UUID()
     let path: String
     var isSelected = false
-    var background = Color.clear
+    var backgroundColor = Color.clear
+    var shape = IconShape.roundedRectangle
 }
-
 
 extension Icon {
     static var iconsByPath = [String: NSImage]()
