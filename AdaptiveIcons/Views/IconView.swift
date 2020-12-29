@@ -29,10 +29,11 @@ struct IconView: View {
                         .frame(width: 40, height: 40)
                         .padding(8)
                         .background(icon.backgroundColor)
+                        //.background(Color.red)
                         .clipShape(icon.shape)
                         .shadow(color: Color.black.opacity(0.25), radius: 1.6, y: 2.0)
                     
-                    Text(icon.name)
+                    Text(icon.name + icon.shape.rawValue)
                         .font(.system(size: 11, weight: .regular))
                         .multilineTextAlignment(.center)
                         .padding(3)
@@ -56,6 +57,9 @@ struct IconView: View {
 
 struct IconView_Previews: PreviewProvider {
     static var previews: some View {
-        IconView(store: defaultStore, icon: Icon(path: "/Applications/Pages.app"))
+        var icon = Icon(path: "/Applications/Pages.app")
+        
+        icon.shape = .roundedRectangle
+        return IconView(store: defaultStore, icon: icon)
     }
 }

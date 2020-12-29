@@ -22,6 +22,16 @@ struct ThemeDetailView: View {
                         IconView(store: store, icon: icon)
                     }.padding(16)
                 }
+                Picker(
+                    selection: viewStore.binding(
+                        get: \.iconShapeSelection,
+                        send: AppAction.setIconShapeSelection),
+                    label: Text("Picker"),
+                    content: {
+                        ForEach(IconShape.allCases, id: \.self) {
+                            Text($0.rawValue)
+                        }
+                })
 
 //                Picker(selection: $selection, label: Text("shape")) {
 //                    ForEach(IconShape.allCases, id: \.self) {

@@ -50,14 +50,28 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case let .setBackgroundForSelectedIcons(color):
             state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
                 var item = nextItem
-                item.isSelected ? item.backgroundColor = color : ()
+                item.isSelected
+                    ? item.backgroundColor = color
+                    : ()
                 partial.append(item)
             }
             return .none
 
         case let .setIconShapeSelection(iconShape):
-            state.iconShapeSelection = iconShape
+            state.icons = state.icons.setIconShapeSelection(iconShape)
             return .none
         }
     }
 )
+
+extension Array where Element == Icon {
+    func setIconShapeSelection(_ iconShape: IconShape) -> [Icon] {
+        return reduce(into: [Icon]()) { partial, nextItem in
+            var item = nextItem
+            item.isSelected
+                ? item.shape = iconShape
+                : ()
+            partial.append(item)
+        }
+    }
+}

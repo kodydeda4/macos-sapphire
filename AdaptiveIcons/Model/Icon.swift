@@ -15,7 +15,7 @@ struct Icon: Identifiable, Hashable {
     let path: String
     var isSelected = false
     var backgroundColor = Color.clear
-    var shape = IconShape.roundedRectangle
+    var shape: IconShape = .roundedRectangle
 }
 
 extension Icon {
