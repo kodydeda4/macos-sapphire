@@ -27,7 +27,7 @@ struct IconView: View {
                     Image(nsImage: icon.appIcon)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 50, height: 50)
                         .padding(8)
                         .background(icon.backgroundColor)
                         .clipShape(icon.shape)
