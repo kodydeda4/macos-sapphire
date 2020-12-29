@@ -18,7 +18,7 @@ enum IconShape: String, CaseIterable {
 struct IconView: View {
     let store: Store<AppState, AppAction>
     var icon: Icon
-                
+    
     var body: some View {
         WithViewStore(store) { viewStore in
             Button(action: { viewStore.send(.toggleSelected(icon)) }) {
@@ -31,26 +31,40 @@ struct IconView: View {
                         .padding(8)
                         .background(icon.backgroundColor)
                         .clipShape(icon.shape)
-                        .shadow(color: Color.black.opacity(icon.shadow ? 0.25 : 0), radius: 1.6, y: 2.0)
+                        .shadow(color: shadowColor(viewStore), radius: 1.6, y: 2.0)
+                        //.border(Color.gray)
                     
                     Text(icon.name)
                         .font(.system(size: 11, weight: .regular))
                         .multilineTextAlignment(.center)
                         .padding(3)
-                       
+                        //.border(Color.gray)
+                    
+                    
                 }
+                .padding(5)
                 .frame(width: 100, height: 100, alignment: .top)
+                //.border(Color.gray)
             }
-            .border(selectionColor(viewStore))
+            
+            .overlay(
+                RoundedRectangle(cornerRadius: 6)
+                    .stroke(lineWidth: 1)
+                    .foregroundColor(selectionColor(viewStore)))
+            
             .buttonStyle(BorderlessButtonStyle())
             .onAppear { iddlog("body \(icon.name)") }
         }
     }
     
     private func selectionColor(_ viewStore: ViewStore<AppState, AppAction>) -> Color {
-        Color.accentColor.opacity(isSelected(viewStore) ? 1 : 0)
+        Color.secondary.opacity(isSelected(viewStore) ? 1 : 0)
     }
-
+    
+    private func shadowColor(_ viewStore: ViewStore<AppState, AppAction>) -> Color {
+        Color.black.opacity(icon.shadow ? 0.25 : 0)
+    }
+    
     private func isSelected(_ viewStore: ViewStore<AppState, AppAction>) -> Bool {
         viewStore.icons.filter(\.selected).contains(icon)
     }

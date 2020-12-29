@@ -19,7 +19,18 @@ struct ThemePrimaryView: View {
                 Grid(viewStore.icons) { icon in
                     IconView(store: store, icon: icon)
                 }.padding(16)
-            }
+            }.toolbar(content: {
+                ToolbarItem {
+//                    Button(action: { viewStore.send(.selectAll) }) {
+//                        Text("Select All")
+//                    }
+                    Toggle(isOn: viewStore.binding(
+                            get: \.allSelected,
+                            send: AppAction.selectAll)) {
+                        Text("Select All")
+                    }
+                }
+            })
         }
     }
 }
