@@ -11,9 +11,10 @@ import SwiftUI
 
 struct AppState: Equatable {
     var icons = [Icon]()
-    var selectedIconShape: IconShape = .roundedRectangle
+    var selectedIconShape: IconShape? = .roundedRectangle
     var selectedBackgroundColor: Color = .white
-    var selectedShadow: Bool = false
+    var selectedShapeShadow: Bool = true
+    var selectedIconShadow: Bool = false
     var allSelected = false
 }
 
@@ -22,8 +23,9 @@ enum AppAction {
     case toggleSelected(Icon)
     case selectAll
     case setSelectedBackgroundColor(Color)
-    case setSelectedIconShape(IconShape)
-    case setSelectedShadow(Bool)
+    case setSelectedIconShape(IconShape?)
+    case setSelectedShapeShadow(Bool)
+    case setSelectedIconShadow(Bool)
     
     case applyChanges
     case removeChanges
@@ -62,7 +64,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 if item.selected {
                     item.shape = state.selectedIconShape
                     item.backgroundColor = state.selectedBackgroundColor
-                    item.shadow = state.selectedShadow
+                    item.iconShadow = state.selectedIconShadow
+                    item.shapeShadow = state.selectedShapeShadow   
                 }
 
                 partial.append(item)
@@ -77,9 +80,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.selectedBackgroundColor = color
             return .none
             
-        case let .setSelectedShadow(selection):
-            state.selectedShadow = selection
-            return .none
+
             
         case .removeChanges:
             state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
@@ -88,7 +89,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 if item.selected {
                     item.shape = .none
                     item.backgroundColor = .none
-                    item.shadow = false
+                    item.iconShadow = false
+                    item.shapeShadow = false
                 }
 
                 partial.append(item)
@@ -102,6 +104,14 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 partial.append(item)
             }
             state.allSelected.toggle()
+            return .none
+            
+        case let .setSelectedShapeShadow(selection):
+            state.selectedShapeShadow = selection
+            return .none
+            
+        case let .setSelectedIconShadow(selection):
+            state.selectedIconShadow = selection
             return .none
         }
     }

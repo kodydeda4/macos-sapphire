@@ -29,9 +29,10 @@ struct IconView: View {
                         .scaledToFill()
                         .frame(width: 50, height: 50)
                         .padding(8)
+                        .shadow(color: Color.black.opacity(icon.iconShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
                         .background(icon.backgroundColor)
                         .clipShape(icon.shape)
-                        .shadow(color: shadowColor(viewStore), radius: 1.6, y: 2.0)
+                        .shadow(color: Color.black.opacity(icon.shapeShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
                         //.border(Color.gray)
                     
                     Text(icon.name)
@@ -48,8 +49,8 @@ struct IconView: View {
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 6)
-                    .stroke(lineWidth: 0.5)
-                    .foregroundColor(selectionColor(viewStore)))
+                    .stroke(lineWidth: 1)
+                    .foregroundColor(selectionColor(viewStore)).opacity(0.5))
             
             .buttonStyle(BorderlessButtonStyle())
             .onAppear { iddlog("body \(icon.name)") }
@@ -58,10 +59,6 @@ struct IconView: View {
     
     private func selectionColor(_ viewStore: ViewStore<AppState, AppAction>) -> Color {
         Color.secondary.opacity(isSelected(viewStore) ? 1 : 0)
-    }
-    
-    private func shadowColor(_ viewStore: ViewStore<AppState, AppAction>) -> Color {
-        Color.black.opacity(icon.shadow ? 0.25 : 0)
     }
     
     private func isSelected(_ viewStore: ViewStore<AppState, AppAction>) -> Bool {

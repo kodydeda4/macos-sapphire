@@ -13,49 +13,66 @@ import Grid
 struct ThemeDetailView: View {
     let store: Store<AppState, AppAction>
     
+    
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .center) {
                 Text("Customize")
-
+                
+                Divider()
                 HStack {
-                    Button(
-                        action: { viewStore.send(.setSelectedIconShape(IconShape.roundedRectangle)) }) {
-                        RoundedRectangle(cornerRadius: 5)
-                            .frame(width: 40, height: 40)
-                    }.buttonStyle(PlainButtonStyle())
+                    Button(action: { viewStore.send(.setSelectedIconShape(.roundedRectangle)) }) {
+                    Image(systemName: "square.fill")
+                        .resizable()
+                        .scaledToFill()
+                        .foregroundColor(viewStore.selectedIconShape == .roundedRectangle ? .accentColor : .gray)
+                        .frame(width: 40, height: 40)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                     
-                    Button(
-                        action: { viewStore.send(.setSelectedIconShape(IconShape.circle)) }) {
-                        Circle()
-                            .frame(width: 40, height: 40)
-                    }.buttonStyle(PlainButtonStyle())
+                    Button(action: { viewStore.send(.setSelectedIconShape(.circle)) }) {
+                    Image(systemName: "circle.fill")
+                        .resizable()
+                        .scaledToFill()
+                        .foregroundColor(viewStore.selectedIconShape == .circle ? .accentColor : .gray)
+                        .frame(width: 40, height: 40)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                     
-                    Button(
-                        action: { viewStore.send(.setSelectedIconShape(IconShape.roundedRectangle)) }) {
-                        Circle()
-                            .foregroundColor(Color.gray)
-                            .frame(width: 40, height: 40)
-                    }.buttonStyle(PlainButtonStyle())
+                    Button(action: { viewStore.send(.setSelectedIconShape(.none)) }) {
+                    Image(systemName: "circle.dashed")
+                        .resizable()
+                        .scaledToFill()
+                        .foregroundColor(viewStore.selectedIconShape == nil ? .accentColor : .gray)
+                        .frame(width: 40, height: 40)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
+                Divider()
                 
                 ColorPicker("Color",
                     selection: viewStore.binding(
                         get: \.selectedBackgroundColor,
                         send: AppAction.setSelectedBackgroundColor))
                 
-                Picker("Shape",
-                    selection: viewStore.binding(
-                        get: \.selectedIconShape,
-                        send: AppAction.setSelectedIconShape),
-                    content: {
-                        ForEach(IconShape.allCases, id: \.self) {
-                            Text($0.rawValue) }})
+//                Picker("Shape",
+//                    selection: viewStore.binding(
+//                        get: \.selectedIconShape,
+//                        send: AppAction.setSelectedIconShape),
+//                    content: {
+//                        ForEach(IconShape.allCases, id: \.self) {
+//                            Text($0.rawValue) }})
 
                 Toggle(isOn: viewStore.binding(
-                        get: \.selectedShadow,
-                        send: AppAction.setSelectedShadow)) {
-                    Text("Shadow")
+                        get: \.selectedIconShadow,
+                        send: AppAction.setSelectedIconShadow)) {
+                    Text("Icon Shadow")
+                }
+                
+                Toggle(isOn: viewStore.binding(
+                        get: \.selectedShapeShadow,
+                        send: AppAction.setSelectedShapeShadow)) {
+                    Text("Shape Shadow")
                 }
                 
                 Button("Remove Changes",
@@ -63,6 +80,8 @@ struct ThemeDetailView: View {
                 
                 Button("Apply Changes",
                        action: { viewStore.send(.applyChanges) })
+                
+                Text(viewStore.selectedIconShape.debugDescription)
             }
             .padding()
         }

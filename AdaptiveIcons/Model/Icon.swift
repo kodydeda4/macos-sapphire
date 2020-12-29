@@ -15,7 +15,8 @@ struct Icon: Identifiable, Hashable {
     var selected = false
     var backgroundColor: Color?
     var shape: IconShape?
-    var shadow: Bool = false
+    var iconShadow: Bool = false
+    var shapeShadow: Bool = false
 }
 
 extension Icon {

@@ -21,9 +21,6 @@ struct ThemePrimaryView: View {
                 }.padding(16)
             }.toolbar(content: {
                 ToolbarItem {
-//                    Button(action: { viewStore.send(.selectAll) }) {
-//                        Text("Select All")
-//                    }
                     Toggle(isOn: viewStore.binding(
                             get: \.allSelected,
                             send: AppAction.selectAll)) {
