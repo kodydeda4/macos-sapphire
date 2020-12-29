@@ -21,7 +21,7 @@ struct IconView: View {
                 
     var body: some View {
         WithViewStore(store) { viewStore in
-            Button(action: { viewStore.send(.toggleIsSelected(icon)) }) {
+            Button(action: { viewStore.send(.toggleSelected(icon)) }) {
                 VStack(alignment: .center, spacing: 3) {
                     
                     Image(nsImage: icon.appIcon)
@@ -52,7 +52,7 @@ struct IconView: View {
     }
 
     private func isSelected(_ viewStore: ViewStore<AppState, AppAction>) -> Bool {
-        viewStore.icons.filter(\.isSelected).contains(icon)
+        viewStore.icons.filter(\.selected).contains(icon)
     }
 }
 

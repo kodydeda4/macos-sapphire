@@ -19,24 +19,28 @@ struct ThemeDetailView: View {
                 
                 ColorPicker("Color",
                     selection: viewStore.binding(
-                        get: \.backgroundColorSelection,
-                        send: AppAction.setBackgroundColorSelection))
+                        get: \.selectedBackgroundColor,
+                        send: AppAction.setSelectedBackgroundColor))
                 
                 Picker("Shape",
                     selection: viewStore.binding(
-                        get: \.iconShapeSelection,
-                        send: AppAction.setIconShapeSelection),
+                        get: \.selectedIconShape,
+                        send: AppAction.setSelectedIconShape),
                     content: {
                         ForEach(IconShape.allCases, id: \.self) {
                             Text($0.rawValue) }})
                 
-                Button("Apply Changes",
-                    action: { viewStore.send(.applyChangesButtonPressed) })
-                
+                HStack {
+                    Button("Remove Changes",
+                        action: { viewStore.send(.removeChanges) })
+                    
+                    Button("Apply Changes",
+                           action: { viewStore.send(.applyChanges) })
+                }
                 
                 Toggle(isOn: viewStore.binding(
-                        get: \.shadowSelection,
-                        send: AppAction.setShadowSelection)) {
+                        get: \.selectedShadow,
+                        send: AppAction.setSelectedShadow)) {
                     Text("Shadow")
                 }
             }

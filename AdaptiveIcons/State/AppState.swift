@@ -11,19 +11,21 @@ import SwiftUI
 
 struct AppState: Equatable {
     var icons = [Icon]()
-    var iconShapeSelection: IconShape = .roundedRectangle
-    var backgroundColorSelection: Color = .white
-    var shadowSelection: Bool = false
+    var selectedIconShape: IconShape = .roundedRectangle
+    var selectedBackgroundColor: Color = .white
+    var selectedShadow: Bool = false
 }
 
 enum AppAction {
     case loadIcons
-    case toggleIsSelected(Icon)
+    case toggleSelected(Icon)
     
-    case applyChangesButtonPressed
-    case setBackgroundColorSelection(Color)
-    case setIconShapeSelection(IconShape)
-    case setShadowSelection(Bool)
+    case setSelectedBackgroundColor(Color)
+    case setSelectedIconShape(IconShape)
+    case setSelectedShadow(Bool)
+    
+    case applyChanges
+    case removeChanges
 }
 
 struct AppEnvironment {
@@ -46,36 +48,52 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.icons = Icon.loadIcons(fromPath: "/Applications")
             return .none
             
-        case let .toggleIsSelected(appIcon):
-            guard let index = state.icons.firstIndex(of: appIcon)
+        case let .toggleSelected(icon):
+            guard let index = state.icons.firstIndex(of: icon)
             else { return .none }
-            state.icons[index].isSelected.toggle()
+            state.icons[index].selected.toggle()
             return .none
 
-        case let .setIconShapeSelection(iconShape):
-            state.iconShapeSelection = iconShape
-            return .none
-            
-        case let .setBackgroundColorSelection(color):
-            state.backgroundColorSelection = color
-            return .none
-            
-        case .applyChangesButtonPressed:
+        case .applyChanges:
             state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
                 var item = nextItem
                 
-                if item.isSelected {
-                    item.shape = state.iconShapeSelection
-                    item.backgroundColor = state.backgroundColorSelection
-                    item.shadow = state.shadowSelection
+                if item.selected {
+                    item.shape = state.selectedIconShape
+                    item.backgroundColor = state.selectedBackgroundColor
+                    item.shadow = state.selectedShadow
                 }
 
                 partial.append(item)
             }
             return .none
-        case let .setShadowSelection(selection):
-            state.shadowSelection = selection
+            
+        case let .setSelectedIconShape(iconShape):
+            state.selectedIconShape = iconShape
+            return .none
+            
+        case let .setSelectedBackgroundColor(color):
+            state.selectedBackgroundColor = color
+            return .none
+            
+        case let .setSelectedShadow(selection):
+            state.selectedShadow = selection
+            return .none
+            
+        case .removeChanges:
+            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
+                var item = nextItem
+                
+                if item.selected {
+                    item.shape = .none
+                    item.backgroundColor = .none
+                    item.shadow = false
+                }
+
+                partial.append(item)
+            }
             return .none
         }
+        
     }
 )

@@ -12,11 +12,10 @@ import AppKit
 struct Icon: Identifiable, Hashable {
     let id = UUID()
     let path: String
-    var isSelected = false
+    var selected = false
     var backgroundColor: Color?
     var shape: IconShape?
     var shadow: Bool = false
-//    var padding: CGFloat = 0
 }
 
 extension Icon {
