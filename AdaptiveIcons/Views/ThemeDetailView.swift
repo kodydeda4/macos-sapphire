@@ -20,9 +20,9 @@ struct ThemeDetailView: View {
                 
                 Divider()
                 HStack {
-                    IconShapeButton(viewStore: viewStore, iconShape: .roundedRectangle, systemName: "square.fill")
-                    IconShapeButton(viewStore: viewStore, iconShape: .circle, systemName: "circle.fill")
-                    IconShapeButton(viewStore: viewStore, iconShape: .none, systemName: "circle.dashed")
+                    SetIconShapeButton(viewStore, iconShape: .roundedRectangle, systemName: "square.fill")
+                    SetIconShapeButton(viewStore, iconShape: .circle, systemName: "circle.fill")
+                    SetIconShapeButton(viewStore, iconShape: .none, systemName: "circle.dashed")
                 }
                 Divider()
                 
@@ -54,8 +54,8 @@ struct ThemeDetailView: View {
         }
     }
     
-    private func IconShapeButton(
-        viewStore: ViewStore<AppState, AppAction>,
+    private func SetIconShapeButton(
+        _ viewStore: ViewStore<AppState, AppAction>,
         iconShape: IconShape?,
         systemName: String) -> AnyView {
          
