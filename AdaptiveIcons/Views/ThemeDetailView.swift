@@ -16,29 +16,22 @@ struct ThemeDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack {
-//                ScrollView {
-//                    Grid(Array(viewStore.icons.filter(\.isSelected))) { icon in
-//                        IconView(store: store, icon: icon)
-//                    }.padding(16)
-//                }
-//                .background(Color.gray)
-                ColorPicker("Color", selection:viewStore.binding(get: \.backgroundColorSelection, send: AppAction.setBackgroundColorSelection))
-                Picker(
+                ColorPicker("Color",
+                    selection: viewStore.binding(
+                        get: \.backgroundColorSelection,
+                        send: AppAction.setBackgroundColorSelection))
+                
+                Picker("Shape",
                     selection: viewStore.binding(
                         get: \.iconShapeSelection,
                         send: AppAction.setIconShapeSelection),
-                    label: Text("Picker"),
                     content: {
                         ForEach(IconShape.allCases, id: \.self) {
-                            Text($0.rawValue)
-                        }
+                            Text($0.rawValue) }
                     })
                 
-                HStack {
-                    Button(action: { viewStore.send(.setBackgroundForSelectedIcons) }) {
-                        Text("Apply")
-                    }
-                }
+                Button("Apply Changes",
+                    action: { viewStore.send(.setBackgroundForSelectedIcons) })
             }
         }
     }
