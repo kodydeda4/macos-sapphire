@@ -13,7 +13,6 @@ import Grid
 struct ThemeDetailView: View {
     let store: Store<AppState, AppAction>
     
-    
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .center) {
@@ -21,32 +20,9 @@ struct ThemeDetailView: View {
                 
                 Divider()
                 HStack {
-                    Button(action: { viewStore.send(.setSelectedIconShape(.roundedRectangle)) }) {
-                    Image(systemName: "square.fill")
-                        .resizable()
-                        .scaledToFill()
-                        .foregroundColor(viewStore.selectedIconShape == .roundedRectangle ? .accentColor : .gray)
-                        .frame(width: 40, height: 40)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Button(action: { viewStore.send(.setSelectedIconShape(.circle)) }) {
-                    Image(systemName: "circle.fill")
-                        .resizable()
-                        .scaledToFill()
-                        .foregroundColor(viewStore.selectedIconShape == .circle ? .accentColor : .gray)
-                        .frame(width: 40, height: 40)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Button(action: { viewStore.send(.setSelectedIconShape(.none)) }) {
-                    Image(systemName: "circle.dashed")
-                        .resizable()
-                        .scaledToFill()
-                        .foregroundColor(viewStore.selectedIconShape == nil ? .accentColor : .gray)
-                        .frame(width: 40, height: 40)
-                    }
-                    .buttonStyle(PlainButtonStyle())
+                    IconShapeButton(viewStore: viewStore, iconShape: .roundedRectangle, systemName: "square.fill")
+                    IconShapeButton(viewStore: viewStore, iconShape: .circle, systemName: "circle.fill")
+                    IconShapeButton(viewStore: viewStore, iconShape: .none, systemName: "circle.dashed")
                 }
                 Divider()
                 
@@ -54,14 +30,6 @@ struct ThemeDetailView: View {
                     selection: viewStore.binding(
                         get: \.selectedBackgroundColor,
                         send: AppAction.setSelectedBackgroundColor))
-                
-//                Picker("Shape",
-//                    selection: viewStore.binding(
-//                        get: \.selectedIconShape,
-//                        send: AppAction.setSelectedIconShape),
-//                    content: {
-//                        ForEach(IconShape.allCases, id: \.self) {
-//                            Text($0.rawValue) }})
 
                 Toggle(isOn: viewStore.binding(
                         get: \.selectedIconShadow,
@@ -81,10 +49,27 @@ struct ThemeDetailView: View {
                 Button("Apply Changes",
                        action: { viewStore.send(.applyChanges) })
                 
-                Text(viewStore.selectedIconShape.debugDescription)
             }
             .padding()
         }
+    }
+    
+    private func IconShapeButton(
+        viewStore: ViewStore<AppState, AppAction>,
+        iconShape: IconShape?,
+        systemName: String) -> AnyView {
+         
+        return AnyView(
+            Button(action: { viewStore.send(.setSelectedIconShape(iconShape)) }) {
+                
+            Image(systemName: systemName)
+                .resizable()
+                .scaledToFill()
+                .foregroundColor(viewStore.selectedIconShape == iconShape ? .accentColor : .gray)
+                .frame(width: 40, height: 40)
+            }
+            .buttonStyle(PlainButtonStyle())
+        )
     }
 }
 
