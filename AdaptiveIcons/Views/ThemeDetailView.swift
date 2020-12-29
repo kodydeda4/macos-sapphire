@@ -15,7 +15,8 @@ struct ThemeDetailView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack {
+            VStack(alignment: .leading) {
+                
                 ColorPicker("Color",
                     selection: viewStore.binding(
                         get: \.backgroundColorSelection,
@@ -27,11 +28,10 @@ struct ThemeDetailView: View {
                         send: AppAction.setIconShapeSelection),
                     content: {
                         ForEach(IconShape.allCases, id: \.self) {
-                            Text($0.rawValue) }
-                    })
+                            Text($0.rawValue) }})
                 
                 Button("Apply Changes",
-                    action: { viewStore.send(.setBackgroundForSelectedIcons) })
+                    action: { viewStore.send(.applyChangesButtonPressed) })
             }
         }
     }

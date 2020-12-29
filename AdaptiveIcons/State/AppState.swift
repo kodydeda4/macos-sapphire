@@ -19,7 +19,7 @@ enum AppAction {
     case loadIcons
     case toggleIsSelected(Icon)
     
-    case setBackgroundForSelectedIcons
+    case applyChangesButtonPressed
     case setBackgroundColorSelection(Color)
     case setIconShapeSelection(IconShape)
 }
@@ -49,39 +49,27 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             else { return .none }
             state.icons[index].isSelected.toggle()
             return .none
-            
-        case .setBackgroundForSelectedIcons:
-            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
-                var item = nextItem
-                item.isSelected
-                    ? item.backgroundColor = state.backgroundColorSelection
-                    : ()
-                partial.append(item)
-            }
-            return .none
 
         case let .setIconShapeSelection(iconShape):
-            state.icons = state.icons.setIconShapeSelection(iconShape)
+            state.iconShapeSelection = iconShape
             return .none
             
         case let .setBackgroundColorSelection(color):
             state.backgroundColorSelection = color
             return .none
+            
+        case .applyChangesButtonPressed:
+            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
+                var item = nextItem
+                
+                if item.isSelected {
+                    item.shape = state.iconShapeSelection
+                    item.backgroundColor = state.backgroundColorSelection
+                }
+
+                partial.append(item)
+            }
+            return .none
         }
     }
 )
-
-extension Array where Element == Icon {
-    func setIconShapeSelection(_ iconShape: IconShape) -> [Icon] {
-        return reduce(into: [Icon]()) { partial, nextItem in
-            var item = nextItem
-            item.isSelected
-                ? item.shape = iconShape
-                : ()
-            partial.append(item)
-        }
-    }
-    
-    
-    
-}
