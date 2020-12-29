@@ -29,21 +29,20 @@ struct ThemeDetailView: View {
                     content: {
                         ForEach(IconShape.allCases, id: \.self) {
                             Text($0.rawValue) }})
-                
-                HStack {
-                    Button("Remove Changes",
-                        action: { viewStore.send(.removeChanges) })
-                    
-                    Button("Apply Changes",
-                           action: { viewStore.send(.applyChanges) })
-                }
-                
+
                 Toggle(isOn: viewStore.binding(
                         get: \.selectedShadow,
                         send: AppAction.setSelectedShadow)) {
                     Text("Shadow")
                 }
+                
+                Button("Remove Changes",
+                    action: { viewStore.send(.removeChanges) })
+                
+                Button("Apply Changes",
+                       action: { viewStore.send(.applyChanges) })
             }
+            .padding()
         }
     }
 }

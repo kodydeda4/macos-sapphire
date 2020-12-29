@@ -46,10 +46,9 @@ struct IconView: View {
                 .frame(width: 100, height: 100, alignment: .top)
                 //.border(Color.gray)
             }
-            
             .overlay(
                 RoundedRectangle(cornerRadius: 6)
-                    .stroke(lineWidth: 1)
+                    .stroke(lineWidth: 0.5)
                     .foregroundColor(selectionColor(viewStore)))
             
             .buttonStyle(BorderlessButtonStyle())
