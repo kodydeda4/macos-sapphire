@@ -32,6 +32,13 @@ struct ThemeDetailView: View {
                 
                 Button("Apply Changes",
                     action: { viewStore.send(.applyChangesButtonPressed) })
+                
+                
+                Toggle(isOn: viewStore.binding(
+                        get: \.shadowSelection,
+                        send: AppAction.setShadowSelection)) {
+                    Text("Shadow")
+                }
             }
         }
     }

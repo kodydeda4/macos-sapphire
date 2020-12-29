@@ -15,6 +15,7 @@ struct Icon: Identifiable, Hashable {
     var isSelected = false
     var backgroundColor: Color?
     var shape: IconShape?
+    var shadow: Bool = false
 //    var padding: CGFloat = 0
 }
 

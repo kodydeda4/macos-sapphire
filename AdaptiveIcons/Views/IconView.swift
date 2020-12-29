@@ -31,7 +31,7 @@ struct IconView: View {
                         .padding(8)
                         .background(icon.backgroundColor)
                         .clipShape(icon.shape)
-                        .shadow(color: Color.black.opacity(0.25), radius: 1.6, y: 2.0)
+                        .shadow(color: Color.black.opacity(icon.shadow ? 0.25 : 0), radius: 1.6, y: 2.0)
                     
                     Text(icon.name)
                         .font(.system(size: 11, weight: .regular))

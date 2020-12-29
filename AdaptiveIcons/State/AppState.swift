@@ -13,6 +13,7 @@ struct AppState: Equatable {
     var icons = [Icon]()
     var iconShapeSelection: IconShape = .roundedRectangle
     var backgroundColorSelection: Color = .white
+    var shadowSelection: Bool = false
 }
 
 enum AppAction {
@@ -22,6 +23,7 @@ enum AppAction {
     case applyChangesButtonPressed
     case setBackgroundColorSelection(Color)
     case setIconShapeSelection(IconShape)
+    case setShadowSelection(Bool)
 }
 
 struct AppEnvironment {
@@ -65,10 +67,14 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 if item.isSelected {
                     item.shape = state.iconShapeSelection
                     item.backgroundColor = state.backgroundColorSelection
+                    item.shadow = state.shadowSelection
                 }
 
                 partial.append(item)
             }
+            return .none
+        case let .setShadowSelection(selection):
+            state.shadowSelection = selection
             return .none
         }
     }
