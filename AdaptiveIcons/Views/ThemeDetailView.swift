@@ -12,7 +12,6 @@ import Grid
 
 struct ThemeDetailView: View {
     let store: Store<AppState, AppAction>
-//    @State var selection = IconShape.roundedRectangle
     
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -22,6 +21,7 @@ struct ThemeDetailView: View {
                         IconView(store: store, icon: icon)
                     }.padding(16)
                 }
+                ColorPicker("Color", selection:viewStore.binding(get: \.backgroundColorSelection, send: AppAction.setBackgroundColorSelection))
                 Picker(
                     selection: viewStore.binding(
                         get: \.iconShapeSelection,
@@ -31,19 +31,11 @@ struct ThemeDetailView: View {
                         ForEach(IconShape.allCases, id: \.self) {
                             Text($0.rawValue)
                         }
-                })
-
-//                Picker(selection: $selection, label: Text("shape")) {
-//                    ForEach(IconShape.allCases, id: \.self) {
-//                        Text($0.rawValue)
-//                    }
-//                }
-                
-//                IconView(store: store, icon: viewStore)
+                    })
                 
                 HStack {
-                    Button(action: { viewStore.send(.setBackgroundForSelectedIcons(Color.white)) }) {
-                        Text("Add White Background")
+                    Button(action: { viewStore.send(.setBackgroundForSelectedIcons) }) {
+                        Text("Apply")
                     }
                 }
                 Spacer()

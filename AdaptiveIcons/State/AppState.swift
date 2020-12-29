@@ -11,13 +11,16 @@ import SwiftUI
 
 struct AppState: Equatable {
     var icons = [Icon]()
-    var iconShapeSelection = IconShape.roundedRectangle
+    var iconShapeSelection: IconShape = .roundedRectangle
+    var backgroundColorSelection: Color = .white
 }
 
 enum AppAction {
     case loadIcons
     case toggleIsSelected(Icon)
-    case setBackgroundForSelectedIcons(Color)
+    
+    case setBackgroundForSelectedIcons
+    case setBackgroundColorSelection(Color)
     case setIconShapeSelection(IconShape)
 }
 
@@ -26,7 +29,7 @@ struct AppEnvironment {
 }
 
 let defaultStore = Store(
-    initialState:AppState(icons: Icon.loadIcons(fromPath: "/Applications")),
+    initialState: AppState(icons: Icon.loadIcons(fromPath: "/Applications")),
     reducer: appReducer,
     environment: AppEnvironment()
 )
@@ -47,11 +50,11 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.icons[index].isSelected.toggle()
             return .none
             
-        case let .setBackgroundForSelectedIcons(color):
+        case .setBackgroundForSelectedIcons:
             state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
                 var item = nextItem
                 item.isSelected
-                    ? item.backgroundColor = color
+                    ? item.backgroundColor = state.backgroundColorSelection
                     : ()
                 partial.append(item)
             }
@@ -59,6 +62,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
 
         case let .setIconShapeSelection(iconShape):
             state.icons = state.icons.setIconShapeSelection(iconShape)
+            return .none
+            
+        case let .setBackgroundColorSelection(color):
+            state.backgroundColorSelection = color
             return .none
         }
     }
@@ -74,4 +81,7 @@ extension Array where Element == Icon {
             partial.append(item)
         }
     }
+    
+    
+    
 }

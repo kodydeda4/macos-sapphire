@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 import AppKit
 
-
 struct Icon: Identifiable, Hashable {
     let id = UUID()
     let path: String
     var isSelected = false
-    var backgroundColor = Color.clear
-    var shape: IconShape = .roundedRectangle
+    var backgroundColor: Color?
+    var shape: IconShape?
+//    var padding: CGFloat = 0
 }
 
 extension Icon {

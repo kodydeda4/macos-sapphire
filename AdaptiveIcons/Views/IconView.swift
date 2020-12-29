@@ -23,20 +23,24 @@ struct IconView: View {
         WithViewStore(store) { viewStore in
             Button(action: { viewStore.send(.toggleIsSelected(icon)) }) {
                 VStack(alignment: .center, spacing: 3) {
+                    
+                    
                     Image(nsImage: icon.appIcon)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 40, height: 40)
                         .padding(8)
                         .background(icon.backgroundColor)
-                        //.background(Color.red)
                         .clipShape(icon.shape)
                         .shadow(color: Color.black.opacity(0.25), radius: 1.6, y: 2.0)
+                        //.border(Color.gray)
                     
-                    Text(icon.name + icon.shape.rawValue)
+                    Text(icon.name)
                         .font(.system(size: 11, weight: .regular))
                         .multilineTextAlignment(.center)
                         .padding(3)
+                    
+                    
                 }
                 .frame(width: 100, height: 100, alignment: .top)
             }
