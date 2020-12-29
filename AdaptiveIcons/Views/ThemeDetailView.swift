@@ -16,11 +16,12 @@ struct ThemeDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack {
-                ScrollView {
-                    Grid(Array(viewStore.icons.filter(\.isSelected))) { icon in
-                        IconView(store: store, icon: icon)
-                    }.padding(16)
-                }
+//                ScrollView {
+//                    Grid(Array(viewStore.icons.filter(\.isSelected))) { icon in
+//                        IconView(store: store, icon: icon)
+//                    }.padding(16)
+//                }
+//                .background(Color.gray)
                 ColorPicker("Color", selection:viewStore.binding(get: \.backgroundColorSelection, send: AppAction.setBackgroundColorSelection))
                 Picker(
                     selection: viewStore.binding(
@@ -38,7 +39,6 @@ struct ThemeDetailView: View {
                         Text("Apply")
                     }
                 }
-                Spacer()
             }
         }
     }
