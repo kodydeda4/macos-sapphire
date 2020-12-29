@@ -30,7 +30,7 @@ struct IconView: View {
                         .frame(width: 50, height: 50)
                         .padding(8)
                         .shadow(color: Color.black.opacity(icon.iconShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
-                        .background(icon.backgroundColor)
+                        .background(icon.shape != nil ? icon.backgroundColor : nil)
                         .clipShape(icon.shape)
                         .shadow(color: Color.black.opacity(icon.shapeShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
                         //.border(Color.gray)
@@ -40,8 +40,6 @@ struct IconView: View {
                         .multilineTextAlignment(.center)
                         .padding(3)
                         //.border(Color.gray)
-                    
-                    
                 }
                 .padding(5)
                 .frame(width: 100, height: 100, alignment: .top)
