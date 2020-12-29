@@ -15,7 +15,29 @@ struct ThemeDetailView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack(alignment: .leading) {
+            VStack(alignment: .center) {
+                Text("Customize")
+
+                HStack {
+                    Button(
+                        action: { viewStore.send(.setSelectedIconShape(IconShape.roundedRectangle)) }) {
+                        RoundedRectangle(cornerRadius: 5)
+                            .frame(width: 40, height: 40)
+                    }.buttonStyle(PlainButtonStyle())
+                    
+                    Button(
+                        action: { viewStore.send(.setSelectedIconShape(IconShape.circle)) }) {
+                        Circle()
+                            .frame(width: 40, height: 40)
+                    }.buttonStyle(PlainButtonStyle())
+                    
+                    Button(
+                        action: { viewStore.send(.setSelectedIconShape(IconShape.roundedRectangle)) }) {
+                        Circle()
+                            .foregroundColor(Color.gray)
+                            .frame(width: 40, height: 40)
+                    }.buttonStyle(PlainButtonStyle())
+                }
                 
                 ColorPicker("Color",
                     selection: viewStore.binding(
