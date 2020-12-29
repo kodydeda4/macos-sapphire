@@ -11,8 +11,8 @@ import ComposableArchitecture
 import Grid
 
 enum IconShape: String, CaseIterable {
-    case roundedRectangle = "Rounded Rectangle"
-    case circle = "Circle"
+    case roundedRectangle = "square.fill"
+    case circle = "circle.fill"
 }
 
 struct IconView: View {

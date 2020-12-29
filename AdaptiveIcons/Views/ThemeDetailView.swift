@@ -16,38 +16,54 @@ struct ThemeDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .center) {
-                Text("Customize")
                 
-                Divider()
-                HStack {
-                    SetIconShapeButton(viewStore, iconShape: .roundedRectangle, systemName: "square.fill")
-                    SetIconShapeButton(viewStore, iconShape: .circle, systemName: "circle.fill")
-                    SetIconShapeButton(viewStore, iconShape: .none, systemName: "circle.dashed")
+                VStack(spacing: 3) {
+                    Image(systemName: viewStore.selectedIconShape?.rawValue ?? "circle.dashed")
+                        .resizable()
+                        .scaledToFill()
+                        .foregroundColor(viewStore.selectedBackgroundColor)
+                        .shadow(color: Color.black.opacity(viewStore.selectedShapeShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
+                        .frame(width: 100, height: 100)
+                        
+                    Text("Preview")
+                        .font(.system(size: 11, weight: .regular))
+                        .multilineTextAlignment(.center)
+                        .padding(3)
                 }
-                Divider()
                 
-                ColorPicker("Color",
-                    selection: viewStore.binding(
-                        get: \.selectedBackgroundColor,
-                        send: AppAction.setSelectedBackgroundColor))
+                Divider()
+                    VStack {
+                    HStack {
+                        SetIconShapeButton(viewStore, iconShape: .roundedRectangle, systemName: "square.fill")
+                        SetIconShapeButton(viewStore, iconShape: .circle, systemName: "circle.fill")
+                        SetIconShapeButton(viewStore, iconShape: .none, systemName: "circle.dashed")
+                    }
+                    Divider()
+                    
+                    ColorPicker("Color",
+                        selection: viewStore.binding(
+                            get: \.selectedBackgroundColor,
+                            send: AppAction.setSelectedBackgroundColor))
 
-                Toggle(isOn: viewStore.binding(
-                        get: \.selectedIconShadow,
-                        send: AppAction.setSelectedIconShadow)) {
-                    Text("Icon Shadow")
+                    Toggle(isOn: viewStore.binding(
+                            get: \.selectedIconShadow,
+                            send: AppAction.setSelectedIconShadow)) {
+                        Text("Icon Shadow")
+                    }
+                    
+                    Toggle(isOn: viewStore.binding(
+                            get: \.selectedShapeShadow,
+                            send: AppAction.setSelectedShapeShadow)) {
+                        Text("Shape Shadow")
+                    }
+                    
+                    Button("Remove Changes",
+                        action: { viewStore.send(.removeChanges) })
+                    
+                    Button("Apply Changes",
+                           action: { viewStore.send(.applyChanges) })
+                    
                 }
-                
-                Toggle(isOn: viewStore.binding(
-                        get: \.selectedShapeShadow,
-                        send: AppAction.setSelectedShapeShadow)) {
-                    Text("Shape Shadow")
-                }
-                
-                Button("Remove Changes",
-                    action: { viewStore.send(.removeChanges) })
-                
-                Button("Apply Changes",
-                       action: { viewStore.send(.applyChanges) })
                 
             }
             .padding()
@@ -66,7 +82,7 @@ struct ThemeDetailView: View {
                 .resizable()
                 .scaledToFill()
                 .foregroundColor(viewStore.selectedIconShape == iconShape ? .accentColor : .gray)
-                .frame(width: 40, height: 40)
+                .frame(width: 35, height: 35)
             }
             .buttonStyle(PlainButtonStyle())
         )
