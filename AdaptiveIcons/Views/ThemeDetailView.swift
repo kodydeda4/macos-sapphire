@@ -34,7 +34,6 @@ struct ThemeDetailView: View {
                         Spacer()
                         ApplyButtons(viewStore)
                     }
-                    Text(viewStore.numberOfIconsSelected.description)
                     Spacer()
                 }
             }
@@ -96,8 +95,6 @@ struct ThemeDetailView: View {
         })
     }
     
-    
-    
     private func IconPreviewView(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
         var icon  = Image(systemName: "scribble.variable")
         var label = Text("Preview")
@@ -112,24 +109,24 @@ struct ThemeDetailView: View {
         return AnyView(VStack {
             ZStack {
                 Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill")
-                    .resizable()
-                    .scaledToFill()
-                    .foregroundColor(
-                        viewStore.selectedBackgroundColor
-                            .opacity(
-                                viewStore.selectedIconShape != nil
-                                    ? 1
-                                    : 0
-                            )
-                    )
-                    .shadow(
-                        color: Color.black.opacity(
-                            viewStore.shapeShadow
-                                ? 0.25
-                                : 0
-                        ),
-                        radius: 1.6, y: 2.0)
-                    .background(Color.red)
+                .resizable()
+                .scaledToFill()
+                .foregroundColor(
+                    viewStore.selectedBackgroundColor.opacity(
+                        viewStore.selectedIconShape != nil
+                            ? 1
+                            : 0
+                ))
+                .shadow(color: Color.black.opacity(
+                        viewStore.shapeShadow
+                            ? 0.25
+                            : 0
+                    ),
+                    radius: 1.6,
+                    y: 2.0
+                )
+                .frame(width: 100, height: 100)
+                
                 
                 icon
                     .resizable()
@@ -148,9 +145,10 @@ struct ThemeDetailView: View {
                                         : 0
                             ),
                         radius: 1.6,
-                        y: 2.0)
+                        y: 2.0
+                    )
+                    .frame(width: 100, height: 100)
             }
-            
             .frame(width: 100, height: 100)
             
             label
@@ -158,6 +156,7 @@ struct ThemeDetailView: View {
                 .multilineTextAlignment(.center)
                 .padding(3)
         }
+        
         .padding(.vertical))
     }
     
@@ -198,9 +197,10 @@ struct ThemeDetailView: View {
                                     : 0
                             )
                         )
-                        .shadow(color: Color.black
-                                    .opacity(0.6),
-                                radius: 2)
+                        .shadow(
+                            color: Color.black.opacity(0.6),
+                            radius: 2
+                        )
                 }
             }
             .buttonStyle(BorderlessButtonStyle())

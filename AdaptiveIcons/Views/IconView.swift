@@ -24,6 +24,7 @@ struct IconView: View {
             Button(action: { viewStore.send(.toggleSelected(icon)) }) {
                 VStack(alignment: .center, spacing: 3) {
                     ZStack {
+                        
                         // Shape
                         Image(systemName: icon.shape?.rawValue ?? "circle")
                             .resizable()
@@ -31,8 +32,6 @@ struct IconView: View {
                             .foregroundColor(icon.shape != nil ? icon.backgroundColor : .clear)
                             .padding(icon.shape != nil ? 5 : 0)
                             .shadow(color: Color.black.opacity(icon.shapeShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
-                            
-                        
                         
                         // Icon
                         Image(nsImage: icon.appIcon)
@@ -42,6 +41,7 @@ struct IconView: View {
                             .shadow(color: Color.black.opacity(icon.iconShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
                     }
                     .frame(width: 60, height: 60)
+                    
 
                     // Icon Text
                     Text(icon.name)
