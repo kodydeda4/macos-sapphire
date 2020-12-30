@@ -12,6 +12,7 @@ import SwiftUI
 struct AppState: Equatable {
     var icons = [Icon]()
     var search: String = ""
+    var isSearching = false
     var numberOfIconsSelected = 0
     var selectedIconShape: IconShape? = .roundedRectangle
     var selectedBackgroundColor: Color = .white
@@ -23,6 +24,8 @@ struct AppState: Equatable {
 
 enum AppAction {
     case loadIcons
+    case clearSearch
+    case toggleIsSearching
     case toggleSelected(Icon)
     case selectAll
     case setSelectedBackgroundColor(Color)
@@ -135,6 +138,14 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             
         case .toggleShowingExpandedSearchBar:
             state.showingExpandedSearchBar.toggle()
+            return .none
+        
+        case .toggleIsSearching:
+            state.isSearching.toggle()
+            return .none
+            
+        case .clearSearch:
+            state.search = ""
             return .none
         }
     }

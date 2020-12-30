@@ -10,9 +10,31 @@ import Combine
 import ComposableArchitecture
 import Grid
 
-
 struct ThemePrimaryView: View {
     let store: Store<AppState, AppAction>
+    
+    private func Searchbar(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
+        AnyView(ZStack {
+            TextField("Search", text: viewStore.binding(get: \.search, send: AppAction.searchEntry))
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            if viewStore.search.count > 0 {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        viewStore.send(.clearSearch)
+                        viewStore.send(.toggleShowingExpandedSearchBar)
+                        
+                    }) {
+                        Image(systemName: "multiply.circle.fill")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .foregroundColor(.gray)
+                }.padding(.horizontal, 6)
+            }
+            }.frame(minWidth: 60.0, idealWidth: 200.0, maxWidth: 200.0)
+        )
+    }
     
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -33,11 +55,11 @@ struct ThemePrimaryView: View {
                 }
                 ToolbarItem {
                     if viewStore.showingExpandedSearchBar {
-                        TextField("Search", text: viewStore.binding(get: \.search, send: AppAction.searchEntry))
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .frame(minWidth: 60.0, idealWidth: 200.0, maxWidth: 200.0)
-                            .focusable()
-                    } else {
+                        Searchbar(viewStore)
+                            .transition(.slide)
+                            .animation(.default)
+                    }
+                    else {
                         Button(action: { viewStore.send(.toggleShowingExpandedSearchBar) }) {
                             Image(systemName: "magnifyingglass")
                         }
@@ -47,6 +69,7 @@ struct ThemePrimaryView: View {
         }
     }
 }
+
 
 struct ThemePrimaryView_Previews: PreviewProvider {
     static var previews: some View {
