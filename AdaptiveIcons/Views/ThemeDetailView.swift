@@ -114,6 +114,8 @@ struct ThemeDetailView: View {
     private func IconPreviewView(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
         
         var icon = Image(systemName: "scribble.variable")
+//        var icon = Image(systemName: "ellipsis")
+        
         var label = Text("Preview")
         
         if viewStore.numberOfIconsSelected == 1 {

@@ -35,8 +35,8 @@ struct ThemePrimaryView: View {
                     }.padding(.horizontal, 6)
                 }
             }
-            
             .frame(minWidth: viewStore.isSearching ? 60.0 : 0.0, idealWidth: 200.0, maxWidth: 200.0)
+            .animation(.easeIn)
         )
     }
     
@@ -58,35 +58,36 @@ struct ThemePrimaryView: View {
                         Text("Select All")
                     }
                 }
-                ToolbarItem {
-                    if viewStore.showingExpandedSearchBar {
-                        HStack {
-                            TextField(
-                                "Search",
-                                text: viewStore.binding(get: \.search, send: AppAction.searchEntry))
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                            
-                            Button(action: {
-                                viewStore.send(.clearSearch)
-                                viewStore.send(.toggleShowingExpandedSearchBar)
-                            }) {
-                                Image(systemName: "multiply.circle.fill")
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            .foregroundColor(.gray)
-                        }
-                        .frame(minWidth: 60.0, idealWidth: 200.0, maxWidth: 200.0)
-                        
-                    }
-                }
-                ToolbarItem {
-                    if !viewStore.showingExpandedSearchBar {
-                        Button(action: { viewStore.send(.toggleShowingExpandedSearchBar) }) {
-                            Image(systemName: "magnifyingglass")
-
-                        }
-                    }
-                }
+                ToolbarItem { Searchbar(viewStore) }
+//                ToolbarItem {
+//                    if viewStore.showingExpandedSearchBar {
+//                        HStack {
+//                            TextField(
+//                                "Search",
+//                                text: viewStore.binding(get: \.search, send: AppAction.searchEntry))
+//                                .textFieldStyle(RoundedBorderTextFieldStyle())
+//
+//                            Button(action: {
+//                                viewStore.send(.clearSearch)
+//                                viewStore.send(.toggleShowingExpandedSearchBar)
+//                            }) {
+//                                Image(systemName: "multiply.circle.fill")
+//                            }
+//                            .buttonStyle(PlainButtonStyle())
+//                            .foregroundColor(.gray)
+//                        }
+//                        .frame(minWidth: 60.0, idealWidth: 200.0, maxWidth: 200.0)
+//
+//                    }
+//                }
+//                ToolbarItem {
+//                    if !viewStore.showingExpandedSearchBar {
+//                        Button(action: { viewStore.send(.toggleShowingExpandedSearchBar) }) {
+//                            Image(systemName: "magnifyingglass")
+//
+//                        }
+//                    }
+//                }
             })
         }
     }
