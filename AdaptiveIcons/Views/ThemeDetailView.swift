@@ -16,34 +16,19 @@ struct ThemeDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .center) {
+                
                 if viewStore.numberOfIconsSelected == 0 {
                     Text("No Selection")
                         .font(.title)
                         .foregroundColor(Color(NSColor.placeholderTextColor))
+                    
                 } else {
                     IconPreviewView(viewStore)
-                    //                    if viewStore.numberOfIconsSelected == 1 {
-                    //                        let icon = viewStore.icons.filter(\.selected).first!
-                    //                        IconPreviewView(
-                    //                            viewStore,
-                    //                            image: Image(nsImage: icon.appIcon),
-                    //                            text: icon.name,
-                    //                            displayingIcon: true
-                    //                        )
-                    //                    } else {
-                    //                        IconPreviewView(
-                    //                            viewStore,
-                    //                            image: Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill"),
-                    //                            text: "Preview",
-                    //                            displayingIcon: false
-                    //                        )
-                    //                    }
-                    
                     Divider()
                     VStack {
-                        IconShapeButtons(viewStore)
+                        IconShapeSetterButtons(viewStore)
                         Divider()
-                        ColorSelectionButtons(viewStore)
+                        BackgroundColorSettorButttons(viewStore)
                         Divider()
                         ShadowToggles(viewStore)
                         Spacer()
@@ -57,7 +42,7 @@ struct ThemeDetailView: View {
         }
     }
     
-    private func IconShapeButtons(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
+    private func IconShapeSetterButtons(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
         AnyView(HStack {
             SetIconShapeButton(viewStore, iconShape: .roundedRectangle, systemName: "app.fill")
             SetIconShapeButton(viewStore, iconShape: .circle, systemName: "circle.fill")
@@ -65,9 +50,11 @@ struct ThemeDetailView: View {
         })
     }
     
-    private func ColorSelectionButtons(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
+    private func BackgroundColorSettorButttons(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
         AnyView(HStack {
-            ForEach([Color.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white], id: \.self) { color in
+            ForEach([Color
+                        .blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white
+            ], id: \.self) { color in
                 SetBackgroundColorButton(viewStore, color: color)
             }
         })
@@ -77,13 +64,13 @@ struct ThemeDetailView: View {
         AnyView(
             VStack(alignment: .leading) {
                 Toggle(isOn: viewStore.binding(
-                        get: \.selectedIconShadow,
-                        send: AppAction.setSelectedIconShadow)) {
+                        get: \.iconShadow,
+                        send: AppAction.toggleIconShadow)) {
                     Text("Icon Shadow")
                 }
                 Toggle(isOn: viewStore.binding(
-                        get: \.selectedShapeShadow,
-                        send: AppAction.setSelectedShapeShadow)) {
+                        get: \.shapeShadow,
+                        send: AppAction.toggleShapeShadow)) {
                     Text("Background Shadow")
                 }
             })
@@ -112,10 +99,7 @@ struct ThemeDetailView: View {
     
     
     private func IconPreviewView(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
-        
-        var icon = Image(systemName: "scribble.variable")
-//        var icon = Image(systemName: "ellipsis")
-        
+        var icon  = Image(systemName: "scribble.variable")
         var label = Text("Preview")
         
         if viewStore.numberOfIconsSelected == 1 {
@@ -125,23 +109,48 @@ struct ThemeDetailView: View {
             }
         }
         
-        // Icon Preview
         return AnyView(VStack {
             ZStack {
                 Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill")
                     .resizable()
                     .scaledToFill()
-                    .foregroundColor(viewStore.selectedBackgroundColor.opacity(viewStore.selectedIconShape != nil ? 1 : 0))
-                    .shadow(color: Color.black.opacity(viewStore.selectedShapeShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
+                    .foregroundColor(
+                        viewStore.selectedBackgroundColor
+                            .opacity(
+                                viewStore.selectedIconShape != nil
+                                    ? 1
+                                    : 0
+                            )
+                    )
+                    .shadow(
+                        color: Color.black.opacity(
+                            viewStore.shapeShadow
+                                ? 0.25
+                                : 0
+                        ),
+                        radius: 1.6, y: 2.0)
+                    .background(Color.red)
                 
                 icon
                     .resizable()
                     .scaledToFill()
                     .padding()
-                    .foregroundColor([.white, .black].contains(viewStore.selectedBackgroundColor) ? Color.accentColor : .white)
-                    .shadow(color: Color.black.opacity(viewStore.selectedIconShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
-                
+                    .foregroundColor(
+                        [.white, .black]
+                            .contains(viewStore.selectedBackgroundColor)
+                            ? Color.accentColor
+                            : .white
+                    )
+                    .shadow(
+                        color: Color.black
+                            .opacity(viewStore.iconShadow
+                                        ? 0.25
+                                        : 0
+                            ),
+                        radius: 1.6,
+                        y: 2.0)
             }
+            
             .frame(width: 100, height: 100)
             
             label
@@ -162,7 +171,11 @@ struct ThemeDetailView: View {
                 Image(systemName: systemName)
                     .resizable()
                     .scaledToFill()
-                    .foregroundColor(viewStore.selectedIconShape == iconShape ? .accentColor : .gray)
+                    .foregroundColor(
+                        viewStore.selectedIconShape == iconShape
+                            ? .accentColor
+                            : .gray
+                    )
                     .frame(width: 30, height: 30)
             }
             .buttonStyle(PlainButtonStyle())
@@ -178,8 +191,16 @@ struct ThemeDetailView: View {
                         .frame(width: 15, height: 15)
                     Circle()
                         .frame(width: 6, height: 6)
-                        .foregroundColor(Color.white.opacity(viewStore.selectedBackgroundColor == color ? 1 : 0))
-                        .shadow(color: Color.black.opacity(0.6), radius: 2)
+                        .foregroundColor(
+                            Color.white.opacity(
+                                viewStore.selectedBackgroundColor == color
+                                    ? 1
+                                    : 0
+                            )
+                        )
+                        .shadow(color: Color.black
+                                    .opacity(0.6),
+                                radius: 2)
                 }
             }
             .buttonStyle(BorderlessButtonStyle())

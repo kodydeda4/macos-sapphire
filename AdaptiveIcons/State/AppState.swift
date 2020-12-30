@@ -16,8 +16,8 @@ struct AppState: Equatable {
     var numberOfIconsSelected = 0
     var selectedIconShape: IconShape? = .roundedRectangle
     var selectedBackgroundColor: Color = .white
-    var selectedShapeShadow: Bool = true
-    var selectedIconShadow: Bool = false
+    var shapeShadow: Bool = true
+    var iconShadow: Bool = false
     var allSelected = false
     var showingExpandedSearchBar = false
 }
@@ -30,8 +30,8 @@ enum AppAction {
     case selectAll
     case setSelectedBackgroundColor(Color)
     case setSelectedIconShape(IconShape?)
-    case setSelectedShapeShadow(Bool)
-    case setSelectedIconShadow(Bool)
+    case toggleShapeShadow(Bool)
+    case toggleIconShadow(Bool)
     case searchEntry(String)
     case applyChanges
     case removeChanges
@@ -77,8 +77,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 if item.selected {
                     item.shape = state.selectedIconShape
                     item.backgroundColor = state.selectedBackgroundColor
-                    item.iconShadow = state.selectedIconShadow
-                    item.shapeShadow = state.selectedShapeShadow   
+                    item.iconShadow = state.iconShadow
+                    item.shapeShadow = state.shapeShadow   
                 }
 
                 partial.append(item)
@@ -124,12 +124,12 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             }
             return .none
             
-        case let .setSelectedShapeShadow(selection):
-            state.selectedShapeShadow = selection
+        case let .toggleShapeShadow(selection):
+            state.shapeShadow = selection
             return .none
             
-        case let .setSelectedIconShadow(selection):
-            state.selectedIconShadow = selection
+        case let .toggleIconShadow(selection):
+            state.iconShadow = selection
             return .none
         
         case let .searchEntry(text):
