@@ -31,7 +31,8 @@ struct IconView: View {
                             .foregroundColor(icon.shape != nil ? icon.backgroundColor : .clear)
                             .padding(icon.shape != nil ? 5 : 0)
                             .shadow(color: Color.black.opacity(icon.shapeShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
-
+                            
+                        
                         
                         // Icon
                         Image(nsImage: icon.appIcon)
@@ -52,11 +53,13 @@ struct IconView: View {
                 .padding(5)
                 .frame(width: 100, height: 100, alignment: .top)
             }
+            
             .overlay(
                 RoundedRectangle(cornerRadius: 6)
                     .stroke(lineWidth: 1)
-                    .foregroundColor(selectionColor(viewStore)).opacity(0.5))
-            
+                    .foregroundColor(selectionColor(viewStore)).opacity(0.5)
+                    
+            )
             .buttonStyle(BorderlessButtonStyle())
             .onAppear { iddlog("body \(icon.name)") }
         }

@@ -14,25 +14,29 @@ struct ThemePrimaryView: View {
     let store: Store<AppState, AppAction>
     
     private func Searchbar(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
-        AnyView(ZStack {
-            TextField("Search", text: viewStore.binding(get: \.search, send: AppAction.searchEntry))
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            if viewStore.search.count > 0 {
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        viewStore.send(.clearSearch)
-                        viewStore.send(.toggleShowingExpandedSearchBar)
-                        
-                    }) {
-                        Image(systemName: "multiply.circle.fill")
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    .foregroundColor(.gray)
-                }.padding(.horizontal, 6)
+        AnyView(
+            ZStack {
+                TextField(
+                    "Search",
+                    text: viewStore.binding(get: \.search, send: AppAction.searchEntry))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                if viewStore.search.count > 0 {
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            viewStore.send(.clearSearch)
+                            viewStore.send(.toggleShowingExpandedSearchBar)
+                        }) {
+                            Image(systemName: "multiply.circle.fill")
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .foregroundColor(.gray)
+                    }.padding(.horizontal, 6)
+                }
             }
-            }.frame(minWidth: 60.0, idealWidth: 200.0, maxWidth: 200.0)
+            
+            .frame(minWidth: viewStore.isSearching ? 60.0 : 0.0, idealWidth: 200.0, maxWidth: 200.0)
         )
     }
     
@@ -45,7 +49,8 @@ struct ThemePrimaryView: View {
                 ){ icon in
                     IconView(store: store, icon: icon)
                 }.padding(16)
-            }.toolbar(content: {
+            }
+            .toolbar(content: {
                 ToolbarItem {
                     Toggle(isOn: viewStore.binding(
                             get: \.allSelected,
@@ -55,13 +60,30 @@ struct ThemePrimaryView: View {
                 }
                 ToolbarItem {
                     if viewStore.showingExpandedSearchBar {
-                        Searchbar(viewStore)
-                            .transition(.slide)
-                            .animation(.default)
+                        HStack {
+                            TextField(
+                                "Search",
+                                text: viewStore.binding(get: \.search, send: AppAction.searchEntry))
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            
+                            Button(action: {
+                                viewStore.send(.clearSearch)
+                                viewStore.send(.toggleShowingExpandedSearchBar)
+                            }) {
+                                Image(systemName: "multiply.circle.fill")
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .foregroundColor(.gray)
+                        }
+                        .frame(minWidth: 60.0, idealWidth: 200.0, maxWidth: 200.0)
+                        
                     }
-                    else {
+                }
+                ToolbarItem {
+                    if !viewStore.showingExpandedSearchBar {
                         Button(action: { viewStore.send(.toggleShowingExpandedSearchBar) }) {
                             Image(systemName: "magnifyingglass")
+
                         }
                     }
                 }

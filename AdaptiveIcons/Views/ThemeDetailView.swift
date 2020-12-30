@@ -21,9 +21,24 @@ struct ThemeDetailView: View {
                         .font(.title)
                         .foregroundColor(Color(NSColor.placeholderTextColor))
                 } else {
-                    IconPreviewView(
-                        viewStore,
-                        image: Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill"))
+                    IconPreviewView(viewStore)
+                    //                    if viewStore.numberOfIconsSelected == 1 {
+                    //                        let icon = viewStore.icons.filter(\.selected).first!
+                    //                        IconPreviewView(
+                    //                            viewStore,
+                    //                            image: Image(nsImage: icon.appIcon),
+                    //                            text: icon.name,
+                    //                            displayingIcon: true
+                    //                        )
+                    //                    } else {
+                    //                        IconPreviewView(
+                    //                            viewStore,
+                    //                            image: Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill"),
+                    //                            text: "Preview",
+                    //                            displayingIcon: false
+                    //                        )
+                    //                    }
+                    
                     Divider()
                     VStack {
                         IconShapeButtons(viewStore)
@@ -71,7 +86,7 @@ struct ThemeDetailView: View {
                         send: AppAction.setSelectedShapeShadow)) {
                     Text("Background Shadow")
                 }
-        })
+            })
     }
     
     private func ApplyButtons(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
@@ -96,32 +111,43 @@ struct ThemeDetailView: View {
     
     
     
-    private func IconPreviewView(_ viewStore: ViewStore<AppState, AppAction>, image: Image) -> AnyView {
+    private func IconPreviewView(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
+        
+        var icon = Image(systemName: "scribble.variable")
+        var label = Text("Preview")
+        
+        if viewStore.numberOfIconsSelected == 1 {
+            if let iconData = viewStore.icons.filter(\.selected).first {
+                label = Text(iconData.name)
+                icon = Image(nsImage: iconData.appIcon)
+            }
+        }
+        
         // Icon Preview
-        AnyView(VStack {
+        return AnyView(VStack {
             ZStack {
-                // Shape
-                image//Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill")
+                Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill")
                     .resizable()
                     .scaledToFill()
                     .foregroundColor(viewStore.selectedBackgroundColor.opacity(viewStore.selectedIconShape != nil ? 1 : 0))
                     .shadow(color: Color.black.opacity(viewStore.selectedShapeShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
                 
-                // Icon
-                Image(systemName: "scribble.variable")
+                icon
                     .resizable()
                     .scaledToFill()
                     .padding()
                     .foregroundColor([.white, .black].contains(viewStore.selectedBackgroundColor) ? Color.accentColor : .white)
                     .shadow(color: Color.black.opacity(viewStore.selectedIconShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
+                
             }
             .frame(width: 100, height: 100)
-            // Text
-            Text("Preview")
+            
+            label
                 .font(.system(size: 14, weight: .regular))
                 .multilineTextAlignment(.center)
                 .padding(3)
-        }.padding(.vertical))
+        }
+        .padding(.vertical))
     }
     
     private func SetIconShapeButton(
@@ -131,7 +157,6 @@ struct ThemeDetailView: View {
         
         return AnyView(
             Button(action: { viewStore.send(.setSelectedIconShape(iconShape)) }) {
-                
                 Image(systemName: systemName)
                     .resizable()
                     .scaledToFill()
