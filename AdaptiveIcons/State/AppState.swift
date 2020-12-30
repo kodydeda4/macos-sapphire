@@ -11,13 +11,14 @@ import SwiftUI
 
 struct AppState: Equatable {
     var icons = [Icon]()
-    
+    var search: String = ""
     var numberOfIconsSelected = 0
     var selectedIconShape: IconShape? = .roundedRectangle
     var selectedBackgroundColor: Color = .white
     var selectedShapeShadow: Bool = true
     var selectedIconShadow: Bool = false
     var allSelected = false
+    var showingExpandedSearchBar = false
 }
 
 enum AppAction {
@@ -28,9 +29,10 @@ enum AppAction {
     case setSelectedIconShape(IconShape?)
     case setSelectedShapeShadow(Bool)
     case setSelectedIconShadow(Bool)
-    
+    case searchEntry(String)
     case applyChanges
     case removeChanges
+    case toggleShowingExpandedSearchBar
 }
 
 struct AppEnvironment {
@@ -125,6 +127,14 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             
         case let .setSelectedIconShadow(selection):
             state.selectedIconShadow = selection
+            return .none
+        
+        case let .searchEntry(text):
+            state.search = text
+            return.none
+            
+        case .toggleShowingExpandedSearchBar:
+            state.showingExpandedSearchBar.toggle()
             return .none
         }
     }
