@@ -11,6 +11,7 @@ import SwiftUI
 
 struct AppState: Equatable {
     var icons = [Icon]()
+    
     var selectedIconShape: IconShape? = .roundedRectangle
     var selectedBackgroundColor: Color = .white
     var selectedShapeShadow: Bool = true
@@ -74,13 +75,13 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             
         case let .setSelectedIconShape(iconShape):
             state.selectedIconShape = iconShape
+            
             return .none
             
         case let .setSelectedBackgroundColor(color):
             state.selectedBackgroundColor = color
-            return .none
             
-
+            return .none
             
         case .removeChanges:
             state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in

@@ -17,7 +17,7 @@ struct ContentView: View {
             SidebarView()
             ThemePrimaryView(store: store)
             ThemeDetailView(store: store)
-        }
+        }.frame(width: 1920/2, height: 1080/2)
     }
 }
 
