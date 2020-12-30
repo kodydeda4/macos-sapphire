@@ -16,18 +16,27 @@ struct ThemeDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .center) {
-                IconPreviewView(viewStore)
-                Divider()
-                VStack {
-                    IconShapeButtons(viewStore)
+                if viewStore.numberOfIconsSelected == 0 {
+                    Text("No Selection")
+                        .font(.title)
+                        .foregroundColor(Color(NSColor.placeholderTextColor))
+                } else {
+                    IconPreviewView(
+                        viewStore,
+                        image: Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill"))
                     Divider()
-                    ColorSelectionButtons(viewStore)
-                    Divider()
-                    ShadowToggles(viewStore)
+                    VStack {
+                        IconShapeButtons(viewStore)
+                        Divider()
+                        ColorSelectionButtons(viewStore)
+                        Divider()
+                        ShadowToggles(viewStore)
+                        Spacer()
+                        ApplyButtons(viewStore)
+                    }
+                    Text(viewStore.numberOfIconsSelected.description)
                     Spacer()
-                    ApplyButtons(viewStore)
                 }
-                Spacer()
             }
             .padding()
         }
@@ -87,12 +96,12 @@ struct ThemeDetailView: View {
     
     
     
-    private func IconPreviewView(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
+    private func IconPreviewView(_ viewStore: ViewStore<AppState, AppAction>, image: Image) -> AnyView {
         // Icon Preview
         AnyView(VStack {
             ZStack {
                 // Shape
-                Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill")
+                image//Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill")
                     .resizable()
                     .scaledToFill()
                     .foregroundColor(viewStore.selectedBackgroundColor.opacity(viewStore.selectedIconShape != nil ? 1 : 0))

@@ -12,6 +12,7 @@ import SwiftUI
 struct AppState: Equatable {
     var icons = [Icon]()
     
+    var numberOfIconsSelected = 0
     var selectedIconShape: IconShape? = .roundedRectangle
     var selectedBackgroundColor: Color = .white
     var selectedShapeShadow: Bool = true
@@ -56,6 +57,12 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             guard let index = state.icons.firstIndex(of: icon)
             else { return .none }
             state.icons[index].selected.toggle()
+            
+            if state.icons[index].selected == true {
+                state.numberOfIconsSelected += 1
+            } else {
+                state.numberOfIconsSelected -= 1
+            }
             return .none
 
         case .applyChanges:
@@ -105,6 +112,11 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 partial.append(item)
             }
             state.allSelected.toggle()
+            if state.allSelected == true {
+                state.numberOfIconsSelected = state.icons.count
+            } else {
+                state.numberOfIconsSelected = 0
+            }
             return .none
             
         case let .setSelectedShapeShadow(selection):
