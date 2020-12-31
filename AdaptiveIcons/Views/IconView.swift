@@ -11,7 +11,6 @@ import ComposableArchitecture
 import Grid
 
 
-
 struct IconView: View {
     let store: Store<AppState, AppAction>
     var icon: Icon
@@ -20,7 +19,7 @@ struct IconView: View {
 //        IconDetailView(store: store, iconFrameWidth: 60, iconFrameHeight: 60)
         
         WithViewStore(store) { viewStore in
-            Button(action: { viewStore.send(.toggleSelected(icon)) }) {
+            Button(action: { viewStore.send(.selectedIconAction(.toggleSelected(icon))) }) {
                 VStack(alignment: .center, spacing: 3) {
                     ZStack {
                         
@@ -69,7 +68,7 @@ struct IconView: View {
     }
     
     private func isSelected(_ viewStore: ViewStore<AppState, AppAction>) -> Bool {
-        viewStore.icons.filter(\.selected).contains(icon)
+        viewStore.selectedIconState.icons.firstIndex(of: icon) != nil
     }
 }
 
@@ -78,6 +77,6 @@ struct IconView_Previews: PreviewProvider {
         var icon = Icon(path: "/Applications/Pages.app")
         
         icon.shape = .roundedRectangle
-        return IconView(store: defaultStore, icon: icon)
+        return IconView(store: AppState.defaultStore, icon: icon)
     }
 }

@@ -11,13 +11,12 @@ import Grid
 import Combine
 
 struct ThemeDetailView: View {
-    let store: Store<AppState, AppAction>
+    let store: Store<SelectedIconState, SelectedIconAction>
     
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .center) {
-                
-                if viewStore.icons.filter(\.selected).count == 0 {
+                if viewStore.icons.isEmpty {
                     Text("No Selection")
                         .font(.title)
                         .foregroundColor(Color(NSColor.placeholderTextColor))
@@ -28,7 +27,6 @@ struct ThemeDetailView: View {
                         iconFrameHeight: 100,
                         iconImage: viewStore.iconDetailViewImage,
                         iconText: viewStore.iconDetailViewText)
-                    
                     Divider()
                     VStack {
                         HStack {
@@ -39,7 +37,7 @@ struct ThemeDetailView: View {
                                     action: { viewStore.send(.setSelectedIconShape(iconShape)) })
                             }
                         }
-                        
+
                         Divider()
                         HStack {
                             ForEach(viewStore.iconBackgroundColors, id: \.self) { color in
@@ -54,12 +52,12 @@ struct ThemeDetailView: View {
                         VStack(alignment: .leading) {
                             Toggle(isOn: viewStore.binding(
                                     get: \.iconShadow,
-                                    send: AppAction.toggleIconShadow)) {
+                                    send: SelectedIconAction.toggleIconShadow)) {
                                 Text("Icon Shadow")
                             }
                             Toggle(isOn: viewStore.binding(
                                     get: \.shapeShadow,
-                                    send: AppAction.toggleShapeShadow)) {
+                                    send: SelectedIconAction.toggleShapeShadow)) {
                                 Text("Background Shadow")
                             }
                         }
@@ -67,7 +65,7 @@ struct ThemeDetailView: View {
                         HStack {
                             Button("Reset", action: { viewStore.send(.removeChanges) })
                                 .buttonStyle(RoundedRectangleButtonStyle())
-                            
+
                             Button("Apply Changes", action: { viewStore.send(.applyChanges) })
                                 .buttonStyle(RoundedRectangleButtonStyle())
                         }
@@ -86,6 +84,6 @@ struct ThemeDetailView: View {
 
 struct ThemeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ThemeDetailView(store: defaultStore)
+        ThemeDetailView(store: SelectedIconState.defaultStore)
     }
 }
