@@ -32,12 +32,13 @@ struct ThemeDetailView: View {
                     VStack {
                         HStack {
                             ForEach(IconShape.allCases, id: \.self) { iconShape in
-                                IconShapeButton(
+                                IconButtonShape(
+                                    store: store,
                                     iconShape: iconShape,
-                                    systemName: iconShape.rawValue,
                                     action: { viewStore.send(.setSelectedIconShape(iconShape)) })
                             }
                         }
+                        
                         Divider()
                         HStack {
                             ForEach(viewStore.iconBackgroundColors, id: \.self) { color in
@@ -63,10 +64,10 @@ struct ThemeDetailView: View {
                         Spacer()
                         HStack {
                             Button("Reset", action: { viewStore.send(.removeChanges) })
-                                .buttonStyle(ThiccButtonStyle())
+                                .buttonStyle(RoundedRectangleButtonStyle())
                             
                             Button("Apply Changes", action: { viewStore.send(.applyChanges) })
-                                .buttonStyle(ThiccButtonStyle())
+                                .buttonStyle(RoundedRectangleButtonStyle())
                         }
                     }
                     Spacer()
@@ -99,8 +100,6 @@ struct ThemeDetailView: View {
         )
     }
 
-    
-//
     private func SetBackgroundColorButton(
         color: Color,
         action: @escaping () -> Void) -> AnyView {
@@ -132,7 +131,7 @@ struct ThemeDetailView: View {
 }
 
 
-struct ThiccButtonStyle: ButtonStyle {
+struct RoundedRectangleButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .buttonStyle(PlainButtonStyle())
@@ -142,6 +141,33 @@ struct ThiccButtonStyle: ButtonStyle {
             .clipShape(RoundedRectangle(cornerRadius: 5))
     }
 }
+
+struct IconButtonShape: View {
+    let store: Store<AppState, AppAction>
+    var iconShape: IconShape
+    var action: () -> Void
+    
+    var body: some View {
+        WithViewStore(store) { viewStore in
+            Button(action: action) {
+                Image(systemName: iconShape.rawValue)
+                    .resizable()
+                    .scaledToFill()
+                    .foregroundColor(
+                        viewStore.selectedIconShape == iconShape
+                            ? .accentColor
+                            : .gray
+                    )
+                    .frame(width: 30, height: 30)
+            }
+        .buttonStyle(PlainButtonStyle())
+        }
+    }
+}
+
+
+
+
 
 struct ThemeDetailView_Previews: PreviewProvider {
     static var previews: some View {
