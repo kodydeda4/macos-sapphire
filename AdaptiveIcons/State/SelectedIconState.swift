@@ -54,18 +54,25 @@ let selectedIconReducer = Reducer<SelectedIconState, SelectedIconAction, Selecte
         case let .toggleSelected(icon):
             var icons = Set(state.icons)
             
-            icons.insert(icon)
-            state.icons = Array(icons)
+            if icons.contains(icon) {
+                icons.remove(icon)
+            } else {
+                icons.insert(icon)
+            }
             
-//            // Update state.icons
-//            guard let index = state.icons.firstIndex(of: icon)
-//            else { return .none }
-//            state.icons[index].selected.toggle()
-//
+            state.icons = Array(icons)
             return .none
 
         // MARK:- ThemeDetailView
         case .applyChanges:
+//            state.icons = state.icons.map {
+//                $0.shape = state.selectedIconShape
+//                $0.backgroundColor = state.selectedBackgroundColor
+//                $0.iconShadow = state.iconShadow
+//                $0.shapeShadow = state.shapeShadow
+//            }
+
+            
 //            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
 //                var item = nextItem
 //
