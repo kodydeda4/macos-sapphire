@@ -8,6 +8,12 @@
 import SwiftUI
 import ComposableArchitecture
 
+enum IconShape: String, CaseIterable {
+    case roundedRectangle = "app.fill"
+    case circle = "circle.fill"
+    case transparent = "circle.dashed"
+}
+
 struct IconShapeButton: View {
     let store: Store<AppState, AppAction>
     var iconShape: IconShape
@@ -33,10 +39,15 @@ struct IconShapeButton: View {
 
 struct IconShapeButton_Previews: PreviewProvider {
     static var previews: some View {
-        IconShapeButton(
-            store: defaultStore,
-            iconShape: .roundedRectangle,
-            action: {}
-        )
+        HStack {
+            ForEach(IconShape.allCases, id: \.self) { iconShape in
+                IconShapeButton(
+                    store: defaultStore,
+                    iconShape: iconShape,
+                    action: {}
+                )
+            }
+        }
+        .padding()
     }
 }

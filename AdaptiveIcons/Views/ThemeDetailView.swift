@@ -37,7 +37,6 @@ struct ThemeDetailView: View {
                                     action: { viewStore.send(.setSelectedIconShape(iconShape)) })
                             }
                         }
-                        
                         Divider()
                         HStack {
                             ForEach(viewStore.iconBackgroundColors, id: \.self) { color in

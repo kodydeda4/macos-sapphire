@@ -10,11 +10,7 @@ import Combine
 import ComposableArchitecture
 import Grid
 
-enum IconShape: String, CaseIterable {
-    case roundedRectangle = "app.fill"
-    case circle = "circle.fill"
-    case transparent = "circle.dashed"
-}
+
 
 struct IconView: View {
     let store: Store<AppState, AppAction>

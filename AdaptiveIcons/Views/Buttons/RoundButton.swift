@@ -41,10 +41,15 @@ struct RoundButton: View {
 
 struct RoundButton_Previews: PreviewProvider {
     static var previews: some View {
-        RoundButton(
-            store: defaultStore,
-            color: .red,
-            action: {}
-        )
+        HStack {
+            ForEach([Color.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white], id: \.self) { color in
+                RoundButton(
+                    store: defaultStore,
+                    color: color,
+                    action: {}
+                )
+            }
+        }
+        .padding()
     }
 }
