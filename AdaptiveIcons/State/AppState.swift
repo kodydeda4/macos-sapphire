@@ -17,7 +17,6 @@ struct AppState: Equatable {
     
     // ThemePrimaryView
     var search: String = ""
-    var isSearching = false
     var showingExpandedSearchBar = false
     
     // ThemeDetailView
@@ -35,7 +34,6 @@ enum AppAction {
     case loadIcons
     
     // ThemePrimaryView
-    case toggleIsSearching
     case toggleShowingExpandedSearchBar
     case searchEntry(String)
     case clearSearch
@@ -77,10 +75,6 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.search = ""
             return .none
             
-        case .toggleIsSearching:
-            state.isSearching.toggle()
-            return .none
-            
         case .toggleShowingExpandedSearchBar:
             state.showingExpandedSearchBar.toggle()
             return .none
@@ -115,6 +109,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case let .searchEntry(text):
             state.search = text
             return.none
+            
             
         // MARK:- ThemeDetailView
         case .applyChanges:

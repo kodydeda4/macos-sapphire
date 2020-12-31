@@ -16,6 +16,7 @@ struct ThemeDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .center) {
+                
                 if viewStore.icons.filter(\.selected).count == 0 {
                     Text("No Selection")
                         .font(.title)
@@ -37,6 +38,7 @@ struct ThemeDetailView: View {
                                     action: { viewStore.send(.setSelectedIconShape(iconShape)) })
                             }
                         }
+                        
                         Divider()
                         HStack {
                             ForEach(viewStore.iconBackgroundColors, id: \.self) { color in

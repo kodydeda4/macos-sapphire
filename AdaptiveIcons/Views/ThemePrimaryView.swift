@@ -18,12 +18,8 @@ struct ThemePrimaryView: View {
             ScrollView {
                 Grid(viewStore.search == ""
                         ? viewStore.icons
-                        : viewStore.icons.filter {
-                            $0.name
-                                .uppercased()
-                                .contains(viewStore.search.uppercased())
-                        }) { icon in
-                    IconView(store: store, icon: icon)
+                        : viewStore.icons.filter { $0.name.uppercased().contains(viewStore.search.uppercased())}) {
+                    icon in IconView(store: store, icon: icon)
                 }
                 .padding(16)
             }

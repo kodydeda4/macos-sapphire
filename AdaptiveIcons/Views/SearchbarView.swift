@@ -39,14 +39,11 @@ struct SearchbarView: View {
         WithViewStore(store) { viewStore in
             ZStack {
                 textfield
-                
                 if viewStore.search.count > 0 {
                     roundCancelButton
                 }
             }
-            .frame(minWidth: viewStore.isSearching
-                    ? 60.0
-                    : 0.0,
+            .frame(minWidth: 60,
                    idealWidth: 200.0,
                    maxWidth: 200.0)
         }
@@ -82,7 +79,7 @@ struct SearchbarView: View {
 }
 
 
-struct SearchbarVuew_Previews: PreviewProvider {
+struct SearchbarView_Previews: PreviewProvider {
     static var previews: some View {
         SearchbarView(store: defaultStore)
     }
