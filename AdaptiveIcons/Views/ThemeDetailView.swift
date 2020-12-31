@@ -16,29 +16,58 @@ struct ThemeDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .center) {
-                
                 if viewStore.icons.filter(\.selected).count == 0 {
                     Text("No Selection")
                         .font(.title)
                         .foregroundColor(Color(NSColor.placeholderTextColor))
-                    
                 } else {
-                    
-                    if viewStore.icons.filter(\.selected).count > 1 {
-                        IconDetailView(store: store, iconImage: Image(systemName: "scribble.variable"), iconText: "Preview")
-                    } else {
-                        IconDetailView(store: store, iconImage: Image(nsImage: viewStore.icons.filter(\.selected).first!.appIcon), iconText: viewStore.icons.filter(\.selected).first!.name)
-                    }
-                    
+                    IconDetailView(
+                        store: store,
+                        iconFrameWidth: 100,
+                        iconFrameHeight: 100,
+                        iconImage: viewStore.iconDetailViewImage,
+                        iconText: viewStore.iconDetailViewText
+                    )
                     Divider()
                     VStack {
-                        IconShapeSetterButtons(viewStore)
+                        HStack {
+                            ForEach(IconShape.allCases, id: \.self) { iconShape in
+                                IconShapeButton(
+                                    iconShape: iconShape,
+                                    systemName: iconShape.rawValue,
+                                    action: { viewStore.send(.setSelectedIconShape(iconShape)) })
+                            }
+                        }
                         Divider()
-                        BackgroundColorSettorButttons(viewStore)
+                        HStack {
+                            ForEach(viewStore.iconBackgroundColors, id: \.self) { color in
+                                SetBackgroundColorButton(
+                                    color: color,
+                                    action: { viewStore.send(.setSelectedBackgroundColor(color)) }
+                                )
+                            }
+                        }
                         Divider()
-                        ShadowToggles(viewStore)
+                        VStack(alignment: .leading) {
+                            Toggle(isOn: viewStore.binding(
+                                    get: \.iconShadow,
+                                    send: AppAction.toggleIconShadow)) {
+                                Text("Icon Shadow")
+                            }
+                            Toggle(isOn: viewStore.binding(
+                                    get: \.shapeShadow,
+                                    send: AppAction.toggleShapeShadow)) {
+                                Text("Background Shadow")
+                            }
+                        }
                         Spacer()
-                        ApplyButtons(viewStore)
+                        HStack {
+                            Button("Reset", action: { viewStore.send(.removeChanges) })
+                                .buttonStyle(ThiccButtonStyle())
+                            
+                            Button("Apply Changes", action: { viewStore.send(.applyChanges) })
+                                .buttonStyle(ThiccButtonStyle())
+                        }
                     }
                     Spacer()
                 }
@@ -47,117 +76,75 @@ struct ThemeDetailView: View {
         }
     }
     
-    private func IconShapeSetterButtons(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
-        AnyView(HStack {
-            SetIconShapeButton(viewStore, iconShape: .roundedRectangle, systemName: "app.fill")
-            SetIconShapeButton(viewStore, iconShape: .circle, systemName: "circle.fill")
-            SetIconShapeButton(viewStore, iconShape: .none, systemName: "circle.dashed")
-        })
-    }
-    
-    private func BackgroundColorSettorButttons(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
-        AnyView(HStack {
-            ForEach([Color
-                        .blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white
-            ], id: \.self) { color in
-                SetBackgroundColorButton(viewStore, color: color)
-            }
-        })
-    }
-    
-    private func ShadowToggles(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
-        AnyView(
-            VStack(alignment: .leading) {
-                Toggle(isOn: viewStore.binding(
-                        get: \.iconShadow,
-                        send: AppAction.toggleIconShadow)) {
-                    Text("Icon Shadow")
-                }
-                Toggle(isOn: viewStore.binding(
-                        get: \.shapeShadow,
-                        send: AppAction.toggleShapeShadow)) {
-                    Text("Background Shadow")
-                }
-            })
-    }
-    
-    private func ApplyButtons(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
-        AnyView(HStack {
-            Button("Reset",
-                   action: { viewStore.send(.removeChanges) })
-                .buttonStyle(PlainButtonStyle())
-                .padding(7)
-                .background(Color.gray)
-                .foregroundColor(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 5))
-            
-            Button("Apply Changes",
-                   action: { viewStore.send(.applyChanges) })
-                .buttonStyle(PlainButtonStyle())
-                .padding(7)
-                .background(Color.accentColor)
-                .foregroundColor(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 5))
-        })
-    }
-    
-    
-    private func SetIconShapeButton(
-        _ viewStore: ViewStore<AppState, AppAction>,
+    private func IconShapeButton(
         iconShape: IconShape?,
-        systemName: String) -> AnyView {
+        systemName: String,
+        action: @escaping () -> Void) -> AnyView {
         
         return AnyView(
-            Button(action: { viewStore.send(.setSelectedIconShape(iconShape)) }) {
-                Image(systemName: systemName)
-                    .resizable()
-                    .scaledToFill()
-                    .foregroundColor(
-                        viewStore.selectedIconShape == iconShape
-                            ? .accentColor
-                            : .gray
-                    )
-                    .frame(width: 30, height: 30)
+            WithViewStore(store) { viewStore in
+                Button(action: action) {
+                    Image(systemName: systemName)
+                        .resizable()
+                        .scaledToFill()
+                        .foregroundColor(
+                            viewStore.selectedIconShape == iconShape
+                                ? .accentColor
+                                : .gray
+                        )
+                        .frame(width: 30, height: 30)
+                }
+                .buttonStyle(PlainButtonStyle())
             }
-            .buttonStyle(PlainButtonStyle())
         )
     }
+
     
-    private func SetBackgroundColorButton(_ viewStore: ViewStore<AppState, AppAction>, color: Color) -> AnyView {
+//
+    private func SetBackgroundColorButton(
+        color: Color,
+        action: @escaping () -> Void) -> AnyView {
+        
         AnyView(
-            Button(action: { viewStore.send(.setSelectedBackgroundColor(color)) }) {
-                ZStack {
-                    Circle()
-                        .foregroundColor(color)
-                        .frame(width: 15, height: 15)
-                    Circle()
-                        .frame(width: 6, height: 6)
-                        .foregroundColor(
-                            Color.white.opacity(
-                                viewStore.selectedBackgroundColor == color
-                                    ? 1
-                                    : 0
-                            ))
-                        .shadow(
-                            color: Color.black.opacity(0.6),
-                            radius: 2
-                        )
+            WithViewStore(store) { viewStore in
+                Button(action: action) {
+                    ZStack {
+                        Circle()
+                            .foregroundColor(color)
+                            .frame(width: 15, height: 15)
+                        Circle()
+                            .frame(width: 6, height: 6)
+                            .foregroundColor(
+                                Color.white.opacity(
+                                    viewStore.selectedBackgroundColor == color
+                                        ? 1
+                                        : 0
+                                ))
+                            .shadow(
+                                color: Color.black.opacity(0.6),
+                                radius: 2
+                            )
                 }
             }
-            
             .buttonStyle(BorderlessButtonStyle())
-        )
+        })
     }
 }
 
+
+struct ThiccButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .buttonStyle(PlainButtonStyle())
+            .padding(7)
+            .background(Color.accentColor)
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+    }
+}
 
 struct ThemeDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ThemeDetailView(store: defaultStore)
     }
 }
-
-
-
-
-

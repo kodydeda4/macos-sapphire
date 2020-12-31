@@ -10,6 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct AppState: Equatable {
+    
     // App
     var icons = [Icon]()
     var allSelected = false
@@ -20,13 +21,13 @@ struct AppState: Equatable {
     var showingExpandedSearchBar = false
     
     // ThemeDetailView
-    var iconDetailViewText = "Preview"
+    var iconDetailViewText = Text("Preview")
     var iconDetailViewImage = Image(systemName: "scribble.variable")
     var selectedIconShape: IconShape? = .roundedRectangle
     var selectedBackgroundColor: Color = .white
     var shapeShadow = true
     var iconShadow  = false
-    
+    var iconBackgroundColors = [Color.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white]
 }
 
 enum AppAction {
@@ -34,12 +35,12 @@ enum AppAction {
     case loadIcons
     
     // ThemePrimaryView
-    case clearSearch
     case toggleIsSearching
     case toggleShowingExpandedSearchBar
+    case searchEntry(String)
+    case clearSearch
     case toggleSelected(Icon)
     case selectAll
-    case searchEntry(String)
     
     // ThemeDetailView
     case applyChanges
@@ -48,7 +49,6 @@ enum AppAction {
     case setSelectedBackgroundColor(Color)
     case toggleShapeShadow(Bool)
     case toggleIconShadow(Bool)
-        
 }
 
 struct AppEnvironment {
@@ -67,12 +67,12 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         
         switch action {
         
-        // App
+        // MARK:- App
         case .loadIcons:
             state.icons = Icon.loadIcons(fromPath: "/Applications")
             return .none
             
-        // ThemePrimaryView
+        // MARK:- ThemePrimaryView
         case .clearSearch:
             state.search = ""
             return .none
@@ -86,9 +86,21 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             return .none
             
         case let .toggleSelected(icon):
+            // Update state.icons
             guard let index = state.icons.firstIndex(of: icon)
             else { return .none }
             state.icons[index].selected.toggle()
+            
+            // Update IconDetailView
+            let selectedIcons = state.icons.filter(\.selected)
+            state.iconDetailViewText = selectedIcons.count == 1
+                ? Text(selectedIcons.first!.name)
+                : Text("Preview")
+
+            state.iconDetailViewImage = selectedIcons.count == 1
+                ? Image(nsImage: selectedIcons.first!.appIcon)
+                : Image(systemName: "scribble.variable")
+            
             return .none
             
         case .selectAll:
@@ -104,7 +116,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.search = text
             return.none
             
-        // ThemeDetailView
+        // MARK:- ThemeDetailView
         case .applyChanges:
             state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
                 var item = nextItem
@@ -134,10 +146,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             }
             return .none
             
-            
         case let .setSelectedIconShape(iconShape):
             state.selectedIconShape = iconShape
-            
             return .none
             
         case let .setSelectedBackgroundColor(color):
@@ -151,6 +161,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case let .toggleIconShadow(selection):
             state.iconShadow = selection
             return .none
+            
+
         }
     }
 )

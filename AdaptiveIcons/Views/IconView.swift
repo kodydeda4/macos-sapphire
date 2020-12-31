@@ -13,6 +13,7 @@ import Grid
 enum IconShape: String, CaseIterable {
     case roundedRectangle = "app.fill"
     case circle = "circle.fill"
+    case transparent = "circle.dashed"
 }
 
 struct IconView: View {
@@ -20,6 +21,8 @@ struct IconView: View {
     var icon: Icon
     
     var body: some View {
+//        IconDetailView(store: store, iconFrameWidth: 60, iconFrameHeight: 60)
+        
         WithViewStore(store) { viewStore in
             Button(action: { viewStore.send(.toggleSelected(icon)) }) {
                 VStack(alignment: .center, spacing: 3) {

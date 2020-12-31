@@ -12,8 +12,11 @@ import Grid
 
 struct IconDetailView: View {
     let store: Store<AppState, AppAction>
+    var iconFrameWidth: CGFloat
+    var iconFrameHeight: CGFloat
+    
     var iconImage: Image
-    var iconText:  String
+    var iconText: Text
     
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -22,7 +25,6 @@ struct IconDetailView: View {
                     shape
                     image
                 }
-                .frame(width: 100, height: 100)
                 label
             }
         }
@@ -35,7 +37,7 @@ struct IconDetailView: View {
                 .scaledToFill()
                 .foregroundColor(
                     viewStore.selectedBackgroundColor.opacity(
-                        viewStore.selectedIconShape != nil
+                        viewStore.selectedIconShape != .transparent
                             ? 1
                             : 0
                     ))
@@ -47,6 +49,7 @@ struct IconDetailView: View {
                 radius: 1.6,
                 y: 2.0
                 )
+                .frame(width: iconFrameWidth, height: iconFrameHeight)
         }
     }
     
@@ -72,22 +75,28 @@ struct IconDetailView: View {
                     radius: 1.6,
                     y: 2.0
                 )
+                .frame(width: iconFrameWidth, height: iconFrameWidth)
         }
     }
     
     var label: some View {
-        Text("Preview") //Text(iconData.name)
-            .font(.system(size: 14, weight: .regular))
-            .multilineTextAlignment(.center)
-            .padding(3)
+        WithViewStore(store) { viewStore in
+            iconText
+                .font(.system(size: 14, weight: .regular))
+                .multilineTextAlignment(.center)
+                .padding(3)
+        }
     }
 }
 
 struct IconDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        IconDetailView(store: defaultStore,
-                       iconImage: Image(systemName: "scribble.variable"),
-                       iconText: "Preview"
+        IconDetailView(
+            store: defaultStore,
+            iconFrameWidth: 100,
+            iconFrameHeight: 100,
+            iconImage: Image(systemName: "scribble.variable"),
+            iconText: Text("Preview")
         )
     }
 }
