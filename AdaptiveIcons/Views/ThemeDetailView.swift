@@ -17,13 +17,19 @@ struct ThemeDetailView: View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .center) {
                 
-                if viewStore.numberOfIconsSelected == 0 {
+                if viewStore.icons.filter(\.selected).count == 0 {
                     Text("No Selection")
                         .font(.title)
                         .foregroundColor(Color(NSColor.placeholderTextColor))
                     
                 } else {
-                    IconPreviewView(viewStore)
+                    
+                    if viewStore.icons.filter(\.selected).count > 1 {
+                        IconDetailView(store: store, iconImage: Image(systemName: "scribble.variable"), iconText: "Preview")
+                    } else {
+                        IconDetailView(store: store, iconImage: Image(nsImage: viewStore.icons.filter(\.selected).first!.appIcon), iconText: viewStore.icons.filter(\.selected).first!.name)
+                    }
+                    
                     Divider()
                     VStack {
                         IconShapeSetterButtons(viewStore)
@@ -95,70 +101,6 @@ struct ThemeDetailView: View {
         })
     }
     
-    private func IconPreviewView(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
-        var icon  = Image(systemName: "scribble.variable")
-        var label = Text("Preview")
-        
-        if viewStore.numberOfIconsSelected == 1 {
-            if let iconData = viewStore.icons.filter(\.selected).first {
-                label = Text(iconData.name)
-                icon = Image(nsImage: iconData.appIcon)
-            }
-        }
-        
-        return AnyView(VStack {
-            ZStack {
-                Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill")
-                .resizable()
-                .scaledToFill()
-                .foregroundColor(
-                    viewStore.selectedBackgroundColor.opacity(
-                        viewStore.selectedIconShape != nil
-                            ? 1
-                            : 0
-                ))
-                .shadow(color: Color.black.opacity(
-                        viewStore.shapeShadow
-                            ? 0.25
-                            : 0
-                    ),
-                    radius: 1.6,
-                    y: 2.0
-                )
-                .frame(width: 100, height: 100)
-                
-                
-                icon
-                    .resizable()
-                    .scaledToFill()
-                    .padding()
-                    .foregroundColor(
-                        [.white, .black]
-                            .contains(viewStore.selectedBackgroundColor)
-                            ? Color.accentColor
-                            : .white
-                    )
-                    .shadow(
-                        color: Color.black
-                            .opacity(viewStore.iconShadow
-                                        ? 0.25
-                                        : 0
-                            ),
-                        radius: 1.6,
-                        y: 2.0
-                    )
-                    .frame(width: 100, height: 100)
-            }
-            .frame(width: 100, height: 100)
-            
-            label
-                .font(.system(size: 14, weight: .regular))
-                .multilineTextAlignment(.center)
-                .padding(3)
-        }
-        
-        .padding(.vertical))
-    }
     
     private func SetIconShapeButton(
         _ viewStore: ViewStore<AppState, AppAction>,
@@ -195,21 +137,27 @@ struct ThemeDetailView: View {
                                 viewStore.selectedBackgroundColor == color
                                     ? 1
                                     : 0
-                            )
-                        )
+                            ))
                         .shadow(
                             color: Color.black.opacity(0.6),
                             radius: 2
                         )
                 }
             }
+            
             .buttonStyle(BorderlessButtonStyle())
         )
     }
 }
+
 
 struct ThemeDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ThemeDetailView(store: defaultStore)
     }
 }
+
+
+
+
+
