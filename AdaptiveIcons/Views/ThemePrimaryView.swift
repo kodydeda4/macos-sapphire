@@ -36,52 +36,12 @@ struct ThemePrimaryView: View {
                     }
                 }
                 ToolbarItem {
-                    searchbarView(viewStore)
+                    SearchbarView(store: store)
                 }
             })
         }
     }
     
-    private func searchbarView(_ viewStore: ViewStore<AppState, AppAction>) -> AnyView {
-        if viewStore.showingExpandedSearchBar {
-            return AnyView(
-                ZStack {
-                    TextField(
-                        "Search",
-                        text: viewStore.binding(
-                            get: \.search,
-                            send: AppAction.searchEntry))
-                        .padding(.leading)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
-                    if viewStore.search.count > 0 {
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                    viewStore.send(.clearSearch)
-                                    viewStore.send(.toggleShowingExpandedSearchBar)}) {
-                                Image(systemName: "multiply.circle.fill")
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            .foregroundColor(.gray)
-                        }
-                        .padding(.horizontal, 6)
-                    }
-                }
-                .frame(minWidth: viewStore.isSearching
-                        ? 60.0
-                        : 0.0,
-                       idealWidth: 200.0,
-                       maxWidth: 200.0))
-
-        } else {
-            return AnyView(
-                Button(action: { viewStore.send(.toggleShowingExpandedSearchBar) }) {
-                    Image(systemName: "magnifyingglass")
-                }
-            )
-        }
-    }
 }
 
 struct ThemePrimaryView_Previews: PreviewProvider {

@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-import Combine
 import ComposableArchitecture
 import Grid
+import Combine
 
 struct ThemeDetailView: View {
     let store: Store<AppState, AppAction>
@@ -26,13 +26,12 @@ struct ThemeDetailView: View {
                         iconFrameWidth: 100,
                         iconFrameHeight: 100,
                         iconImage: viewStore.iconDetailViewImage,
-                        iconText: viewStore.iconDetailViewText
-                    )
+                        iconText: viewStore.iconDetailViewText)
                     Divider()
                     VStack {
                         HStack {
                             ForEach(IconShape.allCases, id: \.self) { iconShape in
-                                IconButtonShape(
+                                IconShapeButton(
                                     store: store,
                                     iconShape: iconShape,
                                     action: { viewStore.send(.setSelectedIconShape(iconShape)) })
@@ -42,7 +41,8 @@ struct ThemeDetailView: View {
                         Divider()
                         HStack {
                             ForEach(viewStore.iconBackgroundColors, id: \.self) { color in
-                                SetBackgroundColorButton(
+                                RoundButton(
+                                    store: store,
                                     color: color,
                                     action: { viewStore.send(.setSelectedBackgroundColor(color)) }
                                 )
@@ -74,93 +74,6 @@ struct ThemeDetailView: View {
                 }
             }
             .padding()
-        }
-    }
-    
-    private func IconShapeButton(
-        iconShape: IconShape?,
-        systemName: String,
-        action: @escaping () -> Void) -> AnyView {
-        
-        return AnyView(
-            WithViewStore(store) { viewStore in
-                Button(action: action) {
-                    Image(systemName: systemName)
-                        .resizable()
-                        .scaledToFill()
-                        .foregroundColor(
-                            viewStore.selectedIconShape == iconShape
-                                ? .accentColor
-                                : .gray
-                        )
-                        .frame(width: 30, height: 30)
-                }
-                .buttonStyle(PlainButtonStyle())
-            }
-        )
-    }
-
-    private func SetBackgroundColorButton(
-        color: Color,
-        action: @escaping () -> Void) -> AnyView {
-        
-        AnyView(
-            WithViewStore(store) { viewStore in
-                Button(action: action) {
-                    ZStack {
-                        Circle()
-                            .foregroundColor(color)
-                            .frame(width: 15, height: 15)
-                        Circle()
-                            .frame(width: 6, height: 6)
-                            .foregroundColor(
-                                Color.white.opacity(
-                                    viewStore.selectedBackgroundColor == color
-                                        ? 1
-                                        : 0
-                                ))
-                            .shadow(
-                                color: Color.black.opacity(0.6),
-                                radius: 2
-                            )
-                }
-            }
-            .buttonStyle(BorderlessButtonStyle())
-        })
-    }
-}
-
-
-struct RoundedRectangleButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .buttonStyle(PlainButtonStyle())
-            .padding(7)
-            .background(Color.accentColor)
-            .foregroundColor(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 5))
-    }
-}
-
-struct IconButtonShape: View {
-    let store: Store<AppState, AppAction>
-    var iconShape: IconShape
-    var action: () -> Void
-    
-    var body: some View {
-        WithViewStore(store) { viewStore in
-            Button(action: action) {
-                Image(systemName: iconShape.rawValue)
-                    .resizable()
-                    .scaledToFill()
-                    .foregroundColor(
-                        viewStore.selectedIconShape == iconShape
-                            ? .accentColor
-                            : .gray
-                    )
-                    .frame(width: 30, height: 30)
-            }
-        .buttonStyle(PlainButtonStyle())
         }
     }
 }
