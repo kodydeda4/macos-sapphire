@@ -34,6 +34,10 @@ struct ThemePrimaryView: View {
                 ToolbarItem {
                     SearchbarView(store: store)
                 }
+                ToolbarItem {
+                    Button("Apply Theme", action: { viewStore.send(.applyTheme) })
+                        .buttonStyle(RoundedRectangleButtonStyle())
+                }
             })
         }
     }

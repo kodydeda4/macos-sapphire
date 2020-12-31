@@ -28,6 +28,7 @@ struct ThemeDetailView: View {
                         iconFrameHeight: 100,
                         iconImage: viewStore.iconDetailViewImage,
                         iconText: viewStore.iconDetailViewText)
+                    
                     Divider()
                     VStack {
                         HStack {

@@ -39,6 +39,7 @@ enum AppAction {
     case clearSearch
     case toggleSelected(Icon)
     case selectAll
+    case applyTheme
     
     // ThemeDetailView
     case applyChanges
@@ -69,6 +70,11 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .loadIcons:
             state.icons = Icon.loadIcons(fromPath: "/Applications")
             return .none
+            
+        case .applyTheme:
+            iddlog("action: '\(action)'")
+            return .none
+            
             
         // MARK:- ThemePrimaryView
         case .clearSearch:

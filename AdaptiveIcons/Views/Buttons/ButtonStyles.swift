@@ -13,6 +13,8 @@ struct RoundedRectangleButtonStyle: ButtonStyle {
             .buttonStyle(PlainButtonStyle())
             .padding(7)
             .background(Color.accentColor)
+//            .background(configuration.isPressed ? Color.white : Color.blue)
+            .animation(.spring())
             .foregroundColor(.white)
             .clipShape(RoundedRectangle(cornerRadius: 5))
     }
