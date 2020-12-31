@@ -65,12 +65,16 @@ let selectedIconReducer = Reducer<SelectedIconState, SelectedIconAction, Selecte
 
         // MARK:- ThemeDetailView
         case .applyChanges:
-//            state.icons = state.icons.map {
-//                $0.shape = state.selectedIconShape
-//                $0.backgroundColor = state.selectedBackgroundColor
-//                $0.iconShadow = state.iconShadow
-//                $0.shapeShadow = state.shapeShadow
-//            }
+            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
+                var item = nextItem
+
+                item.shape = state.selectedIconShape
+                item.backgroundColor = state.selectedBackgroundColor
+                item.iconShadow = state.iconShadow
+                item.shapeShadow = state.shapeShadow
+                
+                partial.append(item)
+            }
 
             
 //            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in

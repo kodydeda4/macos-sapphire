@@ -10,7 +10,6 @@ import Combine
 import ComposableArchitecture
 import Grid
 
-
 struct IconView: View {
     let store: Store<AppState, AppAction>
     var icon: Icon
