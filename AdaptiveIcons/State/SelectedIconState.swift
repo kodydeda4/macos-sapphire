@@ -13,10 +13,10 @@ import SwiftUI
  Models an array of selected icons and actions to them
  */
 struct SelectedIconState: Equatable {
-    var icons = [Icon]()
     // these are the selected icons ...
+    var icons = [Icon]()
     
-    var iconBackgroundColors = [Color.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white]
+    var iconBackgroundColors: [Color] = [.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white]
     var selectedIconShape: IconShape? = .roundedRectangle
     var selectedBackgroundColor: Color = .white
     var shapeShadow = true
@@ -75,8 +75,6 @@ let selectedIconReducer = Reducer<SelectedIconState, SelectedIconAction, Selecte
                 
                 partial.append(item)
             }
-
-            
 //            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
 //                var item = nextItem
 //
