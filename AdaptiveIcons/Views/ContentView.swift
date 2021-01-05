@@ -16,8 +16,9 @@ struct ContentView: View {
         NavigationView {
             SidebarView()
             ThemePrimaryView(store: store)
-            ThemeDetailView(store: store)
-                
+            ThemeDetailView(store: store.scope(
+                                state: \.selectedIconState,
+                                action: AppAction.selectedIconAction))
         }
         .frame(width: 1920/2, height: 1080/2)
     }
@@ -25,6 +26,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(store: defaultStore)
+        ContentView(store: AppState.defaultStore)
     }
 }

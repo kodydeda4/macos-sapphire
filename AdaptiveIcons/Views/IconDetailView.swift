@@ -11,7 +11,7 @@ import ComposableArchitecture
 import Grid
 
 struct IconDetailView: View {
-    let store: Store<AppState, AppAction>
+    let store: Store<SelectedIconState, SelectedIconAction>
     var iconFrameWidth: CGFloat
     var iconFrameHeight: CGFloat
     
@@ -92,7 +92,7 @@ struct IconDetailView: View {
 struct IconDetailView_Previews: PreviewProvider {
     static var previews: some View {
         IconDetailView(
-            store: defaultStore,
+            store: SelectedIconState.defaultStore,
             iconFrameWidth: 100,
             iconFrameHeight: 100,
             iconImage: Image(systemName: "scribble.variable"),

@@ -13,6 +13,9 @@ struct Icon: Identifiable, Hashable {
     let id = UUID()
     let path: String
     var selected = false
+    // TODO
+    // remove me
+    
     var backgroundColor: Color?
     var shape: IconShape?
     var iconShadow: Bool = false
