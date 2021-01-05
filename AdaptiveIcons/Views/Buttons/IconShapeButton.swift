@@ -15,7 +15,7 @@ enum IconShape: String, CaseIterable {
 }
 
 struct IconShapeButton: View {
-    let store: Store<AppState, AppAction>
+    let store: Store<SelectedIconState, SelectedIconAction>
     var iconShape: IconShape
     var action: () -> Void
     
@@ -32,7 +32,7 @@ struct IconShapeButton: View {
                     )
                     .frame(width: 30, height: 30)
             }
-        .buttonStyle(PlainButtonStyle())
+            .buttonStyle(PlainButtonStyle())
         }
     }
 }
@@ -42,7 +42,7 @@ struct IconShapeButton_Previews: PreviewProvider {
         HStack {
             ForEach(IconShape.allCases, id: \.self) { iconShape in
                 IconShapeButton(
-                    store: defaultStore,
+                    store: SelectedIconState.defaultStore,
                     iconShape: iconShape,
                     action: {}
                 )

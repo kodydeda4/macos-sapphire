@@ -49,7 +49,7 @@ struct ThemePrimaryView: View {
 
 struct ThemePrimaryView_Previews: PreviewProvider {
     static var previews: some View {
-        ThemePrimaryView(store: defaultStore)
+        ThemePrimaryView(store: AppState.defaultStore)
     }
 }
 

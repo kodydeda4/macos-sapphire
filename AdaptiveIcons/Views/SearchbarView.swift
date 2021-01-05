@@ -81,6 +81,6 @@ struct SearchbarView: View {
 
 struct SearchbarView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchbarView(store: defaultStore)
+        SearchbarView(store: AppState.defaultStore)
     }
 }

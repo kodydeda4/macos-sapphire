@@ -11,6 +11,7 @@
 		332508FE259E616700154565 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332508FD259E616700154565 /* RoundButton.swift */; };
 		33250903259E61EF00154565 /* IconShapeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250902259E61EF00154565 /* IconShapeButton.swift */; };
 		33250912259E62F600154565 /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250911259E62F600154565 /* SearchbarView.swift */; };
+		3325091A259E7DB400154565 /* SelectedIconState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250919259E7DB400154565 /* SelectedIconState.swift */; };
 		335001B0259E326600B260AB /* IconDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335001AF259E326600B260AB /* IconDetailView.swift */; };
 		33538355259501F400259A23 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33538354259501F400259A23 /* View+Extensions.swift */; };
 		335D574C259CEEFA0034849F /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335D574B259CEEFA0034849F /* SidebarView.swift */; };
@@ -52,6 +53,7 @@
 		332508FD259E616700154565 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		33250902259E61EF00154565 /* IconShapeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconShapeButton.swift; sourceTree = "<group>"; };
 		33250911259E62F600154565 /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
+		33250919259E7DB400154565 /* SelectedIconState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedIconState.swift; sourceTree = "<group>"; };
 		335001AF259E326600B260AB /* IconDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconDetailView.swift; sourceTree = "<group>"; };
 		33538354259501F400259A23 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		335D574B259CEEFA0034849F /* SidebarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				B757D94D2594E9FB000FDB10 /* AppState.swift */,
+				33250919259E7DB400154565 /* SelectedIconState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				335001B0259E326600B260AB /* IconDetailView.swift in Sources */,
 				33250912259E62F600154565 /* SearchbarView.swift in Sources */,
 				33250903259E61EF00154565 /* IconShapeButton.swift in Sources */,
+				3325091A259E7DB400154565 /* SelectedIconState.swift in Sources */,
 				332508FE259E616700154565 /* RoundButton.swift in Sources */,
 				339666B8259697EB00AA5E79 /* IconView.swift in Sources */,
 				B757D95C2594EAF9000FDB10 /* Icon.swift in Sources */,
