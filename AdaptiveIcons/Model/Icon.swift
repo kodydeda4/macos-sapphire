@@ -15,7 +15,6 @@ struct IconTheme: Identifiable, Hashable {
     var shape: IconShape = .transparent
     var iconShadow: Bool = false
     var shapeShadow: Bool = false
-
 }
 
 struct Icon: Identifiable, Hashable {

@@ -25,7 +25,6 @@ enum AppAction {
     case selectAll
     case applyChanges
     case resetChanges
-    
     case selectedIconAction(SelectedIconAction)
 }
 
@@ -66,7 +65,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             let unselectedIcons = state.icons
                 .filter { !state.selectedIconState.icons.contains($0) }
             
-            state.icons = selectedIcons + unselectedIcons
+            state.icons = Array(selectedIcons + unselectedIcons).sorted(by: { $0.name < $1.name })
             state.selectedIconState.icons = []
             return .none
             
@@ -78,7 +77,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             let unselectedIcons = state.icons
                 .filter { !state.selectedIconState.icons.contains($0) }
             
-            state.icons = selectedIcons + unselectedIcons
+            state.icons = Array(selectedIcons + unselectedIcons).sorted(by: { $0.name < $1.name })
             state.selectedIconState.icons = []
             return .none
             
