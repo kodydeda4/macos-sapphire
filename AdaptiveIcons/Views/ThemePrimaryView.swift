@@ -36,10 +36,16 @@ struct ThemePrimaryView: View {
                 }
                 ToolbarItem {
                     SearchbarView(store: store)
+                    
                 }
                 ToolbarItem {
-                    Button("Apply Theme", action: { viewStore.send(.applyTheme) })
-                        .buttonStyle(RoundedRectangleButtonStyle())
+                    HStack {
+                        Button("Apply Changes", action: { viewStore.send(.applyChanges) })
+                            .buttonStyle(RoundedRectangleButtonStyle())
+                        
+                        Button("Reset Changes", action: { viewStore.send(.resetChanges) })
+                            .buttonStyle(RoundedRectangleButtonStyle())
+                    }
                 }
             })
         }

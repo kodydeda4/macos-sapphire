@@ -9,33 +9,22 @@ import Combine
 import ComposableArchitecture
 import SwiftUI
 
-// TODO
-// create a separate state for the selected icons
-// than actions and reducer for that
-//
 struct AppState: Equatable {
-    
-    // App
     var icons = [Icon]()
     var allSelected = false
-    
-    // ThemePrimaryView
     var search: String = ""
     var showingExpandedSearchBar = false
-        
     var selectedIconState = SelectedIconState()
 }
 
 enum AppAction {
-    // App
     case loadIcons
-    
-    // ThemePrimaryView
     case toggleShowingExpandedSearchBar
     case searchEntry(String)
     case clearSearch
     case selectAll
-    case applyTheme
+    case applyChanges
+    case resetChanges
     
     case selectedIconAction(SelectedIconAction)
 }
@@ -56,22 +45,43 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     selectedIconReducer.pullback(
         state: \.selectedIconState,
         action: /AppAction.selectedIconAction,
-        environment: { _ in SelectedIconEnvironment() }),
+        environment: { _ in SelectedIconEnvironment() }
+    ),
     Reducer { state, action, environment in
         iddlog("action: '\(action)'")
         
         switch action {
         
-        // MARK:- App
         case .loadIcons:
             state.icons = Icon.loadIcons(fromPath: "/Applications")
             return .none
             
-        case .applyTheme:
+        case .applyChanges:
             iddlog("action: '\(action)'")
+            
+            let selectedIcons = state.icons
+                .filter { state.selectedIconState.icons.contains($0) }
+                .map { Icon(path: $0.path, iconTheme: state.selectedIconState.iconTheme) }
+            
+            let unselectedIcons = state.icons
+                .filter { !state.selectedIconState.icons.contains($0) }
+            
+            state.icons = selectedIcons + unselectedIcons
+            state.selectedIconState.icons = []
             return .none
             
-        // MARK:- ThemePrimaryView
+        case .resetChanges:
+            let selectedIcons = state.icons
+                .filter { state.selectedIconState.icons.contains($0) }
+                .map { Icon(path: $0.path, iconTheme: IconTheme()) }
+            
+            let unselectedIcons = state.icons
+                .filter { !state.selectedIconState.icons.contains($0) }
+            
+            state.icons = selectedIcons + unselectedIcons
+            state.selectedIconState.icons = []
+            return .none
+            
         case .clearSearch:
             state.search = ""
             return .none
@@ -91,54 +101,6 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.search = text
             return.none
             
-            
-//        // MARK:- ThemeDetailView
-//        case .applyChanges:
-//            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
-//                var item = nextItem
-//
-//                if item.selected {
-//                    item.shape = state.selectedIconShape
-//                    item.backgroundColor = state.selectedBackgroundColor
-//                    item.iconShadow = state.iconShadow
-//                    item.shapeShadow = state.shapeShadow
-//                }
-//                partial.append(item)
-//            }
-//            return .none
-//
-//        case .removeChanges:
-//            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
-//                var item = nextItem
-//
-//                if item.selected {
-//                    item.shape = .none
-//                    item.backgroundColor = .none
-//                    item.iconShadow = false
-//                    item.shapeShadow = false
-//                }
-//
-//                partial.append(item)
-//            }
-//            return .none
-//
-//        case let .setSelectedIconShape(iconShape):
-//            state.selectedIconShape = iconShape
-//            return .none
-//
-//        case let .setSelectedBackgroundColor(color):
-//            state.selectedBackgroundColor = color
-//            return .none
-//
-//        case let .toggleShapeShadow(selection):
-//            state.shapeShadow = selection
-//            return .none
-//
-//        case let .toggleIconShadow(selection):
-//            state.iconShadow = selection
-//            return .none
-            
-
         case let .selectedIconAction(subAction):
             return .none
         }

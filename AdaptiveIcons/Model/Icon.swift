@@ -9,17 +9,19 @@ import Foundation
 import SwiftUI
 import AppKit
 
+struct IconTheme: Identifiable, Hashable {
+    let id = UUID()
+    var backgroundColor: Color = .clear
+    var shape: IconShape = .transparent
+    var iconShadow: Bool = false
+    var shapeShadow: Bool = false
+
+}
+
 struct Icon: Identifiable, Hashable {
     let id = UUID()
     let path: String
-    var selected = false
-    // TODO
-    // remove me
-    
-    var backgroundColor: Color?
-    var shape: IconShape?
-    var iconShadow: Bool = false
-    var shapeShadow: Bool = false
+    var iconTheme = IconTheme()
 }
 
 extension Icon {

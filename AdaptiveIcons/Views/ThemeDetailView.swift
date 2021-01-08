@@ -37,7 +37,7 @@ struct ThemeDetailView: View {
                                     action: { viewStore.send(.setSelectedIconShape(iconShape)) })
                             }
                         }
-
+                        
                         Divider()
                         HStack {
                             ForEach(viewStore.iconBackgroundColors, id: \.self) { color in
@@ -62,15 +62,20 @@ struct ThemeDetailView: View {
                             }
                         }
                         Spacer()
-                        HStack {
-                            Button("Reset", action: { viewStore.send(.removeChanges) })
-                                .buttonStyle(RoundedRectangleButtonStyle())
-
-                            Button("Apply Changes", action: { viewStore.send(.applyChanges) })
-                                .buttonStyle(RoundedRectangleButtonStyle())
-                        }
+//                        HStack {
+//                            Button("Reset", action: { viewStore.send(.removeChanges) })
+//                                .buttonStyle(RoundedRectangleButtonStyle())
+//                            
+//                            Button("Apply Changes", action: { viewStore.send(.applyChanges) })
+//                                .buttonStyle(RoundedRectangleButtonStyle())
+//                        }
                     }
                     Spacer()
+                    Divider()
+                    Text("Selected Icons:")
+                    List(viewStore.icons) { icon in
+                        Text(icon.name)
+                    }
                 }
             }
             .padding()

@@ -15,6 +15,7 @@ import SwiftUI
 struct SelectedIconState: Equatable {
     // these are the selected icons ...
     var icons = [Icon]()
+    var iconTheme = IconTheme()
     
     var iconBackgroundColors: [Color] = [.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white]
     var selectedIconShape: IconShape? = .roundedRectangle
@@ -25,10 +26,8 @@ struct SelectedIconState: Equatable {
 
 enum SelectedIconAction {
     case toggleSelected(Icon)
-    
-    // ThemeDetailView
-    case applyChanges
-    case removeChanges
+//    case applyChanges
+//    case removeChanges
     case setSelectedIconShape(IconShape)
     case setSelectedBackgroundColor(Color)
     case toggleShapeShadow(Bool)
@@ -47,10 +46,12 @@ extension SelectedIconState {
 }
 
 let selectedIconReducer = Reducer<SelectedIconState, SelectedIconAction, SelectedIconEnvironment>.combine(
+        
     Reducer { state, action, environment in
         iddlog("action: '\(action)'")
         
         switch action {
+        
         case let .toggleSelected(icon):
             var icons = Set(state.icons)
             
@@ -63,60 +64,32 @@ let selectedIconReducer = Reducer<SelectedIconState, SelectedIconAction, Selecte
             state.icons = Array(icons)
             return .none
 
-        // MARK:- ThemeDetailView
-        case .applyChanges:
-            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
-                var item = nextItem
-
-                item.shape = state.selectedIconShape
-                item.backgroundColor = state.selectedBackgroundColor
-                item.iconShadow = state.iconShadow
-                item.shapeShadow = state.shapeShadow
-                
-                partial.append(item)
-            }
-//            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
-//                var item = nextItem
+//        case .applyChanges:
+//            state.icons = state.icons.map { Icon(path: $0.path, iconTheme: state.iconTheme) }
+//            return .none
 //
-//                if item.selected {
-//                    item.shape = state.selectedIconShape
-//                    item.backgroundColor = state.selectedBackgroundColor
-//                    item.iconShadow = state.iconShadow
-//                    item.shapeShadow = state.shapeShadow
-//                }
-//                partial.append(item)
-//            }
-            return .none
-            
-        case .removeChanges:
-//            state.icons = state.icons.reduce(into: [Icon]()) { partial, nextItem in
-//                var item = nextItem
-//                
-//                if item.selected {
-//                    item.shape = .none
-//                    item.backgroundColor = .none
-//                    item.iconShadow = false
-//                    item.shapeShadow = false
-//                }
-//                
-//                partial.append(item)
-//            }
-            return .none
+//        case .removeChanges:
+//            state.icons = state.icons.map { Icon(path: $0.path, iconTheme: IconTheme()) }
+//            return .none
             
         case let .setSelectedIconShape(iconShape):
             state.selectedIconShape = iconShape
+            state.iconTheme.shape = iconShape
             return .none
             
         case let .setSelectedBackgroundColor(color):
             state.selectedBackgroundColor = color
+            state.iconTheme.backgroundColor = color
             return .none
             
         case let .toggleShapeShadow(selection):
             state.shapeShadow = selection
+            state.iconTheme.shapeShadow = selection
             return .none
             
         case let .toggleIconShadow(selection):
             state.iconShadow = selection
+            state.iconTheme.iconShadow = selection
             return .none
             
         }
