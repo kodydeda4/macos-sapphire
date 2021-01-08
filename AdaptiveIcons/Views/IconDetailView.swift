@@ -11,7 +11,7 @@ import ComposableArchitecture
 import Grid
 
 struct IconDetailView: View {
-    let store: Store<SelectedIconState, SelectedIconAction>
+    let store: Store<ThemeDetailState, ThemeDetailAction>
     var iconFrameWidth: CGFloat
     var iconFrameHeight: CGFloat
     
@@ -32,7 +32,7 @@ struct IconDetailView: View {
     
     var shape: some View {
         WithViewStore(store) { viewStore in
-            Image(systemName: viewStore.selectedIconShape?.rawValue ?? "app.fill")
+            Image(systemName: viewStore.selectedIconShape.rawValue)
                 .resizable()
                 .scaledToFill()
                 .foregroundColor(
@@ -92,7 +92,7 @@ struct IconDetailView: View {
 struct IconDetailView_Previews: PreviewProvider {
     static var previews: some View {
         IconDetailView(
-            store: SelectedIconState.defaultStore,
+            store: ThemeDetailState.defaultStore,
             iconFrameWidth: 100,
             iconFrameHeight: 100,
             iconImage: Image(systemName: "scribble.variable"),

@@ -5,19 +5,20 @@
 //  Created by Kody Deda on 12/24/20.
 //
 
+
 import Combine
 import ComposableArchitecture
 import SwiftUI
 
-struct AppState: Equatable {
+struct ThemeState: Equatable {
     var icons = [Icon]()
     var allSelected = false
     var search: String = ""
     var showingExpandedSearchBar = false
-    var selectedIconState = SelectedIconState()
+    var selectedIconState = ThemeDetailState()
 }
 
-enum AppAction {
+enum ThemeAction {
     case loadIcons
     case toggleShowingExpandedSearchBar
     case searchEntry(String)
@@ -25,26 +26,26 @@ enum AppAction {
     case selectAll
     case applyChanges
     case resetChanges
-    case selectedIconAction(SelectedIconAction)
+    case selectedIconAction(ThemeDetailAction)
 }
 
-struct AppEnvironment {
+struct ThemeEnvironment {
     
 }
 
-extension AppState {
+extension ThemeState {
     static let defaultStore = Store(
-        initialState: AppState(icons: Icon.loadIcons(fromPath: "/Applications")),
-        reducer: appReducer,
-        environment: AppEnvironment()
+        initialState: ThemeState(icons: Icon.loadIcons(fromPath: "/Applications")),
+        reducer: themeReducer,
+        environment: ThemeEnvironment()
     )
 }
 
-let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
-    selectedIconReducer.pullback(
+let themeReducer = Reducer<ThemeState, ThemeAction, ThemeEnvironment>.combine(
+    themeDetailReducer.pullback(
         state: \.selectedIconState,
-        action: /AppAction.selectedIconAction,
-        environment: { _ in SelectedIconEnvironment() }
+        action: /ThemeAction.selectedIconAction,
+        environment: { _ in ThemeDetailEnvironment() }
     ),
     Reducer { state, action, environment in
         iddlog("action: '\(action)'")
@@ -59,7 +60,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             iddlog("action: '\(action)'")
             
             let selectedIcons = state.icons
-                .filter { state.selectedIconState.icons.contains($0) }
+                .filter { icon in state.selectedIconState.icons.contains(icon) }
                 .map { Icon(path: $0.path, iconTheme: state.selectedIconState.iconTheme) }
             
             let unselectedIcons = state.icons
@@ -105,3 +106,5 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         }
     }
 )
+
+

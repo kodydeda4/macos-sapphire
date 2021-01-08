@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct AdaptiveIconsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(store: AppState.defaultStore)
+            RootView(store: RootState.defaultStore)
         }
     }
 }

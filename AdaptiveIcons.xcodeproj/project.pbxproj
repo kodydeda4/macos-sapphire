@@ -11,14 +11,17 @@
 		332508FE259E616700154565 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332508FD259E616700154565 /* RoundButton.swift */; };
 		33250903259E61EF00154565 /* IconShapeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250902259E61EF00154565 /* IconShapeButton.swift */; };
 		33250912259E62F600154565 /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250911259E62F600154565 /* SearchbarView.swift */; };
-		3325091A259E7DB400154565 /* SelectedIconState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250919259E7DB400154565 /* SelectedIconState.swift */; };
+		3325091A259E7DB400154565 /* ThemeDetailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250919259E7DB400154565 /* ThemeDetailState.swift */; };
 		335001B0259E326600B260AB /* IconDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335001AF259E326600B260AB /* IconDetailView.swift */; };
 		33538355259501F400259A23 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33538354259501F400259A23 /* View+Extensions.swift */; };
 		335D574C259CEEFA0034849F /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335D574B259CEEFA0034849F /* SidebarView.swift */; };
 		3360CA82258BF80B008350BB /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 3360CA81258BF80B008350BB /* Grid */; };
 		3381689C2594F3E000092597 /* ThemePrimaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3381689B2594F3E000092597 /* ThemePrimaryView.swift */; };
 		339666B8259697EB00AA5E79 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* IconView.swift */; };
-		33C3E93225941811007670AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C3E93125941811007670AB /* ContentView.swift */; };
+		33C3E93225941811007670AB /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C3E93125941811007670AB /* ThemeView.swift */; };
+		33C4995625A9128900B8566B /* IconTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C4995525A9128900B8566B /* IconTheme.swift */; };
+		33C4995B25A914F400B8566B /* RootState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C4995A25A914F400B8566B /* RootState.swift */; };
+		33C4996C25A9185C00B8566B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C4996B25A9185C00B8566B /* RootView.swift */; };
 		33E1B17C2589600000A1FDC1 /* AdaptiveIconsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* AdaptiveIconsApp.swift */; };
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
@@ -26,7 +29,7 @@
 		33E1B19A2589600100A1FDC1 /* AdaptiveIconsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B1992589600100A1FDC1 /* AdaptiveIconsUITests.swift */; };
 		33F760E92594F61200BC589C /* ThemeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F760E82594F61200BC589C /* ThemeDetailView.swift */; };
 		B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = B7453A352594E99900F8BE5A /* ComposableArchitecture */; };
-		B757D94E2594E9FB000FDB10 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D94D2594E9FB000FDB10 /* AppState.swift */; };
+		B757D94E2594E9FB000FDB10 /* ThemeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D94D2594E9FB000FDB10 /* ThemeState.swift */; };
 		B757D9562594EAB3000FDB10 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D9552594EAB3000FDB10 /* Logger.swift */; };
 		B757D95C2594EAF9000FDB10 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D95B2594EAF9000FDB10 /* Icon.swift */; };
 /* End PBXBuildFile section */
@@ -53,13 +56,16 @@
 		332508FD259E616700154565 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		33250902259E61EF00154565 /* IconShapeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconShapeButton.swift; sourceTree = "<group>"; };
 		33250911259E62F600154565 /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
-		33250919259E7DB400154565 /* SelectedIconState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedIconState.swift; sourceTree = "<group>"; };
+		33250919259E7DB400154565 /* ThemeDetailState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDetailState.swift; sourceTree = "<group>"; };
 		335001AF259E326600B260AB /* IconDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconDetailView.swift; sourceTree = "<group>"; };
 		33538354259501F400259A23 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		335D574B259CEEFA0034849F /* SidebarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		3381689B2594F3E000092597 /* ThemePrimaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePrimaryView.swift; sourceTree = "<group>"; };
 		339666B7259697EB00AA5E79 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
-		33C3E93125941811007670AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		33C3E93125941811007670AB /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
+		33C4995525A9128900B8566B /* IconTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTheme.swift; sourceTree = "<group>"; };
+		33C4995A25A914F400B8566B /* RootState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootState.swift; sourceTree = "<group>"; };
+		33C4996B25A9185C00B8566B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* AdaptiveIcons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptiveIcons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* AdaptiveIconsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveIconsApp.swift; sourceTree = "<group>"; };
 		33E1B17F2589600100A1FDC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -73,7 +79,7 @@
 		33E1B1992589600100A1FDC1 /* AdaptiveIconsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveIconsUITests.swift; sourceTree = "<group>"; };
 		33E1B19B2589600100A1FDC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		33F760E82594F61200BC589C /* ThemeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDetailView.swift; sourceTree = "<group>"; };
-		B757D94D2594E9FB000FDB10 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		B757D94D2594E9FB000FDB10 /* ThemeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeState.swift; sourceTree = "<group>"; };
 		B757D9552594EAB3000FDB10 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B757D95B2594EAF9000FDB10 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -180,8 +186,9 @@
 		B757D94C2594E9DE000FDB10 /* State */ = {
 			isa = PBXGroup;
 			children = (
-				B757D94D2594E9FB000FDB10 /* AppState.swift */,
-				33250919259E7DB400154565 /* SelectedIconState.swift */,
+				33C4995A25A914F400B8566B /* RootState.swift */,
+				B757D94D2594E9FB000FDB10 /* ThemeState.swift */,
+				33250919259E7DB400154565 /* ThemeDetailState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -190,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				B757D95B2594EAF9000FDB10 /* Icon.swift */,
+				33C4995525A9128900B8566B /* IconTheme.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -206,8 +214,9 @@
 		B757D9D02594ED52000FDB10 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				33C4996B25A9185C00B8566B /* RootView.swift */,
 				335D574B259CEEFA0034849F /* SidebarView.swift */,
-				33C3E93125941811007670AB /* ContentView.swift */,
+				33C3E93125941811007670AB /* ThemeView.swift */,
 				3381689B2594F3E000092597 /* ThemePrimaryView.swift */,
 				33F760E82594F61200BC589C /* ThemeDetailView.swift */,
 				335001AF259E326600B260AB /* IconDetailView.swift */,
@@ -356,21 +365,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				3381689C2594F3E000092597 /* ThemePrimaryView.swift in Sources */,
+				33C4995B25A914F400B8566B /* RootState.swift in Sources */,
 				B757D9562594EAB3000FDB10 /* Logger.swift in Sources */,
 				332508F9259E60E000154565 /* ButtonStyles.swift in Sources */,
 				33E1B17C2589600000A1FDC1 /* AdaptiveIconsApp.swift in Sources */,
 				33F760E92594F61200BC589C /* ThemeDetailView.swift in Sources */,
+				33C4996C25A9185C00B8566B /* RootView.swift in Sources */,
 				335001B0259E326600B260AB /* IconDetailView.swift in Sources */,
 				33250912259E62F600154565 /* SearchbarView.swift in Sources */,
 				33250903259E61EF00154565 /* IconShapeButton.swift in Sources */,
-				3325091A259E7DB400154565 /* SelectedIconState.swift in Sources */,
+				33C4995625A9128900B8566B /* IconTheme.swift in Sources */,
+				3325091A259E7DB400154565 /* ThemeDetailState.swift in Sources */,
 				332508FE259E616700154565 /* RoundButton.swift in Sources */,
 				339666B8259697EB00AA5E79 /* IconView.swift in Sources */,
 				B757D95C2594EAF9000FDB10 /* Icon.swift in Sources */,
-				33C3E93225941811007670AB /* ContentView.swift in Sources */,
+				33C3E93225941811007670AB /* ThemeView.swift in Sources */,
 				335D574C259CEEFA0034849F /* SidebarView.swift in Sources */,
 				33538355259501F400259A23 /* View+Extensions.swift in Sources */,
-				B757D94E2594E9FB000FDB10 /* AppState.swift in Sources */,
+				B757D94E2594E9FB000FDB10 /* ThemeState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

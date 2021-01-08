@@ -5,45 +5,48 @@
 //  Created by Kody Deda on 12/22/20.
 //
 
+import ComposableArchitecture
 import SwiftUI
 
 struct SidebarView: View {
+    let store: Store<RootState, RootAction>
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            List {
-                Section(header: Text("Icon Packs")) {
-//                    ForEach(iconPacks) { iconPack in
-//                        NavigationLink(destination: IconPackView(iconPack: iconPack)) {
-//                            Label(iconPack.name, systemImage: "square.grid.3x3")
-//                        }
-//                    }
-                }
-                Section(header: Text("My Themes")) {
-//                    ForEach(themes) { theme in
-//                        NavigationLink(destination: ThemeView(theme: theme)) {
-//                            Label(theme.name, systemImage: "folder")
-//                        }
-//                    }
-                }
-            }
-            .listStyle(SidebarListStyle())
-            .frame(minWidth: 180, idealWidth: 250, maxWidth: 300)
-            .toolbar {
-                ToolbarItem(placement: .primaryAction){
-                    Button(action: toggleSidebar, label: {
-                        Image(systemName: "sidebar.left")
-                    })
-                }
-            }
-            HStack {
-                Button(action: {}, label: {
-                    HStack {
-                        Image(systemName: "plus.circle")
-                        Text("Add Theme")
+        WithViewStore(store.stateless) { viewStore in
+            
+            VStack(alignment: .leading) {
+                List {
+                    Section(header: Text("Icon Packs")) {}
+                    Section(header: Text("My Themes")) {
+                        NavigationLink(
+                            destination: ThemeView(
+                                store: store.scope(
+                                    state: \.theme,
+                                    action: RootAction.theme)
+                            ).navigationTitle("Theme"),
+                            label: { Label("Theme", systemImage: "house")}
+                        )
                     }
-                })
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(6)
+                }
+                .listStyle(SidebarListStyle())
+                .frame(minWidth: 180, idealWidth: 250, maxWidth: 300)
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction){
+                        Button(action: toggleSidebar, label: {
+                            Image(systemName: "sidebar.left")
+                        })
+                    }
+                }
+                HStack {
+                    Button(action: {}, label: {
+                        HStack {
+                            Image(systemName: "plus.circle")
+                            Text("Add Theme")
+                        }
+                    })
+                    .buttonStyle(BorderlessButtonStyle())
+                    .padding(6)
+                }
             }
         }
     }
@@ -55,6 +58,6 @@ func toggleSidebar() {
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
-        SidebarView()
+        SidebarView(store: RootState.defaultStore)
     }
 }

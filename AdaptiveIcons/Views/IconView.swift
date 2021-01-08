@@ -11,7 +11,7 @@ import ComposableArchitecture
 import Grid
 
 struct IconView: View {
-    let store: Store<AppState, AppAction>
+    let store: Store<ThemeState, ThemeAction>
     var icon: Icon
     
     var body: some View {
@@ -28,7 +28,6 @@ struct IconView: View {
                 .padding(5)
                 .frame(width: 100, height: 100, alignment: .top)
             }
-            
             .overlay(
                 RoundedRectangle(cornerRadius: 6)
                     .stroke(lineWidth: 1)
@@ -44,7 +43,7 @@ struct IconView: View {
         Image(systemName: icon.iconTheme.shape.rawValue)
             .resizable()
             .scaledToFill()
-            .foregroundColor(icon.iconTheme.shape != .transparent ? icon.iconTheme.backgroundColor : .clear )
+            .foregroundColor(icon.iconTheme.shape != .transparent ? icon.iconTheme.backgroundColor : .clear)
             .padding(icon.iconTheme.shape != .transparent ? 5 : 0)
             .shadow(color: Color.black.opacity(icon.iconTheme.shapeShadow ? 0.25 : 0), radius: 1.6, y: 2.0)
     }
@@ -64,11 +63,11 @@ struct IconView: View {
             .padding(3)
     }
     
-    private func selectionColor(_ viewStore: ViewStore<AppState, AppAction>) -> Color {
+    private func selectionColor(_ viewStore: ViewStore<ThemeState, ThemeAction>) -> Color {
         Color.secondary.opacity(isSelected(viewStore) ? 1 : 0)
     }
     
-    private func isSelected(_ viewStore: ViewStore<AppState, AppAction>) -> Bool {
+    private func isSelected(_ viewStore: ViewStore<ThemeState, ThemeAction>) -> Bool {
         viewStore.selectedIconState.icons.firstIndex(of: icon) != nil
     }
 }
@@ -78,6 +77,6 @@ struct IconView_Previews: PreviewProvider {
         var icon = Icon(path: "/Applications/Pages.app")
         
         icon.iconTheme.shape = .roundedRectangle
-        return IconView(store: AppState.defaultStore, icon: icon)
+        return IconView(store: ThemeState.defaultStore, icon: icon)
     }
 }

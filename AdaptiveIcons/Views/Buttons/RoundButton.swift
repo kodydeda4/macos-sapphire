@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct RoundButton: View {
-    let store: Store<SelectedIconState, SelectedIconAction>
+    let store: Store<ThemeDetailState, ThemeDetailAction>
     var color: Color
     var action: () -> Void
     
@@ -44,7 +44,7 @@ struct RoundButton_Previews: PreviewProvider {
         HStack {
             ForEach([Color.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white], id: \.self) { color in
                 RoundButton(
-                    store: SelectedIconState.defaultStore,
+                    store: ThemeDetailState.defaultStore,
                     color: color,
                     action: {}
                 )

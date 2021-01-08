@@ -12,19 +12,19 @@ import SwiftUI
 /**
  Models an array of selected icons and actions to them
  */
-struct SelectedIconState: Equatable {
+struct ThemeDetailState: Equatable {
     // these are the selected icons ...
     var icons = [Icon]()
     var iconTheme = IconTheme()
     
     var iconBackgroundColors: [Color] = [.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white]
-    var selectedIconShape: IconShape? = .roundedRectangle
-    var selectedBackgroundColor: Color = .white
-    var shapeShadow = true
-    var iconShadow  = false
+    var selectedIconShape = IconTheme().shape
+    var selectedBackgroundColor: Color = IconTheme().backgroundColor
+    var shapeShadow = IconTheme().shapeShadow
+    var iconShadow  = IconTheme().iconShadow
 }
 
-enum SelectedIconAction {
+enum ThemeDetailAction {
     case toggleSelected(Icon)
 //    case applyChanges
 //    case removeChanges
@@ -34,18 +34,18 @@ enum SelectedIconAction {
     case toggleIconShadow(Bool)
 }
 
-struct SelectedIconEnvironment {
+struct ThemeDetailEnvironment {
 }
 
-extension SelectedIconState {
+extension ThemeDetailState {
     static let defaultStore = Store(
-        initialState: SelectedIconState(icons: Icon.loadIcons(fromPath: "/Applications")),
-        reducer: selectedIconReducer,
-        environment: SelectedIconEnvironment()
+        initialState: ThemeDetailState(icons: Icon.loadIcons(fromPath: "/Applications")),
+        reducer: themeDetailReducer,
+        environment: ThemeDetailEnvironment()
     )
 }
 
-let selectedIconReducer = Reducer<SelectedIconState, SelectedIconAction, SelectedIconEnvironment>.combine(
+let themeDetailReducer = Reducer<ThemeDetailState, ThemeDetailAction, ThemeDetailEnvironment>.combine(
         
     Reducer { state, action, environment in
         iddlog("action: '\(action)'")
@@ -96,7 +96,7 @@ let selectedIconReducer = Reducer<SelectedIconState, SelectedIconAction, Selecte
     }
 )
 
-extension SelectedIconState {
+extension ThemeDetailState {
     var iconDetailViewText: Text {
         return icons.count == 1
             ? Text(icons.first!.name)

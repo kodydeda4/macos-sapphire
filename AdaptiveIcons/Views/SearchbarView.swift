@@ -11,7 +11,7 @@ import Grid
 import Combine
 
 struct SearchbarView: View {
-    let store: Store<AppState, AppAction>
+    let store: Store<ThemeState, ThemeAction>
     
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -55,7 +55,7 @@ struct SearchbarView: View {
                 "Search",
                 text: viewStore.binding(
                     get: \.search,
-                    send: AppAction.searchEntry))
+                    send: ThemeAction.searchEntry))
                 .padding(.leading)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
         }
@@ -81,6 +81,6 @@ struct SearchbarView: View {
 
 struct SearchbarView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchbarView(store: AppState.defaultStore)
+        SearchbarView(store: ThemeState.defaultStore)
     }
 }

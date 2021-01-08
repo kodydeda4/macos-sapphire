@@ -11,7 +11,7 @@ import Grid
 import Combine
 
 struct ThemeDetailView: View {
-    let store: Store<SelectedIconState, SelectedIconAction>
+    let store: Store<ThemeDetailState, ThemeDetailAction>
     
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -52,12 +52,12 @@ struct ThemeDetailView: View {
                         VStack(alignment: .leading) {
                             Toggle(isOn: viewStore.binding(
                                     get: \.iconShadow,
-                                    send: SelectedIconAction.toggleIconShadow)) {
+                                    send: ThemeDetailAction.toggleIconShadow)) {
                                 Text("Icon Shadow")
                             }
                             Toggle(isOn: viewStore.binding(
                                     get: \.shapeShadow,
-                                    send: SelectedIconAction.toggleShapeShadow)) {
+                                    send: ThemeDetailAction.toggleShapeShadow)) {
                                 Text("Background Shadow")
                             }
                         }
@@ -89,6 +89,6 @@ struct ThemeDetailView: View {
 
 struct ThemeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ThemeDetailView(store: SelectedIconState.defaultStore)
+        ThemeDetailView(store: ThemeDetailState.defaultStore)
     }
 }

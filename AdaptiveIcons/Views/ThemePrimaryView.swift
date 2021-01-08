@@ -11,7 +11,7 @@ import ComposableArchitecture
 import Grid
 
 struct ThemePrimaryView: View {
-    let store: Store<AppState, AppAction>
+    let store: Store<ThemeState, ThemeAction>
     
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -30,7 +30,7 @@ struct ThemePrimaryView: View {
                 ToolbarItem {
                     Toggle(isOn: viewStore.binding(
                             get: \.allSelected,
-                            send: AppAction.selectAll)) {
+                            send: ThemeAction.selectAll)) {
                         Text("Select All")
                     }
                 }
@@ -55,7 +55,7 @@ struct ThemePrimaryView: View {
 
 struct ThemePrimaryView_Previews: PreviewProvider {
     static var previews: some View {
-        ThemePrimaryView(store: AppState.defaultStore)
+        ThemePrimaryView(store: ThemeState.defaultStore)
     }
 }
 

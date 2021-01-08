@@ -5,17 +5,7 @@
 //  Created by Kody Deda on 12/24/20.
 //
 
-import Foundation
 import SwiftUI
-import AppKit
-
-struct IconTheme: Identifiable, Hashable {
-    let id = UUID()
-    var backgroundColor: Color = .clear
-    var shape: IconShape = .transparent
-    var iconShadow: Bool = false
-    var shapeShadow: Bool = false
-}
 
 struct Icon: Identifiable, Hashable {
     let id = UUID()
