@@ -8,48 +8,35 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct RoundButton: View {
-    let store: Store<ThemeDetailState, ThemeDetailAction>
-    var color: Color
-    var action: () -> Void
-
+struct ColorSelectorView: View {
+    @Binding var selection: Color
+    let colors: [Color] =
+        [.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white]
+    
     var body: some View {
-        WithViewStore(store) { viewStore in
-            Button(action: action) {
-                ZStack {
-                    Circle()
-                        .foregroundColor(color)
-                        .frame(width: 15, height: 15)
-                    Circle()
-                        .frame(width: 6, height: 6)
-                        .foregroundColor(
-                            Color.white.opacity(
-                                viewStore.iconTheme.backgroundColor == color
-                                    ? 1
-                                    : 0
-                            ))
-                        .shadow(
-                            color: Color.black.opacity(0.6),
-                            radius: 2
-                        )
-                }
+        HStack {
+            ForEach(colors, id: \.self) { color in
+                Button(action: { selection = color }) {
+                    ZStack {
+                        Circle()
+                            .foregroundColor(color)
+                            .frame(width: 15, height: 15)
+                        Circle()
+                            .frame(width: 6, height: 6)
+                            .foregroundColor(Color.white.opacity(selection == color ? 1 : 0))
+                            .shadow(color: Color.black.opacity(0.6), radius: 2)
+                    }
+                }.buttonStyle(BorderlessButtonStyle())
+            
             }
         }
-        .buttonStyle(BorderlessButtonStyle())
     }
 }
 
-struct RoundButton_Previews: PreviewProvider {
+
+
+struct RoundButtonV2_Previews: PreviewProvider {
     static var previews: some View {
-        HStack {
-            ForEach([Color.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white], id: \.self) { color in
-                RoundButton(
-                    store: ThemeDetailState.defaultStore,
-                    color: color,
-                    action: {}
-                )
-            }
-        }
-        .padding()
+        ColorSelectorView(selection: .constant(.white))
     }
 }

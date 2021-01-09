@@ -39,16 +39,12 @@ struct ThemeDetailView: View {
                         }
                         
                         Divider()
+                        ColorSelectorView(
+                            selection: viewStore.binding(
+                                get: \.iconTheme.backgroundColor,
+                                send: ThemeDetailAction.setBackgroundColor))
                         
-                        HStack {
-                            ForEach([Color.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white], id: \.self) { color in
-                                RoundButton(
-                                    store: store,
-                                    color: color,
-                                    action: { viewStore.send(.setBackgroundColor(color)) }
-                                )
-                            }
-                        }
+                        
                         Divider()
                         VStack(alignment: .leading) {
                             Toggle(isOn: viewStore.binding(
