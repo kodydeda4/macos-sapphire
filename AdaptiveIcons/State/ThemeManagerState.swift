@@ -19,9 +19,7 @@ enum ThemeManagerAction {
     case addThemeButtonTapped
 }
 
-struct ThemeManagerEnvironement {
-    
-}
+struct ThemeManagerEnvironement {}
 
 let themeManagerReducer = Reducer<ThemeManager, ThemeManagerAction, ThemeManagerEnvironement>.combine(
     themeReducer

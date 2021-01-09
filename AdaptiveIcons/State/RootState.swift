@@ -28,7 +28,7 @@ let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
         ),
     Reducer { state, action, environment in
         switch action {
-        
+
         default:
             return .none
         }
