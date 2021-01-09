@@ -12,31 +12,49 @@ struct SidebarView: View {
     let store: Store<RootState, RootAction>
     
     var body: some View {
+        navigationLinksList
+        .toolbar {
+            ToolbarItem { toggleSidebarButton }
+        }
+        addThemeButton
+    }
+}
+
+// MARK:- HelperViews
+
+extension SidebarView {
+    var navigationLinksList: some View {
         VStack(alignment: .leading) {
             List {
-                Section(header: Text("Icon Packs")) {}
+                Section(header: Text("Icon Packs")) {
+                    // Links
+                }
                 Section(header: Text("My Themes")) {
+                    // Links
                 }
             }
             .listStyle(SidebarListStyle())
-            .frame(minWidth: 180, idealWidth: 250, maxWidth: 300)
-            .toolbar {
-                ToolbarItem(placement: .primaryAction){
-                    Button(action: toggleSidebar, label: {
-                        Image(systemName: "sidebar.left")
-                    })
+        }
+    }
+    
+    var toggleSidebarButton: some View {
+        Button(
+            action: toggleSidebar,
+            label: { Image(systemName: "sidebar.left") }
+        )
+    }
+    
+    var addThemeButton: some View {
+        HStack {
+            Button(action: {}) {
+                HStack {
+                    Image(systemName: "plus.circle")
+                    Text("Add Theme")
                 }
             }
-            HStack {
-                Button(action: {}, label: {
-                    HStack {
-                        Image(systemName: "plus.circle")
-                        Text("Add Theme")
-                    }
-                })
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(6)
-            }
+            .buttonStyle(BorderlessButtonStyle())
+            .padding(6)
+            Spacer()
         }
     }
 }
@@ -44,6 +62,8 @@ struct SidebarView: View {
 func toggleSidebar() {
     NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar), with: nil)
 }
+
+// MARK:- SwiftUI Previews
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {

@@ -26,6 +26,7 @@ struct ThemeView: View {
 extension ThemeView {
     var sidebar: some View {
         SidebarView(store: RootState.defaultStore)
+            .frame(minWidth: 180, idealWidth: 250, maxWidth: 300)
     }
     var primary: some View {
         ThemePrimaryView(store: store)
@@ -36,6 +37,9 @@ extension ThemeView {
             store: store.scope(
                 state: \.selectedIconState,
                 action: ThemeAction.selectedIconAction))
+            .padding()
+            .frame(minWidth: 250)
+
     }
 }
 

@@ -21,8 +21,6 @@ struct ThemeDetailView: View {
                 editorView
             }
         }
-        .padding()
-        .frame(minWidth: 250)
     }
 }
 
