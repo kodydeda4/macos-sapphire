@@ -15,30 +15,20 @@ struct ThemeDetailView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            if viewStore.icons.isEmpty {
+            if viewStore.selectedIcons.isEmpty {
                 placeholderText
-                
             } else {
-                ScrollView {
-                    previewIcon
-                    
-                    VStack {
-                        shapeSelectorButtons
-                        colorSelectorButtons
-                        
-                        VStack(alignment: .leading) {
-                            iconShadowToggle
-                            shapeShadowToggle
-                        }
-                    }
-                    listOfSelectedIcons
-                }
+                editorView
             }
         }
         .padding()
         .frame(minWidth: 250)
-        
     }
+}
+
+// MARK:- HelperViews
+
+extension ThemeDetailView {
     
     var placeholderText: some View {
         VStack(alignment: .center) {
@@ -48,12 +38,30 @@ struct ThemeDetailView: View {
         }
     }
     
+    var editorView: some View {
+        ScrollView {
+            previewIcon
+            Divider()
+            VStack {
+                shapeSelectorButtons
+                Divider()
+                colorSelectorButtons
+                Divider()
+                VStack(alignment: .leading) {
+                    iconShadowToggle
+                    shapeShadowToggle
+                }
+            }
+        }
+        .padding(.top)
+    }
+    
     var previewIcon: some View {
         WithViewStore(store) { viewStore in
             IconDetailView(
                 store: store,
-                iconFrameWidth: 100,
-                iconFrameHeight: 100,
+                iconFrameWidth: 125,
+                iconFrameHeight: 125,
                 iconImage: viewStore.iconDetailViewImage,
                 iconText: viewStore.iconDetailViewText)
         }
@@ -95,20 +103,9 @@ struct ThemeDetailView: View {
             }
         }
     }
-    
-    var listOfSelectedIcons: some View {
-        WithViewStore(store) { viewStore in
-            Text("Selected Icons:")
-            List(viewStore.icons) { icon in
-                Text(icon.name)
-            }
-        }
-    }
 }
 
-
-
-
+// MARK:- SwiftUI Previews
 
 struct ThemeDetailView_Previews: PreviewProvider {
     static var previews: some View {

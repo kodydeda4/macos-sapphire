@@ -60,26 +60,26 @@ let themeReducer = Reducer<ThemeState, ThemeAction, ThemeEnvironment>.combine(
             iddlog("action: '\(action)'")
             
             let selectedIcons = state.icons
-                .filter { icon in state.selectedIconState.icons.contains(icon) }
+                .filter { icon in state.selectedIconState.selectedIcons.contains(icon) }
                 .map { Icon(path: $0.path, iconTheme: state.selectedIconState.iconTheme) }
             
             let unselectedIcons = state.icons
-                .filter { !state.selectedIconState.icons.contains($0) }
+                .filter { !state.selectedIconState.selectedIcons.contains($0) }
             
             state.icons = Array(selectedIcons + unselectedIcons).sorted(by: { $0.name < $1.name })
-            state.selectedIconState.icons = []
+            state.selectedIconState.selectedIcons = []
             return .none
             
         case .resetChanges:
             let selectedIcons = state.icons
-                .filter { state.selectedIconState.icons.contains($0) }
+                .filter { state.selectedIconState.selectedIcons.contains($0) }
                 .map { Icon(path: $0.path, iconTheme: IconTheme()) }
             
             let unselectedIcons = state.icons
-                .filter { !state.selectedIconState.icons.contains($0) }
+                .filter { !state.selectedIconState.selectedIcons.contains($0) }
             
             state.icons = Array(selectedIcons + unselectedIcons).sorted(by: { $0.name < $1.name })
-            state.selectedIconState.icons = []
+            state.selectedIconState.selectedIcons = []
             return .none
             
         case .clearSearch:
@@ -92,7 +92,7 @@ let themeReducer = Reducer<ThemeState, ThemeAction, ThemeEnvironment>.combine(
             
         case .selectAll:
             state.allSelected.toggle()
-            state.selectedIconState.icons = state.allSelected
+            state.selectedIconState.selectedIcons = state.allSelected
                 ? state.icons
                 : []
             return .none

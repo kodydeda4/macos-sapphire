@@ -16,7 +16,7 @@ struct ThemePrimaryView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView {
-                grid
+                iconGrid
             }
             .toolbar {
                 ToolbarItem { selectAllButton }
@@ -26,8 +26,13 @@ struct ThemePrimaryView: View {
             }
         }
     }
+}
+
+// MARK:- HelperViews
+
+extension ThemePrimaryView {
     
-    var grid: some View {
+    var iconGrid: some View {
         WithViewStore(store) { viewStore in
             Grid(viewStore.search == ""
                     ? viewStore.icons
@@ -69,10 +74,7 @@ struct ThemePrimaryView: View {
     }
 }
 
-
-
-
-
+// MARK:- SwiftUI Previews
 
 struct ThemePrimaryView_Previews: PreviewProvider {
     static var previews: some View {

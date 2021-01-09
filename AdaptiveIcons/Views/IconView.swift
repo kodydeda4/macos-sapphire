@@ -68,7 +68,7 @@ struct IconView: View {
     }
     
     private func isSelected(_ viewStore: ViewStore<ThemeState, ThemeAction>) -> Bool {
-        viewStore.selectedIconState.icons.firstIndex(of: icon) != nil
+        viewStore.selectedIconState.selectedIcons.firstIndex(of: icon) != nil
     }
 }
 

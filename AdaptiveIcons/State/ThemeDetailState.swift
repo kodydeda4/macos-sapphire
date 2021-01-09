@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct ThemeDetailState: Equatable {
-    var icons = [Icon]()
+    var selectedIcons = [Icon]()
     var iconTheme = IconTheme()
 }
 
@@ -27,7 +27,7 @@ struct ThemeDetailEnvironment {
 
 extension ThemeDetailState {
     static let defaultStore = Store(
-        initialState: ThemeDetailState(icons: Icon.loadIcons(fromPath: "/Applications")),
+        initialState: ThemeDetailState(selectedIcons: Icon.loadIcons(fromPath: "/Applications")),
         reducer: themeDetailReducer,
         environment: ThemeDetailEnvironment()
     )
@@ -41,7 +41,7 @@ let themeDetailReducer = Reducer<ThemeDetailState, ThemeDetailAction, ThemeDetai
         switch action {
         
         case let .toggleSelected(icon):
-            var icons = Set(state.icons)
+            var icons = Set(state.selectedIcons)
             
             if icons.contains(icon) {
                 icons.remove(icon)
@@ -49,7 +49,7 @@ let themeDetailReducer = Reducer<ThemeDetailState, ThemeDetailAction, ThemeDetai
                 icons.insert(icon)
             }
             
-            state.icons = Array(icons)
+            state.selectedIcons = Array(icons)
             return .none
             
         case let .setShape(iconShape):
@@ -74,14 +74,15 @@ let themeDetailReducer = Reducer<ThemeDetailState, ThemeDetailAction, ThemeDetai
 
 extension ThemeDetailState {
     var iconDetailViewText: Text {
-        return icons.count == 1
-            ? Text(icons.first!.name)
+        return selectedIcons.count == 1
+            ? Text(selectedIcons.first!.name)
             : Text("Preview")
     }
 
     var iconDetailViewImage: Image {
-        return icons.count == 1
-            ? Image(nsImage: icons.first!.appIcon)
+        return selectedIcons.count == 1
+            ? Image(nsImage: selectedIcons.first!.appIcon)
             : Image(systemName: "scribble.variable")
     }
+    
 }
