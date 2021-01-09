@@ -22,9 +22,14 @@ struct SidebarView: View {
                         ForEachStore(
                             store.scope(
                                 state: \.themes,
-                                action: ThemeManagerAction.theme(index:action:)),
-                            content: NavLink.init
-                        )
+                                action: ThemeManagerAction.theme(index:action:))
+                        ) { childStore in
+                            WithViewStore(childStore) { childViewStore in
+                                NavigationLink(destination: ThemeView(store: childStore)) {
+                                    Text(childViewStore.name)
+                                }
+                            }
+                        }
                     }
                 }
                 Button(
@@ -45,33 +50,6 @@ struct SidebarView: View {
         }
     }
 }
-
-// MARK:- HelperViews
-
-struct NavLink: View {
-    var store: Store<ThemeState, ThemeAction>
-    
-    init(_ store: Store<ThemeState, ThemeAction>) {
-        self.store = store
-    }
-    
-    var body: some View {
-        WithViewStore(store) { viewStore in
-            NavigationLink(destination: ThemeView(store: store)) {
-                HStack {
-                    Image(systemName: "leaf.fill")
-                    TextField("Custom Theme", text: viewStore.binding(
-                                get: \.description,
-                                send: ThemeAction.textFieldChanged))
-                    
-                }
-            }
-            .navigationSubtitle(viewStore.description)
-        }
-    }
-}
-
-
 
 
 func toggleSidebar() {

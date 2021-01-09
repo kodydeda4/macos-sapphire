@@ -16,67 +16,30 @@ struct ThemePrimaryView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView {
-                iconGrid
-            }
-            .toolbar {
-                ToolbarItem { selectAllButton }
-                ToolbarItem { searchBar }
-                ToolbarItem { resetChangesButton }
-                ToolbarItem { applyChangesButton }
-            }
-        }
-    }
-}
-
-
-
-
-
-// MARK:- HelperViews
-
-extension ThemePrimaryView {
-    
-    var iconGrid: some View {
-        WithViewStore(store) { viewStore in
-            Grid(viewStore.search == ""
-                    ? viewStore.icons
-                    : viewStore.icons.filter {
-                        $0.name.uppercased().contains(viewStore.search.uppercased())
-                    }
-            ) { icon in
-                IconView(store: store, icon: icon)
+                Grid(viewStore.filteredIcons) { icon in
+                    IconView(store: store, icon: icon)
+                }
             }
             .padding(16)
-        }
-    }
-    
-    var selectAllButton: some View {
-        WithViewStore(store) { viewStore in
-            Button("Select All") { viewStore.send(.selectAll) }
-        }
-    }
-    
-    var searchBar: some View {
-        WithViewStore(store) { viewStore in
-            SearchbarView(
-                text: viewStore.binding(
-                    get: \.search,
-                    send: ThemeAction.searchEntry))
-        }
-    }
-    
-    var resetChangesButton: some View {
-        WithViewStore(store) { viewStore in
-            Button("Reset Changes") { viewStore.send(.resetChanges) }
-        }
-    }
-    
-    var applyChangesButton: some View {
-        WithViewStore(store) { viewStore in
-            Button("Apply Changes") { viewStore.send(.applyChanges) }
+            .navigationSubtitle(viewStore.name)
+            .toolbar {
+                ToolbarItem {
+                    SearchbarView(text: viewStore.binding(get: \.iconFilter, send: ThemeAction.iconFilterChanged))
+                }
+                ToolbarItem {
+                    Button("Select All") { viewStore.send(.selectAll) }
+                }
+                ToolbarItem {
+                    Button("Reset Changes") { viewStore.send(.resetChanges) }
+                }
+                ToolbarItem {
+                    Button("Apply Changes") { viewStore.send(.applyChanges) }
+                }
+            }
         }
     }
 }
+
 
 // MARK:- SwiftUI Previews
 
@@ -85,4 +48,6 @@ struct ThemePrimaryView_Previews: PreviewProvider {
         ThemePrimaryView(store: ThemeState.defaultStore)
     }
 }
+
+
 

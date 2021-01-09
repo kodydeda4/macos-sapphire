@@ -12,10 +12,12 @@ import SwiftUI
 
 struct ThemeState: Equatable, Identifiable {
     let id = UUID()
-    var description: String = "My Theme"
+    var name: String = "My Theme"
     var icons: [Icon] = Icon.loadIcons(fromPath: "/Applications")
+    var filteredIcons = Icon.loadIcons(fromPath: "/Applications")
+    
     var allSelected = false
-    var search: String = ""
+    var iconFilter: String = ""
     var showingExpandedSearchBar = false
     var selectedIconState = ThemeDetailState()
 }
@@ -23,13 +25,13 @@ struct ThemeState: Equatable, Identifiable {
 enum ThemeAction {
     case loadIcons
     case toggleShowingExpandedSearchBar
-    case searchEntry(String)
+    case iconFilterChanged(String)
     case clearSearch
     case selectAll
     case applyChanges
     case resetChanges
     case selectedIconAction(ThemeDetailAction)
-    case textFieldChanged(String)
+    case nameChanged(String)
 }
 
 struct ThemeEnvironment {
@@ -38,7 +40,7 @@ struct ThemeEnvironment {
 
 extension ThemeState {
     static let defaultStore = Store(
-        initialState: ThemeState(description: "", icons: Icon.loadIcons(fromPath: "/Applications")),
+        initialState: ThemeState(name: "", icons: Icon.loadIcons(fromPath: "/Applications")),
         reducer: themeReducer,
         environment: ThemeEnvironment()
     )
@@ -59,10 +61,9 @@ let themeReducer = Reducer<ThemeState, ThemeAction, ThemeEnvironment>.combine(
             state.icons = Icon.loadIcons(fromPath: "/Applications")
             return .none
             
-        case let .textFieldChanged(text):
-            state.description = text
+        case let .nameChanged(text):
+            state.name = text
             return .none
-
             
         case .applyChanges:
             iddlog("action: '\(action)'")
@@ -91,7 +92,7 @@ let themeReducer = Reducer<ThemeState, ThemeAction, ThemeEnvironment>.combine(
             return .none
             
         case .clearSearch:
-            state.search = ""
+            state.iconFilter = ""
             return .none
             
         case .toggleShowingExpandedSearchBar:
@@ -105,8 +106,13 @@ let themeReducer = Reducer<ThemeState, ThemeAction, ThemeEnvironment>.combine(
                 : []
             return .none
             
-        case let .searchEntry(text):
-            state.search = text
+        case let .iconFilterChanged(text):
+            state.iconFilter = text
+            if text == "" {
+                state.filteredIcons = state.icons
+            } else {
+                state.filteredIcons = state.icons.filter{ $0.name.uppercased().contains(text.uppercased()) }
+            }
             return.none
             
         case let .selectedIconAction(subAction):
