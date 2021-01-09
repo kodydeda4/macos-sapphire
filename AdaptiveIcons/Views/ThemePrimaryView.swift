@@ -19,31 +19,13 @@ struct ThemePrimaryView: View {
                 grid
             }
             .toolbar {
-                ToolbarItem {
-                    Toggle(isOn: viewStore.binding(
-                            get: \.allSelected,
-                            send: ThemeAction.selectAll)) {
-                        Text("Select All")
-                    }
-                }
-                ToolbarItem {
-                    SearchbarView(text: viewStore.binding(
-                                            get: \.search,
-                                            send: ThemeAction.searchEntry))
-                }
-                ToolbarItem {
-                    HStack {
-                        Button("Apply Changes", action: { viewStore.send(.applyChanges) })
-                            .buttonStyle(RoundedRectangleButtonStyle())
-                        
-                        Button("Reset Changes", action: { viewStore.send(.resetChanges) })
-                            .buttonStyle(RoundedRectangleButtonStyle())
-                    }
-                }
+                ToolbarItem { selectAllButton }
+                ToolbarItem { searchBar }
+                ToolbarItem { resetChangesButton }
+                ToolbarItem { applyChangesButton }
             }
         }
     }
-    
     
     var grid: some View {
         WithViewStore(store) { viewStore in
@@ -58,7 +40,37 @@ struct ThemePrimaryView: View {
             .padding(16)
         }
     }
+    
+    var selectAllButton: some View {
+        WithViewStore(store) { viewStore in
+            Button("Select All") { viewStore.send(.selectAll) }
+        }
+    }
+    
+    var searchBar: some View {
+        WithViewStore(store) { viewStore in
+            SearchbarView(
+                text: viewStore.binding(
+                    get: \.search,
+                    send: ThemeAction.searchEntry))
+        }
+    }
+    
+    var resetChangesButton: some View {
+        WithViewStore(store) { viewStore in
+            Button("Reset Changes") { viewStore.send(.resetChanges) }
+        }
+    }
+    
+    var applyChangesButton: some View {
+        WithViewStore(store) { viewStore in
+            Button("Apply Changes") { viewStore.send(.applyChanges) }
+        }
+    }
 }
+
+
+
 
 
 

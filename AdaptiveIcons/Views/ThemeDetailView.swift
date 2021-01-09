@@ -15,11 +15,11 @@ struct ThemeDetailView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            ScrollView {
-                if viewStore.icons.isEmpty {
-                    placeholderText
-                    
-                } else {
+            if viewStore.icons.isEmpty {
+                placeholderText
+                
+            } else {
+                ScrollView {
                     previewIcon
                     
                     VStack {
@@ -30,19 +30,22 @@ struct ThemeDetailView: View {
                             iconShadowToggle
                             shapeShadowToggle
                         }
-                        Spacer()
                     }
                     listOfSelectedIcons
                 }
             }
-            .padding()
         }
+        .padding()
+        .frame(minWidth: 250)
+        
     }
     
     var placeholderText: some View {
-        Text("No Selection")
-            .font(.title)
-            .foregroundColor(Color(NSColor.placeholderTextColor))
+        VStack(alignment: .center) {
+            Text("No Selection")
+                .font(.title)
+                .foregroundColor(Color(NSColor.placeholderTextColor))
+        }
     }
     
     var previewIcon: some View {
