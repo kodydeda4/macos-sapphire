@@ -30,8 +30,6 @@ struct IconDetailView: View {
         }
     }
     
-
-    
     var shape: some View {
         WithViewStore(store) { viewStore in
             Image(systemName: viewStore.iconTheme.shape.rawValue)

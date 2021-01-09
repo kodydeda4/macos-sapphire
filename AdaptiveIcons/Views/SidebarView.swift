@@ -9,7 +9,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct SidebarView: View {
-    let store: Store<RootState, RootAction>
+    let store: Store<ThemeManager, ThemeManagerAction>
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -31,10 +31,51 @@ extension SidebarView {
                 // Links
             }
             Section(header: Text("My Themes")) {
-                // Links
+                themeNavigationLinks
             }
         }
         .listStyle(SidebarListStyle())
+    }
+
+    
+    var themeNavigationLinks: some View {
+        ForEachStore(
+            store.scope(
+                state: \.themes,
+                action: ThemeManagerAction.theme(index:action:)))
+        { childStore in
+            WithViewStore(childStore) { childViewStore in
+                NavigationLink(
+                    destination: ThemeView(store: childStore)
+                        .navigationSubtitle(childViewStore.description)
+                ) {
+                    HStack {
+                        Image(systemName: "leaf.fill")
+                        
+                        TextField("Custom Theme",
+                                  text: childViewStore.binding(
+                                    get: \.description,
+                                    send: ThemeAction.textFieldChanged)
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    var addThemeButton: some View {
+        WithViewStore(store.stateless) { viewStore in
+            HStack {
+                Button(action: { viewStore.send(.addThemeButtonTapped) }) {
+                    HStack {
+                        Image(systemName: "plus.circle")
+                        Text("Add Theme")
+                    }
+                }
+                .buttonStyle(BorderlessButtonStyle())
+                .padding(6)
+            }
+        }
     }
     
     var toggleSidebarButton: some View {
@@ -42,20 +83,6 @@ extension SidebarView {
             action: toggleSidebar,
             label: { Image(systemName: "sidebar.left") }
         )
-    }
-    
-    var addThemeButton: some View {
-        HStack {
-            Button(action: {}) {
-                HStack {
-                    Image(systemName: "plus.circle")
-                    Text("Add Theme")
-                }
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            .padding(6)
-            Spacer()
-        }
     }
 }
 
@@ -67,6 +94,6 @@ func toggleSidebar() {
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
-        SidebarView(store: RootState.defaultStore)
+        SidebarView(store: ThemeManager.defaultStore)
     }
 }

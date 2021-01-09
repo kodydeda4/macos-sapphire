@@ -10,8 +10,10 @@ import Combine
 import ComposableArchitecture
 import SwiftUI
 
-struct ThemeState: Equatable {
-    var icons = [Icon]()
+struct ThemeState: Equatable, Identifiable {
+    let id = UUID()
+    var description: String = "My Theme"
+    var icons: [Icon] = Icon.loadIcons(fromPath: "/Applications")
     var allSelected = false
     var search: String = ""
     var showingExpandedSearchBar = false
@@ -27,6 +29,7 @@ enum ThemeAction {
     case applyChanges
     case resetChanges
     case selectedIconAction(ThemeDetailAction)
+    case textFieldChanged(String)
 }
 
 struct ThemeEnvironment {
@@ -35,7 +38,7 @@ struct ThemeEnvironment {
 
 extension ThemeState {
     static let defaultStore = Store(
-        initialState: ThemeState(icons: Icon.loadIcons(fromPath: "/Applications")),
+        initialState: ThemeState(description: "", icons: Icon.loadIcons(fromPath: "/Applications")),
         reducer: themeReducer,
         environment: ThemeEnvironment()
     )
@@ -55,6 +58,11 @@ let themeReducer = Reducer<ThemeState, ThemeAction, ThemeEnvironment>.combine(
         case .loadIcons:
             state.icons = Icon.loadIcons(fromPath: "/Applications")
             return .none
+            
+        case let .textFieldChanged(text):
+            state.description = text
+            return .none
+
             
         case .applyChanges:
             iddlog("action: '\(action)'")

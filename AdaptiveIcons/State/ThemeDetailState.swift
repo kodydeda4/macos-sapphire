@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ThemeDetailState: Equatable {
     var selectedIcons = [Icon]()
-    var iconTheme = IconTheme()
+    var iconTheme = IconTheme(shape: .roundedRectangle)
 }
 
 enum ThemeDetailAction {

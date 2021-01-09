@@ -14,7 +14,6 @@ struct ThemeView: View {
     
     var body: some View {
         NavigationView {
-            sidebar
             primary
             detail
         }
@@ -24,12 +23,9 @@ struct ThemeView: View {
 // MARK:- HelperViews
 
 extension ThemeView {
-    var sidebar: some View {
-        SidebarView(store: RootState.defaultStore)
-            .frame(minWidth: 180, idealWidth: 250, maxWidth: 300)
-    }
     var primary: some View {
         ThemePrimaryView(store: store)
+            .frame(width: 800)
     }
     
     var detail: some View {
@@ -37,7 +33,8 @@ extension ThemeView {
             store: store.scope(
                 state: \.selectedIconState,
                 action: ThemeAction.selectedIconAction))
-            .frame(minWidth: 250)
+            .frame(width: 250)
+//            .frame(minWidth: 250)
     }
 }
 

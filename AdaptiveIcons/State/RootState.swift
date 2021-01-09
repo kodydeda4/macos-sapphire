@@ -10,27 +10,25 @@ import ComposableArchitecture
 import SwiftUI
 
 struct RootState {
-    var theme = ThemeState()
+    var themeManager = ThemeManager()
 }
 
 enum RootAction {
-    case theme(ThemeAction)
+    case themeManager(ThemeManagerAction)
 }
 
-struct RootEnvironment {
+struct RootEnvironment {}
     
-}
-
 let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
-    themeReducer
+    themeManagerReducer
         .pullback(
-            state: \.theme,
-            action: /RootAction.theme,
+            state: \.themeManager,
+            action: /RootAction.themeManager,
             environment: { _ in .init() }
         ),
-
     Reducer { state, action, environment in
         switch action {
+        
         default:
             return .none
         }

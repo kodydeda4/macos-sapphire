@@ -12,6 +12,7 @@
 		33250912259E62F600154565 /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250911259E62F600154565 /* SearchbarView.swift */; };
 		3325091A259E7DB400154565 /* ThemeDetailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250919259E7DB400154565 /* ThemeDetailState.swift */; };
 		332E5CA825A9660E003DAF64 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332E5CA725A9660E003DAF64 /* RootView.swift */; };
+		332E5CBB25A977EF003DAF64 /* ThemeManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332E5CBA25A977EF003DAF64 /* ThemeManagerState.swift */; };
 		335001B0259E326600B260AB /* IconDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335001AF259E326600B260AB /* IconDetailView.swift */; };
 		33538355259501F400259A23 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33538354259501F400259A23 /* View+Extensions.swift */; };
 		335D574C259CEEFA0034849F /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335D574B259CEEFA0034849F /* SidebarView.swift */; };
@@ -56,6 +57,7 @@
 		33250911259E62F600154565 /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		33250919259E7DB400154565 /* ThemeDetailState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDetailState.swift; sourceTree = "<group>"; };
 		332E5CA725A9660E003DAF64 /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		332E5CBA25A977EF003DAF64 /* ThemeManagerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManagerState.swift; sourceTree = "<group>"; };
 		335001AF259E326600B260AB /* IconDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconDetailView.swift; sourceTree = "<group>"; };
 		33538354259501F400259A23 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		335D574B259CEEFA0034849F /* SidebarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				33C4995A25A914F400B8566B /* RootState.swift */,
+				332E5CBA25A977EF003DAF64 /* ThemeManagerState.swift */,
 				B757D94D2594E9FB000FDB10 /* ThemeState.swift */,
 				33250919259E7DB400154565 /* ThemeDetailState.swift */,
 			);
@@ -376,6 +379,7 @@
 				B757D95C2594EAF9000FDB10 /* Icon.swift in Sources */,
 				33C3E93225941811007670AB /* ThemeView.swift in Sources */,
 				332E5CA825A9660E003DAF64 /* RootView.swift in Sources */,
+				332E5CBB25A977EF003DAF64 /* ThemeManagerState.swift in Sources */,
 				335D574C259CEEFA0034849F /* SidebarView.swift in Sources */,
 				33538355259501F400259A23 /* View+Extensions.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* ThemeState.swift in Sources */,

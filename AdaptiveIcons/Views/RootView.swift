@@ -13,9 +13,17 @@ struct RootView: View {
     let store: Store<RootState, RootAction>
     
     var body: some View {
-        ThemeView(store: ThemeState.defaultStore)
+        NavigationView {
+            SidebarView(store: ThemeManager.defaultStore)
+                .frame(minWidth: 180, idealWidth: 250, maxWidth: 300)
+            VStack {
+                Text("Welcome Page")
+                    .font(.largeTitle)
+            }
+        }
     }
 }
+
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
