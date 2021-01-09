@@ -15,50 +15,31 @@ struct SearchbarView: View {
     @State var expanded = false
     
     var body: some View {
-        if expanded {
-            expandedView
+        if !expanded {
+            Button(action: { expanded.toggle() }) {
+                Image(systemName: "magnifyingglass")
+            }
         } else {
-            compactView
+            ZStack {
+                TextField("Search", text: $text)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                HStack {
+                    Spacer()
+                    Button(
+                        action: { text = ""; expanded = false },
+                        label: { Image(systemName: "multiply.circle.fill") }
+                    )
+                    .buttonStyle(PlainButtonStyle())
+                    .foregroundColor(.gray)
+                }
+                .padding(.horizontal, 6)
+            }
+            .frame(minWidth: 60, idealWidth: 200.0, maxWidth: 200.0)
         }
     }
 }
 
-extension SearchbarView {
-    var compactView: some View {
-        Button(action: { expanded.toggle() }) {
-            Image(systemName: "magnifyingglass")
-        }
-    }
-}
-
-extension SearchbarView {
-    var expandedView: some View {
-        ZStack {
-            textfield
-            cancelButton
-        }
-        .frame(minWidth: 60, idealWidth: 200.0, maxWidth: 200.0)
-    }
-    
-    var textfield: some View {
-        TextField("Search", text: $text)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-    }
-    
-    var cancelButton: some View {
-        HStack {
-            Spacer()
-            Button(
-                action: { text = ""; expanded = false },
-                label: { Image(systemName: "multiply.circle.fill") }
-            )
-            .buttonStyle(PlainButtonStyle())
-            .foregroundColor(.gray)
-        }
-        .padding(.horizontal, 6)
-    }
-}
-
+// MARK:- SwiftUI Previews
 
 struct SearchbarView_Previews: PreviewProvider {
     static var previews: some View {

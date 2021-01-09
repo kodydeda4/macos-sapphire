@@ -14,27 +14,15 @@ struct ThemeView: View {
     
     var body: some View {
         NavigationView {
-            primary
-            detail
+            ThemePrimaryView(store: store)
+                .frame(width: 800)
+
+            ThemeDetailView(
+                store: store.scope(
+                    state: \.selectedIconState,
+                    action: ThemeAction.selectedIconAction))
+                .frame(width: 250)
         }
-    }
-}
-
-// MARK:- HelperViews
-
-extension ThemeView {
-    var primary: some View {
-        ThemePrimaryView(store: store)
-            .frame(width: 800)
-    }
-    
-    var detail: some View {
-        ThemeDetailView(
-            store: store.scope(
-                state: \.selectedIconState,
-                action: ThemeAction.selectedIconAction))
-            .frame(width: 250)
-//            .frame(minWidth: 250)
     }
 }
 

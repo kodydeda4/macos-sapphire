@@ -19,6 +19,7 @@ struct RootView: View {
             VStack {
                 Text("Welcome Page")
                     .font(.largeTitle)
+                    .foregroundColor(Color(NSColor.placeholderTextColor))
             }
         }
     }

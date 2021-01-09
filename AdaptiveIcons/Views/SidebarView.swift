@@ -12,79 +12,67 @@ struct SidebarView: View {
     let store: Store<ThemeManager, ThemeManagerAction>
     
     var body: some View {
-        VStack(alignment: .leading) {
-            navigationLinks
-            addThemeButton
+        WithViewStore(store) { viewStore in
+            VStack(alignment: .leading) {
+                List {
+                    Section(header: Text("Icon Packs")) {
+                        // Links
+                    }
+                    Section(header: Text("My Themes")) {
+                        ForEachStore(
+                            store.scope(
+                                state: \.themes,
+                                action: ThemeManagerAction.theme(index:action:)),
+                            content: NavLink.init
+                        )
+                    }
+                }
+                Button(
+                    action: { viewStore.send(.addThemeButtonTapped) },
+                    label: { Label ("Add Theme", systemImage: "plus.circle") }
+                )
+                .buttonStyle(BorderlessButtonStyle())
+                .padding(6)
+            }
         }
+        .listStyle(SidebarListStyle())
         .toolbar {
-            ToolbarItem { toggleSidebarButton }
+            ToolbarItem {
+                Button(action: toggleSidebar) {
+                    Image(systemName: "sidebar.left")
+                }
+            }
         }
     }
 }
 
 // MARK:- HelperViews
 
-extension SidebarView {
-    var navigationLinks: some View {
-        List {
-            Section(header: Text("Icon Packs")) {
-                // Links
-            }
-            Section(header: Text("My Themes")) {
-                themeNavigationLinks
-            }
-        }
-        .listStyle(SidebarListStyle())
-    }
-
+struct NavLink: View {
+    var store: Store<ThemeState, ThemeAction>
     
-    var themeNavigationLinks: some View {
-        ForEachStore(
-            store.scope(
-                state: \.themes,
-                action: ThemeManagerAction.theme(index:action:)))
-        { childStore in
-            WithViewStore(childStore) { childViewStore in
-                NavigationLink(
-                    destination: ThemeView(store: childStore)
-                        .navigationSubtitle(childViewStore.description)
-                ) {
-                    HStack {
-                        Image(systemName: "leaf.fill")
-                        
-                        TextField("Custom Theme",
-                                  text: childViewStore.binding(
-                                    get: \.description,
-                                    send: ThemeAction.textFieldChanged)
-                        )
-                    }
-                }
-            }
-        }
-    }
-
-    var addThemeButton: some View {
-        WithViewStore(store.stateless) { viewStore in
-            HStack {
-                Button(action: { viewStore.send(.addThemeButtonTapped) }) {
-                    HStack {
-                        Image(systemName: "plus.circle")
-                        Text("Add Theme")
-                    }
-                }
-                .buttonStyle(BorderlessButtonStyle())
-                .padding(6)
-            }
-        }
+    init(_ store: Store<ThemeState, ThemeAction>) {
+        self.store = store
     }
     
-    var toggleSidebarButton: some View {
-        Button(
-            action: toggleSidebar,
-            label: { Image(systemName: "sidebar.left") }
-        )
+    var body: some View {
+        WithViewStore(store) { viewStore in
+            NavigationLink(destination: ThemeView(store: store)) {
+                HStack {
+                    Image(systemName: "leaf.fill")
+                    TextField("Custom Theme", text: viewStore.binding(
+                                get: \.description,
+                                send: ThemeAction.textFieldChanged))
+                    
+                }
+            }
+            .navigationSubtitle(viewStore.description)
+        }
     }
 }
+
+
+
 
 func toggleSidebar() {
     NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar), with: nil)
