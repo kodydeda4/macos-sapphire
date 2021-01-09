@@ -9,6 +9,8 @@ import ComposableArchitecture
 import SwiftUI
 
 struct SidebarView: View {
+    let store: Store<RootState, RootAction>
+    
     var body: some View {
         VStack(alignment: .leading) {
             List {
@@ -45,6 +47,6 @@ func toggleSidebar() {
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
-        SidebarView()
+        SidebarView(store: RootState.defaultStore)
     }
 }
