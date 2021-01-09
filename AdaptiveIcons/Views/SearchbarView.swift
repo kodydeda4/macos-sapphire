@@ -11,76 +11,58 @@ import Grid
 import Combine
 
 struct SearchbarView: View {
-    let store: Store<ThemeState, ThemeAction>
+    @Binding var text: String
+    @State var expanded = false
     
     var body: some View {
-        WithViewStore(store) { viewStore in
-            if viewStore.showingExpandedSearchBar {
-                expandedSearchBarView
-            } else {
-                compactSearchBarView
-            }
+        if expanded {
+            expandedView
+        } else {
+            compactView
         }
     }
-    
-    // MARK:- Compact
-    
-    var compactSearchBarView: some View {
-        WithViewStore(store) { viewStore in
-            Button(action: { viewStore.send(.toggleShowingExpandedSearchBar) }) {
-                Image(systemName: "magnifyingglass")
-            }
+}
+
+extension SearchbarView {
+    var compactView: some View {
+        Button(action: { expanded.toggle() }) {
+            Image(systemName: "magnifyingglass")
         }
     }
-    
-    // MARK:- Expanded
-    
-    var expandedSearchBarView: some View {
-        WithViewStore(store) { viewStore in
-            ZStack {
-                textfield
-                if viewStore.search.count > 0 {
-                    roundCancelButton
-                }
-            }
-            .frame(minWidth: 60,
-                   idealWidth: 200.0,
-                   maxWidth: 200.0)
+}
+
+extension SearchbarView {
+    var expandedView: some View {
+        ZStack {
+            textfield
+            cancelButton
         }
+        .frame(minWidth: 60, idealWidth: 200.0, maxWidth: 200.0)
     }
-        
+    
     var textfield: some View {
-        WithViewStore(store) { viewStore in
-            TextField(
-                "Search",
-                text: viewStore.binding(
-                    get: \.search,
-                    send: ThemeAction.searchEntry))
-                .padding(.leading)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-        }
+        TextField("Search", text: $text)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
     }
     
-    var roundCancelButton: some View {
-        WithViewStore(store) { viewStore in
-            HStack {
-                Spacer()
-                Button(action: {
-                        viewStore.send(.clearSearch)
-                        viewStore.send(.toggleShowingExpandedSearchBar)}) {
-                    Image(systemName: "multiply.circle.fill")
-                }
-                .buttonStyle(PlainButtonStyle())
-                .foregroundColor(.gray)
-            }
-            .padding(.horizontal, 6)
+    var cancelButton: some View {
+        HStack {
+            Spacer()
+            Button(
+                action: { text = ""; expanded = false },
+                label: { Image(systemName: "multiply.circle.fill") }
+            )
+            .buttonStyle(PlainButtonStyle())
+            .foregroundColor(.gray)
         }
+        .padding(.horizontal, 6)
     }
 }
 
 
 struct SearchbarView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchbarView(store: ThemeState.defaultStore)
+        SearchbarView(text: .constant(""), expanded: true)
+        SearchbarView(text: .constant(""), expanded: false)
     }
 }

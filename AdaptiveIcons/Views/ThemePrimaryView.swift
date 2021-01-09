@@ -16,17 +16,9 @@ struct ThemePrimaryView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView {
-                Grid(viewStore.search == ""
-                        ? viewStore.icons
-                        : viewStore.icons.filter {
-                            $0.name.uppercased().contains(viewStore.search.uppercased())
-                        }
-                ) { icon in
-                    IconView(store: store, icon: icon)
-                }
-                .padding(16)
+                grid
             }
-            .toolbar(content: {
+            .toolbar {
                 ToolbarItem {
                     Toggle(isOn: viewStore.binding(
                             get: \.allSelected,
@@ -35,8 +27,9 @@ struct ThemePrimaryView: View {
                     }
                 }
                 ToolbarItem {
-                    SearchbarView(store: store)
-                    
+                    SearchbarView(text: viewStore.binding(
+                                            get: \.search,
+                                            send: ThemeAction.searchEntry))
                 }
                 ToolbarItem {
                     HStack {
@@ -47,11 +40,27 @@ struct ThemePrimaryView: View {
                             .buttonStyle(RoundedRectangleButtonStyle())
                     }
                 }
-            })
+            }
         }
     }
     
+    
+    var grid: some View {
+        WithViewStore(store) { viewStore in
+            Grid(viewStore.search == ""
+                    ? viewStore.icons
+                    : viewStore.icons.filter {
+                        $0.name.uppercased().contains(viewStore.search.uppercased())
+                    }
+            ) { icon in
+                IconView(store: store, icon: icon)
+            }
+            .padding(16)
+        }
+    }
 }
+
+
 
 struct ThemePrimaryView_Previews: PreviewProvider {
     static var previews: some View {
