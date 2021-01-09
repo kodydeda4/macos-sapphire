@@ -26,7 +26,7 @@ struct IconShapeButton: View {
                     .resizable()
                     .scaledToFill()
                     .foregroundColor(
-                        viewStore.selectedIconShape == iconShape
+                        viewStore.iconTheme.shape == iconShape
                             ? .accentColor
                             : .gray
                     )

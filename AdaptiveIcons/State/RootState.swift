@@ -38,5 +38,9 @@ let rootReducer = Reducer<RootState, RootAction, RootEnvironment>.combine(
 )
 
 extension RootState {
-    static let defaultStore = Store(initialState: RootState(), reducer: rootReducer, environment: RootEnvironment())
+    static let defaultStore = Store(
+        initialState: RootState(),
+        reducer: rootReducer,
+        environment: RootEnvironment()
+    )
 }

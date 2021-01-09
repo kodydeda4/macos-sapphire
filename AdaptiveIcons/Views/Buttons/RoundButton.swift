@@ -12,7 +12,7 @@ struct RoundButton: View {
     let store: Store<ThemeDetailState, ThemeDetailAction>
     var color: Color
     var action: () -> Void
-    
+
     var body: some View {
         WithViewStore(store) { viewStore in
             Button(action: action) {
@@ -24,7 +24,7 @@ struct RoundButton: View {
                         .frame(width: 6, height: 6)
                         .foregroundColor(
                             Color.white.opacity(
-                                viewStore.selectedBackgroundColor == color
+                                viewStore.iconTheme.backgroundColor == color
                                     ? 1
                                     : 0
                             ))

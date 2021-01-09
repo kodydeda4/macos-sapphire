@@ -11,9 +11,7 @@ struct Icon: Identifiable, Hashable {
     let id = UUID()
     let path: String
     var iconTheme = IconTheme()
-}
 
-extension Icon {
     static var iconsByPath = [String: NSImage]()
     
     var name: String {
@@ -59,9 +57,7 @@ extension Icon {
         }
         return ["":""]
     }
-}
 
-extension Icon {
     static func loadIcons(fromPath: String) -> [Icon] {
         let start = Date()
         let rv = try? FileManager

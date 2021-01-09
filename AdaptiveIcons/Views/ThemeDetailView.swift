@@ -34,29 +34,30 @@ struct ThemeDetailView: View {
                                 IconShapeButton(
                                     store: store,
                                     iconShape: iconShape,
-                                    action: { viewStore.send(.setSelectedIconShape(iconShape)) })
+                                    action: { viewStore.send(.setShape(iconShape)) })
                             }
                         }
                         
                         Divider()
+                        
                         HStack {
-                            ForEach(viewStore.iconBackgroundColors, id: \.self) { color in
+                            ForEach([Color.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white], id: \.self) { color in
                                 RoundButton(
                                     store: store,
                                     color: color,
-                                    action: { viewStore.send(.setSelectedBackgroundColor(color)) }
+                                    action: { viewStore.send(.setBackgroundColor(color)) }
                                 )
                             }
                         }
                         Divider()
                         VStack(alignment: .leading) {
                             Toggle(isOn: viewStore.binding(
-                                    get: \.iconShadow,
+                                    get: { $0.iconTheme.iconShadow },
                                     send: ThemeDetailAction.toggleIconShadow)) {
                                 Text("Icon Shadow")
                             }
                             Toggle(isOn: viewStore.binding(
-                                    get: \.shapeShadow,
+                                    get: { $0.iconTheme.shapeShadow },
                                     send: ThemeDetailAction.toggleShapeShadow)) {
                                 Text("Background Shadow")
                             }

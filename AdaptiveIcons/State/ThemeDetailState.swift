@@ -9,27 +9,15 @@ import Combine
 import ComposableArchitecture
 import SwiftUI
 
-/**
- Models an array of selected icons and actions to them
- */
 struct ThemeDetailState: Equatable {
-    // these are the selected icons ...
     var icons = [Icon]()
     var iconTheme = IconTheme()
-    
-    var iconBackgroundColors: [Color] = [.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white]
-    var selectedIconShape = IconTheme().shape
-    var selectedBackgroundColor: Color = IconTheme().backgroundColor
-    var shapeShadow = IconTheme().shapeShadow
-    var iconShadow  = IconTheme().iconShadow
 }
 
 enum ThemeDetailAction {
     case toggleSelected(Icon)
-//    case applyChanges
-//    case removeChanges
-    case setSelectedIconShape(IconShape)
-    case setSelectedBackgroundColor(Color)
+    case setShape(IconShape)
+    case setBackgroundColor(Color)
     case toggleShapeShadow(Bool)
     case toggleIconShadow(Bool)
 }
@@ -63,32 +51,20 @@ let themeDetailReducer = Reducer<ThemeDetailState, ThemeDetailAction, ThemeDetai
             
             state.icons = Array(icons)
             return .none
-
-//        case .applyChanges:
-//            state.icons = state.icons.map { Icon(path: $0.path, iconTheme: state.iconTheme) }
-//            return .none
-//
-//        case .removeChanges:
-//            state.icons = state.icons.map { Icon(path: $0.path, iconTheme: IconTheme()) }
-//            return .none
             
-        case let .setSelectedIconShape(iconShape):
-            state.selectedIconShape = iconShape
+        case let .setShape(iconShape):
             state.iconTheme.shape = iconShape
             return .none
             
-        case let .setSelectedBackgroundColor(color):
-            state.selectedBackgroundColor = color
+        case let .setBackgroundColor(color):
             state.iconTheme.backgroundColor = color
             return .none
             
         case let .toggleShapeShadow(selection):
-            state.shapeShadow = selection
             state.iconTheme.shapeShadow = selection
             return .none
             
         case let .toggleIconShadow(selection):
-            state.iconShadow = selection
             state.iconTheme.iconShadow = selection
             return .none
             

@@ -30,19 +30,21 @@ struct IconDetailView: View {
         }
     }
     
+
+    
     var shape: some View {
         WithViewStore(store) { viewStore in
-            Image(systemName: viewStore.selectedIconShape.rawValue)
+            Image(systemName: viewStore.iconTheme.shape.rawValue)
                 .resizable()
                 .scaledToFill()
                 .foregroundColor(
-                    viewStore.selectedBackgroundColor.opacity(
-                        viewStore.selectedIconShape != .transparent
+                    viewStore.iconTheme.backgroundColor.opacity(
+                        viewStore.iconTheme.shape != .transparent
                             ? 1
                             : 0
                     ))
                 .shadow(color: Color.black.opacity(
-                    viewStore.shapeShadow
+                    viewStore.iconTheme.shapeShadow
                         ? 0.25
                         : 0
                 ),
@@ -61,14 +63,14 @@ struct IconDetailView: View {
                 .padding()
                 .foregroundColor(
                     [.white, .black]
-                        .contains(viewStore.selectedBackgroundColor)
+                        .contains(viewStore.iconTheme.backgroundColor)
                         ? Color.accentColor
                         : .white
                 )
                 .shadow(
                     color: Color.black
                         .opacity(
-                            viewStore.iconShadow
+                            viewStore.iconTheme.iconShadow
                                 ? 0.25
                                 : 0
                         ),
