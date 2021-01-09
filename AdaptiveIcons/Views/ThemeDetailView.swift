@@ -27,15 +27,6 @@ struct ThemeDetailView: View {
 // MARK:- HelperViews
 
 extension ThemeDetailView {
-    
-    var placeholderText: some View {
-        VStack(alignment: .center) {
-            Text("No Selection")
-                .font(.title)
-                .foregroundColor(Color(NSColor.placeholderTextColor))
-        }
-    }
-    
     var editorView: some View {
         ScrollView {
             previewIcon
@@ -51,6 +42,7 @@ extension ThemeDetailView {
                 }
             }
         }
+        .padding()
         .padding(.top)
     }
     
@@ -102,6 +94,17 @@ extension ThemeDetailView {
         }
     }
 }
+
+extension ThemeDetailView {
+    var placeholderText: some View {
+        VStack(alignment: .center) {
+            Text("No Selection")
+                .font(.title)
+                .foregroundColor(Color(NSColor.placeholderTextColor))
+        }
+    }
+}
+
 
 // MARK:- SwiftUI Previews
 

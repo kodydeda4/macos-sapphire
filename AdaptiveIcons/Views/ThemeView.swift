@@ -37,9 +37,7 @@ extension ThemeView {
             store: store.scope(
                 state: \.selectedIconState,
                 action: ThemeAction.selectedIconAction))
-            .padding()
             .frame(minWidth: 250)
-
     }
 }
 

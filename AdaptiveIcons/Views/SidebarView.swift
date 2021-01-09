@@ -12,29 +12,29 @@ struct SidebarView: View {
     let store: Store<RootState, RootAction>
     
     var body: some View {
-        navigationLinksList
+        VStack(alignment: .leading) {
+            navigationLinks
+            addThemeButton
+        }
         .toolbar {
             ToolbarItem { toggleSidebarButton }
         }
-        addThemeButton
     }
 }
 
 // MARK:- HelperViews
 
 extension SidebarView {
-    var navigationLinksList: some View {
-        VStack(alignment: .leading) {
-            List {
-                Section(header: Text("Icon Packs")) {
-                    // Links
-                }
-                Section(header: Text("My Themes")) {
-                    // Links
-                }
+    var navigationLinks: some View {
+        List {
+            Section(header: Text("Icon Packs")) {
+                // Links
             }
-            .listStyle(SidebarListStyle())
+            Section(header: Text("My Themes")) {
+                // Links
+            }
         }
+        .listStyle(SidebarListStyle())
     }
     
     var toggleSidebarButton: some View {
