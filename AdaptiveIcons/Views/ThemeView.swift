@@ -14,14 +14,16 @@ struct ThemeView: View {
     
     var body: some View {
         NavigationView {
-            ThemePrimaryView(store: store)
-                .frame(width: 800)
-
+            ThemePrimaryView(store: store
+            )
+            .frame(width: 800)
+            
             ThemeDetailView(
                 store: store.scope(
                     state: \.selectedIconState,
-                    action: ThemeAction.selectedIconAction))
-                .frame(width: 250)
+                    action: ThemeAction.selectedIconAction)
+            )
+            .frame(width: 250)
         }
     }
 }

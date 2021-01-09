@@ -28,6 +28,7 @@ struct SidebarView: View {
                                 NavigationLink(destination: ThemeView(store: childStore)) {
                                     Text(childViewStore.name)
                                 }
+                                .navigationSubtitle(childViewStore.name)
                             }
                         }
                     }

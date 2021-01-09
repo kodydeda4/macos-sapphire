@@ -76,6 +76,7 @@ let themeReducer = Reducer<ThemeState, ThemeAction, ThemeEnvironment>.combine(
                 .filter { !state.selectedIconState.selectedIcons.contains($0) }
             
             state.icons = Array(selectedIcons + unselectedIcons).sorted(by: { $0.name < $1.name })
+            state.filteredIcons = state.icons
             state.selectedIconState.selectedIcons = []
             return .none
             
@@ -88,6 +89,7 @@ let themeReducer = Reducer<ThemeState, ThemeAction, ThemeEnvironment>.combine(
                 .filter { !state.selectedIconState.selectedIcons.contains($0) }
             
             state.icons = Array(selectedIcons + unselectedIcons).sorted(by: { $0.name < $1.name })
+            state.filteredIcons = state.icons
             state.selectedIconState.selectedIcons = []
             return .none
             

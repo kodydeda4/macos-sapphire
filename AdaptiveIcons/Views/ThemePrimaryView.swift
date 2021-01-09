@@ -5,8 +5,8 @@
 //  Created by Kody Deda on 12/24/20.
 //
 
+
 import SwiftUI
-import Combine
 import ComposableArchitecture
 import Grid
 
@@ -19,9 +19,8 @@ struct ThemePrimaryView: View {
                 Grid(viewStore.filteredIcons) { icon in
                     IconView(store: store, icon: icon)
                 }
+                .padding(16)
             }
-            .padding(16)
-            .navigationSubtitle(viewStore.name)
             .toolbar {
                 ToolbarItem {
                     SearchbarView(text: viewStore.binding(get: \.iconFilter, send: ThemeAction.iconFilterChanged))
@@ -40,7 +39,6 @@ struct ThemePrimaryView: View {
     }
 }
 
-
 // MARK:- SwiftUI Previews
 
 struct ThemePrimaryView_Previews: PreviewProvider {
@@ -48,6 +46,3 @@ struct ThemePrimaryView_Previews: PreviewProvider {
         ThemePrimaryView(store: ThemeState.defaultStore)
     }
 }
-
-
-

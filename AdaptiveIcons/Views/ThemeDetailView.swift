@@ -16,95 +16,54 @@ struct ThemeDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             if viewStore.selectedIcons.isEmpty {
-                placeholderText
-            } else {
-                editorView
-            }
-        }
-    }
-}
-
-// MARK:- HelperViews
-
-extension ThemeDetailView {
-    var editorView: some View {
-        ScrollView {
-            previewIcon
-            Divider()
-            VStack {
-                shapeSelectorButtons
-                Divider()
-                colorSelectorButtons
-                Divider()
-                VStack(alignment: .leading) {
-                    iconShadowToggle
-                    shapeShadowToggle
+                VStack(alignment: .center) {
+                    Text("No Selection")
+                        .font(.title)
+                        .foregroundColor(Color(NSColor.placeholderTextColor))
                 }
-            }
-        }
-        .padding()
-        .padding(.top)
-    }
-    
-    var previewIcon: some View {
-        WithViewStore(store) { viewStore in
-            IconDetailView(
-                store: store,
-                iconFrameWidth: 125,
-                iconFrameHeight: 125,
-                iconImage: viewStore.iconDetailViewImage,
-                iconText: viewStore.iconDetailViewText)
-        }
-    }
-    
-    var shapeSelectorButtons: some View {
-        WithViewStore(store) { viewStore in
-            IconShapeSelectorView(
-                selection: viewStore.binding(
-                    get: \.iconTheme.shape,
-                    send: ThemeDetailAction.setShape))
-        }
-    }
-    
-    var colorSelectorButtons: some View {
-        WithViewStore(store) { viewStore in
-            ColorSelectorView(
-                selection: viewStore.binding(
-                    get: \.iconTheme.backgroundColor,
-                    send: ThemeDetailAction.setBackgroundColor))
-        }
-    }
-    var iconShadowToggle: some View {
-        WithViewStore(store) { viewStore in
-            Toggle(isOn: viewStore.binding(
-                    get: { $0.iconTheme.iconShadow },
-                    send: ThemeDetailAction.toggleIconShadow)) {
-                Text("Icon Shadow")
-            }
-        }
-    }
-    
-    var shapeShadowToggle: some View {
-        WithViewStore(store) { viewStore in
-            Toggle(isOn: viewStore.binding(
-                    get: { $0.iconTheme.shapeShadow },
-                    send: ThemeDetailAction.toggleShapeShadow)) {
-                Text("Background Shadow")
+            } else {
+                ScrollView {
+                    IconDetailView(
+                        store: store,
+                        iconFrameWidth: 125,
+                        iconFrameHeight: 125,
+                        iconImage: viewStore.iconDetailViewImage,
+                        iconText: viewStore.iconDetailViewText
+                    )
+                    Divider()
+                    VStack {
+                        IconShapeSelectorView(
+                            selection: viewStore.binding(
+                                get: \.iconTheme.shape,
+                                send: ThemeDetailAction.setShape))
+                        Divider()
+                        ColorSelectorView(
+                            selection: viewStore.binding(
+                                get: \.iconTheme.backgroundColor,
+                                send: ThemeDetailAction.setBackgroundColor))
+                        
+                        Divider()
+                        VStack(alignment: .leading) {
+                            Toggle(isOn: viewStore.binding(
+                                    get: { $0.iconTheme.iconShadow },
+                                    send: ThemeDetailAction.toggleIconShadow)) {
+                                Text("Icon Shadow")
+                            }
+                            Toggle(isOn: viewStore.binding(
+                                    get: { $0.iconTheme.shapeShadow },
+                                    send: ThemeDetailAction.toggleShapeShadow)) {
+                                Text("Background Shadow")
+                            }
+                            
+                        }
+                    }
+                }
+                .padding()
+                .padding(.top)
             }
         }
     }
 }
-
-extension ThemeDetailView {
-    var placeholderText: some View {
-        VStack(alignment: .center) {
-            Text("No Selection")
-                .font(.title)
-                .foregroundColor(Color(NSColor.placeholderTextColor))
-        }
-    }
-}
-
 
 // MARK:- SwiftUI Previews
 
