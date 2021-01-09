@@ -9,23 +9,23 @@ import ComposableArchitecture
 import SwiftUI
 
 struct SidebarView: View {
-    let store: Store<RootState, RootAction>
+//    let store: Store<RootState, RootAction>
     
     var body: some View {
-        WithViewStore(store.stateless) { viewStore in
+//        WithViewStore(store.stateless) { viewStore in
             
             VStack(alignment: .leading) {
                 List {
                     Section(header: Text("Icon Packs")) {}
                     Section(header: Text("My Themes")) {
-                        NavigationLink(
-                            destination: ThemeView(
-                                store: store.scope(
-                                    state: \.theme,
-                                    action: RootAction.theme)
-                            ).navigationTitle("Theme"),
-                            label: { Label("Theme", systemImage: "house")}
-                        )
+//                        NavigationLink(
+//                            destination: ThemeView(
+//                                store: store.scope(
+//                                    state: \.theme,
+//                                    action: RootAction.theme)
+//                            ).navigationTitle("Theme"),
+//                            label: { Label("Theme", systemImage: "house")}
+//                        )
                     }
                 }
                 .listStyle(SidebarListStyle())
@@ -49,7 +49,7 @@ struct SidebarView: View {
                 }
             }
         }
-    }
+//    }
 }
 
 func toggleSidebar() {
@@ -58,6 +58,7 @@ func toggleSidebar() {
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
-        SidebarView(store: RootState.defaultStore)
+//        SidebarView(store: RootState.defaultStore)
+        SidebarView()
     }
 }

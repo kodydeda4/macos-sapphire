@@ -1,5 +1,5 @@
 //
-//  RoundButton.swift
+//  ColorSelectorView.swift
 //  AdaptiveIcons
 //
 //  Created by Kody Deda on 12/31/20.
@@ -12,7 +12,7 @@ struct ColorSelectorView: View {
     @Binding var selection: Color
     let colors: [Color] =
         [.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white]
-    
+        
     var body: some View {
         HStack {
             ForEach(colors, id: \.self) { color in
@@ -35,7 +35,7 @@ struct ColorSelectorView: View {
 
 
 
-struct RoundButtonV2_Previews: PreviewProvider {
+struct ColorSelectorView_Previews: PreviewProvider {
     static var previews: some View {
         ColorSelectorView(selection: .constant(.white))
     }

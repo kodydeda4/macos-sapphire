@@ -13,10 +13,7 @@ struct RootView: View {
     let store: Store<RootState, RootAction>
     
     var body: some View {
-        NavigationView {
-            SidebarView(store: store)
-            ThemeView(store: ThemeState.defaultStore)
-        }
+        ThemeView(store: ThemeState.defaultStore)
     }
 }
 

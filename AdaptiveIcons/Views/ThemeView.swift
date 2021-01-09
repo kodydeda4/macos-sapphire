@@ -13,11 +13,13 @@ struct ThemeView: View {
     let store: Store<ThemeState, ThemeAction>
     
     var body: some View {
-        HSplitView {
+        NavigationView {
+            SidebarView()
             ThemePrimaryView(store: store)
-            ThemeDetailView(store: store.scope(
-                                state: \.selectedIconState,
-                                action: ThemeAction.selectedIconAction))
+            ThemeDetailView(
+                store: store.scope(
+                    state: \.selectedIconState,
+                    action: ThemeAction.selectedIconAction))
         }
     }
 }

@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		332508F9259E60E000154565 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332508F8259E60E000154565 /* ButtonStyles.swift */; };
-		332508FE259E616700154565 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332508FD259E616700154565 /* RoundButton.swift */; };
-		33250903259E61EF00154565 /* IconShapeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250902259E61EF00154565 /* IconShapeButton.swift */; };
+		332508FE259E616700154565 /* ColorSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332508FD259E616700154565 /* ColorSelectorView.swift */; };
+		33250903259E61EF00154565 /* IconShapeSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250902259E61EF00154565 /* IconShapeSelectorView.swift */; };
 		33250912259E62F600154565 /* SearchbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250911259E62F600154565 /* SearchbarView.swift */; };
 		3325091A259E7DB400154565 /* ThemeDetailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250919259E7DB400154565 /* ThemeDetailState.swift */; };
 		335001B0259E326600B260AB /* IconDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335001AF259E326600B260AB /* IconDetailView.swift */; };
@@ -53,8 +53,8 @@
 
 /* Begin PBXFileReference section */
 		332508F8259E60E000154565 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
-		332508FD259E616700154565 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
-		33250902259E61EF00154565 /* IconShapeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconShapeButton.swift; sourceTree = "<group>"; };
+		332508FD259E616700154565 /* ColorSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectorView.swift; sourceTree = "<group>"; };
+		33250902259E61EF00154565 /* IconShapeSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconShapeSelectorView.swift; sourceTree = "<group>"; };
 		33250911259E62F600154565 /* SearchbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarView.swift; sourceTree = "<group>"; };
 		33250919259E7DB400154565 /* ThemeDetailState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDetailState.swift; sourceTree = "<group>"; };
 		335001AF259E326600B260AB /* IconDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconDetailView.swift; sourceTree = "<group>"; };
@@ -114,8 +114,8 @@
 		33250907259E629B00154565 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				332508FD259E616700154565 /* RoundButton.swift */,
-				33250902259E61EF00154565 /* IconShapeButton.swift */,
+				332508FD259E616700154565 /* ColorSelectorView.swift */,
+				33250902259E61EF00154565 /* IconShapeSelectorView.swift */,
 				332508F8259E60E000154565 /* ButtonStyles.swift */,
 			);
 			path = Buttons;
@@ -373,10 +373,10 @@
 				33C4996C25A9185C00B8566B /* RootView.swift in Sources */,
 				335001B0259E326600B260AB /* IconDetailView.swift in Sources */,
 				33250912259E62F600154565 /* SearchbarView.swift in Sources */,
-				33250903259E61EF00154565 /* IconShapeButton.swift in Sources */,
+				33250903259E61EF00154565 /* IconShapeSelectorView.swift in Sources */,
 				33C4995625A9128900B8566B /* IconTheme.swift in Sources */,
 				3325091A259E7DB400154565 /* ThemeDetailState.swift in Sources */,
-				332508FE259E616700154565 /* RoundButton.swift in Sources */,
+				332508FE259E616700154565 /* ColorSelectorView.swift in Sources */,
 				339666B8259697EB00AA5E79 /* IconView.swift in Sources */,
 				B757D95C2594EAF9000FDB10 /* Icon.swift in Sources */,
 				33C3E93225941811007670AB /* ThemeView.swift in Sources */,
