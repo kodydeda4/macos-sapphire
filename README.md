@@ -1,4 +1,4 @@
-# Adaptive Icons | Fall 2020
+# 🗿 Adaptive Icons | Fall 2020
 An app for creating/customizing MacOS Icons.
 
 
