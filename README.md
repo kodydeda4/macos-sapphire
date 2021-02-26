@@ -1,4 +1,4 @@
-# 🔷 Sapphire | Fall 2020
+# 🏔 Sapphire | Fall 2020
 An app for creating/customizing MacOS Icons.
 
 
