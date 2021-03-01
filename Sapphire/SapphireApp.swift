@@ -1,5 +1,5 @@
 //
-//  AdaptiveIconsApp.swift
+//  SapphireApp.swift
 //  AdaptiveIcons
 //
 //  Created by Kody Deda on 12/15/20.

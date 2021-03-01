@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "33E1B1772589600000A1FDC1"
-               BuildableName = "AdaptiveIcons.app"
-               BlueprintName = "AdaptiveIcons"
-               ReferencedContainer = "container:AdaptiveIcons.xcodeproj">
+               BuildableName = "Sapphire.app"
+               BlueprintName = "Sapphire"
+               ReferencedContainer = "container:Sapphire.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "33E1B1892589600100A1FDC1"
-               BuildableName = "AdaptiveIconsTests.xctest"
-               BlueprintName = "AdaptiveIconsTests"
-               ReferencedContainer = "container:AdaptiveIcons.xcodeproj">
+               BuildableName = "SapphireTests.xctest"
+               BlueprintName = "SapphireTests"
+               ReferencedContainer = "container:Sapphire.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "33E1B1942589600100A1FDC1"
-               BuildableName = "AdaptiveIconsUITests.xctest"
-               BlueprintName = "AdaptiveIconsUITests"
-               ReferencedContainer = "container:AdaptiveIcons.xcodeproj">
+               BuildableName = "SapphireUITests.xctest"
+               BlueprintName = "SapphireUITests"
+               ReferencedContainer = "container:Sapphire.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "33E1B1772589600000A1FDC1"
-            BuildableName = "AdaptiveIcons.app"
-            BlueprintName = "AdaptiveIcons"
-            ReferencedContainer = "container:AdaptiveIcons.xcodeproj">
+            BuildableName = "Sapphire.app"
+            BlueprintName = "Sapphire"
+            ReferencedContainer = "container:Sapphire.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -82,9 +82,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "33E1B1772589600000A1FDC1"
-            BuildableName = "AdaptiveIcons.app"
-            BlueprintName = "AdaptiveIcons"
-            ReferencedContainer = "container:AdaptiveIcons.xcodeproj">
+            BuildableName = "Sapphire.app"
+            BlueprintName = "Sapphire"
+            ReferencedContainer = "container:Sapphire.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
