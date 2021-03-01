@@ -1,6 +1,6 @@
 //
 //  ThemeManagerState.swift
-//  AdaptiveIcons
+//  Sapphire
 //
 //  Created by Kody Deda on 1/9/21.
 //

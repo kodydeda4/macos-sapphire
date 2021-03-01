@@ -1,6 +1,6 @@
 //
 //  RootState.swift
-//  AdaptiveIcons
+//  Sapphire
 //
 //  Created by Kody Deda on 1/8/21.
 //

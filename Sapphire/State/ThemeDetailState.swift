@@ -1,6 +1,6 @@
 //
 //  SelectedIconState.swift
-//  AdaptiveIcons
+//  Sapphire
 //
 //  Created by Kody Deda on 12/31/20.
 //

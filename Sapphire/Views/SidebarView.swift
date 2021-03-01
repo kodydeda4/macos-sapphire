@@ -1,6 +1,6 @@
 //
 //  Sidebar.swift
-//  AdaptiveIcons
+//  Sapphire
 //
 //  Created by Kody Deda on 12/22/20.
 //
