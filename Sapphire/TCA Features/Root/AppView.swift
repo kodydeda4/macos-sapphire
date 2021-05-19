@@ -13,17 +13,17 @@ struct AppView: View {
     var app: MacOSApplication
     
     var body: some View {
-        VStack {            
+        VStack {
             Image(app.icon)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 50, height: 50)
                 .padding(.bottom, 4)
             
             Text(app.name)
                 .font(.caption)
                 .lineLimit(1)
         }
+        .frame(width: 50, height: 50)
         .padding()
     }
 }
