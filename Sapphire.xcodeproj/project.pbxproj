@@ -38,7 +38,7 @@
 		33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* Sapphire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sapphire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* SapphireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SapphireApp.swift; sourceTree = "<group>"; };
-		33E1B17F2589600100A1FDC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		33E1B17F2589600100A1FDC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Sapphire/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		33E1B1842589600100A1FDC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		33E1B1852589600100A1FDC1 /* Sapphire.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sapphire.entitlements; sourceTree = "<group>"; };
