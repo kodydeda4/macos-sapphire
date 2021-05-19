@@ -8,9 +8,8 @@
 import SwiftUI
 
 extension Image {
-    public init?(contentsOfFile: String) {
-        guard let image = NSImage(contentsOfFile: contentsOfFile)
-        else { return nil }
-        self.init(nsImage: image)
+    /// Creates a SwiftUI image from contentsOfFile.
+    public init(_ url: String) {
+        self.init(nsImage: NSImage(contentsOfFile: url) ?? NSImage.init())
     }
 }

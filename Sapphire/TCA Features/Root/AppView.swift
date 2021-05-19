@@ -13,8 +13,8 @@ struct AppView: View {
     var app: MacOSApplication
     
     var body: some View {
-        VStack {
-            Image(nsImage: app.icon)
+        VStack {            
+            Image(app.icon)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 50, height: 50)
