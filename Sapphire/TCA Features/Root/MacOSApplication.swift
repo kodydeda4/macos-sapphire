@@ -11,7 +11,7 @@ struct MacOSApplication: Equatable, Identifiable {
     var id: URL { path }
     let path: URL
     let name: String
-    let icon: String
+    let icon: URL
 }
 
 // MARK:- [MacOSApplication]

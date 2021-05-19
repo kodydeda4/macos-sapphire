@@ -9,7 +9,7 @@ import SwiftUI
 
 extension Image {
     /// Creates a SwiftUI image from contentsOfFile.
-    public init(_ url: String) {
-        self.init(nsImage: NSImage(contentsOfFile: url) ?? NSImage.init())
+    public init(_ url: URL) {
+        self.init(nsImage: NSImage(contentsOfFile: url.path) ?? NSImage.init())
     }
 }

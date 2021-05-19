@@ -27,13 +27,11 @@ extension Bundle {
     }
     
     /// Returns Bundle icon-url from URL.
-    static func icon(from url: URL) -> String {
+    static func icon(from url: URL) -> URL {
         url
-            .path
-            .appending("/Contents/Resources/")
-            .appending("\(Bundle.getSerializedInfoPlist(from: url)["CFBundleIconFile"] ?? "AppIcon")")
-            .replacingOccurrences(of: ".icns", with: "")
-            .appending(".icns")
+            .appendingPathComponent("/Contents/Resources/")
+            .appendingPathComponent("\(Bundle.getSerializedInfoPlist(from: url)["CFBundleIconFile"] ?? "AppIcon")")
+            .appendingPathExtension(for: .icns)
     }
     
     /// Returns Bundle Serialized-Info-Plist as [String : Any]? from URL.
