@@ -16,7 +16,7 @@ struct GridDetailView: View {
             VStack(alignment: .leading) {
                 if viewStore.selections.isEmpty {
                     Text("No Selection")
-                        .font(.title2)
+                        .font(.title)
                         .foregroundColor(Color(.disabledControlTextColor))
                     
                 } else if viewStore.selections.count == 1 {

@@ -18,6 +18,7 @@ struct Root {
     
     enum Action: Equatable {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
+        case selectAllButtonTapped
         case applyChanges
         case resetChanges
     }
@@ -46,6 +47,9 @@ extension Root {
             case .resetChanges:
                 return .none
                 
+            case .selectAllButtonTapped:
+                print("Selected All")
+                return .none
             }
         }
     )

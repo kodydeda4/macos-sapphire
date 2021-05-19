@@ -23,6 +23,17 @@ struct GridView: View {
                 .frame(width: 600)
                 .padding()
             }
+            .toolbar {
+                ToolbarItem {
+                    Spacer()
+                }
+                ToolbarItem {
+                    Button("Select All") {
+                        viewStore.send(.selectAllButtonTapped)
+                    }
+                    .help("Apply Changes")
+                }
+            }
         }
     }
 }
