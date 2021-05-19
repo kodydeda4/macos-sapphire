@@ -35,7 +35,6 @@ struct MacOSApplicationView: View {
             )
             .onHover { _ in hovering.toggle() }
             //.animation(Animation.default, value: viewStore.selected)
-
         }
     }
 }
