@@ -11,13 +11,14 @@ import ComposableArchitecture
 struct Root {
     struct State: Equatable {
         var macOSApplications: [MacOSApplication.State] = .allCases
-        var selections: [MacOSApplication.State] {
+        var gridSelections: [MacOSApplication.State] {
             macOSApplications.filter(\.selected)
         }
     }
     
     enum Action: Equatable {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
+        case createIconButtonTapped
         case selectAllButtonTapped
         case applyChanges
         case resetChanges
@@ -39,6 +40,9 @@ extension Root {
             switch action {
             
             case .macOSApplication:
+                return .none
+                
+            case .createIconButtonTapped:
                 return .none
 
             case .applyChanges:

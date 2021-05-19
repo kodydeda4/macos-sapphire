@@ -14,19 +14,19 @@ struct GridDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack {
-                if viewStore.selections.isEmpty {
+                if viewStore.gridSelections.isEmpty {
                     Text("No Selection")
                         .font(.title)
                         .foregroundColor(Color(.disabledControlTextColor))
                     
-                } else if viewStore.selections.count == 1 {
+                } else if viewStore.gridSelections.count == 1 {
                     GroupBox {
-                        ImageView(url: viewStore.selections.first!.icon)
+                        ImageView(url: viewStore.gridSelections.first!.icon)
                             .padding()
                             .frame(width: 125, height: 125)
                     }
                     
-                    Text(viewStore.selections.first!.name)
+                    Text(viewStore.gridSelections.first!.name)
                         .font(.title)
                         .bold()
                         .lineLimit(2)
@@ -34,15 +34,10 @@ struct GridDetailView: View {
                         .frame(height: 50)
                                         
                     Button("Create Icon") {
-                        
+                        viewStore.send(.createIconButtonTapped)
                     }
                     
-                    
                 } else {
-//                    ForEach(viewStore.selections, id: \.self) {
-//                        Text($0.name)
-//                            .foregroundColor(Color(.disabledControlTextColor))
-//                    }
                     GroupBox {
                         Image("SapphireLogo")
                             .resizable()
