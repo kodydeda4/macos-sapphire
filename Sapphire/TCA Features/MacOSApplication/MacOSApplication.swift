@@ -15,6 +15,7 @@ struct MacOSApplication {
         let name : String
         let icon : URL
         var selected = false
+        var customIcon = false
     }
     
     enum Action: Equatable {

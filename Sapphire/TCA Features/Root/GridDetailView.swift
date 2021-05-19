@@ -13,7 +13,7 @@ struct GridDetailView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack(alignment: .leading) {
+            VStack {
                 if viewStore.selections.isEmpty {
                     Text("No Selection")
                         .font(.title)
@@ -21,19 +21,22 @@ struct GridDetailView: View {
                     
                 } else if viewStore.selections.count == 1 {
                     GroupBox {
-                        VStack {
-                            ImageView(url: viewStore.selections.first!.icon)
-                                .padding(.bottom, 3)
-                            
-                            Text(viewStore.selections.first!.name)
-                                .font(.title2)
-                                .lineLimit(2)
-                                .multilineTextAlignment(.center)
-                                .frame(height: 50)
-                        }
-                        .padding()
+                        ImageView(url: viewStore.selections.first!.icon)
+                            .padding()
+                            .frame(width: 125, height: 125)
                     }
-                    .frame(width: 150, height: 150)
+                    
+                    Text(viewStore.selections.first!.name)
+                        .font(.title)
+                        .bold()
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+                        .frame(height: 50)
+                                        
+                    Button("Create Icon") {
+                        
+                    }
+                    
                     
                 } else {
 //                    ForEach(viewStore.selections, id: \.self) {
@@ -41,20 +44,25 @@ struct GridDetailView: View {
 //                            .foregroundColor(Color(.disabledControlTextColor))
 //                    }
                     GroupBox {
-                        VStack {
-                            ImageView(url: viewStore.selections.last!.icon)
-                                .padding(.bottom, 3)
-                            
-                            Text("Multiple Selections")
-                                .font(.title2)
-                                .lineLimit(2)
-                                .multilineTextAlignment(.center)
-                                .frame(height: 50)
-                        }
-                        .padding()
+                        Image("SapphireLogo")
+                            .resizable()
+                            .scaledToFill()
+                            .padding()
+                            .frame(width: 125, height: 125)
                     }
-                    .frame(width: 150, height: 150)
+                    
+                    Text("Multiple Selections")
+                        .font(.title)
+                        .bold()
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+                        .frame(height: 50)
+                                        
+                    Button("Create Icon") {
+                        
+                    }
                 }
+                Spacer()
             }
             .fixedSize()
             .toolbar {
