@@ -11,7 +11,7 @@ import ComposableArchitecture
 struct MacOSApplicationView: View {
     let store: Store<MacOSApplication.State, MacOSApplication.Action>
     
-    //@State var hovering = false
+    @State private var hovering = false
     
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -24,12 +24,18 @@ struct MacOSApplicationView: View {
                         .font(.caption)
                         .lineLimit(1)
                 }
-//                .background(Color.gray.opacity(hovering ? 0.1 : 0))
             }
-            //.onHover { _ in hovering.toggle() }
             .buttonStyle(PlainButtonStyle())
             .padding()
-            .border(Color.gray.opacity(viewStore.selected ? 1 : 0))
+            .background(
+                GroupBox {
+                    Color.clear
+                }
+                .opacity(viewStore.selected ? 0.8 : 0)
+            )
+            .onHover { _ in hovering.toggle() }
+            //.animation(Animation.default, value: viewStore.selected)
+
         }
     }
 }
