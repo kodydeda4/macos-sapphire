@@ -7,7 +7,6 @@
 
 import SwiftUI
 import ComposableArchitecture
-import Grid
 
 struct MacOSApplicationView: View {
     let store: Store<MacOSApplication.State, MacOSApplication.Action>

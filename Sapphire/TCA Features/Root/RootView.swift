@@ -7,7 +7,6 @@
 
 import SwiftUI
 import ComposableArchitecture
-import Grid
 
 struct RootView: View {
     let store: Store<Root.State, Root.Action>

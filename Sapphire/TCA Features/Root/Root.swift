@@ -1,17 +1,15 @@
 //
-//  AppState.swift
+//  Root.swift
 //  Sapphire
 //
 //  Created by Kody Deda on 12/24/20.
 //
 
-import Combine
-import ComposableArchitecture
 import SwiftUI
+import ComposableArchitecture
 
 struct Root {
     struct State: Equatable {
-        var foo: String = ""
         var macOSApplication: [MacOSApplication.State] = Bundle.allBundleURLs.map { url in
             MacOSApplication.State(
                 path: url,
@@ -43,14 +41,15 @@ extension Root {
         Reducer { state, action, environment in
             switch action {
             
+            case .macOSApplication:
+                return .none
+
             case .applyChanges:
                 return .none
                 
             case .resetChanges:
                 return .none
                 
-            case .macOSApplication:
-                return .none
             }
         }
     )

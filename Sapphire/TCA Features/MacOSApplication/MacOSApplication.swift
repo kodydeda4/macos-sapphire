@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  MacOSApplication.swift
 //  Sapphire
 //
 //  Created by Kody Deda on 12/24/20.
@@ -46,4 +46,5 @@ extension MacOSApplication {
         environment: ()
     )
 }
+
 

@@ -52,7 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				332B84E7265496BD00B7633B /* Root */,
-				B757D95A2594EAEB000FDB10 /* Model */,
+				3336D53C26556EE60064F5D9 /* MacOSApplication */,
 			);
 			path = "TCA Features";
 			sourceTree = "<group>";
@@ -62,10 +62,17 @@
 			children = (
 				B757D94D2594E9FB000FDB10 /* Root.swift */,
 				332B84E826549CD900B7633B /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		3336D53C26556EE60064F5D9 /* MacOSApplication */ = {
+			isa = PBXGroup;
+			children = (
 				B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */,
 				339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */,
 			);
-			path = Root;
+			path = MacOSApplication;
 			sourceTree = "<group>";
 		};
 		33E1B16F2589600000A1FDC1 = {
@@ -104,13 +111,6 @@
 				33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		B757D95A2594EAEB000FDB10 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		B757D9CF2594ED42000FDB10 /* Common */ = {
