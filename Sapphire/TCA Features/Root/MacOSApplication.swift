@@ -7,37 +7,28 @@
 
 import SwiftUI
 
-struct MacOSApplication: Identifiable, Hashable {
+struct MacOSApplication: Equatable, Identifiable {
     let id = UUID()
     let path: String
-    static var iconsByPath = [String: NSImage]()
-        
+    
     var name: String {
         path
-        .replacingOccurrences(of: "/Applications/", with: "")
-        .replacingOccurrences(of: ".app", with: "")
-    }
-
-    var icon: NSImage {
-        let iconPath = iconPath
-        var icon = Self.iconsByPath[iconPath]
-        
-        if icon == nil {
-            icon = NSImage(contentsOfFile: iconPath)!
-            Self.iconsByPath[iconPath] = icon
-        }
-        return icon!
+            .replacingOccurrences(of: "/Applications/", with: "")
+            .replacingOccurrences(of: ".app", with: "")
     }
     
-    var iconPath: String {
-        let rv = "\(path)/Contents/Resources/\(AppBundlePlist?["CFBundleIconFile"] ?? AppBundlePlist?["Icon file"] ?? "AppIcon")"
-        return rv.contains(".icns")
-            ? rv
-            : rv + ".icns"
-    }
-
-    var description: String {
-        "MacOSApplication<\(name)> \n path: \(path), \n defaultIconPath: \(iconPath)"
+    var icon: NSImage {
+        let p = "\(path)/Contents/Resources/\(AppBundlePlist?["CFBundleIconFile"] ?? AppBundlePlist?["Icon file"] ?? "AppIcon")"
+        let iconPath = p.contains(".icns")
+            ? p
+            : p + ".icns"
+        
+        
+        if let f = NSImage(contentsOfFile: iconPath) {
+            return f
+        } else {
+            return NSImage.init()
+        }
     }
 }
 
@@ -46,7 +37,7 @@ extension MacOSApplication {
         if let infoPlistPath = try? URL(fileURLWithPath: "\(path)/Contents/Info.plist") {
             do {
                 let infoPlistData = try Data(contentsOf: infoPlistPath)
-
+                
                 if let dict = try PropertyListSerialization.propertyList(from: infoPlistData, options: [], format: nil) as? [String: Any] {
                     return dict
                 }
@@ -61,7 +52,7 @@ extension MacOSApplication {
 // MARK:- [MacOSApplication]
 
 extension Array where Element == MacOSApplication {
-
+    
     static var allCases: [MacOSApplication] {
         try! FileManager
             .default
