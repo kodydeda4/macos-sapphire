@@ -30,13 +30,13 @@ extension Bundle {
     static func icon(from url: URL) -> String {
         let p = Bundle.getSerializedInfoPlist(from: url)
         
-        return "\(url.path.appending("/Contents/Resources/"))\(p?["CFBundleIconFile"] ?? p?["Icon file"] ?? "AppIcon")"
+        return "\(url.path.appending("/Contents/Resources/"))\(p["CFBundleIconFile"] ?? p["Icon file"] ?? "AppIcon")"
             .replacingOccurrences(of: ".icns", with: "")
             .appending(".icns")
     }
     
     /// Returns Bundle Serialized-Info-Plist as [String : Any]? from URL.
-    static func getSerializedInfoPlist(from url: URL) -> [String: Any]? {
+    static func getSerializedInfoPlist(from url: URL) -> [String: Any] {
         let url = URL(fileURLWithPath: url.path.appending("/Contents/Info.plist"))
         
         if let data = try? Data(contentsOf: url) {
