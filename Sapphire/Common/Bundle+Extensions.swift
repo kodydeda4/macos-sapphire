@@ -10,7 +10,7 @@ import Cocoa
 
 extension Bundle {
     
-    /// Returns [String] containing all the Paths for each MacOS Application.
+    /// Returns [String] containing all the Paths for every MacOS Application.
     static var allBundleURLs: [String] {
         try! FileManager
             .default
@@ -28,21 +28,18 @@ extension Bundle {
     
     /// Returns icon url of Bundle from BundleURL.
     static func icon(from url: String) -> String {
-        let plist = Bundle.getSerializedPlist(from: url)
+        let p = Bundle.getSerializedInfoPlist(from: url)
         
-        let p = "\(url)/Contents/Resources/\(plist?["CFBundleIconFile"] ?? plist?["Icon file"] ?? "AppIcon")"
-        
-        return p.contains(".icns") ? p : p + ".icns"
-        
+        return "\(url.appending("/Contents/Resources/"))\(p?["CFBundleIconFile"] ?? p?["Icon file"] ?? "AppIcon")"
+            .replacingOccurrences(of: ".icns", with: "")
+            .appending(".icns")
     }
     
-
-    static func getSerializedPlist(from path: String) -> [String: Any]? {
-        if let infoPlistPath = try? URL(fileURLWithPath: "\(path)/Contents/Info.plist") {
+    /// Returns Serialized Info Plist as [String : Any]?
+    static func getSerializedInfoPlist(from url: String) -> [String: Any]? {
+        if let data = try? Data(contentsOf: URL(fileURLWithPath: "\(url)/Contents/Info.plist")) {
             do {
-                let infoPlistData = try Data(contentsOf: infoPlistPath)
-                
-                if let dict = try PropertyListSerialization.propertyList(from: infoPlistData, options: [], format: nil) as? [String: Any] {
+                if let dict = try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [String: Any] {
                     return dict
                 }
             } catch {

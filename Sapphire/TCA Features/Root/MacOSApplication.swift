@@ -16,16 +16,16 @@ struct MacOSApplication: Equatable, Identifiable {
 
 // MARK:- [MacOSApplication]
 extension Array where Element == MacOSApplication {
+    
     static var allCases: [MacOSApplication] {
-        Bundle.allBundleURLs
-            .map { url in
-                MacOSApplication(
-                    path: url,
-                    name: Bundle.name(from: url),
-                    icon: Bundle.icon(from: url)
-                )
-            }
-            .sorted(by: { $0.name < $1.name })
+        Bundle.allBundleURLs.map { url in
+            MacOSApplication(
+                path: url,
+                name: Bundle.name(from: url),
+                icon: Bundle.icon(from: url)
+            )
+        }
+        .sorted(by: { $0.name < $1.name })
     }
 }
 
