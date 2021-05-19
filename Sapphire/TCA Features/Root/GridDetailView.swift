@@ -17,6 +17,13 @@ struct GridDetailView: View {
                 Text("Hello World")
             }
             .fixedSize()
+            .toolbar {
+                ToolbarItem {
+                    Button<Image>("checkmark.circle") {
+                        
+                    }
+                }
+            }
         }
     }
 }

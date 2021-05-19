@@ -18,7 +18,7 @@ struct RootView: View {
                 GridDetailView(store: store)
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
-            .frame(width: 900, height: 600)
+            .frame(width: 900, height: 500)
         }
     }
 }
