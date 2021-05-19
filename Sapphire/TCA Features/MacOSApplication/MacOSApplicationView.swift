@@ -16,10 +16,7 @@ struct MacOSApplicationView: View {
             Button(action: { viewStore.send(.toggleSelected) }) {
                 VStack {
                     ImageView(url: viewStore.icon)
-//                    Image(viewStore.icon)
-//                        .resizable()
-//                        .scaledToFill()
-//                        .padding(.bottom, 4)
+                        .padding(.bottom, 3)
                     
                     Text(viewStore.name)
                         .font(.caption)

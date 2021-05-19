@@ -14,14 +14,17 @@ struct GridDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading) {
-                Text("Hello World")
+                Text("No Selection")
+                    .font(.title2)
+                    .foregroundColor(Color(.disabledControlTextColor))
             }
             .fixedSize()
             .toolbar {
                 ToolbarItem {
                     Button<Image>("checkmark.circle") {
-                        
+                        viewStore.send(.applyChanges)
                     }
+                    .help("Apply Changes")
                 }
             }
         }
