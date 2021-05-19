@@ -8,15 +8,10 @@
 import SwiftUI
 import ComposableArchitecture
 
+
 struct Root {
     struct State: Equatable {
-        var macOSApplication: [MacOSApplication.State] = Bundle.allBundleURLs.map { url in
-            MacOSApplication.State(
-                path: url,
-                name: Bundle.name(from: url),
-                icon: Bundle.icon(from: url)
-            )
-        }
+        var macOSApplication: [MacOSApplication.State] = .allCases
     }
     
     enum Action: Equatable {

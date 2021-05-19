@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		332B84E926549CD900B7633B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B84E826549CD900B7633B /* RootView.swift */; };
+		3336D53E265570AE0064F5D9 /* MacOSApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */; };
 		33538355259501F400259A23 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33538354259501F400259A23 /* View+Extensions.swift */; };
 		3360CA82258BF80B008350BB /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 3360CA81258BF80B008350BB /* Grid */; };
 		339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		332B84E826549CD900B7633B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MacOSApplication+Extensions.swift"; sourceTree = "<group>"; };
 		33538354259501F400259A23 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationView.swift; sourceTree = "<group>"; };
 		33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */,
+				3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */,
 				339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */,
 			);
 			path = MacOSApplication;
@@ -201,6 +204,7 @@
 			files = (
 				33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */,
 				339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */,
+				3336D53E265570AE0064F5D9 /* MacOSApplication+Extensions.swift in Sources */,
 				332B84E926549CD900B7633B /* RootView.swift in Sources */,
 				B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */,
 				33538355259501F400259A23 /* View+Extensions.swift in Sources */,

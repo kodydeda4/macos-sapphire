@@ -10,8 +10,8 @@ import ComposableArchitecture
 
 struct MacOSApplication {
     struct State: Equatable, Identifiable {
-        var id   : URL { path }
-        let path : URL
+        var id   : URL { url }
+        let url  : URL
         let name : String
         let icon : URL
         var selected = false
@@ -38,7 +38,7 @@ extension MacOSApplication {
 extension MacOSApplication {
     static let defaultStore = Store(
         initialState: .init(
-            path: Bundle.allBundleURLs.first!,
+            url: Bundle.allBundleURLs.first!,
             name: Bundle.name(from: Bundle.allBundleURLs.first!),
             icon: Bundle.icon(from: Bundle.allBundleURLs.first!)
         ),
@@ -46,5 +46,6 @@ extension MacOSApplication {
         environment: ()
     )
 }
+
 
 
