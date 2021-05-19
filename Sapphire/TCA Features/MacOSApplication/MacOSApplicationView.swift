@@ -8,11 +8,6 @@
 import SwiftUI
 import ComposableArchitecture
 
-
-
-
-
-
 struct MacOSApplicationView: View {
     let store: Store<MacOSApplication.State, MacOSApplication.Action>
     
@@ -25,8 +20,6 @@ struct MacOSApplicationView: View {
 //                        .resizable()
 //                        .scaledToFill()
 //                        .padding(.bottom, 4)
-                    Rectangle()
-                        
                     
                     Text(viewStore.name)
                         .font(.caption)
@@ -34,7 +27,6 @@ struct MacOSApplicationView: View {
                 }
             }
             .buttonStyle(PlainButtonStyle())
-            .frame(width: 50, height: 50)
             .padding()
             .border(Color.gray.opacity(viewStore.selected ? 1 : 0))
             

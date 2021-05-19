@@ -7,19 +7,24 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Grid
 
 struct RootView: View {
     let store: Store<Root.State, Root.Action>
     
+    
     var body: some View {
         WithViewStore(store) { viewStore in
-            List {
-                ForEachStore(store.scope(
-                    state: \.macOSApplication,
-                    action: Root.Action.macOSApplication(index:action:)
-                ), content: MacOSApplicationView.init(store:))
+            ScrollView {
+                LazyVGrid(columns: [GridItem](repeating: .init(.fixed(90)), count: 8)) {
+                    ForEachStore(store.scope(
+                        state: \.macOSApplications,
+                        action: Root.Action.macOSApplication(index:action:)
+                    ), content: MacOSApplicationView.init(store:))
+                }
+                .frame(width: 780)
+                .padding()
             }
-            
         }
     }
 }

@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct Root {
     struct State: Equatable {
-        var macOSApplication: [MacOSApplication.State] = .allCases
+        var macOSApplications: [MacOSApplication.State] = .allCases
     }
     
     enum Action: Equatable {
@@ -27,7 +27,7 @@ struct Root {
 extension Root {
     static let reducer = Reducer<State, Action, Environment>.combine(
         MacOSApplication.reducer.forEach(
-            state: \.macOSApplication,
+            state: \.macOSApplications,
             action: /Action.macOSApplication(index:action:),
             environment: { _ in () }
         ),
