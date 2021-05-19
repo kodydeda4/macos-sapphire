@@ -13,17 +13,15 @@ struct RootView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            GridView(store: store)
-            
+            NavigationView {
+                
+                GridView(store: store)
+                GridDetailView(store: store)
+            }
+            .navigationViewStyle(DoubleColumnNavigationViewStyle())
         }
     }
 }
-
-
-
-
-
-
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
