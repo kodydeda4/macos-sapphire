@@ -7,11 +7,9 @@
 
 import SwiftUI
 
-struct Icon: Identifiable, Hashable {
+struct MacOSApplication: Identifiable, Hashable {
     let id = UUID()
     let path: String
-    var iconTheme = IconTheme()
-
     static var iconsByPath = [String: NSImage]()
     
     var name: String {
@@ -57,13 +55,13 @@ struct Icon: Identifiable, Hashable {
         return ["":""]
     }
 
-    static func loadIcons(fromPath: String) -> [Icon] {
+    static func loadIcons(fromPath: String) -> [MacOSApplication] {
         let start = Date()
         let rv = try? FileManager
             .default
             .contentsOfDirectory(atPath: "/Applications")
             .filter { $0.contains(".app") && !$0.hasPrefix(".") }
-            .map { Icon(path: "/Applications/\($0)" ) }
+            .map { MacOSApplication(path: "/Applications/\($0)" ) }
             .sorted(by: { $0.name < $1.name })
         
         return rv ?? []

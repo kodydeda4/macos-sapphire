@@ -12,7 +12,7 @@ import SwiftUI
 struct Root {
     struct State: Equatable {
         var foo: String = ""
-        var icons: [Icon] = Icon.loadIcons(fromPath: "/Applications")
+        var icons: [MacOSApplication] = MacOSApplication.loadIcons(fromPath: "/Applications")
     }
     
     enum Action: Equatable {
@@ -59,7 +59,7 @@ struct RootView: View {
         WithViewStore(store) { viewStore in
             ScrollView {
                 Grid(viewStore.icons) { icon in
-                    IconView(icon: icon)
+                    MacOSApplicationView(icon: icon)
                 }
                 .padding()
             }

@@ -7,26 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		332508FE259E616700154565 /* ColorSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332508FD259E616700154565 /* ColorSelectorView.swift */; };
-		33250903259E61EF00154565 /* IconShapeSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33250902259E61EF00154565 /* IconShapeSelectorView.swift */; };
 		33538355259501F400259A23 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33538354259501F400259A23 /* View+Extensions.swift */; };
 		3360CA82258BF80B008350BB /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 3360CA81258BF80B008350BB /* Grid */; };
-		339666B8259697EB00AA5E79 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* IconView.swift */; };
-		33C4995625A9128900B8566B /* IconTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C4995525A9128900B8566B /* IconTheme.swift */; };
+		339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */; };
 		33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* SapphireApp.swift */; };
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
 		B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = B7453A352594E99900F8BE5A /* ComposableArchitecture */; };
 		B757D94E2594E9FB000FDB10 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D94D2594E9FB000FDB10 /* Root.swift */; };
-		B757D95C2594EAF9000FDB10 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D95B2594EAF9000FDB10 /* Icon.swift */; };
+		B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		332508FD259E616700154565 /* ColorSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectorView.swift; sourceTree = "<group>"; };
-		33250902259E61EF00154565 /* IconShapeSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconShapeSelectorView.swift; sourceTree = "<group>"; };
 		33538354259501F400259A23 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
-		339666B7259697EB00AA5E79 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
-		33C4995525A9128900B8566B /* IconTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTheme.swift; sourceTree = "<group>"; };
+		339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationView.swift; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* Sapphire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sapphire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* SapphireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SapphireApp.swift; sourceTree = "<group>"; };
 		33E1B17F2589600100A1FDC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -34,7 +28,7 @@
 		33E1B1842589600100A1FDC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		33E1B1852589600100A1FDC1 /* Sapphire.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sapphire.entitlements; sourceTree = "<group>"; };
 		B757D94D2594E9FB000FDB10 /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
-		B757D95B2594EAF9000FDB10 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,13 +44,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		33250907259E629B00154565 /* Buttons */ = {
+		332B84E6265496B000B7633B /* TCA Features */ = {
 			isa = PBXGroup;
 			children = (
-				332508FD259E616700154565 /* ColorSelectorView.swift */,
-				33250902259E61EF00154565 /* IconShapeSelectorView.swift */,
+				332B84E7265496BD00B7633B /* Root */,
+				B757D95A2594EAEB000FDB10 /* Model */,
 			);
-			path = Buttons;
+			path = "TCA Features";
+			sourceTree = "<group>";
+		};
+		332B84E7265496BD00B7633B /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				B757D94D2594E9FB000FDB10 /* Root.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 		33E1B16F2589600000A1FDC1 = {
@@ -78,15 +80,13 @@
 		33E1B17A2589600000A1FDC1 /* Sapphire */ = {
 			isa = PBXGroup;
 			children = (
-				33E1B1852589600100A1FDC1 /* Sapphire.entitlements */,
 				33E1B17B2589600000A1FDC1 /* SapphireApp.swift */,
-				33E1B17F2589600100A1FDC1 /* Assets.xcassets */,
-				33E1B1812589600100A1FDC1 /* Preview Content */,
+				332B84E6265496B000B7633B /* TCA Features */,
 				B757D9CF2594ED42000FDB10 /* Common */,
-				B757D95A2594EAEB000FDB10 /* Model */,
-				B757D94C2594E9DE000FDB10 /* State */,
-				B757D9D02594ED52000FDB10 /* Views */,
+				33E1B17F2589600100A1FDC1 /* Assets.xcassets */,
 				33E1B1842589600100A1FDC1 /* Info.plist */,
+				33E1B1852589600100A1FDC1 /* Sapphire.entitlements */,
+				33E1B1812589600100A1FDC1 /* Preview Content */,
 			);
 			path = Sapphire;
 			sourceTree = "<group>";
@@ -99,19 +99,10 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		B757D94C2594E9DE000FDB10 /* State */ = {
-			isa = PBXGroup;
-			children = (
-				B757D94D2594E9FB000FDB10 /* Root.swift */,
-			);
-			path = State;
-			sourceTree = "<group>";
-		};
 		B757D95A2594EAEB000FDB10 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B757D95B2594EAF9000FDB10 /* Icon.swift */,
-				33C4995525A9128900B8566B /* IconTheme.swift */,
+				B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -119,7 +110,7 @@
 		B757D9CF2594ED42000FDB10 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				33538354259501F400259A23 /* View+Extensions.swift */,
+				B757D9D02594ED52000FDB10 /* Views */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -127,8 +118,8 @@
 		B757D9D02594ED52000FDB10 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				339666B7259697EB00AA5E79 /* IconView.swift */,
-				33250907259E629B00154565 /* Buttons */,
+				33538354259501F400259A23 /* View+Extensions.swift */,
+				339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -211,11 +202,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */,
-				33250903259E61EF00154565 /* IconShapeSelectorView.swift in Sources */,
-				33C4995625A9128900B8566B /* IconTheme.swift in Sources */,
-				332508FE259E616700154565 /* ColorSelectorView.swift in Sources */,
-				339666B8259697EB00AA5E79 /* IconView.swift in Sources */,
-				B757D95C2594EAF9000FDB10 /* Icon.swift in Sources */,
+				339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */,
+				B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */,
 				33538355259501F400259A23 /* View+Extensions.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Root.swift in Sources */,
 			);
