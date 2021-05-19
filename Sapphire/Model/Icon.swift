@@ -28,7 +28,6 @@ struct Icon: Identifiable, Hashable {
             let start = Date()
             icon = NSImage(contentsOfFile: defaultIconPath)!
             Self.iconsByPath[iconPath] = icon
-            iddlog("loaded in: '\(start.timeIntervalSince(Date()) * -1000) ms'")
         }
         
         return icon!
@@ -67,7 +66,6 @@ struct Icon: Identifiable, Hashable {
             .map { Icon(path: "/Applications/\($0)" ) }
             .sorted(by: { $0.name < $1.name })
         
-        iddlog("loaded in: '\(start.timeIntervalSince(Date()) * -1000) ms'")
         return rv ?? []
     }
 }

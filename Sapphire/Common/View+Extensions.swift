@@ -14,21 +14,3 @@ extension Image {
         self.init(nsImage: image)
     }
 }
-
-extension View {
-    func clipShape(_ iconShape: IconShape?) -> some View {
-        switch iconShape {
-        
-        case .roundedRectangle:
-            return AnyView(self.clipShape(RoundedRectangle(cornerRadius: 10)))
-            
-        case .circle:
-            return AnyView(self.clipShape(Circle()))
-            
-        default:
-            return AnyView(self)
-        }
-    }
-}
-
-
