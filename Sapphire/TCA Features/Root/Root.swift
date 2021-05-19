@@ -11,6 +11,8 @@ import ComposableArchitecture
 struct Root {
     struct State: Equatable {
         var macOSApplications: [MacOSApplication.State] = .allCases
+        var sheetView = false
+        var animatingApplyChanges = false
         var gridSelections: [MacOSApplication.State] {
             macOSApplications.filter(\.selected)
         }
@@ -19,6 +21,7 @@ struct Root {
     enum Action: Equatable {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
         case createIconButtonTapped
+        case toggleSheetView
         case selectAllButtonTapped
         case applyChanges
         case resetChanges
@@ -43,7 +46,13 @@ extension Root {
                 return .none
                 
             case .createIconButtonTapped:
-                return .none
+//                let _ = AppleScript.execute("/usr/local/bin/brew services restart yabai; /usr/local/bin/brew services restart skhd;")
+                state.animatingApplyChanges.toggle()
+                if state.animatingApplyChanges {
+                    return Effect(value: .toggleSheetView)
+                }
+                state.animatingApplyChanges.toggle()
+                return Effect(value: .toggleSheetView)
 
             case .applyChanges:
                 return .none
@@ -54,6 +63,17 @@ extension Root {
             case .selectAllButtonTapped:
                 print("Selected All")
                 return .none
+                
+            case .toggleSheetView:
+                state.sheetView.toggle()
+                
+                if state.sheetView {
+                    return Effect(value: .toggleSheetView)
+                        .delay(for: 2.0, scheduler: DispatchQueue.main)
+                        .eraseToEffect()
+                }
+                return .none
+
             }
         }
     )

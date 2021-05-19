@@ -17,6 +17,8 @@
 		33538355259501F400259A23 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33538354259501F400259A23 /* View+Extensions.swift */; };
 		3360CA82258BF80B008350BB /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 3360CA81258BF80B008350BB /* Grid */; };
 		339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */; };
+		33BEC3192655AA4F0066851E /* AppleScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC3182655AA4F0066851E /* AppleScript.swift */; };
+		33BEC31B2655AA830066851E /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC31A2655AA830066851E /* SheetView.swift */; };
 		33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */; };
 		33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* SapphireApp.swift */; };
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
@@ -35,6 +37,8 @@
 		3336D54A2655834C0064F5D9 /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
 		33538354259501F400259A23 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationView.swift; sourceTree = "<group>"; };
+		33BEC3182655AA4F0066851E /* AppleScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScript.swift; sourceTree = "<group>"; };
+		33BEC31A2655AA830066851E /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* Sapphire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sapphire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* SapphireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SapphireApp.swift; sourceTree = "<group>"; };
@@ -76,6 +80,7 @@
 				332B84E826549CD900B7633B /* RootView.swift */,
 				3336D54626557D690064F5D9 /* GridView.swift */,
 				3336D54826557E020064F5D9 /* GridDetailView.swift */,
+				33BEC31A2655AA830066851E /* SheetView.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				3336D545265578250064F5D9 /* Extensions */,
+				33BEC3182655AA4F0066851E /* AppleScript.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -236,11 +242,13 @@
 			files = (
 				33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */,
 				3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */,
+				33BEC3192655AA4F0066851E /* AppleScript.swift in Sources */,
 				339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */,
 				3336D53E265570AE0064F5D9 /* MacOSApplication+Extensions.swift in Sources */,
 				332B84E926549CD900B7633B /* RootView.swift in Sources */,
 				3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */,
 				B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */,
+				33BEC31B2655AA830066851E /* SheetView.swift in Sources */,
 				33538355259501F400259A23 /* View+Extensions.swift in Sources */,
 				3336D543265577D70064F5D9 /* ImageView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Root.swift in Sources */,
