@@ -22,7 +22,7 @@ extension Array where Element == MacOSApplication {
                 MacOSApplication(
                     path: url,
                     name: Bundle.name(from: url),
-                    icon: Bundle.iconURL(from: url)
+                    icon: Bundle.icon(from: url)
                 )
             }
             .sorted(by: { $0.name < $1.name })

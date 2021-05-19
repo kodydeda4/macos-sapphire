@@ -8,7 +8,6 @@
 import Foundation
 import Cocoa
 
-
 extension Bundle {
     
     /// Returns [String] containing all the Paths for each MacOS Application.
@@ -20,24 +19,21 @@ extension Bundle {
             .map    { "/Applications/\($0)" }
     }
     
-    /// Returns Bundle name from url.
+    /// Returns name of Bundle from BundleURL.
     static func name(from url: String) -> String {
         url
             .replacingOccurrences(of: "/Applications/", with: "")
             .replacingOccurrences(of: ".app",           with: "")
     }
     
-    /// Returns url of Bundle icon.
-    static func iconURL(from url: String) -> String {
+    /// Returns icon url of Bundle from BundleURL.
+    static func icon(from url: String) -> String {
         let plist = Bundle.getSerializedPlist(from: url)
         
         let p = "\(url)/Contents/Resources/\(plist?["CFBundleIconFile"] ?? plist?["Icon file"] ?? "AppIcon")"
         
-        let iconPath = p.contains(".icns")
-            ? p
-            : p + ".icns"
+        return p.contains(".icns") ? p : p + ".icns"
         
-        return iconPath
     }
     
 
@@ -54,11 +50,5 @@ extension Bundle {
             }
         }
         return ["":""]
-    }
-}
-
-extension FileManager {
-    func allApplicationsDirectory() -> URL {
-        return self.urls(for: .allApplicationsDirectory, in: .userDomainMask)[0]
     }
 }
