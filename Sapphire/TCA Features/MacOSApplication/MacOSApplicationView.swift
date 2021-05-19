@@ -8,6 +8,11 @@
 import SwiftUI
 import ComposableArchitecture
 
+
+
+
+
+
 struct MacOSApplicationView: View {
     let store: Store<MacOSApplication.State, MacOSApplication.Action>
     
@@ -15,10 +20,13 @@ struct MacOSApplicationView: View {
         WithViewStore(store) { viewStore in
             Button(action: { viewStore.send(.toggleSelected) }) {
                 VStack {
-                    Image(viewStore.icon)
-                        .resizable()
-                        .scaledToFill()
-                        .padding(.bottom, 4)
+                    ImageView(url: viewStore.icon)
+//                    Image(viewStore.icon)
+//                        .resizable()
+//                        .scaledToFill()
+//                        .padding(.bottom, 4)
+                    Rectangle()
+                        
                     
                     Text(viewStore.name)
                         .font(.caption)
@@ -26,9 +34,10 @@ struct MacOSApplicationView: View {
                 }
             }
             .buttonStyle(PlainButtonStyle())
-            .border(Color.gray.opacity(viewStore.selected ? 1 : 0))
             .frame(width: 50, height: 50)
             .padding()
+            .border(Color.gray.opacity(viewStore.selected ? 1 : 0))
+            
         }
     }
 }

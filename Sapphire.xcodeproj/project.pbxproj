@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		332B84E926549CD900B7633B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B84E826549CD900B7633B /* RootView.swift */; };
 		3336D53E265570AE0064F5D9 /* MacOSApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */; };
+		3336D541265573DA0064F5D9 /* FetchImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3336D540265573DA0064F5D9 /* FetchImage */; };
+		3336D543265577D70064F5D9 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D542265577D70064F5D9 /* ImageView.swift */; };
 		33538355259501F400259A23 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33538354259501F400259A23 /* View+Extensions.swift */; };
 		3360CA82258BF80B008350BB /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 3360CA81258BF80B008350BB /* Grid */; };
 		339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */; };
@@ -24,6 +26,7 @@
 /* Begin PBXFileReference section */
 		332B84E826549CD900B7633B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MacOSApplication+Extensions.swift"; sourceTree = "<group>"; };
+		3336D542265577D70064F5D9 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		33538354259501F400259A23 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationView.swift; sourceTree = "<group>"; };
 		33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
@@ -42,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3336D541265573DA0064F5D9 /* FetchImage in Frameworks */,
 				B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */,
 				3360CA82258BF80B008350BB /* Grid in Frameworks */,
 			);
@@ -72,10 +76,27 @@
 			isa = PBXGroup;
 			children = (
 				B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */,
-				3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */,
 				339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */,
+				3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */,
 			);
 			path = MacOSApplication;
+			sourceTree = "<group>";
+		};
+		3336D5442655781B0064F5D9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3336D542265577D70064F5D9 /* ImageView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3336D545265578250064F5D9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				33538354259501F400259A23 /* View+Extensions.swift */,
+				33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		33E1B16F2589600000A1FDC1 = {
@@ -99,6 +120,7 @@
 			children = (
 				33E1B17B2589600000A1FDC1 /* SapphireApp.swift */,
 				332B84E6265496B000B7633B /* TCA Features */,
+				3336D5442655781B0064F5D9 /* Views */,
 				B757D9CF2594ED42000FDB10 /* Common */,
 				33E1B17F2589600100A1FDC1 /* Assets.xcassets */,
 				33E1B1842589600100A1FDC1 /* Info.plist */,
@@ -119,8 +141,7 @@
 		B757D9CF2594ED42000FDB10 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				33538354259501F400259A23 /* View+Extensions.swift */,
-				33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */,
+				3336D545265578250064F5D9 /* Extensions */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -144,6 +165,7 @@
 			packageProductDependencies = (
 				3360CA81258BF80B008350BB /* Grid */,
 				B7453A352594E99900F8BE5A /* ComposableArchitecture */,
+				3336D540265573DA0064F5D9 /* FetchImage */,
 			);
 			productName = AdaptiveIcons;
 			productReference = 33E1B1782589600000A1FDC1 /* Sapphire.app */;
@@ -175,6 +197,7 @@
 			packageReferences = (
 				3360CA80258BF80B008350BB /* XCRemoteSwiftPackageReference "swiftui-grid" */,
 				B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				3336D53F265573DA0064F5D9 /* XCRemoteSwiftPackageReference "FetchImage" */,
 			);
 			productRefGroup = 33E1B1792589600000A1FDC1 /* Products */;
 			projectDirPath = "";
@@ -208,6 +231,7 @@
 				332B84E926549CD900B7633B /* RootView.swift in Sources */,
 				B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */,
 				33538355259501F400259A23 /* View+Extensions.swift in Sources */,
+				3336D543265577D70064F5D9 /* ImageView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Root.swift in Sources */,
 				33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */,
 			);
@@ -403,6 +427,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3336D53F265573DA0064F5D9 /* XCRemoteSwiftPackageReference "FetchImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/FetchImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.1;
+			};
+		};
 		3360CA80258BF80B008350BB /* XCRemoteSwiftPackageReference "swiftui-grid" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/spacenation/swiftui-grid";
@@ -422,6 +454,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3336D540265573DA0064F5D9 /* FetchImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3336D53F265573DA0064F5D9 /* XCRemoteSwiftPackageReference "FetchImage" */;
+			productName = FetchImage;
+		};
 		3360CA81258BF80B008350BB /* Grid */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3360CA80258BF80B008350BB /* XCRemoteSwiftPackageReference "swiftui-grid" */;

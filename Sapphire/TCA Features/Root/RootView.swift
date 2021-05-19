@@ -19,6 +19,7 @@ struct RootView: View {
                     action: Root.Action.macOSApplication(index:action:)
                 ), content: MacOSApplicationView.init(store:))
             }
+            
         }
     }
 }
