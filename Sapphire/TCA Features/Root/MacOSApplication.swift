@@ -13,13 +13,16 @@ struct MacOSApplication: Equatable, Identifiable {
     let name: String
     
     var icon: NSImage {
-        let AppBundlePlist = Bundle.getPlist(from: path)
+        let AppBundlePlist = Bundle.getSerializedPlist(from: path)
         let p = "\(path)/Contents/Resources/\(AppBundlePlist?["CFBundleIconFile"] ?? AppBundlePlist?["Icon file"] ?? "AppIcon")"
+        
         let iconPath = p.contains(".icns")
             ? p
             : p + ".icns"
         
-        
+        print(iconPath)
+
+
         if let f = NSImage(contentsOfFile: iconPath) {
             return f
         } else {
@@ -28,22 +31,7 @@ struct MacOSApplication: Equatable, Identifiable {
     }
 }
 
-extension Bundle {
-    func getSerializedPlist(from path: Path) -> [String: Any]? {
-        if let infoPlistPath = try? URL(fileURLWithPath: "\(path)/Contents/Info.plist") {
-            do {
-                let infoPlistData = try Data(contentsOf: infoPlistPath)
-                
-                if let dict = try PropertyListSerialization.propertyList(from: infoPlistData, options: [], format: nil) as? [String: Any] {
-                    return dict
-                }
-            } catch {
-                print(error)
-            }
-        }
-        return ["":""]
-    }
-}
+
 
 // MARK:- [MacOSApplication]
 
