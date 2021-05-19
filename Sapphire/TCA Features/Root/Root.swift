@@ -11,6 +11,9 @@ import ComposableArchitecture
 struct Root {
     struct State: Equatable {
         var macOSApplications: [MacOSApplication.State] = .allCases
+        var selections: [MacOSApplication.State] {
+            macOSApplications.filter(\.selected)
+        }
     }
     
     enum Action: Equatable {

@@ -14,9 +14,18 @@ struct GridDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading) {
-                Text("No Selection")
-                    .font(.title2)
-                    .foregroundColor(Color(.disabledControlTextColor))
+                if viewStore.selections.isEmpty {
+                    Text("No Selection")
+                        .font(.title2)
+                        .foregroundColor(Color(.disabledControlTextColor))
+                } else {
+                    
+                    ForEach(viewStore.selections, id: \.self) {
+                        Text($0.name)
+                            .foregroundColor(Color(.disabledControlTextColor))
+                    }
+                }
+                
             }
             .fixedSize()
             .toolbar {
