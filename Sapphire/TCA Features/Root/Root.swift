@@ -9,27 +9,20 @@ import Combine
 import ComposableArchitecture
 import SwiftUI
 
-/*
- 
- Todo:
- 
- 1. Figure out a simple clean way to load all the apps.
- 
- 2. Create a TCA Feature for-each MacOSApplication.
-    - String name
-    - String icon
- 
- 3. Be able to select an icon, and change it by running that cli script.
- 
- */
-
 struct Root {
     struct State: Equatable {
         var foo: String = ""
-        var apps: [MacOSApplication] = .allCases
+        var macOSApplication: [MacOSApplication.State] = Bundle.allBundleURLs.map { url in
+            MacOSApplication.State(
+                path: url,
+                name: Bundle.name(from: url),
+                icon: Bundle.icon(from: url)
+            )
+        }
     }
     
     enum Action: Equatable {
+        case macOSApplication(index: Int, action: MacOSApplication.Action)
         case applyChanges
         case resetChanges
     }
@@ -39,8 +32,14 @@ struct Root {
     }
 }
 
+
 extension Root {
     static let reducer = Reducer<State, Action, Environment>.combine(
+        MacOSApplication.reducer.forEach(
+            state: \.macOSApplication,
+            action: /Action.macOSApplication(index:action:),
+            environment: { _ in () }
+        ),
         Reducer { state, action, environment in
             switch action {
             
@@ -48,6 +47,9 @@ extension Root {
                 return .none
                 
             case .resetChanges:
+                return .none
+                
+            case .macOSApplication:
                 return .none
             }
         }

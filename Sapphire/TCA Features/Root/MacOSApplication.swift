@@ -6,26 +6,44 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
-struct MacOSApplication: Equatable, Identifiable {
-    var id: URL { path }
-    let path: URL
-    let name: String
-    let icon: URL
+struct MacOSApplication {
+    struct State: Equatable, Identifiable {
+        var id   : URL { path }
+        let path : URL
+        let name : String
+        let icon : URL
+        var selected = false
+    }
+    
+    enum Action: Equatable {
+        case toggleSelected
+    }
 }
 
-// MARK:- [MacOSApplication]
-extension Array where Element == MacOSApplication {
-    
-    static var allCases: [MacOSApplication] {
-        Bundle.allBundleURLs.map { url in
-            MacOSApplication(
-                path: url,
-                name: Bundle.name(from: url),
-                icon: Bundle.icon(from: url)
-            )
+extension MacOSApplication {
+    static let reducer = Reducer<State, Action, Void>.combine(
+        Reducer { state, action, _ in
+            switch action {
+            
+            case .toggleSelected:
+                state.selected.toggle()
+                return .none
+            }
         }
-        .sorted(by: { $0.name < $1.name })
-    }
+    )
+}
+
+extension MacOSApplication {
+    static let defaultStore = Store(
+        initialState: .init(
+            path: Bundle.allBundleURLs.first!,
+            name: Bundle.name(from: Bundle.allBundleURLs.first!),
+            icon: Bundle.icon(from: Bundle.allBundleURLs.first!)
+        ),
+        reducer: reducer,
+        environment: ()
+    )
 }
 

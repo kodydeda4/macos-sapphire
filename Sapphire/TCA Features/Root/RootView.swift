@@ -14,11 +14,11 @@ struct RootView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            ScrollView {
-                Grid(viewStore.apps) {
-                    AppView(app: $0)
-                }
-                .padding()
+            List {
+                ForEachStore(store.scope(
+                    state: \.macOSApplication,
+                    action: Root.Action.macOSApplication(index:action:)
+                ), content: MacOSApplicationView.init(store:))
             }
         }
     }
