@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MacOSApplication: Equatable, Identifiable {
-    var id: String { path }
-    let path: String
+    var id: URL { path }
+    let path: URL
     let name: String
     let icon: String
 }
