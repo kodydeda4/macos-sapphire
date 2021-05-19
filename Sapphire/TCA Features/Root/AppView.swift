@@ -6,22 +6,21 @@
 //
 
 import SwiftUI
-import Combine
 import ComposableArchitecture
 import Grid
 
-struct MacOSApplicationView: View {
-    var icon: MacOSApplication
+struct AppView: View {
+    var app: MacOSApplication
     
     var body: some View {
         VStack {
-            Image(nsImage: icon.appIcon)
+            Image(nsImage: app.icon)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 50, height: 50)
                 .padding(.bottom, 4)
             
-            Text(icon.name)
+            Text(app.name)
                 .font(.caption)
                 .lineLimit(1)
         }
@@ -29,8 +28,8 @@ struct MacOSApplicationView: View {
     }
 }
 
-struct IconView_Previews: PreviewProvider {
+struct AppView_Previews: PreviewProvider {
     static var previews: some View {
-        MacOSApplicationView(icon: MacOSApplication.loadIcons(fromPath: "/Applications").first!)
+        AppView(app: [MacOSApplication].allCases.first!)
     }
 }

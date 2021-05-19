@@ -11,35 +11,37 @@ struct MacOSApplication: Identifiable, Hashable {
     let id = UUID()
     let path: String
     static var iconsByPath = [String: NSImage]()
-    
+        
     var name: String {
         path
         .replacingOccurrences(of: "/Applications/", with: "")
         .replacingOccurrences(of: ".app", with: "")
     }
 
-    var appIcon: NSImage {
-        let iconPath = defaultIconPath
+    var icon: NSImage {
+        let iconPath = iconPath
         var icon = Self.iconsByPath[iconPath]
         
         if icon == nil {
-            let start = Date()
-            icon = NSImage(contentsOfFile: defaultIconPath)!
+            icon = NSImage(contentsOfFile: iconPath)!
             Self.iconsByPath[iconPath] = icon
         }
-        
         return icon!
     }
     
-    var defaultIconPath: String {
+    var iconPath: String {
         let rv = "\(path)/Contents/Resources/\(AppBundlePlist?["CFBundleIconFile"] ?? AppBundlePlist?["Icon file"] ?? "AppIcon")"
         return rv.contains(".icns")
             ? rv
             : rv + ".icns"
     }
 
-    var description: String { "AnApp<\(name)> \n path: \(path), \n defaultIconPath: \(defaultIconPath)" }
+    var description: String {
+        "MacOSApplication<\(name)> \n path: \(path), \n defaultIconPath: \(iconPath)"
+    }
+}
 
+extension MacOSApplication {
     var AppBundlePlist: [String: Any]? {
         if let infoPlistPath = try? URL(fileURLWithPath: "\(path)/Contents/Info.plist") {
             do {
@@ -54,16 +56,19 @@ struct MacOSApplication: Identifiable, Hashable {
         }
         return ["":""]
     }
+}
 
-    static func loadIcons(fromPath: String) -> [MacOSApplication] {
-        let start = Date()
-        let rv = try? FileManager
+// MARK:- [MacOSApplication]
+
+extension Array where Element == MacOSApplication {
+
+    static var allCases: [MacOSApplication] {
+        try! FileManager
             .default
             .contentsOfDirectory(atPath: "/Applications")
             .filter { $0.contains(".app") && !$0.hasPrefix(".") }
             .map { MacOSApplication(path: "/Applications/\($0)" ) }
             .sorted(by: { $0.name < $1.name })
-        
-        return rv ?? []
     }
 }
+

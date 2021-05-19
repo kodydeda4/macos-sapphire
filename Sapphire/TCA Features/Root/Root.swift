@@ -9,10 +9,20 @@ import Combine
 import ComposableArchitecture
 import SwiftUI
 
+/*
+ 
+ Todo:
+ 
+ Create a TCA Feature for-each MacOSApplication.
+    - String name
+    - String icon
+ 
+ */
+
 struct Root {
     struct State: Equatable {
         var foo: String = ""
-        var icons: [MacOSApplication] = MacOSApplication.loadIcons(fromPath: "/Applications")
+        var apps: [MacOSApplication] = .allCases
     }
     
     enum Action: Equatable {
@@ -47,31 +57,3 @@ extension Root {
         environment: .init()
     )
 }
-
-// MARK:- RootView
-
-import Grid
-
-struct RootView: View {
-    let store: Store<Root.State, Root.Action>
-    
-    var body: some View {
-        WithViewStore(store) { viewStore in
-            ScrollView {
-                Grid(viewStore.icons) { icon in
-                    MacOSApplicationView(icon: icon)
-                }
-                .padding()
-            }
-        }
-    }
-}
-
-struct RootView_Previews: PreviewProvider {
-    static var previews: some View {
-        RootView(store: Root.defaultStore)
-    }
-}
-
-
-
