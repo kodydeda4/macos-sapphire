@@ -72,7 +72,7 @@ extension Root {
                 
                 if state.sheetView {
                     return Effect(value: .toggleSheetView)
-                        .delay(for: 2.0, scheduler: DispatchQueue.main)
+                        .delay(for: 10.0, scheduler: DispatchQueue.main)
                         .eraseToEffect()
                 }
                 return .none
