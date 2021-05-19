@@ -16,7 +16,7 @@ struct ImageView: View {
         ZStack {
             image.view?
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+                .scaledToFill()
                 .clipped()
         }
         .onAppear { image.load(url) }

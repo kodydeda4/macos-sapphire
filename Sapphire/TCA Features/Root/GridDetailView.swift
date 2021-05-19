@@ -18,14 +18,43 @@ struct GridDetailView: View {
                     Text("No Selection")
                         .font(.title2)
                         .foregroundColor(Color(.disabledControlTextColor))
-                } else {
                     
-                    ForEach(viewStore.selections, id: \.self) {
-                        Text($0.name)
-                            .foregroundColor(Color(.disabledControlTextColor))
+                } else if viewStore.selections.count == 1 {
+                    GroupBox {
+                        VStack {
+                            ImageView(url: viewStore.selections.first!.icon)
+                                .padding(.bottom, 3)
+                            
+                            Text(viewStore.selections.first!.name)
+                                .font(.title2)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.center)
+                                .frame(height: 50)
+                        }
+                        .padding()
                     }
+                    .frame(width: 150, height: 150)
+                    
+                } else {
+//                    ForEach(viewStore.selections, id: \.self) {
+//                        Text($0.name)
+//                            .foregroundColor(Color(.disabledControlTextColor))
+//                    }
+                    GroupBox {
+                        VStack {
+                            ImageView(url: viewStore.selections.last!.icon)
+                                .padding(.bottom, 3)
+                            
+                            Text("Multiple Selections")
+                                .font(.title2)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.center)
+                                .frame(height: 50)
+                        }
+                        .padding()
+                    }
+                    .frame(width: 150, height: 150)
                 }
-                
             }
             .fixedSize()
             .toolbar {
