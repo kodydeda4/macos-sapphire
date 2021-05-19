@@ -19,15 +19,14 @@ extension Bundle {
             .map    { URL(fileURLWithPath: "/Applications/\($0)") }
     }
     
-    /// Returns name of Bundle from BundleURL.
+    /// Returns the Bundle's name from URL.
     static func name(from url: URL) -> String {
         url
-            .path
-            .replacingOccurrences(of: "/Applications/", with: "")
-            .replacingOccurrences(of: ".app",           with: "")
+            .deletingPathExtension()
+            .lastPathComponent
     }
     
-    /// Returns icon url of Bundle from BundleURL.
+    /// Returns the Bundle's icon url from URL.
     static func icon(from url: URL) -> String {
         let p = Bundle.getSerializedInfoPlist(from: url)
         
@@ -36,9 +35,11 @@ extension Bundle {
             .appending(".icns")
     }
     
-    /// Returns Serialized Info Plist as [String : Any]?
+    /// Returns Bundle's Serialized Info Plist as [String : Any]? from URL.
     static func getSerializedInfoPlist(from url: URL) -> [String: Any]? {
-        if let data = try? Data(contentsOf: URL(fileURLWithPath: "\(url.path)/Contents/Info.plist")) {
+        let url = URL(fileURLWithPath: url.path.appending("/Contents/Info.plist"))
+        
+        if let data = try? Data(contentsOf: url) {
             do {
                 if let dict = try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [String: Any] {
                     return dict
