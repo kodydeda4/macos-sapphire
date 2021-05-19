@@ -10,7 +10,7 @@ import Cocoa
 
 extension Bundle {
     
-    /// Returns [String] containing all the Paths for every MacOS Application.
+    /// Returns all MacOSApplication URL's.
     static var allBundleURLs: [URL] {
         try! FileManager
             .default
@@ -19,14 +19,14 @@ extension Bundle {
             .map    { URL(fileURLWithPath: "/Applications/\($0)") }
     }
     
-    /// Returns the Bundle's name from URL.
+    /// Returns Bundle name from URL.
     static func name(from url: URL) -> String {
         url
             .deletingPathExtension()
             .lastPathComponent
     }
     
-    /// Returns the Bundle's icon url from URL.
+    /// Returns Bundle icon-url from URL.
     static func icon(from url: URL) -> String {
         let p = Bundle.getSerializedInfoPlist(from: url)
         
@@ -35,7 +35,7 @@ extension Bundle {
             .appending(".icns")
     }
     
-    /// Returns Bundle's Serialized Info Plist as [String : Any]? from URL.
+    /// Returns Bundle Serialized-Info-Plist as [String : Any]? from URL.
     static func getSerializedInfoPlist(from url: URL) -> [String: Any]? {
         let url = URL(fileURLWithPath: url.path.appending("/Contents/Info.plist"))
         
