@@ -46,14 +46,17 @@ extension Root {
                 return .none
                 
             case .createIconButtonTapped:
-                let _ = AppleScript.execute("/usr/local/bin/iconsur cache")
+                let _ = AppleScript.execute(
+                    command: "/usr/local/bin/iconsur set \(state.gridSelections.first!.url.path) -l -s 0.8; /usr/local/bin/iconsur cache",
+                    sudo: true
+                )
                 state.animatingApplyChanges.toggle()
                 if state.animatingApplyChanges {
                     return Effect(value: .toggleSheetView)
                 }
                 state.animatingApplyChanges.toggle()
                 return Effect(value: .toggleSheetView)
-
+                
             case .applyChanges:
                 return .none
                 
