@@ -9,7 +9,7 @@ import Foundation
 
 extension Array where Element == MacOSApplication.State {
     
-    /// Returns [MacOSApplication.State] with all MacOSApplications.
+    /// Returns [MacOSApplication.State] containing all MacOSApplications.
     static var allCases: [MacOSApplication.State] {
         Bundle.allBundleURLs.map {
             MacOSApplication.State(

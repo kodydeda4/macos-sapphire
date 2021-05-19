@@ -8,7 +8,6 @@
 import SwiftUI
 import ComposableArchitecture
 
-
 struct Root {
     struct State: Equatable {
         var macOSApplication: [MacOSApplication.State] = .allCases
@@ -24,7 +23,6 @@ struct Root {
         // environment
     }
 }
-
 
 extension Root {
     static let reducer = Reducer<State, Action, Environment>.combine(
