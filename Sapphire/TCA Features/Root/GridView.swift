@@ -14,13 +14,13 @@ struct GridView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView {
-                LazyVGrid(columns: [GridItem](repeating: .init(.fixed(90)), count: 8)) {
+                LazyVGrid(columns: [GridItem](repeating: .init(.fixed(90)), count: 6)) {
                     ForEachStore(store.scope(
                         state: \.macOSApplications,
                         action: Root.Action.macOSApplication(index:action:)
                     ), content: MacOSApplicationView.init(store:))
                 }
-                .frame(width: 780)
+                .frame(width: 600)
                 .padding()
             }
         }

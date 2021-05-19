@@ -16,6 +16,7 @@ struct GridDetailView: View {
             VStack(alignment: .leading) {
                 Text("Hello World")
             }
+            .fixedSize()
         }
     }
 }

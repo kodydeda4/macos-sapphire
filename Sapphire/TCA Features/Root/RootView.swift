@@ -14,11 +14,11 @@ struct RootView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
-                
                 GridView(store: store)
                 GridDetailView(store: store)
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
+            .frame(width: 900, height: 600)
         }
     }
 }
