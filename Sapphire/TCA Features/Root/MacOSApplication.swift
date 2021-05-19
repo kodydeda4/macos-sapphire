@@ -10,14 +10,10 @@ import SwiftUI
 struct MacOSApplication: Equatable, Identifiable {
     let id = UUID()
     let path: String
-    
-    var name: String {
-        path
-            .replacingOccurrences(of: "/Applications/", with: "")
-            .replacingOccurrences(of: ".app", with: "")
-    }
+    let name: String
     
     var icon: NSImage {
+        let AppBundlePlist = Bundle.getPlist(from: path)
         let p = "\(path)/Contents/Resources/\(AppBundlePlist?["CFBundleIconFile"] ?? AppBundlePlist?["Icon file"] ?? "AppIcon")"
         let iconPath = p.contains(".icns")
             ? p
@@ -32,8 +28,8 @@ struct MacOSApplication: Equatable, Identifiable {
     }
 }
 
-extension MacOSApplication {
-    var AppBundlePlist: [String: Any]? {
+extension Bundle {
+    func getSerializedPlist(from path: Path) -> [String: Any]? {
         if let infoPlistPath = try? URL(fileURLWithPath: "\(path)/Contents/Info.plist") {
             do {
                 let infoPlistData = try Data(contentsOf: infoPlistPath)
@@ -58,7 +54,16 @@ extension Array where Element == MacOSApplication {
             .default
             .contentsOfDirectory(atPath: "/Applications")
             .filter { $0.contains(".app") && !$0.hasPrefix(".") }
-            .map { MacOSApplication(path: "/Applications/\($0)" ) }
+            .map {
+                let path = "/Applications/\($0)"
+                return MacOSApplication(
+                    path: path,
+                    name: path
+                        .replacingOccurrences(of: "/Applications/", with: "")
+                        .replacingOccurrences(of: ".app", with: "")
+
+                )
+            }
             .sorted(by: { $0.name < $1.name })
     }
 }
