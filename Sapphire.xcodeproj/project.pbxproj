@@ -11,6 +11,7 @@
 		3336D53E265570AE0064F5D9 /* MacOSApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */; };
 		3336D541265573DA0064F5D9 /* FetchImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3336D540265573DA0064F5D9 /* FetchImage */; };
 		3336D543265577D70064F5D9 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D542265577D70064F5D9 /* ImageView.swift */; };
+		3336D54726557D690064F5D9 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54626557D690064F5D9 /* GridView.swift */; };
 		33538355259501F400259A23 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33538354259501F400259A23 /* View+Extensions.swift */; };
 		3360CA82258BF80B008350BB /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 3360CA81258BF80B008350BB /* Grid */; };
 		339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */; };
@@ -27,6 +28,7 @@
 		332B84E826549CD900B7633B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MacOSApplication+Extensions.swift"; sourceTree = "<group>"; };
 		3336D542265577D70064F5D9 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		3336D54626557D690064F5D9 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		33538354259501F400259A23 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationView.swift; sourceTree = "<group>"; };
 		33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			children = (
 				B757D94D2594E9FB000FDB10 /* Root.swift */,
 				332B84E826549CD900B7633B /* RootView.swift */,
+				3336D54626557D690064F5D9 /* GridView.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				33538355259501F400259A23 /* View+Extensions.swift in Sources */,
 				3336D543265577D70064F5D9 /* ImageView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Root.swift in Sources */,
+				3336D54726557D690064F5D9 /* GridView.swift in Sources */,
 				33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
