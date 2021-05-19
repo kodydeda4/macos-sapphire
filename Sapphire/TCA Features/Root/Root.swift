@@ -46,7 +46,7 @@ extension Root {
                 return .none
                 
             case .createIconButtonTapped:
-//                let _ = AppleScript.execute("/usr/local/bin/brew services restart yabai; /usr/local/bin/brew services restart skhd;")
+                let _ = AppleScript.execute("/usr/local/bin/iconsur cache")
                 state.animatingApplyChanges.toggle()
                 if state.animatingApplyChanges {
                     return Effect(value: .toggleSheetView)
