@@ -13,9 +13,13 @@ import SwiftUI
  
  Todo:
  
- Create a TCA Feature for-each MacOSApplication.
+ 1. Figure out a simple clean way to load all the apps.
+ 
+ 2. Create a TCA Feature for-each MacOSApplication.
     - String name
     - String icon
+ 
+ 3. Be able to select an icon, and change it by running that cli script.
  
  */
 

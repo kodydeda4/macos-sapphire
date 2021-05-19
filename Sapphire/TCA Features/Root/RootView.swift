@@ -29,6 +29,3 @@ struct RootView_Previews: PreviewProvider {
         RootView(store: Root.defaultStore)
     }
 }
-
-
-
