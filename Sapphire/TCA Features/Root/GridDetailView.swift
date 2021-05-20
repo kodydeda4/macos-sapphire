@@ -13,12 +13,12 @@ struct GridDetailView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            ScrollView {
+            VStack {
                 if viewStore.macOSApplications.filter(\.selected).isEmpty {
                     Text("No Selection")
                         .font(.title)
                         .foregroundColor(Color(.disabledControlTextColor))
-                } else {
+                } else if viewStore.macOSApplications.filter(\.selected).count == 1 {
                         ForEachStore(store.scope(
                             state: { $0.macOSApplications.filter(\.selected) },
                             action: Root.Action.macOSApplication(index:action:)
@@ -27,18 +27,25 @@ struct GridDetailView: View {
                     Button("Create Icon") {
                         viewStore.send(.createIconButtonTapped)
                     }
+                } else {
+                    Text("Multiple Selections")
+                        .font(.title)
+                        .foregroundColor(Color(.disabledControlTextColor))
+                    Button("Create Icon") {
+                        viewStore.send(.createIconButtonTapped)
+                    }
                 }
                 Spacer()
             }
             .fixedSize()
-            .toolbar {
-                ToolbarItem {
-                    Button<Image>("checkmark.circle") {
-                        viewStore.send(.applyChanges)
-                    }
-                    .help("Apply Changes")
-                }
-            }
+//            .toolbar {
+//                ToolbarItem {
+//                    Button<Image>("checkmark.circle") {
+//                        viewStore.send(.applyChanges)
+//                    }
+//                    .help("Apply Changes")
+//                }
+//            }
         }
     }
 }

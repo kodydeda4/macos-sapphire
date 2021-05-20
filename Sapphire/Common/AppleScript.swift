@@ -8,14 +8,9 @@
 import Foundation
 
 struct AppleScript {
-    static func createShellCommand(command: String, sudo: Bool = false) -> String {
-        return "do shell script \"\(command)\" \(sudo ? "with administrator privileges" : "")"
-    }
-    
-    // Run a shell command with elevated priviledges (Applescript)
-    static func execute(command: String, sudo: Bool = false) -> Result<Bool, Error> {
-        let data: String = "do shell script \"\(command)\" \(sudo ? "with administrator privileges" : "")"
-        
+
+    // Writes argument to an Applescript file & executes it
+    static func execute(_ command: String) -> Result<Bool, Error> {
         var url: URL {
             try! FileManager.default.url(
                 for: .applicationScriptsDirectory,
@@ -26,10 +21,9 @@ struct AppleScript {
             .appendingPathComponent("AppleScript")
             .appendingPathExtension(for: .osaScript)
         }
-
         
         do {
-            try data.write(to: url, atomically: true, encoding: .utf8)
+            try command.write(to: url, atomically: true, encoding: .utf8)
             try NSUserScriptTask(url: url).execute()
             return .success(true)
         }

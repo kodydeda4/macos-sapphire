@@ -11,8 +11,7 @@ import ComposableArchitecture
 struct Root {
     struct State: Equatable, Codable {
         var macOSApplications : [MacOSApplication.State] = .allCases
-        var sheetView = false
-        var animatingApplyChanges = false
+//        var animatingApplyChanges = false
     }
     
     enum Action: Equatable {
@@ -20,16 +19,30 @@ struct Root {
         case save
         case onAppear
         case createIconButtonTapped
-        case toggleSheetView
+//        case toggleSheetView
         case selectAllButtonTapped
-        case applyChanges
-        case resetChanges
-        case updateIcon(MacOSApplication.State)
+        case updateIcons
         case updateGridSelections(Int)
     }
     
     struct Environment {
         let dataURL = URL(fileURLWithPath: "SapphireState.json", relativeTo: URL(fileURLWithPath: NSHomeDirectory()))
+        
+        func getCommand(_ applications: [MacOSApplication.State]) -> String {
+            let command = Array(zip(applications.indices, applications))
+                .filter { $1.selected }
+                .map {
+                    $1.customized
+                        ? "/usr/local/bin/iconsur unset \\\"\($1.url.path)\\\"; "
+                        : "/usr/local/bin/iconsur set \\\"\($1.url.path)\\\" -l -s 0.8; "
+                }
+                .joined()
+            
+            let f = command + "/usr/local/bin/iconsur cache"
+            
+            return "do shell script \"\(f)\" with administrator privileges"
+            
+        }
     }
 }
 
@@ -62,76 +75,49 @@ extension Root {
                 }
                 return .none
                 
-                
             case let .updateGridSelections(index):
                 state.macOSApplications[index].selected.toggle()
                 print("selections: \(state.macOSApplications.filter(\.selected).map(\.name))")
                 return Effect(value: .save)
 
             case .createIconButtonTapped:
-                let command = Array(zip(state.macOSApplications.indices, state.macOSApplications))
-                    .filter { $1.selected }
-                    .map {
-                        $1.customized
-                            ? "/usr/local/bin/iconsur unset \\\"\($1.url.path)\\\"; "
-                            : "/usr/local/bin/iconsur set \\\"\($1.url.path)\\\" -l -s 0.8; "
-                    }
-                    .joined()
+                let result = AppleScript.execute(environment.getCommand(state.macOSApplications))
+                switch result {
                 
-                let lastCommand = command + "/usr/local/bin/iconsur cache"
+                // I want to wait for the process to complete.
+                case .success:
+                    return Effect(value: .updateIcons)
+//                        .delay(for: 10.0, scheduler: DispatchQueue.main)
+//                        .eraseToEffect()
 
-                
-                let _ = AppleScript.execute(command: lastCommand, sudo: true)
-                
+                case let .failure(error):
+                    print(error.localizedDescription)
+                    return .none
+                }
+                                
+            case .updateIcons:
                 Array(zip(state.macOSApplications.indices, state.macOSApplications))
                     .forEach { index, application in
                         if state.macOSApplications[index].selected {
                             state.macOSApplications[index].customized.toggle()
                         }
                     }
-
-                return .none
-//                let app = state.macOSApplications.filter(\.selected).first!
-//                let _ = AppleScript.execute(
-//                    command: "/usr/local/bin/iconsur set \(app.url.path) -l -s 0.8; /usr/local/bin/iconsur cache",
-//                    sudo: true
-//                )
-//                state.animatingApplyChanges.toggle()
-//                if state.animatingApplyChanges {
-//                    return Effect(value: .toggleSheetView)
-//                }
-//                state.animatingApplyChanges.toggle()
-//                return Effect(value: .updateIcon(app))
-                
-            case let .updateIcon(app):
-                let index = state.macOSApplications.firstIndex(of: app)
-
-                return Effect(value: .macOSApplication(index: index!, action: .toggleCustom))
-                
-            case .applyChanges:
-                return .none
-                
-            case .resetChanges:
-                return .none
-                
+                return Effect(value: .save)
+                                                
             case .selectAllButtonTapped:
-                print("Selected All")
-                return .none
+                let bool = state.macOSApplications.filter(\.selected).isEmpty
                 
-            case .toggleSheetView:
-                state.sheetView.toggle()
-                
-                if state.sheetView {
-                    return Effect(value: .toggleSheetView)
-                        .delay(for: 10.0, scheduler: DispatchQueue.main)
-                        .eraseToEffect()
-                }
+                Array(zip(state.macOSApplications.indices, state.macOSApplications))
+                    .forEach { index, application in
+                        state.macOSApplications[index].selected = bool
+                    }
                 return .none
-
             }
         }
     )
 }
+
+
 
 extension String {
     func print() {
