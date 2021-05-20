@@ -16,6 +16,7 @@ struct Grid {
     enum Action: Equatable {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
         case modifyLocalIcons
+        case createAllIcons
         case selectAllButtonTapped
         case updateMacOSApplicationsState
         case updateGridSelections(Int)
@@ -39,6 +40,20 @@ struct Grid {
             
             return "do shell script \"\(command)\" with administrator privileges"
         }
+        
+        /// Returns an Applescript-formatted String for updating application icons.
+        func getCreateIconsCommand(_ applications: [MacOSApplication.State]) -> String {
+            let command = applications
+                .filter(\.selected)
+                .reduce(into: []) { array, application in
+                    array.append("/usr/local/bin/iconsur unset \\\"\(application.url.path)\\\" -o \\\"Desktop/\\\"\(application.name)\\\".png\\\"; ")
+                }
+                .joined()
+            
+            return command
+            //return "do shell script \"\(command)\" with administrator privileges"
+        }
+        
     }
 }
 
@@ -101,6 +116,11 @@ extension Grid {
                     .forEach { index, application in
                         state.macOSApplications[index].selected = bool
                     }
+                return .none
+                
+            case .createAllIcons:
+                let result = AppleScript.execute(environment.getCreateIconsCommand(state.macOSApplications))
+                
                 return .none
             }
         }
