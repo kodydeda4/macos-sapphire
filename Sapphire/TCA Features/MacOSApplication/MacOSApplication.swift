@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct MacOSApplication {
-    struct State: Equatable, Identifiable, Hashable {
+    struct State: Equatable, Identifiable, Hashable, Codable {
         var id   : URL { url }
         let url  : URL
         let name : String

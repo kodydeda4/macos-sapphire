@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct Root {
-    struct State: Equatable {
+    struct State: Equatable, Codable {
         var macOSApplications : [MacOSApplication.State] = .allCases
         var sheetView = false
         var animatingApplyChanges = false
@@ -17,6 +17,8 @@ struct Root {
     
     enum Action: Equatable {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
+        case save
+        case onAppear
         case createIconButtonTapped
         case toggleSheetView
         case selectAllButtonTapped
@@ -27,7 +29,7 @@ struct Root {
     }
     
     struct Environment {
-        
+        let dataURL = URL(fileURLWithPath: "SapphireState.json", relativeTo: URL(fileURLWithPath: NSHomeDirectory()))
     }
 }
 
@@ -45,21 +47,28 @@ extension Root {
                 if action == .toggleSelected {
                     return Effect(value: .updateGridSelections(index))
                 }
+                return Effect(value: .save)
+            
+            case .save:
+                let _ = JSONEncoder().writeState(state, to: environment.dataURL)
                 return .none
+                
+            case .onAppear:
+                switch JSONDecoder().decodeState(ofType: Root.State.self, from: environment.dataURL) {
+                case let .success(decodedState):
+                    state = decodedState
+                case let .failure(error):
+                    print(error.localizedDescription)
+                }
+                return .none
+                
                 
             case let .updateGridSelections(index):
                 state.macOSApplications[index].selected.toggle()
                 print("selections: \(state.macOSApplications.filter(\.selected).map(\.name))")
-                return .none
+                return Effect(value: .save)
 
-
-                
-            // The problem here is that DetailView SHOULD be takinig the store of the first selected icon.
-            // That store will send action `update icon`
-            // And can come back here inside the `switch subaction`.
-            
             case .createIconButtonTapped:
-                print("----------------")
                 let command = Array(zip(state.macOSApplications.indices, state.macOSApplications))
                     .filter { $1.selected }
                     .map {
@@ -72,26 +81,7 @@ extension Root {
                 let lastCommand = command + "/usr/local/bin/iconsur cache"
 
                 
-                    print(AppleScript.createShellCommand(command: lastCommand, sudo: true))
-                AppleScript.execute(command: lastCommand, sudo: true)
-                
-                print("----------------")
-                    
-//                    .forEach {
-//                        AppleScript.execute(
-//                            command: $0,
-//                            sudo: true
-//                        )
-//                    }
-                        
-                    
-                
-                //*
-                //* Problems - 1. the script cannot determine the proper name eg: `Applications/Unsplash Wallpapers.app` should be Applications/Unsplash\ Wallpapers.app
-                //*
-
-                
-//                print(environment.getIconsurCommand(state.macOSApplications))
+                let _ = AppleScript.execute(command: lastCommand, sudo: true)
                 
                 Array(zip(state.macOSApplications.indices, state.macOSApplications))
                     .forEach { index, application in
@@ -101,9 +91,6 @@ extension Root {
                     }
 
                 return .none
-            
-            
-                
 //                let app = state.macOSApplications.filter(\.selected).first!
 //                let _ = AppleScript.execute(
 //                    command: "/usr/local/bin/iconsur set \(app.url.path) -l -s 0.8; /usr/local/bin/iconsur cache",

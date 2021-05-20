@@ -18,10 +18,11 @@ struct RootView: View {
                 GridDetailView(store: store)
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
-            //.frame(width: 900, height: 500)
+            .onAppear { viewStore.send(.onAppear) }
             .sheet(isPresented: viewStore.binding(get: \.sheetView, send: .toggleSheetView)) {
                 SheetView(store: store)
             }
+            //.frame(width: 900, height: 500)
         }
     }
 }
