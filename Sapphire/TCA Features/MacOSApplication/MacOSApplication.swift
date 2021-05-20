@@ -21,6 +21,7 @@ struct MacOSApplication {
     enum Action: Equatable {
         case toggleSelected
         case toggleCustom
+        case createIconButtonTapped
     }
 }
 
@@ -30,11 +31,15 @@ extension MacOSApplication {
             switch action {
             
             case .toggleSelected:
-                state.selected.toggle()
+                //state.selected.toggle()
                 return .none
                 
             case .toggleCustom:
                 state.customIcon.toggle()
+                return .none
+                
+            case .createIconButtonTapped:
+                print("foo")
                 return .none
             }
         }

@@ -20,7 +20,7 @@ struct GridView: View {
                         action: Root.Action.macOSApplication(index:action:)
                     ), content: MacOSApplicationView.init(store:))
                 }
-                .frame(width: 600)
+                //.frame(width: 600)
                 .padding()
             }
             .toolbar {

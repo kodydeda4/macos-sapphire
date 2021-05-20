@@ -21,7 +21,7 @@ struct MacOSApplicationView: View {
                         .padding(.bottom, 3)
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .opacity(viewStore.customIcon ? 1 : 0)
+                                .foregroundColor(Color.red.opacity(viewStore.customIcon ? 1 : 0))
                         )
                     
                     Text(viewStore.name)

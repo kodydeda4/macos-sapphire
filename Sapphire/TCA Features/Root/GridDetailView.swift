@@ -13,48 +13,19 @@ struct GridDetailView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack {
-                if viewStore.gridSelections.isEmpty {
+            ScrollView {
+                if viewStore.macOSApplications.filter(\.selected).isEmpty {
                     Text("No Selection")
                         .font(.title)
                         .foregroundColor(Color(.disabledControlTextColor))
+                } else {
+                        ForEachStore(store.scope(
+                            state: { $0.macOSApplications.filter(\.selected) },
+                            action: Root.Action.macOSApplication(index:action:)
+                        ), content: MacOSApplicationSelectedView.init(store:))
                     
-                } else if viewStore.gridSelections.count == 1 {
-                    GroupBox {
-                        ImageView(url: viewStore.gridSelections.first!.icon)
-                            .padding()
-                            .frame(width: 125, height: 125)
-                    }
-                    
-                    Text(viewStore.gridSelections.first!.name)
-                        .font(.title)
-                        .bold()
-                        .lineLimit(2)
-                        .multilineTextAlignment(.center)
-                        .frame(height: 50)
-                                        
                     Button("Create Icon") {
                         viewStore.send(.createIconButtonTapped)
-                    }
-                    
-                } else {
-                    GroupBox {
-                        Image("SapphireLogo")
-                            .resizable()
-                            .scaledToFill()
-                            .padding()
-                            .frame(width: 125, height: 125)
-                    }
-                    
-                    Text("Multiple Selections")
-                        .font(.title)
-                        .bold()
-                        .lineLimit(2)
-                        .multilineTextAlignment(.center)
-                        .frame(height: 50)
-                                        
-                    Button("Create Icon") {
-                        
                     }
                 }
                 Spacer()
