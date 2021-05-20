@@ -25,6 +25,7 @@ struct Root {
         case selectAllButtonTapped
         case applyChanges
         case resetChanges
+        case updateIcon(MacOSApplication.State)
     }
     
     struct Environment {
@@ -45,6 +46,11 @@ extension Root {
             case .macOSApplication:
                 return .none
                 
+                
+            // The problem here is that DetailView SHOULD be takinig the store of the first selected icon.
+            // That store will send action `update icon`
+            // And can come back here inside the `switch subaction`.
+            
             case .createIconButtonTapped:
                 let _ = AppleScript.execute(
                     command: "/usr/local/bin/iconsur set \(state.gridSelections.first!.url.path) -l -s 0.8; /usr/local/bin/iconsur cache",
@@ -55,7 +61,12 @@ extension Root {
                     return Effect(value: .toggleSheetView)
                 }
                 state.animatingApplyChanges.toggle()
-                return Effect(value: .toggleSheetView)
+                return Effect(value: .updateIcon(state.gridSelections.first!))
+                
+            case let .updateIcon(app):
+                let index = state.macOSApplications.firstIndex(of: app)
+
+                return Effect(value: .macOSApplication(index: index!, action: .toggleCustom))
                 
             case .applyChanges:
                 return .none

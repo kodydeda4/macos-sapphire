@@ -19,6 +19,10 @@ struct MacOSApplicationView: View {
                 VStack {
                     ImageView(url: viewStore.icon)
                         .padding(.bottom, 3)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .opacity(viewStore.customIcon ? 1 : 0)
+                        )
                     
                     Text(viewStore.name)
                         .font(.caption)

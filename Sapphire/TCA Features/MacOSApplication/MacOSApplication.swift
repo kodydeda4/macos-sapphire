@@ -14,12 +14,13 @@ struct MacOSApplication {
         let url  : URL
         let name : String
         let icon : URL
-        var selected = false
+        var selected   = false
         var customIcon = false
     }
     
     enum Action: Equatable {
         case toggleSelected
+        case toggleCustom
     }
 }
 
@@ -30,6 +31,10 @@ extension MacOSApplication {
             
             case .toggleSelected:
                 state.selected.toggle()
+                return .none
+                
+            case .toggleCustom:
+                state.customIcon.toggle()
                 return .none
             }
         }
