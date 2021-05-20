@@ -27,7 +27,12 @@ struct Root {
     }
     
     struct Environment {
-        // environment
+        func getSelectedAppIndicides(_ applications: [MacOSApplication.State]) -> [Int] {
+            Array(zip(applications.indices, applications))
+                .compactMap { index, app in
+                    app.selected ? index : nil
+                }
+        }
     }
 }
 
@@ -49,7 +54,7 @@ extension Root {
                 
             case let .updateGridSelections(index):
                 state.macOSApplications[index].selected.toggle()
-                print(state.macOSApplications.filter(\.selected).count)
+                print("selections: \(state.macOSApplications.filter(\.selected).map(\.name))")
                 return .none
 
 
@@ -59,7 +64,11 @@ extension Root {
             // And can come back here inside the `switch subaction`.
             
             case .createIconButtonTapped:
-                print("Update: \(state.macOSApplications.filter(\.selected).map(\.name).description)")
+                var indicies: [Int] = environment.getSelectedAppIndicides(state.macOSApplications)
+                
+                print("updateIcons: \(indicies.map { "\($0) \(state.macOSApplications[$0].name)" })")
+                
+                
                 return .none
                 
 //                let app = state.macOSApplications.filter(\.selected).first!
