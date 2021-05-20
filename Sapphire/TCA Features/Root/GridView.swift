@@ -16,7 +16,7 @@ struct GridView: View {
             ScrollView {
                 LazyVGrid(columns: [GridItem](repeating: .init(.fixed(90)), count: 6)) {
                     ForEachStore(store.scope(
-                        state: \.macOSApplications,
+                        state: { $0.macOSApplications },
                         action: Root.Action.macOSApplication(index:action:)
                     ), content: MacOSApplicationView.init(store:))
                 }

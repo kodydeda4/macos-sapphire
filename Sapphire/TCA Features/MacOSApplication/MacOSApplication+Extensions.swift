@@ -18,5 +18,6 @@ extension Array where Element == MacOSApplication.State {
                 icon: Bundle.icon(from: $0)
             )
         }
+        .sorted(by: { $0.name < $1.name })
     }
 }
