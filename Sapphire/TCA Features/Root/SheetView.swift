@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SheetView: View {
-    let store: Store<Root.State, Root.Action>
+    let store: Store<Grid.State, Grid.Action>
     @State var opacity = true
     
     var body: some View {
@@ -35,6 +35,6 @@ struct SheetView: View {
 
 struct SheetView_Previews: PreviewProvider {
     static var previews: some View {
-        SheetView(store: Root.defaultStore)
+        SheetView(store: Grid.defaultStore)
     }
 }

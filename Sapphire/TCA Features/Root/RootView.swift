@@ -14,8 +14,8 @@ struct RootView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
-                GridView(store: store)
-                GridDetailView(store: store)
+                GridView(store:       store.scope(state: \.grid, action: Root.Action.grid))
+                GridDetailView(store: store.scope(state: \.grid, action: Root.Action.grid))
             }
             .onAppear { viewStore.send(.onAppear) }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
@@ -29,3 +29,7 @@ struct RootView_Previews: PreviewProvider {
         RootView(store: Root.defaultStore)
     }
 }
+
+
+
+
