@@ -28,11 +28,6 @@ struct GridView: View {
                     Spacer()
                 }
                 ToolbarItem {
-                    Button("Create All") {
-                        viewStore.send(.createAllIcons)
-                    }
-                }
-                ToolbarItem {
                     Button("Select All") {
                         viewStore.send(.selectAllButtonTapped)
                     }
