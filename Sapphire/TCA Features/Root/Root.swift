@@ -64,14 +64,16 @@ extension Root {
                     .filter { $1.selected }
                     .map {
                         $1.customized
-                            ? "/usr/local/bin/iconsur unset \($1.url.path.replacingOccurrences(of: " ", with: " \\")); "
-                            : "/usr/local/bin/iconsur set \($1.url.path.replacingOccurrences(of: " ", with: " \\")) -l -s 0.8; "
+                            ? "/usr/local/bin/iconsur unset \\\"\($1.url.path)\\\"; "
+                            : "/usr/local/bin/iconsur set \\\"\($1.url.path)\\\" -l -s 0.8; "
                     }
-                    .map { $0 + "/usr/local/bin/iconsur cache" }
                     .joined()
                 
-                    print(AppleScript.createShellCommand(command: command, sudo: true))
-                AppleScript.execute(command: command, sudo: true)
+                let lastCommand = command + "/usr/local/bin/iconsur cache"
+
+                
+                    print(AppleScript.createShellCommand(command: lastCommand, sudo: true))
+                AppleScript.execute(command: lastCommand, sudo: true)
                 
                 print("----------------")
                     
