@@ -17,8 +17,8 @@ struct RootView: View {
                 GridView(store: store)
                 GridDetailView(store: store)
             }
-            .navigationViewStyle(DoubleColumnNavigationViewStyle())
             .onAppear { viewStore.send(.onAppear) }
+            .navigationViewStyle(DoubleColumnNavigationViewStyle())
             .sheet(isPresented: viewStore.binding(get: \.sheetView, send: .toggleSheetView)) {
                 SheetView(store: store)
             }
