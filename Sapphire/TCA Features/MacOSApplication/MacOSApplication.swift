@@ -15,7 +15,7 @@ struct MacOSApplication {
         let name : String
         let icon : URL
         var selected   = false
-        var customIcon = false
+        var customized = false
     }
     
     enum Action: Equatable {
@@ -35,7 +35,7 @@ extension MacOSApplication {
                 return .none
                 
             case .toggleCustom:
-                state.customIcon.toggle()
+                state.customized.toggle()
                 return .none
                 
             case .createIconButtonTapped:

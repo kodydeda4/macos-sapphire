@@ -8,6 +8,9 @@
 import Foundation
 
 struct AppleScript {
+    static func createShellCommand(command: String, sudo: Bool = false) -> String {
+        return "do shell script \"\(command)\" \(sudo ? "with administrator privileges" : "")"
+    }
     
     // Run a shell command with elevated priviledges (Applescript)
     static func execute(command: String, sudo: Bool = false) -> Result<Bool, Error> {

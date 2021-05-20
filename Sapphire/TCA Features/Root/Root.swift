@@ -27,12 +27,7 @@ struct Root {
     }
     
     struct Environment {
-        func getSelectedAppIndicides(_ applications: [MacOSApplication.State]) -> [Int] {
-            Array(zip(applications.indices, applications))
-                .compactMap { index, app in
-                    app.selected ? index : nil
-                }
-        }
+        
     }
 }
 
@@ -64,12 +59,48 @@ extension Root {
             // And can come back here inside the `switch subaction`.
             
             case .createIconButtonTapped:
-                var indicies: [Int] = environment.getSelectedAppIndicides(state.macOSApplications)
+                print("----------------")
+                let command = Array(zip(state.macOSApplications.indices, state.macOSApplications))
+                    .filter { $1.selected }
+                    .map {
+                        $1.customized
+                            ? "/usr/local/bin/iconsur unset \($1.url.path.replacingOccurrences(of: " ", with: " \\")); "
+                            : "/usr/local/bin/iconsur set \($1.url.path.replacingOccurrences(of: " ", with: " \\")) -l -s 0.8; "
+                    }
+                    .map { $0 + "/usr/local/bin/iconsur cache" }
+                    .joined()
                 
-                print("updateIcons: \(indicies.map { "\($0) \(state.macOSApplications[$0].name)" })")
+                    print(AppleScript.createShellCommand(command: command, sudo: true))
+                AppleScript.execute(command: command, sudo: true)
                 
+                print("----------------")
+                    
+//                    .forEach {
+//                        AppleScript.execute(
+//                            command: $0,
+//                            sudo: true
+//                        )
+//                    }
+                        
+                    
                 
+                //*
+                //* Problems - 1. the script cannot determine the proper name eg: `Applications/Unsplash Wallpapers.app` should be Applications/Unsplash\ Wallpapers.app
+                //*
+
+                
+//                print(environment.getIconsurCommand(state.macOSApplications))
+                
+                Array(zip(state.macOSApplications.indices, state.macOSApplications))
+                    .forEach { index, application in
+                        if state.macOSApplications[index].selected {
+                            state.macOSApplications[index].customized.toggle()
+                        }
+                    }
+
                 return .none
+            
+            
                 
 //                let app = state.macOSApplications.filter(\.selected).first!
 //                let _ = AppleScript.execute(
@@ -111,6 +142,12 @@ extension Root {
             }
         }
     )
+}
+
+extension String {
+    func print() {
+        Swift.print(self.description)
+    }
 }
 
 extension Root {
