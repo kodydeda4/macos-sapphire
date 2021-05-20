@@ -19,9 +19,6 @@ struct RootView: View {
             }
             .onAppear { viewStore.send(.onAppear) }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
-//            .sheet(isPresented: viewStore.binding(get: \.sheetView, send: .toggleSheetView)) {
-//                SheetView(store: store)
-//            }
             //.frame(width: 900, height: 500)
         }
     }

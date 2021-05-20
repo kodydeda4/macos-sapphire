@@ -18,34 +18,32 @@ struct GridDetailView: View {
                     Text("No Selection")
                         .font(.title)
                         .foregroundColor(Color(.disabledControlTextColor))
-                } else if viewStore.macOSApplications.filter(\.selected).count == 1 {
-                        ForEachStore(store.scope(
-                            state: { $0.macOSApplications.filter(\.selected) },
-                            action: Root.Action.macOSApplication(index:action:)
-                        ), content: MacOSApplicationSelectedView.init(store:))
                     
-                    Button("Create Icon") {
-                        viewStore.send(.createIconButtonTapped)
-                    }
+                } else if viewStore.macOSApplications.filter(\.selected).count == 1 {
+                    ForEachStore(store.scope(
+                        state: { $0.macOSApplications.filter(\.selected) },
+                        action: Root.Action.macOSApplication(index:action:)
+                    ), content: MacOSApplicationSelectedView.init(store:))
+                    
                 } else {
                     Text("Multiple Selections")
                         .font(.title)
                         .foregroundColor(Color(.disabledControlTextColor))
                     Button("Create Icon") {
-                        viewStore.send(.createIconButtonTapped)
+                        viewStore.send(.modifyLocalIcons)
                     }
                 }
                 Spacer()
             }
             .fixedSize()
-//            .toolbar {
-//                ToolbarItem {
-//                    Button<Image>("checkmark.circle") {
-//                        viewStore.send(.applyChanges)
-//                    }
-//                    .help("Apply Changes")
-//                }
-//            }
+            //            .toolbar {
+            //                ToolbarItem {
+            //                    Button<Image>("checkmark.circle") {
+            //                        viewStore.send(.applyChanges)
+            //                    }
+            //                    .help("Apply Changes")
+            //                }
+            //            }
         }
     }
 }

@@ -15,9 +15,9 @@ struct MacOSApplicationSelectedView: View {
         WithViewStore(store) { viewStore in
             VStack {
                 GroupBox {
-                ImageView(url: viewStore.icon)
-                    .padding()
-                    .frame(width: 125, height: 125)
+                    IconView(store: store)
+                        .padding()
+                        .frame(width: 125, height: 125)
             }
             
             Text(viewStore.name)
@@ -26,6 +26,10 @@ struct MacOSApplicationSelectedView: View {
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
                 .frame(height: 50)
+                
+                Button(viewStore.customized ? "Remove Icon" : "Create Icon") {
+                    viewStore.send(.modifyIconButtonTapped)
+                }
             }
         }
     }

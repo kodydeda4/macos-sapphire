@@ -10,12 +10,10 @@
 		332B84E926549CD900B7633B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B84E826549CD900B7633B /* RootView.swift */; };
 		3336D53E265570AE0064F5D9 /* MacOSApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */; };
 		3336D541265573DA0064F5D9 /* FetchImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3336D540265573DA0064F5D9 /* FetchImage */; };
-		3336D543265577D70064F5D9 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D542265577D70064F5D9 /* ImageView.swift */; };
 		3336D54726557D690064F5D9 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54626557D690064F5D9 /* GridView.swift */; };
 		3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54826557E020064F5D9 /* GridDetailView.swift */; };
 		3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54A2655834C0064F5D9 /* Button+Extensions.swift */; };
 		3340CD71265681A400061F87 /* MacOSApplicationSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */; };
-		33538355259501F400259A23 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33538354259501F400259A23 /* View+Extensions.swift */; };
 		3360CA82258BF80B008350BB /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 3360CA81258BF80B008350BB /* Grid */; };
 		339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */; };
 		33BEC3192655AA4F0066851E /* AppleScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC3182655AA4F0066851E /* AppleScript.swift */; };
@@ -25,6 +23,7 @@
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
 		33E7FDE82656A412002DD5B8 /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E7FDE72656A412002DD5B8 /* JSONDecoder+Extensions.swift */; };
+		33E7FDEA2656B8E4002DD5B8 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E7FDE92656B8E4002DD5B8 /* IconView.swift */; };
 		B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = B7453A352594E99900F8BE5A /* ComposableArchitecture */; };
 		B757D94E2594E9FB000FDB10 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D94D2594E9FB000FDB10 /* Root.swift */; };
 		B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */; };
@@ -33,12 +32,10 @@
 /* Begin PBXFileReference section */
 		332B84E826549CD900B7633B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MacOSApplication+Extensions.swift"; sourceTree = "<group>"; };
-		3336D542265577D70064F5D9 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		3336D54626557D690064F5D9 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		3336D54826557E020064F5D9 /* GridDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridDetailView.swift; sourceTree = "<group>"; };
 		3336D54A2655834C0064F5D9 /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
 		3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationSelectedView.swift; sourceTree = "<group>"; };
-		33538354259501F400259A23 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationView.swift; sourceTree = "<group>"; };
 		33BEC3182655AA4F0066851E /* AppleScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScript.swift; sourceTree = "<group>"; };
 		33BEC31A2655AA830066851E /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
@@ -50,6 +47,7 @@
 		33E1B1842589600100A1FDC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		33E1B1852589600100A1FDC1 /* Sapphire.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sapphire.entitlements; sourceTree = "<group>"; };
 		33E7FDE72656A412002DD5B8 /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
+		33E7FDE92656B8E4002DD5B8 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		B757D94D2594E9FB000FDB10 /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,7 +82,6 @@
 				332B84E826549CD900B7633B /* RootView.swift */,
 				3336D54626557D690064F5D9 /* GridView.swift */,
 				3336D54826557E020064F5D9 /* GridDetailView.swift */,
-				3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */,
 				33BEC31A2655AA830066851E /* SheetView.swift */,
 			);
 			path = Root;
@@ -95,24 +92,17 @@
 			children = (
 				B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */,
 				339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */,
+				3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */,
 				3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */,
+				33E7FDE92656B8E4002DD5B8 /* IconView.swift */,
 			);
 			path = MacOSApplication;
-			sourceTree = "<group>";
-		};
-		3336D5442655781B0064F5D9 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				3336D542265577D70064F5D9 /* ImageView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		3336D545265578250064F5D9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				33E7FDE72656A412002DD5B8 /* JSONDecoder+Extensions.swift */,
-				33538354259501F400259A23 /* View+Extensions.swift */,
 				33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */,
 				3336D54A2655834C0064F5D9 /* Button+Extensions.swift */,
 			);
@@ -140,7 +130,6 @@
 			children = (
 				33E1B17B2589600000A1FDC1 /* SapphireApp.swift */,
 				332B84E6265496B000B7633B /* TCA Features */,
-				3336D5442655781B0064F5D9 /* Views */,
 				B757D9CF2594ED42000FDB10 /* Common */,
 				33E1B17F2589600100A1FDC1 /* Assets.xcassets */,
 				33E1B1842589600100A1FDC1 /* Info.plist */,
@@ -257,11 +246,10 @@
 				3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */,
 				B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */,
 				33BEC31B2655AA830066851E /* SheetView.swift in Sources */,
-				33538355259501F400259A23 /* View+Extensions.swift in Sources */,
-				3336D543265577D70064F5D9 /* ImageView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Root.swift in Sources */,
 				3336D54726557D690064F5D9 /* GridView.swift in Sources */,
 				33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */,
+				33E7FDEA2656B8E4002DD5B8 /* IconView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

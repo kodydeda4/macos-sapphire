@@ -17,12 +17,7 @@ struct MacOSApplicationView: View {
         WithViewStore(store) { viewStore in
             Button(action: { viewStore.send(.toggleSelected) }) {
                 VStack {
-                    ImageView(url: viewStore.icon)
-                        .padding(.bottom, 3)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(Color.red.opacity(viewStore.customized ? 1 : 0))
-                        )
+                    IconView(store: store)
                     
                     Text(viewStore.name)
                         .font(.caption)

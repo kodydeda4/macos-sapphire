@@ -11,37 +11,37 @@ import ComposableArchitecture
 struct Root {
     struct State: Equatable, Codable {
         var macOSApplications : [MacOSApplication.State] = .allCases
-//        var animatingApplyChanges = false
     }
     
     enum Action: Equatable {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
         case save
+        case reset
         case onAppear
-        case createIconButtonTapped
-//        case toggleSheetView
+        case modifyLocalIcons
         case selectAllButtonTapped
-        case updateIcons
+        case updateRootState
         case updateGridSelections(Int)
     }
     
     struct Environment {
         let dataURL = URL(fileURLWithPath: "SapphireState.json", relativeTo: URL(fileURLWithPath: NSHomeDirectory()))
         
-        func getCommand(_ applications: [MacOSApplication.State]) -> String {
-            let command = Array(zip(applications.indices, applications))
-                .filter { $1.selected }
-                .map {
-                    $1.customized
-                        ? "/usr/local/bin/iconsur unset \\\"\($1.url.path)\\\"; "
-                        : "/usr/local/bin/iconsur set \\\"\($1.url.path)\\\" -l -s 0.8; "
+        /// Returns an Applescript-formatted String for updating application icons.
+        func getUpdateLocalApplicationsCommand(_ applications: [MacOSApplication.State]) -> String {
+            let command = applications
+                .filter(\.selected)
+                .reduce(into: []) { array, application in
+                    array.append(
+                        application.customized
+                            ? "/usr/local/bin/iconsur unset \\\"\(application.url.path)\\\"; "
+                            : "/usr/local/bin/iconsur set \\\"\(application.url.path)\\\" -l -s 0.8; "
+                    )
                 }
                 .joined()
+                .appending("/usr/local/bin/iconsur cache")
             
-            let f = command + "/usr/local/bin/iconsur cache"
-            
-            return "do shell script \"\(f)\" with administrator privileges"
-            
+            return "do shell script \"\(command)\" with administrator privileges"
         }
     }
 }
@@ -57,14 +57,32 @@ extension Root {
             switch action {
             
             case let .macOSApplication(index, action):
-                if action == .toggleSelected {
+                switch action {
+                
+                case .toggleSelected:
                     return Effect(value: .updateGridSelections(index))
+                
+                case .modifyIconButtonTapped:
+                    return Effect(value: .modifyLocalIcons)
+                
+                default:
+                    break
                 }
-                return Effect(value: .save)
+                return .none
             
             case .save:
                 let _ = JSONEncoder().writeState(state, to: environment.dataURL)
                 return .none
+                
+            case .reset:
+                Array(zip(state.macOSApplications.indices, state.macOSApplications))
+                    .forEach { index, application in
+                        if state.macOSApplications[index].selected {
+                            state.macOSApplications[index].customized = false
+                        }
+                    }
+                return Effect(value: .modifyLocalIcons)
+
                 
             case .onAppear:
                 switch JSONDecoder().decodeState(ofType: Root.State.self, from: environment.dataURL) {
@@ -80,22 +98,22 @@ extension Root {
                 print("selections: \(state.macOSApplications.filter(\.selected).map(\.name))")
                 return Effect(value: .save)
 
-            case .createIconButtonTapped:
-                let result = AppleScript.execute(environment.getCommand(state.macOSApplications))
+            case .modifyLocalIcons:
+                let result = AppleScript.execute(environment.getUpdateLocalApplicationsCommand(state.macOSApplications))
                 switch result {
                 
                 // I want to wait for the process to complete.
                 case .success:
-                    return Effect(value: .updateIcons)
-//                        .delay(for: 10.0, scheduler: DispatchQueue.main)
-//                        .eraseToEffect()
+                    return Effect(value: .updateRootState)
+                        //.delay(for: 10.0, scheduler: DispatchQueue.main)
+                        //.eraseToEffect()
 
                 case let .failure(error):
                     print(error.localizedDescription)
                     return .none
                 }
                                 
-            case .updateIcons:
+            case .updateRootState:
                 Array(zip(state.macOSApplications.indices, state.macOSApplications))
                     .forEach { index, application in
                         if state.macOSApplications[index].selected {
@@ -115,14 +133,6 @@ extension Root {
             }
         }
     )
-}
-
-
-
-extension String {
-    func print() {
-        Swift.print(self.description)
-    }
 }
 
 extension Root {
