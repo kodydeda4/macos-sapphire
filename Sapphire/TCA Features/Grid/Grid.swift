@@ -32,7 +32,7 @@ struct Grid {
                 .filter(\.selected)
                 .map { application in
                     let reset  = "\(iconsur) unset \\\"\(application.url.path)\\\"; "
-                    let create = "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(output)\(application.name).png -c \(application.color.asHexString); "
+                    let create = "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(output)\(application.name).png -c \(application.color); "
                     let set    = "\(iconsur) set \\\"\(application.url.path)\\\" -l \(output)\(application.name).png; "
                     
                     return application.customized

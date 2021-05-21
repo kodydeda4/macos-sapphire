@@ -7,15 +7,14 @@
 
 import SwiftUI
 import ComposableArchitecture
-import DynamicColor
 
 struct MacOSApplication {
-    struct State: Equatable, Identifiable, Codable {
+    struct State: Equatable, Identifiable, Hashable, Codable {
         var id         : URL { url }
         let url        : URL
         let name       : String
         var icon       : URL
-        var color      = CodableColor.init(color: .white)
+        var color      = "ffffff" //"82d7f8"
         var selected   = false
         var customized = false
     }
@@ -24,7 +23,6 @@ struct MacOSApplication {
         case toggleSelected
         case toggleCustom
         case modifyIconButtonTapped
-        case updateColor(Color)
     }
 }
 
@@ -41,10 +39,6 @@ extension MacOSApplication {
                 return .none
                 
             case .modifyIconButtonTapped:
-                return .none
-                
-            case let .updateColor(color):
-                state.color = CodableColor(color: color)
                 return .none
             }
         }

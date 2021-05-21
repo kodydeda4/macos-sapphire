@@ -14,9 +14,6 @@
 		3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54826557E020064F5D9 /* GridDetailView.swift */; };
 		3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54A2655834C0064F5D9 /* Button+Extensions.swift */; };
 		3340CD71265681A400061F87 /* MacOSApplicationSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */; };
-		3375B97F26581301003D18AE /* ColorSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3375B97E26581301003D18AE /* ColorSelectorView.swift */; };
-		3375B98226581378003D18AE /* DynamicColor in Frameworks */ = {isa = PBXBuildFile; productRef = 3375B98126581378003D18AE /* DynamicColor */; };
-		3375B985265813C5003D18AE /* CodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3375B984265813C5003D18AE /* CodableColor.swift */; };
 		339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */; };
 		33BEC3192655AA4F0066851E /* AppleScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC3182655AA4F0066851E /* AppleScript.swift */; };
 		33BEC31B2655AA830066851E /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC31A2655AA830066851E /* SheetView.swift */; };
@@ -39,8 +36,6 @@
 		3336D54826557E020064F5D9 /* GridDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridDetailView.swift; sourceTree = "<group>"; };
 		3336D54A2655834C0064F5D9 /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
 		3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationSelectedView.swift; sourceTree = "<group>"; };
-		3375B97E26581301003D18AE /* ColorSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectorView.swift; sourceTree = "<group>"; };
-		3375B984265813C5003D18AE /* CodableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableColor.swift; sourceTree = "<group>"; };
 		339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationView.swift; sourceTree = "<group>"; };
 		33BEC3182655AA4F0066851E /* AppleScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleScript.swift; sourceTree = "<group>"; };
 		33BEC31A2655AA830066851E /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
@@ -64,7 +59,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3336D541265573DA0064F5D9 /* FetchImage in Frameworks */,
-				3375B98226581378003D18AE /* DynamicColor in Frameworks */,
 				B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,7 +104,6 @@
 				33E7FDE72656A412002DD5B8 /* JSONDecoder+Extensions.swift */,
 				33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */,
 				3336D54A2655834C0064F5D9 /* Button+Extensions.swift */,
-				3375B984265813C5003D18AE /* CodableColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -118,7 +111,6 @@
 		33E1B16F2589600000A1FDC1 = {
 			isa = PBXGroup;
 			children = (
-				3375B97E26581301003D18AE /* ColorSelectorView.swift */,
 				33E1B17A2589600000A1FDC1 /* Sapphire */,
 				33E1B1792589600000A1FDC1 /* Products */,
 			);
@@ -192,7 +184,6 @@
 			packageProductDependencies = (
 				B7453A352594E99900F8BE5A /* ComposableArchitecture */,
 				3336D540265573DA0064F5D9 /* FetchImage */,
-				3375B98126581378003D18AE /* DynamicColor */,
 			);
 			productName = AdaptiveIcons;
 			productReference = 33E1B1782589600000A1FDC1 /* Sapphire.app */;
@@ -224,7 +215,6 @@
 			packageReferences = (
 				B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				3336D53F265573DA0064F5D9 /* XCRemoteSwiftPackageReference "FetchImage" */,
-				3375B98026581378003D18AE /* XCRemoteSwiftPackageReference "DynamicColor" */,
 			);
 			productRefGroup = 33E1B1792589600000A1FDC1 /* Products */;
 			projectDirPath = "";
@@ -265,8 +255,6 @@
 				B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */,
 				33BEC31B2655AA830066851E /* SheetView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */,
-				3375B97F26581301003D18AE /* ColorSelectorView.swift in Sources */,
-				3375B985265813C5003D18AE /* CodableColor.swift in Sources */,
 				3336D54726557D690064F5D9 /* GridView.swift in Sources */,
 				33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */,
 				33E7FDEA2656B8E4002DD5B8 /* IconView.swift in Sources */,
@@ -471,14 +459,6 @@
 				minimumVersion = 0.4.1;
 			};
 		};
-		3375B98026581378003D18AE /* XCRemoteSwiftPackageReference "DynamicColor" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/yannickl/DynamicColor";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
 		B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
@@ -494,11 +474,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3336D53F265573DA0064F5D9 /* XCRemoteSwiftPackageReference "FetchImage" */;
 			productName = FetchImage;
-		};
-		3375B98126581378003D18AE /* DynamicColor */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3375B98026581378003D18AE /* XCRemoteSwiftPackageReference "DynamicColor" */;
-			productName = DynamicColor;
 		};
 		B7453A352594E99900F8BE5A /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;

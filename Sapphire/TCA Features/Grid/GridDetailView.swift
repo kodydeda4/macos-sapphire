@@ -25,7 +25,6 @@ struct GridDetailView: View {
                         action: Grid.Action.macOSApplication(index:action:)
                     ), content: MacOSApplicationSelectedView.init(store:))
                     
-                    
                 } else {
                     Text("Multiple Selections")
                         .font(.title)

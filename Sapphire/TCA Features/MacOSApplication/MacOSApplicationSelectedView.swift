@@ -18,7 +18,7 @@ struct MacOSApplicationSelectedView: View {
                     IconView(store: store)
                         .padding()
                         .frame(width: 125, height: 125)
-                }
+            }
             
             Text(viewStore.name)
                 .font(.title)
@@ -26,11 +26,6 @@ struct MacOSApplicationSelectedView: View {
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
                 .frame(height: 50)
-                
-                ColorSelectorView(
-                    selection: viewStore.binding(
-                        get: \.color.color,
-                        send: MacOSApplication.Action.updateColor))
                 
                 Button(viewStore.customized ? "Remove Icon" : "Create Icon") {
                     viewStore.send(.modifyIconButtonTapped)
