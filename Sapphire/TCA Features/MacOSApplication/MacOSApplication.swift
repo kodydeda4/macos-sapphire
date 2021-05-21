@@ -23,6 +23,7 @@ struct MacOSApplication {
         case toggleSelected
         case toggleCustom
         case modifyIconButtonTapped
+        case updateColor(Color)
     }
 }
 
@@ -39,6 +40,10 @@ extension MacOSApplication {
                 return .none
                 
             case .modifyIconButtonTapped:
+                return .none
+                
+            case let .updateColor(color):
+                state.color = "82d7f8" //codablecolor.ashex
                 return .none
             }
         }
