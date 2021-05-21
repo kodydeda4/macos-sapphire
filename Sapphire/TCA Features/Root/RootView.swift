@@ -14,7 +14,7 @@ struct RootView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
-                GridView(store:       store.scope(state: \.grid, action: Root.Action.grid))
+                GridView(store: store.scope(state: \.grid, action: Root.Action.grid))
                 GridDetailView(store: store.scope(state: \.grid, action: Root.Action.grid))
             }
             .onAppear { viewStore.send(.onAppear) }

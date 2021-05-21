@@ -37,14 +37,6 @@ struct GridDetailView: View {
             }
             .padding()
             .fixedSize()
-            //            .toolbar {
-            //                ToolbarItem {
-            //                    Button<Image>("checkmark.circle") {
-            //                        viewStore.send(.applyChanges)
-            //                    }
-            //                    .help("Apply Changes")
-            //                }
-            //            }
         }
     }
 }

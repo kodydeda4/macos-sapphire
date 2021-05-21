@@ -58,4 +58,17 @@ extension MacOSApplication {
 }
 
 
-
+extension Array where Element == MacOSApplication.State {
+    
+    /// Returns [MacOSApplication.State] containing all MacOSApplications.
+    static var allCases: [MacOSApplication.State] {
+        Bundle.allBundleURLs.map {
+            MacOSApplication.State(
+                url: $0,
+                name: Bundle.name(from: $0),
+                icon: Bundle.icon(from: $0)
+            )
+        }
+        .sorted(by: { $0.name < $1.name })
+    }
+}

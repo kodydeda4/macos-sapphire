@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		332B84E926549CD900B7633B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B84E826549CD900B7633B /* RootView.swift */; };
-		3336D53E265570AE0064F5D9 /* MacOSApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */; };
 		3336D541265573DA0064F5D9 /* FetchImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3336D540265573DA0064F5D9 /* FetchImage */; };
 		3336D54726557D690064F5D9 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54626557D690064F5D9 /* GridView.swift */; };
 		3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54826557E020064F5D9 /* GridDetailView.swift */; };
@@ -31,7 +30,6 @@
 
 /* Begin PBXFileReference section */
 		332B84E826549CD900B7633B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MacOSApplication+Extensions.swift"; sourceTree = "<group>"; };
 		3336D54626557D690064F5D9 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		3336D54826557E020064F5D9 /* GridDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridDetailView.swift; sourceTree = "<group>"; };
 		3336D54A2655834C0064F5D9 /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 				B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */,
 				339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */,
 				3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */,
-				3336D53D265570AE0064F5D9 /* MacOSApplication+Extensions.swift */,
 				33E7FDE92656B8E4002DD5B8 /* IconView.swift */,
 			);
 			path = MacOSApplication;
@@ -248,7 +245,6 @@
 				3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */,
 				33BEC3192655AA4F0066851E /* AppleScript.swift in Sources */,
 				339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */,
-				3336D53E265570AE0064F5D9 /* MacOSApplication+Extensions.swift in Sources */,
 				332B84E926549CD900B7633B /* RootView.swift in Sources */,
 				3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */,
 				33E7FDEC2656BD5B002DD5B8 /* Root.swift in Sources */,
