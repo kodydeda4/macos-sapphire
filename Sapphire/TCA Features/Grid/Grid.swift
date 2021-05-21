@@ -8,6 +8,14 @@
 import SwiftUI
 import ComposableArchitecture
 
+// Generate Icon:
+// sudo /usr/local/bin/iconsur set /Applications/Scroll\ Reverser.app -l -s 0.8 -o ~/Desktop/"Scroll Reverser".png -c ffffff
+
+// Set Icon:
+// sudo /usr/local/bin/iconsur set /Applications/Scroll\ Reverser.app -l ~/Desktop/"Scroll Reverser".png
+
+
+
 struct Grid {
     struct State: Equatable, Codable {
         var macOSApplications : [MacOSApplication.State] = .allCases
