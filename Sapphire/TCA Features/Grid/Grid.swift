@@ -30,24 +30,39 @@ struct Grid {
     }
     
     struct Environment {
-        let iconsurPath = "/usr/local/bin/iconsur"
+        let iconsur = "/usr/local/bin/iconsur"
+        let output = "~/Desktop/"
         
-        /// Returns an Applescript-formatted String for updating application icons.
-        func getUpdateLocalApplicationsCommand(_ applications: [MacOSApplication.State]) -> String {
+        /// Remove customized icon from MacOSApplication.
+        func unsetIcon(for application: MacOSApplication.State) -> String {
+            "\(iconsur) unset \\\"\(application.url.path)\\\"; "
+        }
+        
+        /// Create customized icon for MacOSApplication.
+        func createIcon(for application: MacOSApplication.State) -> String {
+            "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(output)\(application.name).png -c \(application.color); "
+        }
+        
+        /// Set customized icon for MacOSApplication.
+        func setIcon(for application: MacOSApplication.State) -> String {
+            "\(iconsur) set \\\"\(application.url.path)\\\" -l \(output)\(application.name).png; "
+        }
+        
+        /// Sets / Unsets [MacOSApplication] and outputs [Image] to disk.
+        func updateLocalApplications(_ applications: [MacOSApplication.State]) -> Result<Bool, Error> {
             let command = applications
                 .filter(\.selected)
                 .reduce(into: []) { array, application in
                     array.append(
                         application.customized
-                            ? "\(iconsurPath) unset \\\"\(application.url.path)\\\"; "
-                            : "\(iconsurPath) set \\\"\(application.url.path)\\\" -l -s 0.8 -o ~/Desktop/\(application.name).png -c \(application.color); \(iconsurPath) set \\\"\(application.url.path)\\\" -l ~/Desktop/\(application.name).png; "
+                            ? unsetIcon(for: application)
+                            : [createIcon(for: application), setIcon(for: application)].joined()
                     )
-                    print("/usr/local/bin/iconsur set \\\"\(application.url.path)\\\" -l -s 0.8; ")
                 }
                 .joined()
-                .appending("/usr/local/bin/iconsur cache")
+                //.appending("/usr/local/bin/iconsur cache")
             
-            return "do shell script \"\(command)\" with administrator privileges"
+            return AppleScript.execute("do shell script \"\(command)\" with administrator privileges")
         }
     }
 }
@@ -81,10 +96,7 @@ extension Grid {
                 return .none
 
             case .modifyLocalIcons:
-                let result = AppleScript.execute(environment.getUpdateLocalApplicationsCommand(state.macOSApplications))
-                //let outputImage = AppleScript.execute(environment.getCreateIconCommand(state.macOSApplications))
-
-                switch result {
+                switch environment.updateLocalApplications(state.macOSApplications) {
                 
                 // I want to wait for the process to complete.
                 case .success:
@@ -100,8 +112,14 @@ extension Grid {
             case .updateMacOSApplicationsState:
                 Array(zip(state.macOSApplications.indices, state.macOSApplications))
                     .forEach { index, application in
-                        if state.macOSApplications[index].selected {
+                        if application.selected {
                             state.macOSApplications[index].customized.toggle()
+                            
+                            if state.macOSApplications[index].customized {
+                                state.macOSApplications[index].icon = URL(string: "\(environment.output)\(state.macOSApplications[index].name)")!
+                            } else {
+                                state.macOSApplications[index].icon = Bundle.icon(from: state.macOSApplications[index].icon)
+                            }
                         }
                     }
                 return .none

@@ -35,6 +35,7 @@ struct GridDetailView: View {
                 }
                 Spacer()
             }
+            .padding()
             .fixedSize()
             //            .toolbar {
             //                ToolbarItem {
