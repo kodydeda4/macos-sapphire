@@ -30,6 +30,7 @@ struct Grid {
     }
     
     struct Environment {
+        let iconsurPath = "/usr/local/bin/iconsur"
         
         /// Returns an Applescript-formatted String for updating application icons.
         func getUpdateLocalApplicationsCommand(_ applications: [MacOSApplication.State]) -> String {
@@ -38,29 +39,15 @@ struct Grid {
                 .reduce(into: []) { array, application in
                     array.append(
                         application.customized
-                            ? "/usr/local/bin/iconsur unset \\\"\(application.url.path)\\\"; "
-                            : "/usr/local/bin/iconsur set \\\"\(application.url.path)\\\" -l -s 0.8; "
+                            ? "\(iconsurPath) unset \\\"\(application.url.path)\\\"; "
+                            : "\(iconsurPath) set \\\"\(application.url.path)\\\" -l -s 0.8 -o ~/Desktop/\(application.name).png -c \(application.color); \(iconsurPath) set \\\"\(application.url.path)\\\" -l ~/Desktop/\(application.name).png; "
                     )
+                    print("/usr/local/bin/iconsur set \\\"\(application.url.path)\\\" -l -s 0.8; ")
                 }
                 .joined()
                 .appending("/usr/local/bin/iconsur cache")
             
             return "do shell script \"\(command)\" with administrator privileges"
-        }
-        
-        /// Returns an Applescript-formatted String for updating application icons.
-        func getCreateIconCommand(_ applications: [MacOSApplication.State]) -> String {
-            let command = applications
-                .filter(\.selected)
-                .reduce(into: []) { array, application in
-                    array.append(
-                        "/usr/local/bin/iconsur set \\\"\(application.url.path)\\\" -l -s 0.8 -o ~/Desktop/\(application.name).png; "
-                    )
-                }
-                .joined()
-
-            print("do shell script \"\(command)\" ")
-            return "do shell script \"\(command)\" "
         }
     }
 }

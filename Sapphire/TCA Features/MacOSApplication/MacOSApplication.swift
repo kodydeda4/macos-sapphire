@@ -14,6 +14,7 @@ struct MacOSApplication {
         let url  : URL
         let name : String
         let icon : URL
+        var color = "ffffff" //"82d7f8"
         var selected   = false
         var customized = false
     }
