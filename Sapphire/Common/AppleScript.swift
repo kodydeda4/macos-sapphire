@@ -8,9 +8,10 @@
 import Foundation
 
 struct AppleScript {
+    let command: String
 
     // Writes argument to an Applescript file & executes it
-    static func execute(_ command: String) -> Result<Bool, Error> {
+    func execute() -> Result<Bool, Error> {
         var url: URL {
             try! FileManager.default.url(
                 for: .applicationScriptsDirectory,

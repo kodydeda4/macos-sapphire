@@ -26,36 +26,25 @@ struct Grid {
         let iconsur = "/usr/local/bin/iconsur"
         let output = "~/Desktop/"
         
-        /// Removes a customized icon from a MacOSApplication.
-        func unsetIcon(for application: MacOSApplication.State) -> String {
-            "\(iconsur) unset \\\"\(application.url.path)\\\"; "
-        }
-        
-        /// Creates an and outputs a customized MacOSApplication icon.
-        func createIcon(for application: MacOSApplication.State) -> String {
-            "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(output)\(application.name).png -c \(application.color); "
-        }
-        
-        /// Sets a customized icon for a MacOSApplication.
-        func setIcon(for application: MacOSApplication.State) -> String {
-            "\(iconsur) set \\\"\(application.url.path)\\\" -l \(output)\(application.name).png; "
-        }
-        
-        /// Modifies System Application Icons.
+        /// Modify System Application Icons.
         func modifySystemApplicationIcons(_ applications: [MacOSApplication.State]) -> Result<Bool, Error> {
-            let command = applications
+            let updateIcons = applications
                 .filter(\.selected)
-                .reduce(into: []) { array, application in
-                    array.append(
-                        application.customized
-                            ? unsetIcon(for: application)
-                            : [createIcon(for: application), setIcon(for: application)].joined()
-                    )
+                .map { application in
+                    let reset  = "\(iconsur) unset \\\"\(application.url.path)\\\"; "
+                    let create = "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(output)\(application.name).png -c \(application.color); "
+                    let set    = "\(iconsur) set \\\"\(application.url.path)\\\" -l \(output)\(application.name).png; "
+                    
+                    return application.customized
+                        ? reset
+                        : [create, set].joined()
                 }
                 .joined()
                 .appending("/usr/local/bin/iconsur cache")
             
-            return AppleScript.execute("do shell script \"\(command)\" with administrator privileges")
+            let appleScript = AppleScript(command: "do shell script \"\(updateIcons)\" with administrator privileges")
+            
+            return appleScript.execute()
         }
     }
 }
