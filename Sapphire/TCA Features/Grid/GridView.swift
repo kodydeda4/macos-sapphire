@@ -33,6 +33,12 @@ struct GridView: View {
                     }
                     .help("Select All")
                 }
+                ToolbarItem {
+                    Button("Select Modified") {
+                        viewStore.send(.selectModifiedButtonTapped)
+                    }
+                    .help("Select All")
+                }
             }
         }
     }

@@ -13,12 +13,23 @@ struct IconView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            ImageView(url: viewStore.icon)
-                .padding(.bottom, 3)
+//            ImageView(url: viewStore.icon)
+//                .padding(.bottom, 3)
 //                .background(
 //                    RoundedRectangle(cornerRadius: 10)
 //                        .foregroundColor(Color.red.opacity(viewStore.customized ? 1 : 0))
 //                )
+            
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundColor(Color.white)
+                    .opacity(viewStore.customized ? 1 : 0)
+                    .padding(viewStore.customized ? 4 : 0)
+                                                                                       
+                ImageView(url: viewStore.icon)
+                    .padding(viewStore.customized ? 8 : 0)
+            }
+            .padding(.bottom, 3)
         }
     }
 }

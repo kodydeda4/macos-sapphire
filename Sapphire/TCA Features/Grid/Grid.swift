@@ -8,14 +8,6 @@
 import SwiftUI
 import ComposableArchitecture
 
-// Generate Icon:
-// sudo /usr/local/bin/iconsur set /Applications/Scroll\ Reverser.app -l -s 0.8 -o ~/Desktop/"Scroll Reverser".png -c ffffff
-
-// Set Icon:
-// sudo /usr/local/bin/iconsur set /Applications/Scroll\ Reverser.app -l ~/Desktop/"Scroll Reverser".png
-
-
-
 struct Grid {
     struct State: Equatable, Codable {
         var macOSApplications : [MacOSApplication.State] = .allCases
@@ -25,6 +17,7 @@ struct Grid {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
         case modifyLocalIcons
         case selectAllButtonTapped
+        case selectModifiedButtonTapped
         case updateMacOSApplicationsState
         case updateGridSelections(Int)
     }
@@ -33,23 +26,23 @@ struct Grid {
         let iconsur = "/usr/local/bin/iconsur"
         let output = "~/Desktop/"
         
-        /// Remove customized icon from MacOSApplication.
+        /// Removes a customized icon from a MacOSApplication.
         func unsetIcon(for application: MacOSApplication.State) -> String {
             "\(iconsur) unset \\\"\(application.url.path)\\\"; "
         }
         
-        /// Create customized icon for MacOSApplication.
+        /// Creates an and outputs a customized MacOSApplication icon.
         func createIcon(for application: MacOSApplication.State) -> String {
             "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(output)\(application.name).png -c \(application.color); "
         }
         
-        /// Set customized icon for MacOSApplication.
+        /// Sets a customized icon for a MacOSApplication.
         func setIcon(for application: MacOSApplication.State) -> String {
             "\(iconsur) set \\\"\(application.url.path)\\\" -l \(output)\(application.name).png; "
         }
         
-        /// Sets / Unsets [MacOSApplication] and outputs [Image] to disk.
-        func updateLocalApplications(_ applications: [MacOSApplication.State]) -> Result<Bool, Error> {
+        /// Modifies System Application Icons.
+        func modifySystemApplicationIcons(_ applications: [MacOSApplication.State]) -> Result<Bool, Error> {
             let command = applications
                 .filter(\.selected)
                 .reduce(into: []) { array, application in
@@ -60,7 +53,7 @@ struct Grid {
                     )
                 }
                 .joined()
-                //.appending("/usr/local/bin/iconsur cache")
+                .appending("/usr/local/bin/iconsur cache")
             
             return AppleScript.execute("do shell script \"\(command)\" with administrator privileges")
         }
@@ -96,7 +89,7 @@ extension Grid {
                 return .none
 
             case .modifyLocalIcons:
-                switch environment.updateLocalApplications(state.macOSApplications) {
+                switch environment.modifySystemApplicationIcons(state.macOSApplications) {
                 
                 // I want to wait for the process to complete.
                 case .success:
@@ -114,12 +107,7 @@ extension Grid {
                     .forEach { index, application in
                         if application.selected {
                             state.macOSApplications[index].customized.toggle()
-                            
-                            if state.macOSApplications[index].customized {
-                                state.macOSApplications[index].icon = URL(string: "\(environment.output)\(state.macOSApplications[index].name)")!
-                            } else {
-                                state.macOSApplications[index].icon = Bundle.icon(from: state.macOSApplications[index].icon)
-                            }
+                            //state.macOSApplications[index].selected.toggle()
                         }
                     }
                 return .none
@@ -130,6 +118,15 @@ extension Grid {
                 Array(zip(state.macOSApplications.indices, state.macOSApplications))
                     .forEach { index, application in
                         state.macOSApplications[index].selected = bool
+                    }
+                return .none
+                
+            case .selectModifiedButtonTapped:
+                Array(zip(state.macOSApplications.indices, state.macOSApplications))
+                    .forEach { index, application in
+                        if application.customized {
+                            state.macOSApplications[index].selected = true
+                        }
                     }
                 return .none
             }
