@@ -15,9 +15,12 @@ struct MacOSApplicationSelectedView: View {
         WithViewStore(store) { viewStore in
             VStack {
                 GroupBox {
+                    Button(action: { viewStore.send(.toggleSelected) }) {
                     IconView(store: store)
                         .padding()
                         .frame(width: 125, height: 125)
+                    }
+                    .buttonStyle(PlainButtonStyle())
             }
             
             Text(viewStore.name)

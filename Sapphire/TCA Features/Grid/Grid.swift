@@ -115,6 +115,8 @@ extension Grid {
                     .forEach { index, application in
                         if application.customized {
                             state.macOSApplications[index].selected = true
+                        } else {
+                            state.macOSApplications[index].selected = false
                         }
                     }
                 return .none
