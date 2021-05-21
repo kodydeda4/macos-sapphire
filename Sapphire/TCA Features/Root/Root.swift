@@ -46,12 +46,21 @@ extension Root {
                 }
                 return .none
                 
-            case .grid:
-                return Effect(value: .save)
                 
             case .save:
                 let _ = JSONEncoder().writeState(state.grid, to: environment.dataURL)
                 return .none
+                
+            case let .grid(action):
+                switch action {
+
+                case .updateGridSelections, .macOSApplication:
+                    return .none
+                    
+                default:
+                    return Effect(value: .save)
+                
+                }
             }
         }
     )
