@@ -11,8 +11,6 @@ import ComposableArchitecture
 struct MacOSApplicationView: View {
     let store: Store<MacOSApplication.State, MacOSApplication.Action>
     
-    @State private var hovering = false
-    
     var body: some View {
         WithViewStore(store) { viewStore in
             Button(action: { viewStore.send(.toggleSelected) }) {
@@ -32,8 +30,6 @@ struct MacOSApplicationView: View {
                 }
                 .opacity(viewStore.selected ? 0.8 : 0)
             )
-            .onHover { _ in hovering.toggle() }
-            //.animation(Animation.default, value: viewStore.selected)
         }
     }
 }
