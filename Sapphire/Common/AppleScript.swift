@@ -25,7 +25,8 @@ struct AppleScript {
         
         do {
             try command.write(to: url, atomically: true, encoding: .utf8)
-            try NSUserScriptTask(url: url).execute()
+            try NSUserAppleScriptTask(url: url).execute() // completion handler?
+            
             return .success(true)
         }
         catch {
