@@ -42,6 +42,7 @@ fileprivate struct ImageView: View {
                 .clipped()
         }
         .onAppear { image.load(url) }
+        .onChange(of: url) { image.load($0) }
     }
 }
 
