@@ -43,7 +43,7 @@ extension MacOSApplication {
                 return .none
                 
             case let .updateColor(color):
-                state.color = "82d7f8" //codablecolor.asHex
+                state.color = "82d7f8" //codablecolor.ashex
                 return .none
             }
         }
