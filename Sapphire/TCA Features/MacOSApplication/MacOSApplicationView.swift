@@ -21,15 +21,13 @@ struct MacOSApplicationView: View {
                         .font(.caption)
                         .lineLimit(1)
                 }
+                .padding()
+                .background(
+                    GroupBox { Color.clear }
+                    .opacity(viewStore.selected ? 0.8 : 0.001)
+                )
             }
             .buttonStyle(PlainButtonStyle())
-            .padding()
-            .background(
-                GroupBox {
-                    Color.clear
-                }
-                .opacity(viewStore.selected ? 0.8 : 0)
-            )
         }
     }
 }
