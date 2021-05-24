@@ -43,6 +43,7 @@ fileprivate struct ImageView: View {
         }
         .onAppear { image.load(url) }
         .onChange(of: url) { image.load($0) }
+        .animation(.default, value: url)
     }
 }
 

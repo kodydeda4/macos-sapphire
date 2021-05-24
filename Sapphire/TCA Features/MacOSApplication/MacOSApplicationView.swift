@@ -24,7 +24,7 @@ struct MacOSApplicationView: View {
                 .padding()
                 .background(
                     GroupBox { Color.clear }
-                    .opacity(viewStore.selected ? 0.8 : 0.001)
+                    .opacity(viewStore.selected ? 0.8 : 0.0000001)
                 )
             }
             .buttonStyle(PlainButtonStyle())

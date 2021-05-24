@@ -13,14 +13,13 @@ struct RootView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-//            GridView(store: store.scope(state: \.grid, action: Root.Action.grid))
             NavigationView {
-                
+                List{}
                 GridDetailView(store: store.scope(state: \.grid, action: Root.Action.grid))
                 GridView(store: store.scope(state: \.grid, action: Root.Action.grid))
             }
             .onAppear { viewStore.send(.onAppear) }
-            .navigationViewStyle(DoubleColumnNavigationViewStyle())
+            //.navigationViewStyle(DoubleColumnNavigationViewStyle())
 //            .frame(width: 900, height: 500)
         }
     }

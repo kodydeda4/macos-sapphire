@@ -27,16 +27,18 @@ struct Grid {
     
     struct Environment {
         let iconsur = "/usr/local/bin/iconsur"
-        let output = "~/Desktop/"
+        
         
         /// Modify System Application Icons.
         func modifySystemApplicationIcons(_ applications: [MacOSApplication.State]) -> Effect<Action, Never> {
             let updateIcons = applications
                 .filter(\.selected)
                 .map { application in
+                    let output = "~/Desktop/\(application.name).png"
+                    
                     let reset  = "\(iconsur) unset \\\"\(application.url.path)\\\"; "
-                    let create = "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(output)\(application.name).png -c \(application.color); "
-                    let set    = "\(iconsur) set \\\"\(application.url.path)\\\" -l \(output)\(application.name).png; "
+                    let create = "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(output) -c \(application.color); "
+                    let set    = "\(iconsur) set \\\"\(application.url.path)\\\" -l \(output); "
                     
                     return application.customized
                         ? reset
