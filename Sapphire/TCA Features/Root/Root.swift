@@ -20,7 +20,7 @@ struct Root {
     }
     
     struct Environment {
-        let dataURL = URL(fileURLWithPath: "SapphireState.json", relativeTo: URL(fileURLWithPath: NSHomeDirectory()))
+        let dataURL = Bundle.main.bundleURL.appendingPathComponent("SapphireState.json")
     }
 }
 
