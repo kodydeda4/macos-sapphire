@@ -13,34 +13,10 @@ enum AppleScriptError: Error, Equatable {
     case withError
 }
 
-struct AppleScript {    
-    let command: String
-
-//    // Writes argument to an Applescript file & executes it
-//    func execute() -> Result<Bool, Error> {
-//        var url: URL {
-//            try! FileManager.default.url(
-//                for: .applicationScriptsDirectory,
-//                in: .userDomainMask,
-//                appropriateFor: nil,
-//                create: true
-//            )
-//            .appendingPathComponent("AppleScript")
-//            .appendingPathExtension(for: .osaScript)
-//        }
-//        
-//        do {
-//            try command.write(to: url, atomically: true, encoding: .utf8)
-//            try NSUserAppleScriptTask(url: url).execute() // completion handler?
-//            
-//            return .success(true)
-//        }
-//        catch {
-//            return .failure(error)
-//        }
-//    }
+extension NSUserAppleScriptTask {
     
-    func execute() -> AnyPublisher<Result<Bool, AppleScriptError>, Never> {
+    /// Writes argument to an Applescript file & executes it
+    func execute(command: String) -> AnyPublisher<Result<Bool, AppleScriptError>, Never> {
         let rv = PassthroughSubject<Result<Bool, AppleScriptError>, Never>()
         
         var url: URL {
@@ -71,6 +47,5 @@ struct AppleScript {
         
         return rv.eraseToAnyPublisher()
     }
-
 }
 

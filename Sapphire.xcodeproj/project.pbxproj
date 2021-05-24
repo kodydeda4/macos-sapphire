@@ -156,8 +156,8 @@
 		B757D9CF2594ED42000FDB10 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				3336D545265578250064F5D9 /* Extensions */,
 				33BEC3182655AA4F0066851E /* AppleScript.swift */,
+				3336D545265578250064F5D9 /* Extensions */,
 			);
 			path = Common;
 			sourceTree = "<group>";
