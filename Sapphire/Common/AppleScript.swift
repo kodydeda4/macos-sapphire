@@ -10,12 +10,11 @@ import Combine
 
 enum AppleScriptError: Error, Equatable {
     case error(String)
-    case withError
 }
 
 extension NSUserAppleScriptTask {
     
-    /// Writes argument to an Applescript file & executes it
+    /// Writes argument to ~/ApplicationScripts/`AppName`/Applescript.osa file & executes it
     func execute(command: String) -> AnyPublisher<Result<Bool, AppleScriptError>, Never> {
         let rv = PassthroughSubject<Result<Bool, AppleScriptError>, Never>()
         
