@@ -17,6 +17,7 @@ struct Root {
         case onAppear
         case grid(Grid.Action)
         case save
+        case toggleSheetView
     }
     
     struct Environment {
@@ -62,6 +63,8 @@ extension Root {
                     return Effect(value: .save)
                 
                 }
+            case .toggleSheetView:
+                return .none
             }
         }
     )

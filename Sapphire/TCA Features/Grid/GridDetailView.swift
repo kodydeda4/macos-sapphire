@@ -36,7 +36,7 @@ struct GridDetailView: View {
                 Spacer()
             }
             .padding()
-//            .fixedSize()
+            .fixedSize()
         }
     }
 }

@@ -44,7 +44,7 @@ struct Grid {
                 .joined()
                 .appending("/usr/local/bin/iconsur cache")
             
-                    
+            
             return NSUserAppleScriptTask()
                 .execute(command: "do shell script \"\(updateIcons)\" with administrator privileges")
                 .map(Action.modifyLocalIconsResult)
@@ -63,16 +63,16 @@ extension Grid {
         ),
         Reducer { state, action, environment in
             switch action {
-
+            
             case let .macOSApplication(index, action):
                 switch action {
                 
                 case .toggleSelected:
                     return Effect(value: .updateGridSelections(index))
-                
+                    
                 case .modifyIconButtonTapped:
                     return Effect(value: .modifyLocalIcons)
-                
+                    
                 default:
                     break
                 }
@@ -81,11 +81,11 @@ extension Grid {
             case let .updateGridSelections(index):
                 state.macOSApplications[index].selected.toggle()
                 return .none
-
+                
             case .modifyLocalIcons:
                 state.inFlight = true
                 return environment.modifySystemApplicationIcons(state.macOSApplications)
-                     
+                
             case .modifyLocalIconsResult(.success(_)):
                 state.inFlight = false
                 zip(state.macOSApplications.indices, state.macOSApplications)
@@ -97,7 +97,7 @@ extension Grid {
                                 : application.customizedURL
                             
                             state.macOSApplications[index].customized.toggle()
-
+                            
                         }
                     }
                 return Effect(value: .deselectAll)
@@ -105,7 +105,7 @@ extension Grid {
             case let .modifyLocalIconsResult(.failure(error)):
                 state.inFlight = false
                 return Effect(value: .deselectAll)
-                                                
+                
             case .selectAllButtonTapped:
                 let bool = state.macOSApplications.filter(\.selected).isEmpty
                 
@@ -116,15 +116,9 @@ extension Grid {
                 return .none
                 
             case .selectModifiedButtonTapped:
-                Array(zip(state.macOSApplications.indices, state.macOSApplications))
-                    .forEach { index, application in
-                        if application.customized {
-                            state.macOSApplications[index].selected = true
-                        } else {
-                            state.macOSApplications[index].selected = false
-
-                        }
-                    }
+                state.macOSApplications.indices.forEach { index in
+                    state.macOSApplications[index].selected = state.macOSApplications[index].customized
+                }
                 return .none
                 
             case .deselectAll:
