@@ -30,21 +30,6 @@ struct MacOSApplicationSelectedView: View {
                 .multilineTextAlignment(.center)
                 .frame(height: 50)
                 
-                HStack {
-                    Button(action: { viewStore.send(.updateColor(.blue) }) {
-                        ZStack {
-                            Circle()
-                                .foregroundColor(.blue)
-                                .frame(width: 15, height: 15)
-                            Circle()
-                                .frame(width: 6, height: 6)
-                                .foregroundColor(Color.white.opacity(selection == color ? 1 : 0))
-                                .shadow(color: Color.black.opacity(0.6), radius: 2)
-                        }
-                    }.buttonStyle(BorderlessButtonStyle())
-                }
-
-                
                 Button(viewStore.customized ? "Remove Icon" : "Create Icon") {
                     viewStore.send(.modifyIconButtonTapped)
                 }
