@@ -33,13 +33,9 @@ struct Grid {
             let updateIcons = applications
                 .filter(\.selected)
                 .map { application in
-                    let output = "\(NSHomeDirectory())/\(application.name.replacingOccurrences(of: " ", with: "_")).png"
-                    
                     let reset  = "\(iconsur) unset \\\"\(application.url.path)\\\"; "
-                    let create = "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(output) -c \(application.color); "
-                    let set    = "\(iconsur) set \\\"\(application.url.path)\\\" -l \(output); "
-                    
-                    print(output.description)
+                    let create = "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(application.customizedURL.path) -c \(application.color); "
+                    let set    = "\(iconsur) set \\\"\(application.url.path)\\\" -l \(application.customizedURL.path); "
                     
                     return application.customized
                         ? reset
