@@ -92,8 +92,13 @@ extension Grid {
                 zip(state.macOSApplications.indices, state.macOSApplications)
                     .forEach { index, application in
                         if application.selected {
+                            state.macOSApplications[index].icon
+                                = application.customized
+                                ? Bundle.icon(from: application.url)
+                                : URL(fileURLWithPath: NSHomeDirectory().appending("Dark.png"))
+                            
                             state.macOSApplications[index].customized.toggle()
-                            state.macOSApplications[index].icon = URL(fileURLWithPath: "~/Desktop/\(application.name).png")
+
                         }
                     }
                 return Effect(value: .deselectAll)

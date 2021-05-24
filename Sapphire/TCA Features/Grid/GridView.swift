@@ -17,12 +17,20 @@ struct GridView: View {
                 Text("inFlight: \(viewStore.inFlight.description)")
                     .foregroundColor(viewStore.inFlight ? .accentColor : .primary)
                 
-                LazyVGrid(columns: [GridItem](repeating: .init(.fixed(90)), count: 6)) {
+//                LazyVGrid(columns: [GridItem](repeating: .init(.fixed(90)), count: 6)) {
+//                    ForEachStore(store.scope(
+//                        state: { $0.macOSApplications },
+//                        action: Grid.Action.macOSApplication(index:action:)
+//                    ), content: MacOSApplicationView.init(store:))
+//                }
+                
+                ScrollView {
                     ForEachStore(store.scope(
                         state: { $0.macOSApplications },
                         action: Grid.Action.macOSApplication(index:action:)
                     ), content: MacOSApplicationView.init(store:))
                 }
+                
                 //.frame(width: 600)
                 .padding()
             }

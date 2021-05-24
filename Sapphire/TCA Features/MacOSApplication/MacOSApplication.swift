@@ -11,12 +11,13 @@ import ComposableArchitecture
 struct MacOSApplication {
     struct State: Equatable, Identifiable, Hashable, Codable {
         var id         : URL { url }
-        let url        : URL
+        var url        : URL
         let name       : String
         var icon       : URL
         var color      = "ffffff" //"82d7f8"
         var selected   = false
         var customized = false
+        var customizedURL: URL? = nil
     }
     
     enum Action: Equatable {
