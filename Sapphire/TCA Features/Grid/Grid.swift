@@ -6,20 +6,24 @@
 //
 
 import SwiftUI
+import Combine
 import ComposableArchitecture
 
 struct Grid {
     struct State: Equatable, Codable {
         var macOSApplications : [MacOSApplication.State] = .allCases
+        var inFlight = false
     }
     
     enum Action: Equatable {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
         case modifyLocalIcons
+        case modifyLocalIconsResult(Result<Bool, AppleScriptError>)
         case selectAllButtonTapped
         case selectModifiedButtonTapped
         case updateMacOSApplicationsState
         case updateGridSelections(Int)
+        
     }
     
     struct Environment {
@@ -27,7 +31,7 @@ struct Grid {
         let output = "~/Desktop/"
         
         /// Modify System Application Icons.
-        func modifySystemApplicationIcons(_ applications: [MacOSApplication.State]) -> Result<Bool, Error> {
+        func modifySystemApplicationIcons(_ applications: [MacOSApplication.State]) -> Effect<Action, Never> {
             let updateIcons = applications
                 .filter(\.selected)
                 .map { application in
@@ -45,6 +49,9 @@ struct Grid {
             let appleScript = AppleScript(command: "do shell script \"\(updateIcons)\" with administrator privileges")
             
             return appleScript.execute()
+                .map(Action.modifyLocalIconsResult)
+                .receive(on: DispatchQueue.main)
+                .eraseToEffect()
         }
     }
 }
@@ -78,19 +85,29 @@ extension Grid {
                 return .none
 
             case .modifyLocalIcons:
-                switch environment.modifySystemApplicationIcons(state.macOSApplications) {
+                state.inFlight = true
+                return environment.modifySystemApplicationIcons(state.macOSApplications)
+//                switch environment.modifySystemApplicationIcons(state.macOSApplications) {
+//
+//                // I want to wait for the process to complete.
+//                case .success:
+//                    return Effect(value: .updateMacOSApplicationsState)
+//                        //.delay(for: 10.0, scheduler: DispatchQueue.main)
+//                        //.eraseToEffect()
+//
+//                case let .failure(error):
+//                    print(error.localizedDescription)
+//                    return .none
+//                }
+                     
+            case .modifyLocalIconsResult(.success(_)):
+                state.inFlight = false
+                return .none
                 
-                // I want to wait for the process to complete.
-                case .success:
-                    return Effect(value: .updateMacOSApplicationsState)
-                        //.delay(for: 10.0, scheduler: DispatchQueue.main)
-                        //.eraseToEffect()
+            case let .modifyLocalIconsResult(.failure(error)):
+                state.inFlight = false
+                return .none
 
-                case let .failure(error):
-                    print(error.localizedDescription)
-                    return .none
-                }
-                                
             case .updateMacOSApplicationsState:
                 Array(zip(state.macOSApplications.indices, state.macOSApplications))
                     .forEach { index, application in
