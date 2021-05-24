@@ -28,17 +28,18 @@ struct Grid {
     struct Environment {
         let iconsur = "/usr/local/bin/iconsur"
         
-        
         /// Modify System Application Icons.
         func modifySystemApplicationIcons(_ applications: [MacOSApplication.State]) -> Effect<Action, Never> {
             let updateIcons = applications
                 .filter(\.selected)
                 .map { application in
-                    let output = "~/Desktop/\(application.name).png"
+                    let output = "\(NSHomeDirectory())/\(application.name.replacingOccurrences(of: " ", with: "_")).png"
                     
                     let reset  = "\(iconsur) unset \\\"\(application.url.path)\\\"; "
                     let create = "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(output) -c \(application.color); "
                     let set    = "\(iconsur) set \\\"\(application.url.path)\\\" -l \(output); "
+                    
+                    print(output.description)
                     
                     return application.customized
                         ? reset
@@ -97,7 +98,7 @@ extension Grid {
                             state.macOSApplications[index].icon
                                 = application.customized
                                 ? Bundle.icon(from: application.url)
-                                : URL(fileURLWithPath: NSHomeDirectory().appending("Dark.png"))
+                                : application.customizedURL
                             
                             state.macOSApplications[index].customized.toggle()
 

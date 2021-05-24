@@ -17,7 +17,12 @@ struct MacOSApplication {
         var color      = "ffffff" //"82d7f8"
         var selected   = false
         var customized = false
-        var customizedURL: URL? = nil
+        
+        var customizedURL: URL {
+            URL(fileURLWithPath: NSHomeDirectory())
+            .appendingPathComponent(name.replacingOccurrences(of: " ", with: "_"))
+            .appendingPathExtension(for: .png)
+        }
     }
     
     enum Action: Equatable {
