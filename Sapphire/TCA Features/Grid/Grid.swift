@@ -116,8 +116,13 @@ extension Grid {
                 return .none
                 
             case .selectModifiedButtonTapped:
-                state.macOSApplications.indices.forEach { index in
-                    state.macOSApplications[index].selected = state.macOSApplications[index].customized
+                switch state.macOSApplications.contains(where: { $0.selected && $0.customized }) {
+                case true:
+                    return Effect(value: .deselectAll)
+                case false:
+                    state.macOSApplications.indices.forEach { index in
+                        state.macOSApplications[index].selected = state.macOSApplications[index].customized
+                    }
                 }
                 return .none
                 

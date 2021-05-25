@@ -14,13 +14,11 @@ struct GridView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView {
-//                Text("inFlight: \(viewStore.inFlight.description)")
-//                    .foregroundColor(viewStore.inFlight ? .accentColor : .primary)
                 LazyVGrid(columns: [GridItem](repeating: .init(.fixed(90)), count: 6)) {
                     ForEachStore(store.scope(
                         state: { $0.macOSApplications },
                         action: Grid.Action.macOSApplication(index:action:)
-                    ), content: MacOSApplicationView.init(store:))
+                    ), content: MacOSApplicationView.init)
                 }
                 
                 .frame(width: 600)

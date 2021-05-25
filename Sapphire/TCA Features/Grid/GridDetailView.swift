@@ -23,7 +23,7 @@ struct GridDetailView: View {
                     ForEachStore(store.scope(
                         state: { $0.macOSApplications.filter(\.selected) },
                         action: Grid.Action.macOSApplication(index:action:)
-                    ), content: MacOSApplicationSelectedView.init(store:))
+                    ), content: MacOSApplicationSelectedView.init)
                     
                 } else {
                     Text("Multiple Selections")

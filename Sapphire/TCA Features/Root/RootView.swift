@@ -22,8 +22,7 @@ struct RootView: View {
             .sheet(isPresented: viewStore.binding(get: \.grid.inFlight, send: .toggleSheetView)) {
                 SheetView(store: store.scope(state: \.grid, action: Root.Action.grid))
             }
-
-            .frame(width: 900, height: 500)
+            //.frame(width: 900, height: 500)
         }
     }
 }
