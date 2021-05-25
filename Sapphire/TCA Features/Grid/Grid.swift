@@ -61,9 +61,10 @@ struct Grid {
                     let iconsur = iconsurURL.quotedPath
                     let app = application.url.quotedPath
                     let icon = application.customizedURL.quotedPath
+                    let color = application.color
                     
                     let reset  = "\(iconsur) unset \(app); "
-                    let create = "\(iconsur) set \(app) -l -s 0.8 -o \(icon) -c \(application.color); "
+                    let create = "\(iconsur) set \(app) -l -s 0.8 -o \(icon) -c \(color); "
                     let set    = "\(iconsur) set \(app) -l \(icon); "
                     
                     return application.modified
