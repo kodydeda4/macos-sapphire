@@ -66,9 +66,9 @@ extension Root {
                 
             case .resetButtonTapped:
                 state.alert = .init(
-                    title: "Reset?",
-                    message: "You cannot undo this action.",
-                    primaryButton: .destructive("Confirm", send: .confirmResetAlert),
+                    title: "Password Required",
+                    message: "Requesting permission to modify system icons.",
+                    primaryButton: .destructive("Continue", send: .confirmResetAlert),
                     secondaryButton: .cancel()
                 )
                 return .none
@@ -78,8 +78,7 @@ extension Root {
                 return .none
 
             case .confirmResetAlert:
-                state = Root.State()
-                return .none//return Effect(value: .applyChangesButtonTapped)
+                return Effect(value: .grid(.modifySystemApplications))
 
             }
         }

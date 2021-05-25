@@ -129,15 +129,14 @@ struct ApplyingChanges: View {
                 .scaledToFit()
                 .frame(width: 90)
             
-            Text("Applying Changes")
-                .font(.title2)
-                .fontWeight(.medium)
-                .padding()
-            
+//            Text("Applying Changes")
+//                .font(.title2)
+//                .fontWeight(.medium)
+//                .padding()
         }
         .padding(30)
         .opacity(opacity ? 1 : 0)
-        .animation(Animation.easeInOut(duration: 1).repeatForever(), value: opacity)
+        .animation(Animation.easeInOut(duration: 1.25).repeatForever(), value: opacity)
         .onAppear { opacity.toggle() }
     }
 }
