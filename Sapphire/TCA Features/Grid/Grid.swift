@@ -14,7 +14,6 @@ struct Grid {
         var macOSApplications: [MacOSApplication.State] = .allCases
         var alert: AlertState<Grid.Action>?
         var inFlight = false
-        var applyingChanges = false
         var onboarding = true
         var sheet: Bool {
             inFlight || onboarding
@@ -23,31 +22,38 @@ struct Grid {
     
     enum Action: Equatable {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
-        case selectAllButtonTapped
-        case cancelButtonTapped
-        case selectModifiedButtonTapped
+        
+        // Root
+        case onAppear
+        case save
+        case load
+        case toggleOnboarding
+        case toggleSheetView
+
+        // Grid
         case selectAll
         case deselectAll
-        case save
-        case disableInFlight
-        case createAlert
-        case dismissAlert
-        case toggleSheetView
-        
-        case onAppear
+        case selectAllButtonTapped
+        case selectModifiedButtonTapped
         case modifySystemApplications
         case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
-        case toggleOnboarding
+
+        
+        // App
+        case createAlert
+        case dismissAlert
+        case cancelButtonTapped
+        
     }
     
     struct Environment {
         let dataURL = URL(fileURLWithPath: NSHomeDirectory())
             .appendingPathComponent("SapphireState.json")
-
-        let iconsur = "/usr/local/bin/iconsur"
         
         /// Modify System Application Icons.
         func modifySystemApplicationIcons(_ applications: [MacOSApplication.State]) -> Effect<Action, Never> {
+            let iconsur = "/usr/local/bin/iconsur"
+            
             let updateIcons = applications
                 .map { application in
                     
@@ -68,9 +74,13 @@ struct Grid {
                 .map(Action.modifySystemApplicationsResult)
                 .receive(on: DispatchQueue.main)
                 .eraseToEffect()
+                .cancellable(id: GridRequestId())
         }
     }
 }
+
+struct GridRequestId: Hashable {}
+
 
 extension Grid {
     static let reducer = Reducer<State, Action, Environment>.combine(
@@ -80,7 +90,6 @@ extension Grid {
             environment: { _ in () }
         ),
         Reducer { state, action, environment in
-            struct GridRequestId: Hashable {}
 
             switch action {
             
@@ -88,6 +97,9 @@ extension Grid {
                 return .none
 
             case .onAppear:
+                return Effect(value: .load)
+            
+            case .load:
                 switch JSONDecoder().decodeState(
                     ofType: [MacOSApplication.State].self,
                     from: environment.dataURL
@@ -98,6 +110,7 @@ extension Grid {
                     print(error.localizedDescription)
                 }
                 return .none
+
                 
             case .createAlert:
                 state.alert = .init(
@@ -132,10 +145,8 @@ extension Grid {
                 let _ = JSONEncoder().writeState(state.macOSApplications, to: environment.dataURL)
                 return .none
 
-                
             case .modifySystemApplications:
                 state.inFlight = true
-                state.applyingChanges = true
                 return environment.modifySystemApplicationIcons(state.macOSApplications.filter(\.selected))
                 
             case .modifySystemApplicationsResult(.success):
@@ -153,16 +164,12 @@ extension Grid {
                     array.append(application)
                 }
                 
-                state.applyingChanges = false
-                return Effect(value: .disableInFlight)
-                
-            case .disableInFlight:
                 state.inFlight = false
+                
                 return Effect(value: .save)
                     .delay(for: 2.0, scheduler: DispatchQueue.main)
                     .eraseToEffect()
 
-                
             case let .modifySystemApplicationsResult(.failure(error)):
                 state.inFlight = false
                 return Effect(value: .deselectAll)

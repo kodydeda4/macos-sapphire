@@ -15,8 +15,9 @@ struct SheetView: View {
         WithViewStore(store) { viewStore in
             if viewStore.onboarding {
                 OnboardingView(store: store)
+                
             } else if viewStore.inFlight {
-                ApplyingChanges()
+                ApplyingChanges(store: store)
             }
         }
     }
