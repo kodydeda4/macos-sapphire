@@ -29,7 +29,6 @@ struct MacOSApplication {
         case toggleSelected
         case toggleCustom
         case modifyIconButtonTapped
-        case updateIcon(URL)
     }
 }
 
@@ -46,10 +45,6 @@ extension MacOSApplication {
                 return .none
                 
             case .modifyIconButtonTapped:
-                return .none
-                
-            case let .updateIcon(url):
-                state.icon = url
                 return .none
             }
         }
