@@ -28,14 +28,14 @@ struct GridView: View {
                     Spacer()
                 }
                 ToolbarItem {
-                    Button("Select All") {
-                        viewStore.send(.selectAllButtonTapped)
+                    Button("Select Modified") {
+                        viewStore.send(.selectModifiedButtonTapped)
                     }
                     .help("Select All")
                 }
                 ToolbarItem {
-                    Button("Select Modified") {
-                        viewStore.send(.selectModifiedButtonTapped)
+                    Button("Select All") {
+                        viewStore.send(.selectAllButtonTapped)
                     }
                     .help("Select All")
                 }
