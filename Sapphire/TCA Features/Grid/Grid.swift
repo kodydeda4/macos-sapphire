@@ -14,7 +14,7 @@ struct Grid {
         var macOSApplications: [MacOSApplication.State] = .allCases
         var alert: AlertState<Grid.Action>?
         var inFlight = false
-        var onboarding = true
+        var onboarding = false
         var sheet: Bool {
             inFlight || onboarding
         }
@@ -37,13 +37,11 @@ struct Grid {
         case selectModifiedButtonTapped
         case modifySystemApplications
         case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
-
         
         // App
         case createAlert
         case dismissAlert
         case cancelButtonTapped
-        
     }
     
     struct Environment {

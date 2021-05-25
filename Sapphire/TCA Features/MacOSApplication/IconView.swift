@@ -38,8 +38,7 @@ fileprivate struct FetchImageView: View {
         ZStack {
             image.view?
                 .resizable()
-                .scaledToFill()
-                .clipped()
+                .scaledToFit()
         }
         .onAppear { image.load(url) }
         .onChange(of: url) { image.load($0) }
