@@ -11,6 +11,7 @@ import ComposableArchitecture
 struct Root {
     struct State: Equatable {
         var grid = Grid.State()
+        var alert : AlertState<Root.Action>?
     }
     
     enum Action: Equatable {
@@ -18,6 +19,10 @@ struct Root {
         case grid(Grid.Action)
         case save
         case toggleSheetView
+        case resetButtonTapped
+        case dismissResetAlert
+        case confirmResetAlert
+
     }
     
     struct Environment {
@@ -58,6 +63,24 @@ extension Root {
                 
             case .toggleSheetView:
                 return .none
+                
+            case .resetButtonTapped:
+                state.alert = .init(
+                    title: "Reset?",
+                    message: "You cannot undo this action.",
+                    primaryButton: .destructive("Confirm", send: .confirmResetAlert),
+                    secondaryButton: .cancel()
+                )
+                return .none
+
+            case .dismissResetAlert:
+                state.alert = nil
+                return .none
+
+            case .confirmResetAlert:
+                state = Root.State()
+                return .none//return Effect(value: .applyChangesButtonTapped)
+
             }
         }
     )

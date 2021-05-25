@@ -19,8 +19,16 @@ struct RootView: View {
             }
             .onAppear { viewStore.send(.onAppear) }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
+            .alert(store.scope(state: \.alert), dismiss: .dismissResetAlert)
             .sheet(isPresented: viewStore.binding(get: \.grid.sheet, send: .toggleSheetView)) {
                 SheetView(store: store.scope(state: \.grid, action: Root.Action.grid))
+            }
+            .toolbar {
+                ToolbarItem {
+                    Button("Confirm Test") {
+                        viewStore.send(.resetButtonTapped)
+                    }
+                }
             }
         }
     }
