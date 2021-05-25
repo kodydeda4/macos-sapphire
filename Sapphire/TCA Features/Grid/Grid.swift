@@ -13,6 +13,10 @@ struct Grid {
     struct State: Equatable, Codable {
         var macOSApplications : [MacOSApplication.State] = .allCases
         var inFlight = false
+        var hasOnboarded = false
+        var sheet: Bool {
+            inFlight || !hasOnboarded
+        }
     }
     
     enum Action: Equatable {
@@ -24,6 +28,7 @@ struct Grid {
         case deselectAll
         case modifySystemApplications
         case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
+        case completedOnboardingButtonTapped
     }
     
     struct Environment {
@@ -153,6 +158,10 @@ extension Grid {
             case .cancelButtonTapped:
                 state.inFlight = false
                 return .cancel(id: GridRequestId())
+                
+            case .completedOnboardingButtonTapped:
+                state.hasOnboarded = true
+                return .none
 
             }
         }

@@ -19,7 +19,7 @@ struct RootView: View {
             }
             .onAppear { viewStore.send(.onAppear) }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
-            .sheet(isPresented: viewStore.binding(get: \.grid.inFlight, send: .toggleSheetView)) {
+            .sheet(isPresented: viewStore.binding(get: \.grid.sheet, send: .toggleSheetView)) {
                 SheetView(store: store.scope(state: \.grid, action: Root.Action.grid))
             }
         }
