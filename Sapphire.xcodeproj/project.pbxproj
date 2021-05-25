@@ -17,6 +17,7 @@
 		3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54A2655834C0064F5D9 /* Button+Extensions.swift */; };
 		3340CD71265681A400061F87 /* MacOSApplicationSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */; };
 		339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */; };
+		33A6BDC1265DA5E800C13231 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A6BDC0265DA5E800C13231 /* URL+Extensions.swift */; };
 		33BEC3192655AA4F0066851E /* NSUserAppleScriptTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC3182655AA4F0066851E /* NSUserAppleScriptTask+Extensions.swift */; };
 		33BEC31B2655AA830066851E /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC31A2655AA830066851E /* SheetView.swift */; };
 		33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */; };
@@ -40,6 +41,7 @@
 		3336D54A2655834C0064F5D9 /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
 		3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationSelectedView.swift; sourceTree = "<group>"; };
 		339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationView.swift; sourceTree = "<group>"; };
+		33A6BDC0265DA5E800C13231 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		33BEC3182655AA4F0066851E /* NSUserAppleScriptTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserAppleScriptTask+Extensions.swift"; sourceTree = "<group>"; };
 		33BEC31A2655AA830066851E /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */,
 				3336D54A2655834C0064F5D9 /* Button+Extensions.swift */,
 				33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */,
+				33A6BDC0265DA5E800C13231 /* URL+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				33BEC31B2655AA830066851E /* SheetView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */,
 				3336D54726557D690064F5D9 /* GridView.swift in Sources */,
+				33A6BDC1265DA5E800C13231 /* URL+Extensions.swift in Sources */,
 				33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */,
 				33244A81265D5BA800050721 /* OnboardingView.swift in Sources */,
 				33E7FDEA2656B8E4002DD5B8 /* IconView.swift in Sources */,

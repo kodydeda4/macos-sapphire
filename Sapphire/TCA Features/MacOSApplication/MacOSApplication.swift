@@ -16,12 +16,12 @@ struct MacOSApplication {
         var icon       : URL
         var color      = "ffffff" //"82d7f8"
         var selected   = false
-        var modified = false
+        var modified   = false
         
         var customizedURL: URL {
-            URL(fileURLWithPath: NSHomeDirectory())
-            .appendingPathComponent(name.replacingOccurrences(of: " ", with: "_"))
-            .appendingPathExtension(for: .png)
+            URL.ApplicationSupport
+                .appendingPathComponent("AppIcons")
+                .appendingPathComponent("\(name.replacingOccurrences(of: " ", with: "_")).png")
         }
     }
     
