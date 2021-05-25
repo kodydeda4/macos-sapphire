@@ -11,7 +11,7 @@ import ComposableArchitecture
 
 struct Grid {
     struct State: Equatable, Codable {
-        var macOSApplications : [MacOSApplication.State] = .allCases
+        var macOSApplications: [MacOSApplication.State] = .allCases
         var inFlight = false
     }
     
@@ -19,10 +19,13 @@ struct Grid {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
         case selectAllButtonTapped
         case selectModifiedButtonTapped
+        case resetCacheButtonTapped
+        case resetCacheButtonTappedResult(Result<Bool, AppleScriptError>)
         case selectAll
-        case deselectAll
+        case deselectAll        
         case modifySystemApplications
         case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
+        
     }
     
     struct Environment {
@@ -42,12 +45,19 @@ struct Grid {
                         : [create, set].joined()
                 }
                 .joined()
-                .appending("\(iconsur) cache")
-            
             
             return NSUserAppleScriptTask()
                 .execute(command: "do shell script \"\(updateIcons)\" with administrator privileges")
                 .map(Action.modifySystemApplicationsResult)
+                .receive(on: DispatchQueue.main)
+                .eraseToEffect()
+        }
+        
+        /// Update System Cache
+        var updateSystemIconCache: Effect<Action, Never> {
+            NSUserAppleScriptTask()
+                .execute(command: "do shell script \"\(iconsur) cache\" with administrator privileges")
+                .map(Action.resetCacheButtonTappedResult)
                 .receive(on: DispatchQueue.main)
                 .eraseToEffect()
         }
@@ -69,7 +79,6 @@ extension Grid {
                 
                 case .toggleSelected:
                     state.macOSApplications[index].selected.toggle()
-                    return .none
                     
                 case .modifyIconButtonTapped:
                     return Effect(value: .modifySystemApplications)
@@ -78,33 +87,6 @@ extension Grid {
                     break
                 }
                 return .none
-                
-                
-            case .modifySystemApplications:
-                state.inFlight = true
-                return environment.modifySystemApplicationIcons(state.macOSApplications.filter(\.selected))
-                
-            case .modifySystemApplicationsResult(.success):
-                state.inFlight = false
-                
-                state.macOSApplications = state.macOSApplications.reduce(into: []) { array, element in
-                    var application = element
-                    
-                    if application.selected {
-                        
-                        application.icon = application.modified
-                            ? Bundle.icon(from: application.url)
-                            : application.customizedURL
-                        
-                        application.modified.toggle()
-                    }
-                    array.append(application)
-                }
-                return Effect(value: .deselectAll)
-                
-            case let .modifySystemApplicationsResult(.failure(error)):
-                state.inFlight = false
-                return Effect(value: .deselectAll)
                 
             case .selectAllButtonTapped:
                 let allSelected = state.macOSApplications.allSatisfy(\.selected)
@@ -145,6 +127,46 @@ extension Grid {
                         state.macOSApplications[$0].selected = state.macOSApplications[$0].modified
                     }
                 }
+                return .none
+
+            //MARK:- Modify System Applications
+            case .modifySystemApplications:
+                state.inFlight = true
+                return environment.modifySystemApplicationIcons(state.macOSApplications.filter(\.selected))
+                
+            case .modifySystemApplicationsResult(.success):
+                state.inFlight = false
+                
+                state.macOSApplications = state.macOSApplications.reduce(into: []) { array, element in
+                    var application = element
+                    
+                    if application.selected {
+                        
+                        application.icon = application.modified
+                            ? Bundle.icon(from: application.url)
+                            : application.customizedURL
+                        
+                        application.modified.toggle()
+                    }
+                    array.append(application)
+                }
+                return Effect(value: .deselectAll)
+                
+            case let .modifySystemApplicationsResult(.failure(error)):
+                state.inFlight = false
+                return Effect(value: .deselectAll)
+
+            //MARK:- Reset Cache
+            case .resetCacheButtonTapped:
+                state.inFlight = true
+                return environment.updateSystemIconCache
+                
+            case .resetCacheButtonTappedResult(.success):
+                state.inFlight = false
+                return .none
+                
+            case let .resetCacheButtonTappedResult(.failure(error)):
+                state.inFlight = false
                 return .none
             }
         }
