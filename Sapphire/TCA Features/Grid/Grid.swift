@@ -97,6 +97,13 @@ extension Grid {
                 return .none
 
             case .onAppear:
+                if state.onboarding {
+                    state.alert = .init(
+                        title: "Welcome to Sapphire",
+                        message: "Kody Deda",
+                        dismissButton: .cancel("Continue", send: .toggleOnboarding)
+                    )
+                }
                 return Effect(value: .load)
             
             case .load:
