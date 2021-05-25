@@ -24,11 +24,15 @@ struct SheetView: View {
                     .font(.title2)
                     .fontWeight(.medium)
                     .padding()
+                
+                Button("Cancel") {
+                    viewStore.send(.cancelButtonTapped)
+                }
             }
             .padding(30)
-            .opacity(opacity ? 1 : 0)
-            .animation(Animation.easeInOut(duration: 1).repeatForever(), value: opacity)
-            .onAppear { opacity.toggle() }
+//            .opacity(opacity ? 1 : 0)
+//            .animation(Animation.easeInOut(duration: 1).repeatForever(), value: opacity)
+//            .onAppear { opacity.toggle() }
         }
     }
 }

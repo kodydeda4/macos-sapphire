@@ -18,6 +18,7 @@ struct Grid {
     enum Action: Equatable {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
         case selectAllButtonTapped
+        case cancelButtonTapped
         case selectModifiedButtonTapped
         case selectAll
         case deselectAll
@@ -62,6 +63,8 @@ extension Grid {
             environment: { _ in () }
         ),
         Reducer { state, action, environment in
+            struct GridRequestId: Hashable {}
+
             switch action {
             
             case let .macOSApplication(index, action):
@@ -146,6 +149,11 @@ extension Grid {
                     }
                 }
                 return .none
+                
+            case .cancelButtonTapped:
+                state.inFlight = false
+                return .cancel(id: GridRequestId())
+
             }
         }
     )
