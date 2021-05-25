@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33244A81265D5BA800050721 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33244A80265D5BA800050721 /* OnboardingView.swift */; };
+		33244A83265D5BFE00050721 /* ApplyingChangesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33244A82265D5BFE00050721 /* ApplyingChangesView.swift */; };
 		332B84E926549CD900B7633B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B84E826549CD900B7633B /* RootView.swift */; };
 		33335646265D4CA400252A36 /* ButtonStyle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */; };
 		3336D541265573DA0064F5D9 /* FetchImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3336D540265573DA0064F5D9 /* FetchImage */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		33244A80265D5BA800050721 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		33244A82265D5BFE00050721 /* ApplyingChangesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyingChangesView.swift; sourceTree = "<group>"; };
 		332B84E826549CD900B7633B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonStyle+Extensions.swift"; sourceTree = "<group>"; };
 		3336D54626557D690064F5D9 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
@@ -67,10 +71,10 @@
 		332B84E6265496B000B7633B /* TCA Features */ = {
 			isa = PBXGroup;
 			children = (
-				33335644265D4A9500252A36 /* New Group */,
 				332B84E7265496BD00B7633B /* Root */,
 				33E7FDED2656BFF8002DD5B8 /* Grid */,
 				3336D53C26556EE60064F5D9 /* MacOSApplication */,
+				33335644265D4A9500252A36 /* Sheet */,
 			);
 			path = "TCA Features";
 			sourceTree = "<group>";
@@ -79,25 +83,27 @@
 			isa = PBXGroup;
 			children = (
 				332B84E826549CD900B7633B /* RootView.swift */,
-				33BEC31A2655AA830066851E /* SheetView.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
 		};
-		33335644265D4A9500252A36 /* New Group */ = {
+		33335644265D4A9500252A36 /* Sheet */ = {
 			isa = PBXGroup;
 			children = (
+				33BEC31A2655AA830066851E /* SheetView.swift */,
+				33244A82265D5BFE00050721 /* ApplyingChangesView.swift */,
+				33244A80265D5BA800050721 /* OnboardingView.swift */,
 			);
-			path = "New Group";
+			path = Sheet;
 			sourceTree = "<group>";
 		};
 		3336D53C26556EE60064F5D9 /* MacOSApplication */ = {
 			isa = PBXGroup;
 			children = (
 				B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */,
+				33E7FDE92656B8E4002DD5B8 /* IconView.swift */,
 				339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */,
 				3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */,
-				33E7FDE92656B8E4002DD5B8 /* IconView.swift */,
 			);
 			path = MacOSApplication;
 			sourceTree = "<group>";
@@ -250,6 +256,7 @@
 				33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */,
 				3340CD71265681A400061F87 /* MacOSApplicationSelectedView.swift in Sources */,
 				33E7FDE82656A412002DD5B8 /* JSONDecoder+Extensions.swift in Sources */,
+				33244A83265D5BFE00050721 /* ApplyingChangesView.swift in Sources */,
 				3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */,
 				33BEC3192655AA4F0066851E /* NSUserAppleScriptTask+Extensions.swift in Sources */,
 				339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */,
@@ -260,6 +267,7 @@
 				B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */,
 				3336D54726557D690064F5D9 /* GridView.swift in Sources */,
 				33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */,
+				33244A81265D5BA800050721 /* OnboardingView.swift in Sources */,
 				33E7FDEA2656B8E4002DD5B8 /* IconView.swift in Sources */,
 				33335646265D4CA400252A36 /* ButtonStyle+Extensions.swift in Sources */,
 			);

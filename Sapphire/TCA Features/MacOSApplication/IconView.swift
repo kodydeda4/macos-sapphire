@@ -13,7 +13,7 @@ struct IconView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            ImageView(url: viewStore.icon)
+            FetchImageView(url: viewStore.icon)
                 .padding(.bottom, 3)
         }
     }
@@ -30,7 +30,7 @@ struct MacOSApplicationIconView_Previews: PreviewProvider {
 
 import FetchImage
 
-fileprivate struct ImageView: View {
+fileprivate struct FetchImageView: View {
     let url: URL
     @StateObject private var image = FetchImage()
 

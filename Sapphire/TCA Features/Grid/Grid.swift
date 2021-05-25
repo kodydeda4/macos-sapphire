@@ -14,9 +14,10 @@ struct Grid {
         var macOSApplications: [MacOSApplication.State] = .allCases
         var alert: AlertState<Grid.Action>?
         var inFlight = false
-        var hasOnboarded = false
+        var applyingChanges = false
+        var onboarding = true
         var sheet: Bool {
-            inFlight || !hasOnboarded
+            inFlight || onboarding
         }
     }
     
@@ -28,7 +29,7 @@ struct Grid {
         case selectAll
         case deselectAll
         case save
-        
+        case disableInFlight
         case resetButtonTapped
         case dismissResetAlert
         case toggleSheetView
@@ -36,7 +37,7 @@ struct Grid {
         case onAppear
         case modifySystemApplications
         case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
-        case completedOnboardingButtonTapped
+        case toggleOnboarding
     }
     
     struct Environment {
@@ -134,11 +135,10 @@ extension Grid {
                 
             case .modifySystemApplications:
                 state.inFlight = true
+                state.applyingChanges = true
                 return environment.modifySystemApplicationIcons(state.macOSApplications.filter(\.selected))
                 
             case .modifySystemApplicationsResult(.success):
-                state.inFlight = false
-                
                 state.macOSApplications = state.macOSApplications.reduce(into: []) { array, element in
                     var application = element
                     
@@ -152,7 +152,16 @@ extension Grid {
                     }
                     array.append(application)
                 }
-                return Effect(value: .save)//Effect(value: .deselectAll)
+                
+                state.applyingChanges = false
+                return Effect(value: .disableInFlight)
+                
+            case .disableInFlight:
+                state.inFlight = false
+                return Effect(value: .save)
+                    .delay(for: 2.0, scheduler: DispatchQueue.main)
+                    .eraseToEffect()
+
                 
             case let .modifySystemApplicationsResult(.failure(error)):
                 state.inFlight = false
@@ -203,8 +212,8 @@ extension Grid {
                 state.inFlight = false
                 return .cancel(id: GridRequestId())
                 
-            case .completedOnboardingButtonTapped:
-                state.hasOnboarded = true
+            case .toggleOnboarding:
+                state.onboarding.toggle()
                 return .none
 
             }
