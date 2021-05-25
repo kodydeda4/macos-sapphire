@@ -125,7 +125,7 @@ extension Grid {
                 default:
                     break
                 }
-                return .none
+                return Effect(value: .save)
                 
             case .save:
                 let _ = JSONEncoder().writeState(state.macOSApplications, to: environment.dataURL)
@@ -152,7 +152,7 @@ extension Grid {
                     }
                     array.append(application)
                 }
-                return Effect(value: .deselectAll)
+                return Effect(value: .save)//Effect(value: .deselectAll)
                 
             case let .modifySystemApplicationsResult(.failure(error)):
                 state.inFlight = false
