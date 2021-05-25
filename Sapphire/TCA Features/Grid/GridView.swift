@@ -20,7 +20,6 @@ struct GridView: View {
                         action: Grid.Action.macOSApplication(index:action:)
                     ), content: MacOSApplicationView.init)
                 }
-                
                 .frame(width: 600)
                 .padding()
             }

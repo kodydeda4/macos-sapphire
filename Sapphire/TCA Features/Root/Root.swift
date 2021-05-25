@@ -54,15 +54,8 @@ extension Root {
                 return .none
                 
             case let .grid(action):
-                switch action {
-
-                case .updateGridSelections, .macOSApplication:
-                    return .none
-                    
-                default:
-                    return Effect(value: .save)
+                return Effect(value: .save)
                 
-                }
             case .toggleSheetView:
                 return .none
             }

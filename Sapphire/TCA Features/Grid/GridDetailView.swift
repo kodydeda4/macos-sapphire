@@ -30,7 +30,7 @@ struct GridDetailView: View {
                         .font(.title)
                         .foregroundColor(Color(.disabledControlTextColor))
                     Button("Create Icon") {
-                        viewStore.send(.modifyLocalIcons)
+                        viewStore.send(.modifySystemApplications)
                     }
                 }
                 Spacer()

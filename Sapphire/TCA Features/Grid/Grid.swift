@@ -17,12 +17,12 @@ struct Grid {
     
     enum Action: Equatable {
         case macOSApplication(index: Int, action: MacOSApplication.Action)
-        case modifyLocalIcons
-        case deselectAll
-        case modifyLocalIconsResult(Result<Bool, AppleScriptError>)
         case selectAllButtonTapped
         case selectModifiedButtonTapped
-        case updateGridSelections(Int)
+        case selectAll
+        case deselectAll
+        case modifySystemApplications
+        case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
     }
     
     struct Environment {
@@ -31,23 +31,23 @@ struct Grid {
         /// Modify System Application Icons.
         func modifySystemApplicationIcons(_ applications: [MacOSApplication.State]) -> Effect<Action, Never> {
             let updateIcons = applications
-                .filter(\.selected)
                 .map { application in
+                    
                     let reset  = "\(iconsur) unset \\\"\(application.url.path)\\\"; "
                     let create = "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(application.customizedURL.path) -c \(application.color); "
                     let set    = "\(iconsur) set \\\"\(application.url.path)\\\" -l \(application.customizedURL.path); "
                     
-                    return application.customized
+                    return application.modified
                         ? reset
                         : [create, set].joined()
                 }
                 .joined()
-                .appending("/usr/local/bin/iconsur cache")
+                .appending("\(iconsur) cache")
             
             
             return NSUserAppleScriptTask()
                 .execute(command: "do shell script \"\(updateIcons)\" with administrator privileges")
-                .map(Action.modifyLocalIconsResult)
+                .map(Action.modifySystemApplicationsResult)
                 .receive(on: DispatchQueue.main)
                 .eraseToEffect()
         }
@@ -68,69 +68,83 @@ extension Grid {
                 switch action {
                 
                 case .toggleSelected:
-                    return Effect(value: .updateGridSelections(index))
+                    state.macOSApplications[index].selected.toggle()
+                    return .none
                     
                 case .modifyIconButtonTapped:
-                    return Effect(value: .modifyLocalIcons)
+                    return Effect(value: .modifySystemApplications)
                     
                 default:
                     break
                 }
                 return .none
                 
-            case let .updateGridSelections(index):
-                state.macOSApplications[index].selected.toggle()
-                return .none
                 
-            case .modifyLocalIcons:
+            case .modifySystemApplications:
                 state.inFlight = true
-                return environment.modifySystemApplicationIcons(state.macOSApplications)
+                return environment.modifySystemApplicationIcons(state.macOSApplications.filter(\.selected))
                 
-            case .modifyLocalIconsResult(.success(_)):
+            case .modifySystemApplicationsResult(.success):
                 state.inFlight = false
-                zip(state.macOSApplications.indices, state.macOSApplications)
-                    .forEach { index, application in
-                        if application.selected {
-                            state.macOSApplications[index].icon
-                                = application.customized
-                                ? Bundle.icon(from: application.url)
-                                : application.customizedURL
-                            
-                            state.macOSApplications[index].customized.toggle()
-                            
-                        }
+                
+                state.macOSApplications = state.macOSApplications.reduce(into: []) { array, element in
+                    var application = element
+                    
+                    if application.selected {
+                        
+                        application.icon = application.modified
+                            ? Bundle.icon(from: application.url)
+                            : application.customizedURL
+                        
+                        application.modified.toggle()
                     }
+                    array.append(application)
+                }
                 return Effect(value: .deselectAll)
                 
-            case let .modifyLocalIconsResult(.failure(error)):
+            case let .modifySystemApplicationsResult(.failure(error)):
                 state.inFlight = false
                 return Effect(value: .deselectAll)
                 
             case .selectAllButtonTapped:
-                let bool = state.macOSApplications.filter(\.selected).isEmpty
+                let allSelected = state.macOSApplications.allSatisfy(\.selected)
                 
-                state.macOSApplications.indices
-                    .forEach {
-                        state.macOSApplications[$0].selected = bool
-                    }
+                state.macOSApplications.indices.forEach {
+                    state.macOSApplications[$0].selected = !allSelected
+                }
                 return .none
                 
-            case .selectModifiedButtonTapped:
-                switch state.macOSApplications.contains(where: { $0.selected && $0.customized }) {
-                case true:
-                    return Effect(value: .deselectAll)
-                case false:
-                    state.macOSApplications.indices.forEach { index in
-                        state.macOSApplications[index].selected = state.macOSApplications[index].customized
-                    }
+            case .selectAll:
+                state.macOSApplications.indices.forEach {
+                    state.macOSApplications[$0].selected = true
                 }
                 return .none
                 
             case .deselectAll:
-                state.macOSApplications.indices
-                    .forEach { index in
-                        state.macOSApplications[index].selected = false
+                state.macOSApplications.indices.forEach {
+                    state.macOSApplications[$0].selected = false
+                }
+                return .none
+                
+            case .selectModifiedButtonTapped:
+                switch state.macOSApplications
+                    .filter(\.modified)
+                    .allSatisfy(\.selected)
+                    
+                    &&
+                    
+                    state.macOSApplications
+                    .filter(\.selected)
+                    .allSatisfy(\.modified)
+                {
+                case true:
+                    return Effect(value: .deselectAll)
+                    
+                case false:
+                    state.macOSApplications.indices.forEach {
+                        state.macOSApplications[$0].selected = state.macOSApplications[$0].modified
                     }
+                }
                 return .none
             }
         }

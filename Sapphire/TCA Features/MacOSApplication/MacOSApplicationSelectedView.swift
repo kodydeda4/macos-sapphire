@@ -30,7 +30,7 @@ struct MacOSApplicationSelectedView: View {
                 .multilineTextAlignment(.center)
                 .frame(height: 50)
                 
-                Button(viewStore.customized ? "Remove Icon" : "Create Icon") {
+                Button(viewStore.modified ? "Remove Icon" : "Create Icon") {
                     viewStore.send(.modifyIconButtonTapped)
                 }
             }

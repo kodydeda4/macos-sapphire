@@ -16,7 +16,7 @@ struct MacOSApplication {
         var icon       : URL
         var color      = "ffffff" //"82d7f8"
         var selected   = false
-        var customized = false
+        var modified = false
         
         var customizedURL: URL {
             URL(fileURLWithPath: NSHomeDirectory())
@@ -41,7 +41,7 @@ extension MacOSApplication {
                 return .none
                 
             case .toggleCustom:
-                state.customized.toggle()
+                state.modified.toggle()
                 return .none
                 
             case .modifyIconButtonTapped:
