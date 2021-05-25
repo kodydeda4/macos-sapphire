@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-extension URL {    
+extension URL {
+    
+    /// ~/Library/Application Support/`KSWIFTSapphire`
     static var ApplicationSupport: URL {
         let directory =
             FileManager.default.urls(
@@ -31,7 +33,7 @@ extension URL {
         return directory
     }
     
-    
+    /// ~/Library/Application Scripts/`KSWIFTSapphire`
     static var ApplicationScripts: URL {
         try! FileManager.default.url(
             for: .applicationScriptsDirectory,
@@ -40,14 +42,12 @@ extension URL {
             create: true
         )
     }
+}
+
+extension URL {
     
-    //    static var SapphireDirectory: URL {
-    //        try! FileManager.default.url(
-    //            for: .applicationSupportDirectory,
-    //            in: .userDomainMask,
-    //            appropriateFor: nil,
-    //            create: true
-    //        )
-    //        .appendingPathComponent("kswift.Sapphire")
-    //    }
+    /// Returns URL.path formatted for an Applescript command.
+    var quotedPath: String {
+        "\\\"\(self.path)\\\""
+    }
 }

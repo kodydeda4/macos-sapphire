@@ -15,7 +15,7 @@ enum AppleScriptError: Error, Equatable {
 extension NSUserAppleScriptTask {
     
     /// Writes argument to ~/ApplicationScripts/`AppName`/Applescript.osa file & executes it
-    func execute(command: String) -> AnyPublisher<Result<Bool, AppleScriptError>, Never> {
+    func execute(_ command: String) -> AnyPublisher<Result<Bool, AppleScriptError>, Never> {
         let rv = PassthroughSubject<Result<Bool, AppleScriptError>, Never>()
         
         var url: URL {

@@ -50,28 +50,36 @@ struct Grid {
         let dataURL = URL.ApplicationSupport
             .appendingPathComponent("GridState.json")
         
-        /// Modify System Application Icons.
-        func modifySystemApplicationIcons(_ applications: [MacOSApplication.State]) -> Effect<Action, Never> {
-            let iconsur = URL.ApplicationScripts
-                .appendingPathComponent("iconsur2")
-                .path
-                        
+        let iconsurURL = URL.ApplicationScripts
+            .appendingPathComponent("iconsur2")
+
+        /// Returns AppleScript command for modifying System Application Icons.
+        func modifyIconsCommand(_ applications: [MacOSApplication.State]) -> String {
             let updateIcons = applications
+                .filter(\.selected)
                 .map { application in
-                    let reset  = "\\\"\(iconsur)\\\" unset \\\"\(application.url.path)\\\"; "
-                    let create = "\\\"\(iconsur)\\\" set \\\"\(application.url.path)\\\" -l -s 0.8 -o \\\"\(application.customizedURL.path)\\\" -c \(application.color); "
-                    let set    = "\\\"\(iconsur)\\\" set \\\"\(application.url.path)\\\" -l \\\"\(application.customizedURL.path)\\\"; "
+                    let iconsur = iconsurURL.quotedPath
+                    let app = application.url.quotedPath
+                    let icon = application.customizedURL.quotedPath
+                    
+                    let reset  = "\(iconsur) unset \(app); "
+                    let create = "\(iconsur) set \(app) -l -s 0.8 -o \(icon) -c \(application.color); "
+                    let set    = "\(iconsur) set \(app) -l \(icon); "
                     
                     return application.modified
                         ? reset
                         : [create, set].joined()
                 }
                 .joined()
-                .appending("\\\"\(iconsur)\\\" cache")
+                .appending("\(iconsurURL.quotedPath) cache")
             
-            
-            return NSUserAppleScriptTask()
-                .execute(command: "do shell script \"\(updateIcons)\" with administrator privileges")
+            return "do shell script \"\(updateIcons)\" with administrator privileges"
+        }
+        
+        /// Executes modifyIconsCommand as Effect
+        func modifyIcons(command: String) -> Effect<Action, Never> {
+            NSUserAppleScriptTask()
+                .execute(command)
                 .map(Action.modifySystemApplicationsResult)
                 .receive(on: DispatchQueue.main)
                 .eraseToEffect()
@@ -155,7 +163,7 @@ extension Grid {
 
             case .modifySystemApplications:
                 state.inFlight = true
-                return environment.modifySystemApplicationIcons(state.macOSApplications.filter(\.selected))
+                return environment.modifyIcons(command: environment.modifyIconsCommand(state.macOSApplications))
                 
             case .modifySystemApplicationsResult(.success):
                 state.macOSApplications = state.macOSApplications.reduce(into: []) { array, element in
@@ -243,3 +251,5 @@ extension Grid {
         environment: .init()
     )
 }
+
+

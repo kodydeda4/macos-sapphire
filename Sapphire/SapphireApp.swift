@@ -16,3 +16,4 @@ struct SapphireApp: App {
         }
     }
 }
+
