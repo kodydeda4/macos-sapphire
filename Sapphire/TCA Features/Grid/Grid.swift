@@ -52,21 +52,26 @@ struct Grid {
         
         /// Modify System Application Icons.
         func modifySystemApplicationIcons(_ applications: [MacOSApplication.State]) -> Effect<Action, Never> {
-            let iconsur = "/usr/local/bin/iconsur"
+            //let iconsur = "/usr/local/bin/iconsur"
+            let iconsur = URL(fileURLWithPath: NSHomeDirectory())
+                .appendingPathComponent("iconsur2")
+                .path
+            
+            print(iconsur)
             
             let updateIcons = applications
                 .map { application in
                     
-                    let reset  = "\(iconsur) unset \\\"\(application.url.path)\\\"; "
-                    let create = "\(iconsur) set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(application.customizedURL.path) -c \(application.color); "
-                    let set    = "\(iconsur) set \\\"\(application.url.path)\\\" -l \(application.customizedURL.path); "
+                    let reset  = "\\\"\(iconsur)\\\" unset \\\"\(application.url.path)\\\"; "
+                    let create = "\\\"\(iconsur)\\\" set \\\"\(application.url.path)\\\" -l -s 0.8 -o \(application.customizedURL.path) -c \(application.color); "
+                    let set    = "\\\"\(iconsur)\\\" set \\\"\(application.url.path)\\\" -l \(application.customizedURL.path); "
                     
                     return application.modified
                         ? reset
                         : [create, set].joined()
                 }
                 .joined()
-                .appending("\(iconsur) cache")
+                .appending("\\\"\(iconsur)\\\" cache")
             
             
             return NSUserAppleScriptTask()
