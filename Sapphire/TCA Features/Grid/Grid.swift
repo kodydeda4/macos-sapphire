@@ -10,8 +10,9 @@ import Combine
 import ComposableArchitecture
 
 struct Grid {
-    struct State: Equatable, Codable {
-        var macOSApplications : [MacOSApplication.State] = .allCases
+    struct State: Equatable {
+        var macOSApplications: [MacOSApplication.State] = .allCases
+        var alert: AlertState<Grid.Action>?
         var inFlight = false
         var hasOnboarded = false
         var sheet: Bool {
@@ -26,12 +27,22 @@ struct Grid {
         case selectModifiedButtonTapped
         case selectAll
         case deselectAll
+        case save
+        
+        case resetButtonTapped
+        case dismissResetAlert
+        case toggleSheetView
+        
+        case onAppear
         case modifySystemApplications
         case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
         case completedOnboardingButtonTapped
     }
     
     struct Environment {
+        let dataURL = URL(fileURLWithPath: NSHomeDirectory())
+            .appendingPathComponent("SapphireState.json")
+
         let iconsur = "/usr/local/bin/iconsur"
         
         /// Modify System Application Icons.
@@ -72,6 +83,35 @@ extension Grid {
 
             switch action {
             
+            case .toggleSheetView:
+                return .none
+
+            case .onAppear:
+                switch JSONDecoder().decodeState(
+                    ofType: [MacOSApplication.State].self,
+                    from: environment.dataURL
+                ) {
+                case let .success(decodedState):
+                    state.macOSApplications = decodedState
+                case let .failure(error):
+                    print(error.localizedDescription)
+                }
+                return .none
+                
+            case .resetButtonTapped:
+                state.alert = .init(
+                    title: "Password Required",
+                    message: "Requesting permission to modify system icons.",
+                    primaryButton: .destructive("Continue", send: .modifySystemApplications),
+                    secondaryButton: .cancel()
+                )
+                return .none
+
+            case .dismissResetAlert:
+                state.alert = nil
+                return .none
+
+            
             case let .macOSApplication(index, action):
                 switch action {
                 
@@ -80,13 +120,17 @@ extension Grid {
                     return .none
                     
                 case .modifyIconButtonTapped:
-                    return Effect(value: .modifySystemApplications)
+                    return Effect(value: .resetButtonTapped)
                     
                 default:
                     break
                 }
                 return .none
                 
+            case .save:
+                let _ = JSONEncoder().writeState(state.macOSApplications, to: environment.dataURL)
+                return .none
+
                 
             case .modifySystemApplications:
                 state.inFlight = true

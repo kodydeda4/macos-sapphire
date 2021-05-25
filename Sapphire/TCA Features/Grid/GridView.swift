@@ -23,6 +23,7 @@ struct GridView: View {
                 .frame(width: 600)
                 .padding()
             }
+            .onAppear { viewStore.send(.onAppear) }
             .toolbar {
                 ToolbarItem {
                     Spacer()

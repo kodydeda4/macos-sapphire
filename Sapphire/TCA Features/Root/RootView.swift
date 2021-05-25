@@ -9,37 +9,27 @@ import SwiftUI
 import ComposableArchitecture
 
 struct RootView: View {
-    let store: Store<Root.State, Root.Action>
+    let store: Store<Grid.State, Grid.Action>
     
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
-                GridView(store: store.scope(state: \.grid, action: Root.Action.grid))
-                GridDetailView(store: store.scope(state: \.grid, action: Root.Action.grid))
+                GridView(store: store)
+                GridDetailView(store: store)
             }
-            .onAppear { viewStore.send(.onAppear) }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             .alert(store.scope(state: \.alert), dismiss: .dismissResetAlert)
-            .sheet(isPresented: viewStore.binding(get: \.grid.sheet, send: .toggleSheetView)) {
-                SheetView(store: store.scope(state: \.grid, action: Root.Action.grid))
-            }
-            .toolbar {
-                ToolbarItem {
-                    Button("Confirm Test") {
-                        viewStore.send(.resetButtonTapped)
-                    }
-                }
+            .sheet(isPresented: viewStore.binding(get: \.sheet, send: .toggleSheetView)) {
+                SheetView(store: store)
             }
         }
     }
 }
 
+// MARK:- SwiftUI_Previews
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView(store: Root.defaultStore)
+        RootView(store: Grid.defaultStore)
     }
 }
-
-
-
 
