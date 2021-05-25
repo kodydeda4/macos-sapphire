@@ -30,8 +30,8 @@ struct Grid {
         case deselectAll
         case save
         case disableInFlight
-        case resetButtonTapped
-        case dismissResetAlert
+        case createAlert
+        case dismissAlert
         case toggleSheetView
         
         case onAppear
@@ -99,7 +99,7 @@ extension Grid {
                 }
                 return .none
                 
-            case .resetButtonTapped:
+            case .createAlert:
                 state.alert = .init(
                     title: "Password Required",
                     message: "Requesting permission to modify system icons.",
@@ -108,7 +108,7 @@ extension Grid {
                 )
                 return .none
 
-            case .dismissResetAlert:
+            case .dismissAlert:
                 state.alert = nil
                 return .none
 
@@ -121,7 +121,7 @@ extension Grid {
                     return .none
                     
                 case .modifyIconButtonTapped:
-                    return Effect(value: .resetButtonTapped)
+                    return Effect(value: .createAlert)
                     
                 default:
                     break

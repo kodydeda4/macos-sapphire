@@ -18,7 +18,7 @@ struct RootView: View {
                 GridDetailView(store: store)
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
-            .alert(store.scope(state: \.alert), dismiss: .dismissResetAlert)
+            .alert(store.scope(state: \.alert), dismiss: .dismissAlert)
             .sheet(isPresented: viewStore.binding(get: \.sheet, send: .toggleSheetView)) {
                 SheetView(store: store)
             }
