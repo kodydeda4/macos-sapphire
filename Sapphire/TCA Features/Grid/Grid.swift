@@ -170,8 +170,7 @@ extension Grid {
                 return environment.modifyIcons(command: environment.modifyIconsCommand(state.macOSApplications))
                 
             case .modifySystemApplicationsResult(.success):
-                state.macOSApplications = state
-                    .macOSApplications
+                state.macOSApplications = state.macOSApplications
                     .reduce(
                         set: \.icon,
                         to: { $0.modified ? Bundle.getIcon(from: $0.url) : $0.customIconURL },
@@ -202,7 +201,11 @@ extension Grid {
                 return .none
                 
             case .selectAll:
-                state.macOSApplications = state.macOSApplications.reduce(set: \.selected, to: true)
+                state.macOSApplications =
+                    state.macOSApplications.reduce(
+                        set: \.selected,
+                        to: true
+                    )
                 return .none
                 
             case .deselectAll:

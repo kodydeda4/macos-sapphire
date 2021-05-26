@@ -55,7 +55,7 @@ extension MacOSApplication {
     static let defaultStore = Store(
         initialState: .init(
             url: Bundle.allBundleURLs.first!,
-            name: Bundle.name(from: Bundle.allBundleURLs.first!),
+            name: Bundle.getName(from: Bundle.allBundleURLs.first!),
             icon: Bundle.getIcon(from: Bundle.allBundleURLs.first!)
         ),
         reducer: reducer,
@@ -71,7 +71,7 @@ extension Array where Element == MacOSApplication.State {
         Bundle.allBundleURLs.map {
             MacOSApplication.State(
                 url: $0,
-                name: Bundle.name(from: $0),
+                name: Bundle.getName(from: $0),
                 icon: Bundle.getIcon(from: $0)
             )
         }

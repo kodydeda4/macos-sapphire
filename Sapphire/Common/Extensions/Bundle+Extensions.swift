@@ -19,7 +19,7 @@ extension Bundle {
     }
     
     /// Returns Bundle name from URL.
-    static func name(from url: URL) -> String {
+    static func getName(from url: URL) -> String {
         url
             .deletingPathExtension()
             .lastPathComponent
