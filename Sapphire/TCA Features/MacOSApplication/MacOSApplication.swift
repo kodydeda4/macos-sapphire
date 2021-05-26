@@ -13,7 +13,7 @@ struct MacOSApplication {
         var id         : URL { bundleURL }
         var bundleURL  : URL
         let name       : String
-        var icon       : URL
+        var iconURL    : URL
         var color      = "ffffff" //"82d7f8"
         var selected   = false
         var modified   = false
@@ -22,7 +22,7 @@ struct MacOSApplication {
             Bundle.getIcon(from: bundleURL)
         }
         
-        var customIconURL: URL {
+        var modifiedIconURL: URL {
             URL.ApplicationSupport
                 .appendingPathComponent("AppIcons")
                 .appendingPathComponent("\(name.replacingOccurrences(of: " ", with: "_")).png")
@@ -60,7 +60,7 @@ extension MacOSApplication {
         initialState: .init(
             bundleURL: Bundle.allBundleURLs.first!,
             name: Bundle.getName(from: Bundle.allBundleURLs.first!),
-            icon: Bundle.getIcon(from: Bundle.allBundleURLs.first!)
+            iconURL: Bundle.getIcon(from: Bundle.allBundleURLs.first!)
         ),
         reducer: reducer,
         environment: ()
@@ -76,7 +76,7 @@ extension Array where Element == MacOSApplication.State {
             MacOSApplication.State(
                 bundleURL: $0,
                 name: Bundle.getName(from: $0),
-                icon: Bundle.getIcon(from: $0)
+                iconURL: Bundle.getIcon(from: $0)
             )
         }
         .sorted(by: { $0.name < $1.name })

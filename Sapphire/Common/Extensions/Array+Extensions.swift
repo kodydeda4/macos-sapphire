@@ -9,7 +9,7 @@ import Overture
 
 extension Array {
     
-    /// Returns the result of setting `Element`.keypath's to new values.
+    /// Returns the result of setting `Element`.keypaths
     func reduce<Value> (
         set keyPath: WritableKeyPath<Self.Element, Value>,
         to value: Value,
@@ -24,7 +24,7 @@ extension Array {
         }
     }
     
-    /// Returns the result of setting `Element`.keypath's to new values.
+    /// Returns the result of setting `Element`.keypaths
     func reduce<Value> (
         set keyPath: WritableKeyPath<Self.Element, Value>,
         to value: (Self.Element) -> Value,
@@ -38,4 +38,7 @@ extension Array {
             )
         }
     }
+
 }
+
+

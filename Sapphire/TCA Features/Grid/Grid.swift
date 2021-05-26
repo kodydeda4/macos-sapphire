@@ -38,7 +38,6 @@ struct Grid {
         case modifySystemApplications
         case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
 
-        
         // App
         case createAlert
         case dismissAlert
@@ -52,15 +51,15 @@ struct Grid {
         
         let iconsurURL = URL.ApplicationScripts
             .appendingPathComponent("iconsur2")
-
-        /// Returns AppleScript command for modifying System Application Icons.
-        func modifyIconsCommand(_ applications: [MacOSApplication.State]) -> String {
+        
+        /// Executes modifyIconsCommand as Effect
+        func modifyIcons(applications: [MacOSApplication.State]) -> Effect<Action, Never> {
             let updateIcons = applications
                 .filter(\.selected)
                 .map { application in
                     let iconsur = iconsurURL.appleScriptPath
                     let app = application.bundleURL.appleScriptPath
-                    let icon = application.customIconURL.appleScriptPath
+                    let icon = application.modifiedIconURL.appleScriptPath
                     let color = application.color
                     
                     let reset  = "\(iconsur) unset \(app); "
@@ -74,12 +73,9 @@ struct Grid {
                 .joined()
                 .appending("\(iconsurURL.appleScriptPath) cache")
             
-            return "do shell script \"\(updateIcons)\" with administrator privileges"
-        }
-        
-        /// Executes modifyIconsCommand as Effect
-        func modifyIcons(command: String) -> Effect<Action, Never> {
-            NSUserAppleScriptTask()
+            let command = "do shell script \"\(updateIcons)\" with administrator privileges"
+
+            return NSUserAppleScriptTask()
                 .execute(command)
                 .map(Action.modifySystemApplicationsResult)
                 .receive(on: DispatchQueue.main)
@@ -167,26 +163,18 @@ extension Grid {
 
             case .modifySystemApplications:
                 state.inFlight = true
-                return environment.modifyIcons(command: environment.modifyIconsCommand(state.macOSApplications))
+                
+                return environment.modifyIcons(applications: state.macOSApplications)
+                    
                 
             case .modifySystemApplicationsResult(.success):
                 state.macOSApplications = state.macOSApplications
-                    .reduce(
-                        set: \.icon,
-                        to: { $0.modified ? $0.defaultIconURL : $0.customIconURL },
-                        where: \.selected
-                    )
-                    .reduce(
-                        set: \.modified,
-                        to: { !$0.modified },
-                        where: \.selected
-                    )
+                    .reduce(set: \.iconURL, to: { $0.modified ? $0.defaultIconURL : $0.modifiedIconURL }, where: \.selected)
+                    .reduce(set: \.modified, to: \.modified.inverse, where: \.selected)
                 
                 state.inFlight = false
                 
                 return Effect(value: .save)
-                    .delay(for: 2.0, scheduler: DispatchQueue.main)
-                    .eraseToEffect()
                 
             case let .modifySystemApplicationsResult(.failure(error)):
                 state.inFlight = false
