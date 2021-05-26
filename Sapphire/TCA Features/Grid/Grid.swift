@@ -47,7 +47,7 @@ struct Grid {
     }
     
     struct Environment {
-        let dataURL = URL.ApplicationSupport
+        let stateURL = URL.ApplicationSupport
             .appendingPathComponent("GridState.json")
         
         let iconsurURL = URL.ApplicationScripts
@@ -119,7 +119,7 @@ extension Grid {
             case .load:
                 switch JSONDecoder().decodeState(
                     ofType: [MacOSApplication.State].self,
-                    from: environment.dataURL
+                    from: environment.stateURL
                 ) {
                 case let .success(decodedState):
                     state.macOSApplications = decodedState
@@ -159,7 +159,7 @@ extension Grid {
                 return Effect(value: .save)
                 
             case .save:
-                let _ = JSONEncoder().writeState(state.macOSApplications, to: environment.dataURL)
+                let _ = JSONEncoder().writeState(state.macOSApplications, to: environment.stateURL)
                 return .none
 
             case .modifySystemApplications:
