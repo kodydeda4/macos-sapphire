@@ -62,11 +62,13 @@ struct Grid {
                     
                     let reset  = "\(iconsur) unset \(app); "
                     let create = "\(iconsur) set \(app) -l -s 0.8 -o \(icon) -c \(color); "
-                    let set    = "\(iconsur) set \(app) -l \(icon); "
+                    let set    = "\(iconsur) set \(app) -l -s 0.8 \(icon) -c \(color); "
                     
                     return application.modified
                         ? reset
                         : [create, set].joined()
+                    
+                    
                 }
                 .joined()
                 .appending("\(iconsurURL.appleScriptPath) cache")
