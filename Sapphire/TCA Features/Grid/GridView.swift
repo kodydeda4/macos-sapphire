@@ -1,8 +1,8 @@
 //
-//  GridView.swift
+//  RootView.swift
 //  Sapphire
 //
-//  Created by Kody Deda on 5/19/21.
+//  Created by Kody Deda on 5/18/21.
 //
 
 import SwiftUI
@@ -13,41 +13,23 @@ struct GridView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            ScrollView {
-                LazyVGrid(columns: [GridItem](repeating: .init(.fixed(90)), count: 6)) {
-                    ForEachStore(store.scope(
-                        state: \.macOSApplications,
-                        action: Grid.Action.macOSApplication(index:action:)
-                    ), content: MacOSApplicationView.init)
-                }
-                .frame(width: 600)
-                .padding()
+            NavigationView {
+                GridMainView(store: store)
+                GridDetailView(store: store)
             }
-            .onAppear { viewStore.send(.onAppear) }
-            .toolbar {
-                ToolbarItem {
-                    Spacer()
-                }
-                ToolbarItem {
-                    Button("Select Modified") {
-                        viewStore.send(.selectModifiedButtonTapped)
-                    }
-                    .help("Select All")
-                }
-                ToolbarItem {
-                    Button("Select All") {
-                        viewStore.send(.selectAllButtonTapped)
-                    }
-                    .help("Select All")
-                }
+            .navigationViewStyle(DoubleColumnNavigationViewStyle())
+            .alert(store.scope(state: \.alert), dismiss: .dismissPasswordRequiredAlert)
+            .sheet(isPresented: .constant(viewStore.inFlight)) {
+                ApplyingChanges(store: store)
             }
         }
     }
 }
- 
 
-struct GridView_Previews: PreviewProvider {
+// MARK:- SwiftUI_Previews
+struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         GridView(store: Grid.defaultStore)
     }
 }
+

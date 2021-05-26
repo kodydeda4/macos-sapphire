@@ -14,7 +14,6 @@ struct GridDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack {
-                
                 if viewStore.macOSApplications.filter(\.selected).isEmpty {
                     Text("No Selection")
                         .font(.title)

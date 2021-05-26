@@ -16,7 +16,7 @@ struct MacOSApplicationSelectedView: View {
             VStack {
                 GroupBox {
                     Button(action: { viewStore.send(.toggleSelected) }) {
-                    IconView(store: store)
+                    FetchImageView(url: viewStore.iconURL)
                         .padding()
                         .frame(width: 125, height: 125)
                     }

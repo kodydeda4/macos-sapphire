@@ -29,14 +29,15 @@ struct Grid {
         case deselectAll
         case selectAllButtonTapped
         case selectModifiedButtonTapped
+        
+        // Modify System
         case modifySystemApplications
         case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
-
-        // App
-        case createAlert
-        case dismissAlert
-        case cancelButtonTapped
+        case cancelModifySystemApplications
         
+        // Alerts
+        case createPasswordRequiredAlert
+        case dismissPasswordRequiredAlert
     }
     
     struct Environment {
@@ -115,7 +116,7 @@ extension Grid {
                 return .none
 
                 
-            case .createAlert:
+            case .createPasswordRequiredAlert:
                 state.alert = .init(
                     title: "Password Required",
                     message: "Requesting permission to modify system icons.",
@@ -124,7 +125,7 @@ extension Grid {
                 )
                 return .none
 
-            case .dismissAlert:
+            case .dismissPasswordRequiredAlert:
                 state.alert = nil
                 return .none
             
@@ -136,7 +137,7 @@ extension Grid {
                     return .none
                     
                 case .modifyIconButtonTapped:
-                    return Effect(value: .createAlert)
+                    return Effect(value: .createPasswordRequiredAlert)
                     
                 default:
                     break
@@ -214,10 +215,9 @@ extension Grid {
                 }
                 return .none
                 
-            case .cancelButtonTapped:
+            case .cancelModifySystemApplications:
                 state.inFlight = false
                 return .cancel(id: GridRequestId())
-                
             }
         }
     )

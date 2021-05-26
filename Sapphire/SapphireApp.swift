@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct SapphireApp: App {
     var body: some Scene {
         WindowGroup {
-            RootView(store: Grid.defaultStore)
+            GridView(store: Grid.defaultStore)
         }
     }
 }

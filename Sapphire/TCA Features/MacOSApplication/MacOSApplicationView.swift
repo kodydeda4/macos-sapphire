@@ -15,7 +15,7 @@ struct MacOSApplicationView: View {
         WithViewStore(store) { viewStore in
             Button(action: { viewStore.send(.toggleSelected) }) {
                 VStack {
-                    IconView(store: store)
+                    FetchImageView(url: viewStore.iconURL)
                         .padding(.bottom, 3)
                     
                     Text(viewStore.name)

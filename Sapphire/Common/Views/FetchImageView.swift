@@ -8,28 +8,12 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct IconView: View {
-    let store: Store<MacOSApplication.State, MacOSApplication.Action>
-    
-    var body: some View {
-        WithViewStore(store) { viewStore in
-            FetchImageView(url: viewStore.iconURL)
-        }
-    }
-}
-
-struct MacOSApplicationIconView_Previews: PreviewProvider {
-    static var previews: some View {
-        IconView(store: MacOSApplication.defaultStore)
-    }
-}
-
-// MARK:- ImageView
+// MARK:- FetchImageView
 // Loads images really fast.
 
 import FetchImage
 
-fileprivate struct FetchImageView: View {
+struct FetchImageView: View {
     let url: URL
     @StateObject private var image = FetchImage()
 
@@ -45,4 +29,3 @@ fileprivate struct FetchImageView: View {
         .animation(.default, value: url)
     }
 }
-

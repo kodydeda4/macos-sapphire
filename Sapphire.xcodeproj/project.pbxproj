@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		332B84E926549CD900B7633B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B84E826549CD900B7633B /* RootView.swift */; };
+		332B84E926549CD900B7633B /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B84E826549CD900B7633B /* GridView.swift */; };
 		33335646265D4CA400252A36 /* ButtonStyle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */; };
 		3336D541265573DA0064F5D9 /* FetchImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3336D540265573DA0064F5D9 /* FetchImage */; };
-		3336D54726557D690064F5D9 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54626557D690064F5D9 /* GridView.swift */; };
+		3336D54726557D690064F5D9 /* GridMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54626557D690064F5D9 /* GridMainView.swift */; };
 		3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54826557E020064F5D9 /* GridDetailView.swift */; };
 		3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54A2655834C0064F5D9 /* Button+Extensions.swift */; };
 		3340CD71265681A400061F87 /* MacOSApplicationSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */; };
@@ -26,16 +26,16 @@
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
 		33E7FDE82656A412002DD5B8 /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E7FDE72656A412002DD5B8 /* JSONDecoder+Extensions.swift */; };
-		33E7FDEA2656B8E4002DD5B8 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E7FDE92656B8E4002DD5B8 /* IconView.swift */; };
+		33E7FDEA2656B8E4002DD5B8 /* FetchImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E7FDE92656B8E4002DD5B8 /* FetchImageView.swift */; };
 		B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = B7453A352594E99900F8BE5A /* ComposableArchitecture */; };
 		B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D94D2594E9FB000FDB10 /* Grid.swift */; };
 		B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		332B84E826549CD900B7633B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		332B84E826549CD900B7633B /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonStyle+Extensions.swift"; sourceTree = "<group>"; };
-		3336D54626557D690064F5D9 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		3336D54626557D690064F5D9 /* GridMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridMainView.swift; sourceTree = "<group>"; };
 		3336D54826557E020064F5D9 /* GridDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridDetailView.swift; sourceTree = "<group>"; };
 		3336D54A2655834C0064F5D9 /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
 		3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationSelectedView.swift; sourceTree = "<group>"; };
@@ -53,7 +53,7 @@
 		33E1B1842589600100A1FDC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		33E1B1852589600100A1FDC1 /* Sapphire.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sapphire.entitlements; sourceTree = "<group>"; };
 		33E7FDE72656A412002DD5B8 /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
-		33E7FDE92656B8E4002DD5B8 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
+		33E7FDE92656B8E4002DD5B8 /* FetchImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImageView.swift; sourceTree = "<group>"; };
 		B757D94D2594E9FB000FDB10 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,7 +86,6 @@
 		332B84E7265496BD00B7633B /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				332B84E826549CD900B7633B /* RootView.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -103,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */,
-				33E7FDE92656B8E4002DD5B8 /* IconView.swift */,
 				339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */,
 				3340CD70265681A400061F87 /* MacOSApplicationSelectedView.swift */,
 			);
@@ -123,6 +121,14 @@
 				33C25BF1265EA1C20016C813 /* Bool+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		33C25BF3265EB0E00016C813 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				33E7FDE92656B8E4002DD5B8 /* FetchImageView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		33E1B16F2589600000A1FDC1 = {
@@ -167,7 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				B757D94D2594E9FB000FDB10 /* Grid.swift */,
-				3336D54626557D690064F5D9 /* GridView.swift */,
+				332B84E826549CD900B7633B /* GridView.swift */,
+				3336D54626557D690064F5D9 /* GridMainView.swift */,
 				3336D54826557E020064F5D9 /* GridDetailView.swift */,
 			);
 			path = Grid;
@@ -176,6 +183,7 @@
 		B757D9CF2594ED42000FDB10 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				33C25BF3265EB0E00016C813 /* Views */,
 				3336D545265578250064F5D9 /* Extensions */,
 			);
 			path = Common;
@@ -267,16 +275,16 @@
 				3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */,
 				33BEC3192655AA4F0066851E /* NSUserAppleScriptTask+Extensions.swift in Sources */,
 				339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */,
-				332B84E926549CD900B7633B /* RootView.swift in Sources */,
+				332B84E926549CD900B7633B /* GridView.swift in Sources */,
 				3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */,
 				B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */,
 				33A15A84265E80F400D2D380 /* Array+Extensions.swift in Sources */,
 				33BEC31B2655AA830066851E /* SheetView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */,
-				3336D54726557D690064F5D9 /* GridView.swift in Sources */,
+				3336D54726557D690064F5D9 /* GridMainView.swift in Sources */,
 				33A6BDC1265DA5E800C13231 /* URL+Extensions.swift in Sources */,
 				33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */,
-				33E7FDEA2656B8E4002DD5B8 /* IconView.swift in Sources */,
+				33E7FDEA2656B8E4002DD5B8 /* FetchImageView.swift in Sources */,
 				33335646265D4CA400252A36 /* ButtonStyle+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
