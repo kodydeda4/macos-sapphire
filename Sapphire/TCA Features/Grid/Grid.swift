@@ -16,6 +16,11 @@ struct Grid {
         var alert: AlertState<Grid.Action>?
         var inFlight = false
         var selectedColor = Color.white
+        var selectedApp: MacOSApplication.State? {
+            macOSApplications.filter(\.selected).isEmpty
+                ? nil
+                : macOSApplications.filter(\.selected).first!
+        }
     }
     
     enum Action: Equatable {

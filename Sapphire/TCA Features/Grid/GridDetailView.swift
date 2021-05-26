@@ -19,11 +19,10 @@ struct GridDetailView: View {
                         .font(.title)
                         .foregroundColor(Color(.disabledControlTextColor))
                     
-                } else if viewStore.macOSApplications.filter(\.selected).count == 1 {
-                    ForEachStore(store.scope(
-                        state: { $0.macOSApplications.filter(\.selected) },
-                        action: Grid.Action.macOSApplication(index:action:)
-                    ), content: MacOSApplicationSelectedView.init)
+                } else if viewStore.selectedApp != nil {
+                    MacOSApplicationSelectedView(
+                        application: viewStore.selectedApp!
+                    )
                     
                     ColorSelectorView(selection: viewStore.binding(get: \.selectedColor, send: Grid.Action.updateSelectedColor))
                         .padding(.bottom)
