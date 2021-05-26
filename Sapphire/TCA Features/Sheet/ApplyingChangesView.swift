@@ -1,5 +1,5 @@
 //
-//  SheetView.swift
+//  ApplyingChangesView.swift
 //  Sapphire
 //
 //  Created by Kody Deda on 5/19/21.
