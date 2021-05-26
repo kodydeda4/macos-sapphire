@@ -163,27 +163,25 @@ extension Grid {
                     state.macOSApplications,
                     to: environment.stateURL
                 )
-                return Effect(value: .deselectAll)
+                return .none
 
             case .modifySystemApplications:
                 state.inFlight = true
                 return environment.modifyIcons(command: environment.modifyIconsCommand(state.macOSApplications))
                 
             case .modifySystemApplicationsResult(.success):
-                
-                state.macOSApplications = state.macOSApplications.reduce(into: []) { array, element in
-                        var application = element
-                        
-                        if application.selected {
-                            
-                            application.icon = application.modified
-                                ? Bundle.getIcon(from: application.url)
-                                : application.customIconURL
-                            
-                            application.modified.toggle()
-                        }
-                        array.append(application)
-                    }
+                state.macOSApplications = state
+                    .macOSApplications
+                    .reduce(
+                        set: \.icon,
+                        to: { $0.modified ? Bundle.getIcon(from: $0.url) : $0.customIconURL },
+                        where: \.selected
+                    )
+                    .reduce(
+                        set: \.modified,
+                        to: { !$0.modified },
+                        where: \.selected
+                    )
                 
                 state.inFlight = false
                 
