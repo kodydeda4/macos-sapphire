@@ -87,7 +87,6 @@ struct Grid {
 
 struct GridRequestId: Hashable {}
 
-
 extension Grid {
     static let reducer = Reducer<State, Action, Environment>.combine(
         MacOSApplication.reducer.forEach(
