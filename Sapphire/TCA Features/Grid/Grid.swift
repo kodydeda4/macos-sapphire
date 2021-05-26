@@ -25,11 +25,11 @@ struct Grid {
         case load
 
         // Grid
-        case selectAll
-        case deselectAll
         case selectAllButtonTapped
         case selectModifiedButtonTapped
-        
+        case selectAll
+        case deselectAll
+
         // Modify System
         case modifySystemApplications
         case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
