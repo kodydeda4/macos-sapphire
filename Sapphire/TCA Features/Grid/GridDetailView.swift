@@ -25,7 +25,13 @@ struct GridDetailView: View {
                         action: Grid.Action.macOSApplication(index:action:)
                     ), content: MacOSApplicationSelectedView.init)
                     
-                    // put it here
+                    ColorSelectorView(selection: viewStore.binding(get: \.selectedColor, send: Grid.Action.updateSelectedColor))
+                        .padding(.bottom)
+                    
+                    Button("Apply Changes") {
+                        viewStore.send(.createPasswordRequiredAlert)
+                    }
+
                     
                 } else {
                     Text("Multiple Selections")

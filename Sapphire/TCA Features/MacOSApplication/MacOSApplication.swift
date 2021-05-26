@@ -33,7 +33,6 @@ struct MacOSApplication {
         case toggleSelected
         case toggleCustom
         case modifyIconButtonTapped
-        case updateColor(String)
     }
 }
 
@@ -52,9 +51,6 @@ extension MacOSApplication {
             case .modifyIconButtonTapped:
                 return .none
                 
-            case let .updateColor(hex):
-                state.color = hex
-                return .none
             }
         }
     )
