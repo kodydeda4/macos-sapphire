@@ -161,8 +161,7 @@ extension Grid {
                     .reduce(set: \.modified, to: \.modified.inverse, where: \.selected)
                 
                 state.inFlight = false
-                
-                return Effect(value: .save)
+                return Effect(value: .deselectAll)
                 
             case let .modifySystemApplicationsResult(.failure(error)):
                 state.inFlight = false
@@ -190,7 +189,7 @@ extension Grid {
                         set: \.selected,
                         to: false
                     )
-                return .none
+                return Effect(value: .save)
                 
             case .selectModifiedButtonTapped:
                 switch state.macOSApplications
