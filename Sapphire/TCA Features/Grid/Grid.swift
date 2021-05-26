@@ -58,9 +58,9 @@ struct Grid {
             let updateIcons = applications
                 .filter(\.selected)
                 .map { application in
-                    let iconsur = iconsurURL.quotedPath
-                    let app = application.url.quotedPath
-                    let icon = application.customizedURL.quotedPath
+                    let iconsur = iconsurURL.appleScriptPath
+                    let app = application.url.appleScriptPath
+                    let icon = application.customizedURL.appleScriptPath
                     let color = application.color
                     
                     let reset  = "\(iconsur) unset \(app); "
@@ -72,7 +72,7 @@ struct Grid {
                         : [create, set].joined()
                 }
                 .joined()
-                .appending("\(iconsurURL.quotedPath) cache")
+                .appending("\(iconsurURL.appleScriptPath) cache")
             
             return "do shell script \"\(updateIcons)\" with administrator privileges"
         }

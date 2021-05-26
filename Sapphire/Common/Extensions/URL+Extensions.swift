@@ -46,8 +46,8 @@ extension URL {
 
 extension URL {
     
-    /// Returns URL.path formatted for an Applescript command.
-    var quotedPath: String {
+    /// Returns path formatted for Applescript.
+    var appleScriptPath: String {
         "\\\"\(self.path)\\\""
     }
 }
