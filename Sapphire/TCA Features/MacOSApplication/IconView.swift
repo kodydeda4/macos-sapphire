@@ -14,7 +14,6 @@ struct IconView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             FetchImageView(url: viewStore.iconURL)
-                .padding(.bottom, 3)
         }
     }
 }
