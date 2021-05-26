@@ -59,7 +59,7 @@ struct Grid {
                 .filter(\.selected)
                 .map { application in
                     let iconsur = iconsurURL.appleScriptPath
-                    let app = application.url.appleScriptPath
+                    let app = application.bundleURL.appleScriptPath
                     let icon = application.customIconURL.appleScriptPath
                     let color = application.color
                     
@@ -173,7 +173,7 @@ extension Grid {
                 state.macOSApplications = state.macOSApplications
                     .reduce(
                         set: \.icon,
-                        to: { $0.modified ? Bundle.getIcon(from: $0.url) : $0.customIconURL },
+                        to: { $0.modified ? $0.defaultIconURL : $0.customIconURL },
                         where: \.selected
                     )
                     .reduce(

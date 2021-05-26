@@ -10,13 +10,17 @@ import ComposableArchitecture
 
 struct MacOSApplication {
     struct State: Equatable, Identifiable, Hashable, Codable {
-        var id         : URL { url }
-        var url        : URL
+        var id         : URL { bundleURL }
+        var bundleURL  : URL
         let name       : String
         var icon       : URL
         var color      = "ffffff" //"82d7f8"
         var selected   = false
         var modified   = false
+        
+        var defaultIconURL: URL {
+            Bundle.getIcon(from: bundleURL)
+        }
         
         var customIconURL: URL {
             URL.ApplicationSupport
@@ -54,7 +58,7 @@ extension MacOSApplication {
 extension MacOSApplication {
     static let defaultStore = Store(
         initialState: .init(
-            url: Bundle.allBundleURLs.first!,
+            bundleURL: Bundle.allBundleURLs.first!,
             name: Bundle.getName(from: Bundle.allBundleURLs.first!),
             icon: Bundle.getIcon(from: Bundle.allBundleURLs.first!)
         ),
@@ -70,7 +74,7 @@ extension Array where Element == MacOSApplication.State {
     static var allCases: [MacOSApplication.State] {
         Bundle.allBundleURLs.map {
             MacOSApplication.State(
-                url: $0,
+                bundleURL: $0,
                 name: Bundle.getName(from: $0),
                 icon: Bundle.getIcon(from: $0)
             )
