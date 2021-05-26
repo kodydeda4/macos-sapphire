@@ -60,7 +60,7 @@ struct Grid {
                 .map { application in
                     let iconsur = iconsurURL.appleScriptPath
                     let app = application.url.appleScriptPath
-                    let icon = application.customizedURL.appleScriptPath
+                    let icon = application.customIconURL.appleScriptPath
                     let color = application.color
                     
                     let reset  = "\(iconsur) unset \(app); "
@@ -163,55 +163,56 @@ extension Grid {
                     state.macOSApplications,
                     to: environment.stateURL
                 )
-                return .none
+                return Effect(value: .deselectAll)
 
             case .modifySystemApplications:
                 state.inFlight = true
                 return environment.modifyIcons(command: environment.modifyIconsCommand(state.macOSApplications))
                 
             case .modifySystemApplicationsResult(.success):
+                
                 state.macOSApplications = state.macOSApplications.reduce(into: []) { array, element in
-                    var application = element
-                    
-                    if application.selected {
+                        var application = element
                         
-                        application.icon = application.modified
-                            ? Bundle.icon(from: application.url)
-                            : application.customizedURL
-                        
-                        application.modified.toggle()
+                        if application.selected {
+                            
+                            application.icon = application.modified
+                                ? Bundle.getIcon(from: application.url)
+                                : application.customIconURL
+                            
+                            application.modified.toggle()
+                        }
+                        array.append(application)
                     }
-                    array.append(application)
-                }
                 
                 state.inFlight = false
                 
                 return Effect(value: .save)
                     .delay(for: 2.0, scheduler: DispatchQueue.main)
                     .eraseToEffect()
-
+                
             case let .modifySystemApplicationsResult(.failure(error)):
                 state.inFlight = false
                 return Effect(value: .deselectAll)
                 
             case .selectAllButtonTapped:
-                let allSelected = state.macOSApplications.allSatisfy(\.selected)
-                
-                state.macOSApplications.indices.forEach {
-                    state.macOSApplications[$0].selected = !allSelected
-                }
+                state.macOSApplications =
+                    state.macOSApplications.reduce(
+                        set: \.selected,
+                        to: !state.macOSApplications.allSatisfy(\.selected)
+                    )
                 return .none
                 
             case .selectAll:
-                state.macOSApplications.indices.forEach {
-                    state.macOSApplications[$0].selected = true
-                }
+                state.macOSApplications = state.macOSApplications.reduce(set: \.selected, to: true)
                 return .none
                 
             case .deselectAll:
-                state.macOSApplications.indices.forEach {
-                    state.macOSApplications[$0].selected = false
-                }
+                state.macOSApplications =
+                    state.macOSApplications.reduce(
+                        set: \.selected,
+                        to: false
+                    )
                 return .none
                 
             case .selectModifiedButtonTapped:
@@ -229,9 +230,11 @@ extension Grid {
                     return Effect(value: .deselectAll)
                     
                 case false:
-                    state.macOSApplications.indices.forEach {
-                        state.macOSApplications[$0].selected = state.macOSApplications[$0].modified
-                    }
+                    state.macOSApplications =
+                        state.macOSApplications.reduce(
+                            set: \.selected,
+                            to: \.modified
+                        )
                 }
                 return .none
                 
@@ -242,7 +245,7 @@ extension Grid {
             case .toggleOnboarding:
                 state.onboarding.toggle()
                 return .none
-
+                
             }
         }
     )

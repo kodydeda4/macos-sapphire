@@ -26,7 +26,7 @@ extension Bundle {
     }
     
     /// Returns Bundle icon-url from URL.
-    static func icon(from url: URL) -> URL {
+    static func getIcon(from url: URL) -> URL {
         url
             .appendingPathComponent("/Contents/Resources/")
             .appendingPathComponent("\(Bundle.getSerializedInfoPlist(from: url)["CFBundleIconFile"] ?? "AppIcon")")
