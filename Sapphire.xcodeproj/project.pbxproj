@@ -21,6 +21,7 @@
 		33BEC3192655AA4F0066851E /* NSUserAppleScriptTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC3182655AA4F0066851E /* NSUserAppleScriptTask+Extensions.swift */; };
 		33BEC31B2655AA830066851E /* ApplyingChangesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC31A2655AA830066851E /* ApplyingChangesView.swift */; };
 		33C25BF2265EA1C20016C813 /* Bool+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C25BF1265EA1C20016C813 /* Bool+Extensions.swift */; };
+		33C25BF6265EBF200016C813 /* DynamicColor in Frameworks */ = {isa = PBXBuildFile; productRef = 33C25BF5265EBF200016C813 /* DynamicColor */; };
 		33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */; };
 		33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* SapphireApp.swift */; };
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33C25BF6265EBF200016C813 /* DynamicColor in Frameworks */,
 				3336D541265573DA0064F5D9 /* FetchImage in Frameworks */,
 				B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */,
 				33A15A80265E731A00D2D380 /* Overture in Frameworks */,
@@ -209,6 +211,7 @@
 				B7453A352594E99900F8BE5A /* ComposableArchitecture */,
 				3336D540265573DA0064F5D9 /* FetchImage */,
 				33A15A7F265E731A00D2D380 /* Overture */,
+				33C25BF5265EBF200016C813 /* DynamicColor */,
 			);
 			productName = AdaptiveIcons;
 			productReference = 33E1B1782589600000A1FDC1 /* Sapphire.app */;
@@ -241,6 +244,7 @@
 				B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				3336D53F265573DA0064F5D9 /* XCRemoteSwiftPackageReference "FetchImage" */,
 				33A15A7E265E731A00D2D380 /* XCRemoteSwiftPackageReference "swift-overture" */,
+				33C25BF4265EBF200016C813 /* XCRemoteSwiftPackageReference "DynamicColor" */,
 			);
 			productRefGroup = 33E1B1792589600000A1FDC1 /* Products */;
 			projectDirPath = "";
@@ -495,6 +499,14 @@
 				minimumVersion = 0.5.0;
 			};
 		};
+		33C25BF4265EBF200016C813 /* XCRemoteSwiftPackageReference "DynamicColor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yannickl/DynamicColor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
 		B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
@@ -515,6 +527,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 33A15A7E265E731A00D2D380 /* XCRemoteSwiftPackageReference "swift-overture" */;
 			productName = Overture;
+		};
+		33C25BF5265EBF200016C813 /* DynamicColor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33C25BF4265EBF200016C813 /* XCRemoteSwiftPackageReference "DynamicColor" */;
+			productName = DynamicColor;
 		};
 		B7453A352594E99900F8BE5A /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;

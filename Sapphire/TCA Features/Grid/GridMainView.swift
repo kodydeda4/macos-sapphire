@@ -35,6 +35,12 @@ struct GridMainView: View {
                     .help("Select All")
                 }
                 ToolbarItem {
+                    Button("Set Color to Blue") {
+                        viewStore.send(.updateSelectedColor(.blue))
+                    }
+                    .help("Select All")
+                }
+                ToolbarItem {
                     Button("Select All") {
                         viewStore.send(.selectAllButtonTapped)
                     }

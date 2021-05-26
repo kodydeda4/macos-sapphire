@@ -14,7 +14,7 @@ struct MacOSApplication {
         var bundleURL  : URL
         let name       : String
         var iconURL    : URL
-        var color      = "ffffff" //"82d7f8"
+        var color      = "ffffff"
         var selected   = false
         var modified   = false
         
@@ -33,6 +33,7 @@ struct MacOSApplication {
         case toggleSelected
         case toggleCustom
         case modifyIconButtonTapped
+        case updateColor(String)
     }
 }
 
@@ -49,6 +50,10 @@ extension MacOSApplication {
                 return .none
                 
             case .modifyIconButtonTapped:
+                return .none
+                
+            case let .updateColor(hex):
+                state.color = hex
                 return .none
             }
         }

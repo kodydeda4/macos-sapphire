@@ -33,6 +33,11 @@ struct MacOSApplicationSelectedView: View {
                 Button(viewStore.modified ? "Remove Icon" : "Create Icon") {
                     viewStore.send(.modifyIconButtonTapped)
                 }
+                
+                Button("Blue") {
+                    viewStore.send(.updateColor("82d7f8"))
+                    print("update color to 82d7f8 for \(viewStore.name)")
+                }
             }
         }
     }

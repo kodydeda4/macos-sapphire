@@ -8,12 +8,14 @@
 import SwiftUI
 import Combine
 import ComposableArchitecture
+import DynamicColor
 
 struct Grid {
     struct State: Equatable {
         var macOSApplications: [MacOSApplication.State] = .allCases
         var alert: AlertState<Grid.Action>?
         var inFlight = false
+        var selectedColor = Color.white
     }
     
     enum Action: Equatable {
@@ -29,6 +31,7 @@ struct Grid {
         case selectModifiedButtonTapped
         case selectAll
         case deselectAll
+        case updateSelectedColor(Color)
 
         // Modify System
         case modifySystemApplications
@@ -48,14 +51,14 @@ struct Grid {
             .appendingPathComponent("iconsur2")
         
         /// Executes modifyIconsCommand as Effect
-        func modifyIcons(applications: [MacOSApplication.State]) -> Effect<Action, Never> {
+        func modifyIcons(applications: [MacOSApplication.State], color: Color) -> Effect<Action, Never> {
             let updateIcons = applications
                 .filter(\.selected)
                 .map { application in
                     let iconsur = iconsurURL.appleScriptPath
                     let app = application.bundleURL.appleScriptPath
                     let icon = application.modifiedIconURL.appleScriptPath
-                    let color = application.color
+                    let color = "\(DynamicColor(color).toHexString().dropFirst())"
                     
                     let reset  = "\(iconsur) unset \(app); "
                     let create = "\(iconsur) set \(app) -l -s 0.8 -o \(icon) -c \(color); "
@@ -69,6 +72,7 @@ struct Grid {
                 .appending("\(iconsurURL.appleScriptPath) cache")
             
             let command = "do shell script \"\(updateIcons)\" with administrator privileges"
+            print(command)
 
             return NSUserAppleScriptTask()
                 .execute(command)
@@ -153,7 +157,7 @@ extension Grid {
 
             case .modifySystemApplications:
                 state.inFlight = true
-                return environment.modifyIcons(applications: state.macOSApplications)
+                return environment.modifyIcons(applications: state.macOSApplications, color: state.selectedColor)
                 
             case .modifySystemApplicationsResult(.success):
                 state.macOSApplications = state.macOSApplications
@@ -217,6 +221,10 @@ extension Grid {
             case .cancelModifySystemApplications:
                 state.inFlight = false
                 return .cancel(id: GridRequestId())
+                
+            case let .updateSelectedColor(color):
+                state.selectedColor = color
+                return .none
             }
         }
     )
