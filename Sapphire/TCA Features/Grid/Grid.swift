@@ -159,7 +159,10 @@ extension Grid {
                 return Effect(value: .save)
                 
             case .save:
-                let _ = JSONEncoder().writeState(state.macOSApplications, to: environment.stateURL)
+                let _ = JSONEncoder().writeState(
+                    state.macOSApplications,
+                    to: environment.stateURL
+                )
                 return .none
 
             case .modifySystemApplications:
