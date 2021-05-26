@@ -14,10 +14,6 @@ struct Grid {
         var macOSApplications: [MacOSApplication.State] = .allCases
         var alert: AlertState<Grid.Action>?
         var inFlight = false
-        var onboarding = false
-        var sheet: Bool {
-            inFlight || onboarding
-        }
     }
     
     enum Action: Equatable {
@@ -27,8 +23,6 @@ struct Grid {
         case onAppear
         case save
         case load
-        case toggleOnboarding
-        case toggleSheetView
 
         // Grid
         case selectAll
@@ -97,9 +91,6 @@ extension Grid {
         Reducer { state, action, environment in
 
             switch action {
-            
-            case .toggleSheetView:
-                return .none
 
             case .onAppear:
 //                if state.onboarding {
@@ -136,7 +127,6 @@ extension Grid {
             case .dismissAlert:
                 state.alert = nil
                 return .none
-
             
             case let .macOSApplication(index, action):
                 switch action {
@@ -162,9 +152,7 @@ extension Grid {
 
             case .modifySystemApplications:
                 state.inFlight = true
-                
                 return environment.modifyIcons(applications: state.macOSApplications)
-                    
                 
             case .modifySystemApplicationsResult(.success):
                 state.macOSApplications = state.macOSApplications
@@ -229,10 +217,6 @@ extension Grid {
             case .cancelButtonTapped:
                 state.inFlight = false
                 return .cancel(id: GridRequestId())
-                
-            case .toggleOnboarding:
-                state.onboarding.toggle()
-                return .none
                 
             }
         }

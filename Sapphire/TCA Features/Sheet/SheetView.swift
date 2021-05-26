@@ -8,29 +8,41 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct SheetView: View {
+struct ApplyingChanges: View {
     let store: Store<Grid.State, Grid.Action>
+    @State var opacity = true
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            //            if viewStore.onboarding {
-            //                OnboardingView(store: store)
-            //
-            //            } else if viewStore.inFlight {
-            //                ApplyingChanges(store: store)
-            //            }
-            if viewStore.inFlight {
-                ApplyingChanges(store: store)
+            VStack {
+                Group {
+                    Image("SapphireIcon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 90)
+                    
+                    Text("Applying Changes")
+                        .font(.title2)
+                        .fontWeight(.medium)
+                        .padding()
+                }
+                .opacity(opacity ? 1 : 0)
+                .animation(Animation.easeInOut(duration: 1.25).repeatForever(), value: opacity)
+                
+                Button("Cancel") {
+                    viewStore.send(.cancelButtonTapped)
+                }
             }
+            .padding(30)
+            .onAppear { opacity.toggle() }
         }
     }
 }
 
-struct SheetView_Previews: PreviewProvider {
+struct ApplyingChanges_Previews: PreviewProvider {
     static var previews: some View {
-        SheetView(store: Grid.defaultStore)
+        ApplyingChanges(store: Grid.defaultStore)
     }
 }
-
 
 

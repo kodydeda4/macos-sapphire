@@ -19,8 +19,8 @@ struct RootView: View {
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             .alert(store.scope(state: \.alert), dismiss: .dismissAlert)
-            .sheet(isPresented: viewStore.binding(get: \.sheet, send: .toggleSheetView)) {
-                SheetView(store: store)
+            .sheet(isPresented: .constant(viewStore.inFlight)) {
+                ApplyingChanges(store: store)
             }
         }
     }
