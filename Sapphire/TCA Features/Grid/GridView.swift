@@ -20,7 +20,7 @@ struct GridView: View {
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             .alert(store.scope(state: \.alert), dismiss: .dismissPasswordRequiredAlert)
             .sheet(isPresented: .constant(viewStore.inFlight)) {
-                ApplyingChanges(store: store)
+                ApplyingChangesView(store: store)
             }
         }
     }
