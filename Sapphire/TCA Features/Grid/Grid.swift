@@ -14,7 +14,7 @@ struct Grid {
         var macOSApplications: [MacOSApplication.State] = .allCases
         var alert: AlertState<Grid.Action>?
         var inFlight = false
-        var onboarding = true
+        var onboarding = false
         var sheet: Bool {
             inFlight || onboarding
         }
