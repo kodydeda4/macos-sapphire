@@ -13,42 +13,6 @@ struct MultiSelectionView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack {
-                GroupBox {
-                    ScrollView {
-                        LazyVGrid(columns: [GridItem](repeating: .init(.flexible()), count: 3)) {
-                            ForEachStore(store.scope(
-                                state: { $0.macOSApplications.filter(\.selected) },
-                                action: Grid.Action.macOSApplication(index:action:)
-                            )) { childStore in
-                                WithViewStore(childStore) { childViewStore in
-                                    VStack {
-                                        ZStack {
-                                            Image(systemName: "app.fill")
-                                                .resizable()
-                                                .scaledToFill()
-                                                .padding(5)
-                                                .foregroundColor(viewStore.selectedColor)
-                                            
-                                            FetchImageView(url: childViewStore.iconURL)
-                                                .padding(14)
-                                        }
-                                        
-                                        
-                                        Text(childViewStore.name)
-                                            .font(.title3)
-                                            .bold()
-                                            .lineLimit(2)
-                                            .multilineTextAlignment(.center)
-                                    }
-                                    .padding()
-                                }
-                            }
-                        }
-                    }
-                }
-                GridDetailButtonsView(store: store)
-            }
         }
     }
 }
