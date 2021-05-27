@@ -15,8 +15,17 @@ struct MacOSApplicationView: View {
         WithViewStore(store) { viewStore in
             Button(action: { viewStore.send(.toggleSelected) }) {
                 VStack {
-                    FetchImageView(url: viewStore.iconURL)
-                        .padding(.bottom, 3)
+                    ZStack {
+                        Image(systemName: "app.fill")
+                            .resizable()
+                            .scaledToFill()
+                            .padding(5)
+                            .foregroundColor(Color(fromHex: viewStore.color))
+                            .opacity(viewStore.modified ? 1 : 0)
+                        
+                        FetchImageView(url: viewStore.iconURL)
+                            .padding(viewStore.modified ? 9 : 0)
+                    }
                     
                     Text(viewStore.name)
                         .font(.caption)
@@ -25,7 +34,7 @@ struct MacOSApplicationView: View {
                 .padding()
                 .background(
                     GroupBox { Color.clear }
-                    .opacity(viewStore.selected ? 0.8 : 0.0000001)
+                        .opacity(viewStore.selected ? 0.8 : 0.0000001)
                 )
             }
             .buttonStyle(PlainButtonStyle())

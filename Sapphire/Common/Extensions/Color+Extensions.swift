@@ -13,3 +13,10 @@ extension Color {
         "\(DynamicColor(self).toHexString().dropFirst())"
     }
 }
+
+
+extension Color {
+    init(fromHex hex: String) {
+        self.init(DynamicColor(hexString: hex).cgColor)
+    }
+}

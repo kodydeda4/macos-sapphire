@@ -20,9 +20,19 @@ struct GridDetailView: View {
                         .foregroundColor(Color(.disabledControlTextColor))
                     
                 } else if viewStore.selectedApp != nil {
-                    MacOSApplicationSelectedView(
-                        application: viewStore.selectedApp!
-                    )
+                    GroupBox {
+                        FetchImageView(url: viewStore.selectedApp!.iconURL)
+                            .padding()
+                            .frame(width: 125, height: 125)
+                            .background(viewStore.selectedColor)
+                    }
+                    
+                    Text(viewStore.selectedApp!.name)
+                        .font(.title)
+                        .bold()
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+                        .frame(height: 50)
                     
                     ColorSelectorView(selection: viewStore.binding(get: \.selectedColor, send: Grid.Action.updateSelectedColor))
                         .padding(.bottom)
@@ -35,12 +45,12 @@ struct GridDetailView: View {
                             viewStore.send(.createSetIconsAlert)
                         }
                     }
-
                     
                 } else {
                     Text("Multiple Selections")
                         .font(.title)
                         .foregroundColor(Color(.disabledControlTextColor))
+                    
                     Button("Create Icon") {
                         viewStore.send(.setSystemApplications)
                     }

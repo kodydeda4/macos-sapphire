@@ -100,13 +100,11 @@ struct Grid {
             
             return NSUserAppleScriptTask()
                 .execute(command)
-                .map(Action.setSystemApplicationsResult)
+                .map(Action.resetSystemApplicationsResult)
                 .receive(on: DispatchQueue.main)
                 .eraseToEffect()
                 .cancellable(id: GridRequestId())
         }
-        
-        
     }
 }
 
@@ -172,7 +170,8 @@ extension Grid {
                 
             case .setSystemApplicationsResult(.success):
                 state.macOSApplications = state.macOSApplications
-                    .reduce(set: \.modified, to: \.modified.inverse, where: \.selected)
+                    .reduce(set: \.modified, to: true, where: \.selected)
+                    .reduce(set: \.color, to: state.selectedColor.hex, where: \.selected)
                 
                 state.inFlight = false
                 return Effect(value: .deselectAll)
@@ -208,7 +207,7 @@ extension Grid {
                 
             case .resetSystemApplicationsResult(.success):
                 state.macOSApplications = state.macOSApplications
-                    .reduce(set: \.modified, to: \.modified.inverse, where: \.selected)
+                    .reduce(set: \.modified, to: false, where: \.selected)
                 
                 state.inFlight = false
                 return Effect(value: .deselectAll)
