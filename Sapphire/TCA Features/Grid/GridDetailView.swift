@@ -21,14 +21,16 @@ struct GridDetailView: View {
                 
             } else {
                 VStack {
-                    ForEachStore(store.scope(
-                        state: { $0.macOSApplications.filter(\.selected) },
-                        action: Grid.Action.macOSApplication(index:action:)
-                    )) {
-                        SelectedMacOSApplicationView.init(
-                            store: $0,
-                            color: .constant(viewStore.selectedColor)
-                        )
+                    LazyVGrid(columns: [GridItem](repeating: .init(.flexible()), count: 3)) {
+                        ForEachStore(store.scope(
+                            state: { $0.macOSApplications.filter(\.selected) },
+                            action: Grid.Action.macOSApplication(index:action:)
+                        )) {
+                            SelectedMacOSApplicationView.init(
+                                store: $0,
+                                color: .constant(viewStore.selectedColor)
+                            )
+                        }
                     }
                     
                     Divider()
