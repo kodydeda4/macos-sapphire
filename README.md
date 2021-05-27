@@ -16,9 +16,7 @@ Embrace Big Sur's new UI by creating adaptive and colorful icons for all your ap
 
 Sapphire automatically resizes your icon to fit the new shape. You can also pick a custom color if you like.
 
-![colors2](https://user-images.githubusercontent.com/45678211/119895336-a80e7f80-bf0b-11eb-85e0-513d7e3b9993.png)
 
-![colors3](https://user-images.githubusercontent.com/45678211/119895318-a349cb80-bf0b-11eb-8bfd-61abee8ab1eb.png)
 
 ## 🍎 Create Adaptive Icons
 
@@ -34,3 +32,4 @@ Embrace Big Sur's new UI by creating adaptive and colorful icons for all your ap
 Change your mind? You can reset icons back to their factory defaults easily by clicking "Select Modified" and then "Reset".
 
 
+![colors2](https://user-images.githubusercontent.com/45678211/119895336-a80e7f80-bf0b-11eb-85e0-513d7e3b9993.png)
