@@ -24,12 +24,14 @@ struct Grid {
     }
     
     enum Action: Equatable {
-        case macOSApplication(index: Int, action: MacOSApplication.Action)
         
         // Root
         case onAppear
         case save
         case load
+        
+        // macOSApplication
+        case macOSApplication(index: Int, action: MacOSApplication.Action)
 
         // Grid
         case selectAllButtonTapped
@@ -43,6 +45,10 @@ struct Grid {
         case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
         case cancelModifySystemApplications
         
+        case applyCustomIcons
+        case applyCustomIconsResult(Result<Bool, AppleScriptError>)
+        case cancelApplyCustomIcons
+
         // Alerts
         case createPasswordRequiredAlert
         case dismissPasswordRequiredAlert
@@ -55,6 +61,31 @@ struct Grid {
         let iconsurURL = URL.ApplicationScripts
             .appendingPathComponent("iconsur2")
         
+        /// Executes applyCustomIcon as Effect
+        func applyCustomIcon(applications: [MacOSApplication.State], color: Color) -> Effect<Action, Never> {
+            let updateIcons = applications
+                .filter(\.selected)
+                .map { application in
+                    let iconsur = iconsurURL.appleScriptPath
+                    let app = application.bundleURL.appleScriptPath
+                    let color = "\(DynamicColor(color).toHexString().dropFirst())"
+                    
+                    return "\(iconsur) set \(app) -l -s 0.8 -c \(color); "
+                }
+                .joined()
+                .appending("\(iconsurURL.appleScriptPath) cache")
+            
+            let command = "do shell script \"\(updateIcons)\" with administrator privileges"
+            print(command)
+
+            return NSUserAppleScriptTask()
+                .execute(command)
+                .map(Action.modifySystemApplicationsResult)
+                .receive(on: DispatchQueue.main)
+                .eraseToEffect()
+                .cancellable(id: GridRequestId())
+        }
+
         /// Executes modifyIconsCommand as Effect
         func modifyIcons(applications: [MacOSApplication.State], color: Color) -> Effect<Action, Never> {
             let updateIcons = applications
@@ -104,15 +135,17 @@ extension Grid {
 
             switch action {
 
+            // MARK:- root
+
             case .onAppear:
-//                if state.onboarding {
-//                    state.alert = .init(
-//                        title: "Welcome to Sapphire",
-//                        message: "Kody Deda",
-//                        dismissButton: .cancel("Continue", send: .toggleOnboarding)
-//                    )
-//                }
                 return Effect(value: .load)
+                
+            case .save:
+                let _ = JSONEncoder().writeState(
+                    state.macOSApplications,
+                    to: environment.stateURL
+                )
+                return .none
             
             case .load:
                 switch JSONDecoder().decodeState(
@@ -125,8 +158,9 @@ extension Grid {
                     print(error.localizedDescription)
                 }
                 return .none
-
                 
+            // MARK:- alert
+
             case .createPasswordRequiredAlert:
                 state.alert = .init(
                     title: "Password Required",
@@ -139,6 +173,8 @@ extension Grid {
             case .dismissPasswordRequiredAlert:
                 state.alert = nil
                 return .none
+                
+            // MARK:- macOSApplication
             
             case let .macOSApplication(index, action):
                 switch action {
@@ -155,13 +191,8 @@ extension Grid {
                 }
                 return Effect(value: .save)
                 
-            case .save:
-                let _ = JSONEncoder().writeState(
-                    state.macOSApplications,
-                    to: environment.stateURL
-                )
-                return .none
 
+            // MARK:- modifySystemApplications
             case .modifySystemApplications:
                 state.inFlight = true
                 return environment.modifyIcons(applications: state.macOSApplications, color: state.selectedColor)
@@ -178,6 +209,32 @@ extension Grid {
                 state.inFlight = false
                 return Effect(value: .deselectAll)
                 
+            case .cancelModifySystemApplications:
+                state.inFlight = false
+                return .cancel(id: GridRequestId())
+                
+            // MARK:- applyCustomIcons
+            case .applyCustomIcons:
+                state.inFlight = true
+                return environment.modifyIcons(applications: state.macOSApplications, color: state.selectedColor)
+                
+            case .applyCustomIconsResult(.success):
+                state.macOSApplications = state.macOSApplications
+                    .reduce(set: \.iconURL, to: { $0.modified ? $0.defaultIconURL : $0.modifiedIconURL }, where: \.selected)
+                    .reduce(set: \.modified, to: \.modified.inverse, where: \.selected)
+                
+                state.inFlight = false
+                return Effect(value: .deselectAll)
+                
+            case let .applyCustomIconsResult(.failure(error)):
+                state.inFlight = false
+                return Effect(value: .deselectAll)
+                
+            case .cancelApplyCustomIcons:
+                state.inFlight = false
+                return .cancel(id: GridRequestId())
+
+            // MARK:- select
             case .selectAllButtonTapped:
                 state.macOSApplications =
                     state.macOSApplications.reduce(
@@ -203,16 +260,9 @@ extension Grid {
                 return Effect(value: .save)
                 
             case .selectModifiedButtonTapped:
-                switch state.macOSApplications
-                    .filter(\.modified)
-                    .allSatisfy(\.selected)
-                    
-                    &&
-                    
-                    state.macOSApplications
-                    .filter(\.selected)
-                    .allSatisfy(\.modified)
-                {
+                switch state.macOSApplications.filter(\.modified).allSatisfy(\.selected)
+                    && state.macOSApplications.filter(\.selected).allSatisfy(\.modified) {
+                
                 case true:
                     return Effect(value: .deselectAll)
                     
@@ -225,13 +275,12 @@ extension Grid {
                 }
                 return .none
                 
-            case .cancelModifySystemApplications:
-                state.inFlight = false
-                return .cancel(id: GridRequestId())
-                
+            // MARK:- color
             case let .updateSelectedColor(color):
                 state.selectedColor = color
                 return .none
+                
+                
             }
         }
     )
