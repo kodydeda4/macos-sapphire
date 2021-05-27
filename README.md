@@ -4,13 +4,19 @@
 
 ## About
 
-Big Sur brought several design changes to the mac, including new designs for all of the standard icons. Sapphire lets you create adaptive and colorful icons for all the apps that got left behind.
+Sapphire brings colorful adaptive icons for all the apps.
 
 ## 🍎 Create Adaptive Icons
 
-![preview](https://user-images.githubusercontent.com/45678211/119882171-1cd9bd80-befc-11eb-99c0-6e76cf3946a0.gif)
+<img width="1146" alt="Screen Shot 2021-05-27 at 3 46 00 PM" src="https://user-images.githubusercontent.com/45678211/119887837-a42a2f80-bf02-11eb-9b8e-f07d09d1f420.png">
 
-Embrace Big Sur's new UI by creating adaptive and colorful icons for all your apps. Sapphire will automatically resizes your icon to fit the new shape. You can also pick a custom color if you like.
+Embrace Big Sur's new UI by creating adaptive and colorful icons for all your apps. 
+
+![colors](https://user-images.githubusercontent.com/45678211/119893431-595fe600-bf09-11eb-9df9-4d48889e73f1.png)
+
+Sapphire automatically resizes your icon to fit the new shape. You can also pick a custom color if you like.
+
+
 
 ## ⏪ Reset Defaults
 
