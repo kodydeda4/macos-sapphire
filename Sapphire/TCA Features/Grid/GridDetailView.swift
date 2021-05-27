@@ -13,63 +13,49 @@ struct GridDetailView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack {
-                if viewStore.macOSApplications.filter(\.selected).isEmpty {
-                    Text("No Selection")
-                        .font(.title)
-                        .foregroundColor(Color(.disabledControlTextColor))
-                    
-                } else if viewStore.macOSApplications.filter(\.selected).count == 1 {
-                    GroupBox {
-                        
-                        ZStack {
-                            Image(systemName: "app.fill")
-                                .resizable()
-                                .scaledToFill()
-                                .padding(5)
-                                .foregroundColor(viewStore.selectedColor)
-                                //.opacity(viewStore.selectedApp!.modified ? 1 : 0)
-                            
-                            FetchImageView(url: viewStore.selectedApp!.iconURL)
-                                .padding(14)
-                        }
-                        .padding()
-                        .frame(width: 125, height: 125)
+            
+            if viewStore.macOSApplications.filter(\.selected).isEmpty {
+                Text("No Selection")
+                    .font(.title)
+                    .foregroundColor(Color(.disabledControlTextColor))
+                
+            } else {
+                VStack {
+                    ForEachStore(store.scope(
+                        state: { $0.macOSApplications.filter(\.selected) },
+                        action: Grid.Action.macOSApplication(index:action:)
+                    )) {
+                        SelectedMacOSApplicationView.init(
+                            store: $0,
+                            color: .constant(viewStore.selectedColor)
+                        )
                     }
                     
-                    Text(viewStore.selectedApp!.name)
-                        .font(.title)
-                        .bold()
-                        .lineLimit(2)
-                        .multilineTextAlignment(.center)
-                        .frame(height: 50)
+                    Divider()
                     
-                    ColorSelectorView(selection: viewStore.binding(get: \.selectedColor, send: Grid.Action.updateSelectedColor))
-                        .padding(.bottom)
+                    ColorSelectorView(
+                        selection: viewStore.binding(
+                            get: \.selectedColor,
+                            send: Grid.Action.updateSelectedColor
+                        )
+                    )
+                    .padding(4)
+                    
+                    Divider()
                     
                     HStack {
-                        Button("Reset") {
-                            viewStore.send(.createResetIconsAlert)
-                        }
-                        .disabled(!viewStore.selectedApp!.modified)
-                        Button("Apply") {
-                            viewStore.send(.createSetIconsAlert)
-                        }
+                        Button("Reset") { viewStore.send(.createResetIconsAlert) }
+                        Button("Apply") { viewStore.send(.createSetIconsAlert) }
                     }
-                    
-                } else {
-                    Text("Multiple Selections")
-                        .font(.title)
-                    
-                    Text("Not yet implemented")
+                    .padding()
                 }
-                Spacer()
+                .padding()
             }
-            .padding()
-            .fixedSize()
         }
     }
 }
+
+
 
 // MARK:- SwiftUI_Previews
 struct GridDetailView_Previews: PreviewProvider {
