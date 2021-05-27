@@ -24,7 +24,7 @@ struct MacOSApplicationView: View {
                             .opacity(viewStore.modified ? 1 : 0)
                         
                         FetchImageView(url: viewStore.iconURL)
-                            .padding(viewStore.modified ? 9 : 0)
+                            .padding(viewStore.modified ? 10 : 0)
                     }
                     
                     Text(viewStore.name)

@@ -19,12 +19,22 @@ struct GridDetailView: View {
                         .font(.title)
                         .foregroundColor(Color(.disabledControlTextColor))
                     
-                } else if viewStore.selectedApp != nil {
+                } else if viewStore.macOSApplications.filter(\.selected).count == 1 {
                     GroupBox {
-                        FetchImageView(url: viewStore.selectedApp!.iconURL)
-                            .padding()
-                            .frame(width: 125, height: 125)
-                            .background(viewStore.selectedColor)
+                        
+                        ZStack {
+                            Image(systemName: "app.fill")
+                                .resizable()
+                                .scaledToFill()
+                                .padding(5)
+                                .foregroundColor(viewStore.selectedColor)
+                                //.opacity(viewStore.selectedApp!.modified ? 1 : 0)
+                            
+                            FetchImageView(url: viewStore.selectedApp!.iconURL)
+                                .padding(14)
+                        }
+                        .padding()
+                        .frame(width: 125, height: 125)
                     }
                     
                     Text(viewStore.selectedApp!.name)
@@ -41,6 +51,7 @@ struct GridDetailView: View {
                         Button("Reset") {
                             viewStore.send(.createResetIconsAlert)
                         }
+                        .disabled(!viewStore.selectedApp!.modified)
                         Button("Apply") {
                             viewStore.send(.createSetIconsAlert)
                         }
@@ -49,11 +60,8 @@ struct GridDetailView: View {
                 } else {
                     Text("Multiple Selections")
                         .font(.title)
-                        .foregroundColor(Color(.disabledControlTextColor))
                     
-                    Button("Create Icon") {
-                        viewStore.send(.setSystemApplications)
-                    }
+                    Text("Not yet implemented")
                 }
                 Spacer()
             }
