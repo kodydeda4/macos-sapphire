@@ -4,7 +4,7 @@
 
 ## About
 
-Sapphire lets you create and set adaptive icons for Big Sur
+Big Sur brought several design changes to the mac, including new designs for all of the standard icons. Sapphire lets you create adaptive and colorful icons for all the apps that got left behind.
 
 ## Create Adaptive Icons
 
