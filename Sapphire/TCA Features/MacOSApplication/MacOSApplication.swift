@@ -14,7 +14,7 @@ struct MacOSApplication {
         var bundleURL  : URL
         let name       : String
         var iconURL    : URL
-        var color      = "ffffff"
+        var colorHex      = "ffffff"
         var selected   = false
         var modified   = false
     }

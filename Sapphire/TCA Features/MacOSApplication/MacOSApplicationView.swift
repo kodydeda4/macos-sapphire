@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct MacOSApplicationView: View {
     let store: Store<MacOSApplication.State, MacOSApplication.Action>
-    
+
     var body: some View {
         WithViewStore(store) { viewStore in
             Button(action: { viewStore.send(.toggleSelected) }) {
@@ -20,7 +20,7 @@ struct MacOSApplicationView: View {
                             .resizable()
                             .scaledToFill()
                             .padding(5)
-                            .foregroundColor(Color(fromHex: viewStore.color))
+                            .foregroundColor(Color(fromHex: viewStore.colorHex))
                             .opacity(viewStore.modified ? 1 : 0)
                         
                         FetchImageView(url: viewStore.iconURL)

@@ -166,7 +166,7 @@ extension Grid {
             case .setSystemApplicationsResult(.success):
                 state.macOSApplications = state.macOSApplications
                     .reduce(set: \.modified, to: true, where: \.selected)
-                    .reduce(set: \.color, to: state.selectedColor.hex, where: \.selected)
+                    .reduce(set: \.colorHex, to: state.selectedColor.hex, where: \.selected)
                 
                 state.inFlight = false
                 return Effect(value: .deselectAll)
