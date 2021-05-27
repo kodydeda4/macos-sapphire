@@ -1,17 +1,15 @@
-# 🏔 Sapphire | Fall 2020
-An app for creating/customizing MacOS Icons.
+# 💎 Sapphire
 
+## About
 
-[![Everything Is AWESOME](https://user-images.githubusercontent.com/45678211/105606459-8b98e580-5d67-11eb-89a0-89f79d56cf86.png)](https://youtu.be/PTcKUUdTvIo)
-*YouTube Video Demo*
+Sapphire lets you create and set adaptive icons for Big Sur
 
-## Features
+## Create Adaptive Icons
 
-* Automatically load icons from Mac
-* Search for apps by name
-* Multi-selection
-* Customize color, shape, shadows
+![preview](https://user-images.githubusercontent.com/45678211/119882171-1cd9bd80-befc-11eb-99c0-6e76cf3946a0.gif)
 
-## Author
+## Reset Defaults
 
-* **Kody Deda** - [kad5420](https://github.com/kad5420)
+![reset](https://user-images.githubusercontent.com/45678211/119882037-f2880000-befb-11eb-8ffd-e58b02782e49.gif)
+
+Switch back to default icons at anytime - it even with a button to select the modified icons only.
