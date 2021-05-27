@@ -22,7 +22,6 @@
 		33C25BF6265EBF200016C813 /* DynamicColor in Frameworks */ = {isa = PBXBuildFile; productRef = 33C25BF5265EBF200016C813 /* DynamicColor */; };
 		33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C25BF7265EBFF40016C813 /* ColorSelectorView.swift */; };
 		33C77B76265FD783006BFA4D /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B75265FD783006BFA4D /* Color+Extensions.swift */; };
-		33C77B7C266000D1006BFA4D /* MultiSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B7B266000D1006BFA4D /* MultiSelectionView.swift */; };
 		33C77B85266009E5006BFA4D /* GridSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B84266009E5006BFA4D /* GridSelectionView.swift */; };
 		33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */; };
 		33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* SapphireApp.swift */; };
@@ -48,7 +47,6 @@
 		33BEC31A2655AA830066851E /* ApplyingChangesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyingChangesView.swift; sourceTree = "<group>"; };
 		33C25BF7265EBFF40016C813 /* ColorSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectorView.swift; sourceTree = "<group>"; };
 		33C77B75265FD783006BFA4D /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
-		33C77B7B266000D1006BFA4D /* MultiSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionView.swift; sourceTree = "<group>"; };
 		33C77B84266009E5006BFA4D /* GridSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSelectionView.swift; sourceTree = "<group>"; };
 		33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* Sapphire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sapphire.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,14 +135,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		33C77B7D26600173006BFA4D /* GridDetail */ = {
-			isa = PBXGroup;
-			children = (
-				33C77B7B266000D1006BFA4D /* MultiSelectionView.swift */,
-			);
-			path = GridDetail;
-			sourceTree = "<group>";
-		};
 		33E1B16F2589600000A1FDC1 = {
 			isa = PBXGroup;
 			children = (
@@ -191,7 +181,6 @@
 				3336D54626557D690064F5D9 /* GridMainView.swift */,
 				3336D54826557E020064F5D9 /* GridDetailView.swift */,
 				33C77B84266009E5006BFA4D /* GridSelectionView.swift */,
-				33C77B7D26600173006BFA4D /* GridDetail */,
 			);
 			path = Grid;
 			sourceTree = "<group>";
@@ -286,7 +275,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33C77B7C266000D1006BFA4D /* MultiSelectionView.swift in Sources */,
 				33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */,
 				33E7FDE82656A412002DD5B8 /* JSONDecoder+Extensions.swift in Sources */,
 				3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */,

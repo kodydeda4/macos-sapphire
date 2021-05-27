@@ -13,7 +13,6 @@ struct GridSelectionView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            GroupBox {
                 ScrollView {
                     LazyVGrid(columns: [GridItem](repeating: .init(.fixed(100)), count: 3)) {
                         ForEachStore(store.scope(
@@ -48,7 +47,6 @@ struct GridSelectionView: View {
                             }
                         }
                     }
-                }
             }
         }
     }

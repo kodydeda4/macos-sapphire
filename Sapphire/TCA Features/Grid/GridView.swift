@@ -16,6 +16,7 @@ struct GridView: View {
             NavigationView {
                 GridMainView(store: store)
                 GridDetailView(store: store)
+                    
             }
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
             .alert(store.scope(state: \.alert), dismiss: .dismissSetIconsAlert)

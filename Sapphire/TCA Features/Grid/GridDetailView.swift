@@ -20,31 +20,35 @@ struct GridDetailView: View {
                 Text("No Selection")
                     .font(.title)
                     .foregroundColor(Color(.disabledControlTextColor))
-
+                
             default:
                 VStack {
-                    GridSelectionView(store: store)
+                    GroupBox {
+                        GridSelectionView(store: store)
+                    }
                     
-                    Divider()
-                    ColorSelectorView(
-                        selection: viewStore.binding(
-                            get: \.selectedColor,
-                            send: Grid.Action.updateSelectedColor
+                    
+                    GroupBox {
+                        ColorSelectorView(
+                            selection: viewStore.binding(
+                                get: \.selectedColor,
+                                send: Grid.Action.updateSelectedColor
+                            )
                         )
-                    )
-                    .padding(4)
-                    
-                    Divider()
-                    
-                    HStack {
+                        .frame(maxWidth: .infinity)
+                    }
+                    .padding(.vertical)
+                }
+                .frame(width: 350)
+                .padding()
+                .toolbar {
+                    ToolbarItem {
                         Button("Reset") { viewStore.send(.createResetIconsAlert) }
+                    }
+                    ToolbarItem {
                         Button("Apply") { viewStore.send(.createSetIconsAlert) }
                     }
-                    .padding()
-
                 }
-                .padding()
-
             }
         }
     }
