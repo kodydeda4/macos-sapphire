@@ -17,16 +17,6 @@ struct MacOSApplication {
         var color      = "ffffff"
         var selected   = false
         var modified   = false
-        
-        var defaultIconURL: URL {
-            Bundle.getIcon(from: bundleURL)
-        }
-        
-        var modifiedIconURL: URL {
-            URL.ApplicationSupport
-                .appendingPathComponent("AppIcons")
-                .appendingPathComponent("\(name.replacingOccurrences(of: " ", with: "_")).png")
-        }
     }
     
     enum Action: Equatable {

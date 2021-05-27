@@ -40,18 +40,21 @@ struct Grid {
         case deselectAll
         case updateSelectedColor(Color)
 
-        // Modify System
-        case modifySystemApplications
-        case modifySystemApplicationsResult(Result<Bool, AppleScriptError>)
-        case cancelModifySystemApplications
+        // Set Icons
+        case setSystemApplications
+        case setSystemApplicationsResult(Result<Bool, AppleScriptError>)
+        case cancelSetSystemApplications
+        case createSetIconsAlert
+        case dismissSetIconsAlert
         
-        case applyCustomIcons
-        case applyCustomIconsResult(Result<Bool, AppleScriptError>)
-        case cancelApplyCustomIcons
+        // Reset Icons
+        case resetSystemApplications
+        case resetSystemApplicationsResult(Result<Bool, AppleScriptError>)
+        case cancelResetSystemApplications
+        case createResetIconsAlert
+        case dismissResetIconsAlert
 
-        // Alerts
-        case createPasswordRequiredAlert
-        case dismissPasswordRequiredAlert
+
     }
     
     struct Environment {
@@ -61,64 +64,49 @@ struct Grid {
         let iconsurURL = URL.ApplicationScripts
             .appendingPathComponent("iconsur2")
         
-        /// Executes applyCustomIcon as Effect
-        func applyCustomIcon(applications: [MacOSApplication.State], color: Color) -> Effect<Action, Never> {
-            let updateIcons = applications
-                .filter(\.selected)
-                .map { application in
-                    let iconsur = iconsurURL.appleScriptPath
-                    let app = application.bundleURL.appleScriptPath
-                    let color = "\(DynamicColor(color).toHexString().dropFirst())"
-                    
-                    return "\(iconsur) set \(app) -l -s 0.8 -c \(color); "
-                }
-                .joined()
-                .appending("\(iconsurURL.appleScriptPath) cache")
-            
-            let command = "do shell script \"\(updateIcons)\" with administrator privileges"
-            print(command)
-
-            return NSUserAppleScriptTask()
-                .execute(command)
-                .map(Action.modifySystemApplicationsResult)
-                .receive(on: DispatchQueue.main)
-                .eraseToEffect()
-                .cancellable(id: GridRequestId())
-        }
-
         /// Executes modifyIconsCommand as Effect
-        func modifyIcons(applications: [MacOSApplication.State], color: Color) -> Effect<Action, Never> {
-            let updateIcons = applications
+        func setIcons(applications: [MacOSApplication.State], color: Color) -> Effect<Action, Never> {
+            let command = applications
                 .filter(\.selected)
                 .map { application in
                     let iconsur = iconsurURL.appleScriptPath
                     let app = application.bundleURL.appleScriptPath
-                    let icon = application.modifiedIconURL.appleScriptPath
-                    let color = "\(DynamicColor(color).toHexString().dropFirst())"
                     
-                    let reset  = "\(iconsur) unset \(app); "
-                    let create = "\(iconsur) set \(app) -l -s 0.8 -o \(icon) -c \(color); "
-                    let set    = "\(iconsur) set \(app) -l -s 0.8 \(icon) -c \(color); "
-                    
-                    return application.modified
-                        ? reset
-                        : [create, set].joined()
-                    
-                    
+                    return "\(iconsur) set \(app) -l -s 0.8 -c \(color.hex); "
                 }
                 .joined()
                 .appending("\(iconsurURL.appleScriptPath) cache")
-            
-            let command = "do shell script \"\(updateIcons)\" with administrator privileges"
-            print(command)
 
             return NSUserAppleScriptTask()
                 .execute(command)
-                .map(Action.modifySystemApplicationsResult)
+                .map(Action.setSystemApplicationsResult)
                 .receive(on: DispatchQueue.main)
                 .eraseToEffect()
                 .cancellable(id: GridRequestId())
         }
+        
+        /// Executes modifyIconsCommand as Effect
+        func resetIcons(applications: [MacOSApplication.State]) -> Effect<Action, Never> {
+            let command = applications
+                .filter(\.selected)
+                .map { application in
+                    let iconsur = iconsurURL.appleScriptPath
+                    let app = application.bundleURL.appleScriptPath
+                    
+                    return "\(iconsur) unset \(app); "
+                }
+                .joined()
+                .appending("\(iconsurURL.appleScriptPath) cache")
+            
+            return NSUserAppleScriptTask()
+                .execute(command)
+                .map(Action.setSystemApplicationsResult)
+                .receive(on: DispatchQueue.main)
+                .eraseToEffect()
+                .cancellable(id: GridRequestId())
+        }
+        
+        
     }
 }
 
@@ -159,21 +147,6 @@ extension Grid {
                 }
                 return .none
                 
-            // MARK:- alert
-
-            case .createPasswordRequiredAlert:
-                state.alert = .init(
-                    title: "Password Required",
-                    message: "Requesting permission to modify system icons.",
-                    primaryButton: .destructive("Continue", send: .modifySystemApplications),
-                    secondaryButton: .cancel()
-                )
-                return .none
-
-            case .dismissPasswordRequiredAlert:
-                state.alert = nil
-                return .none
-                
             // MARK:- macOSApplication
             
             case let .macOSApplication(index, action):
@@ -184,57 +157,87 @@ extension Grid {
                     return .none
                     
                 case .modifyIconButtonTapped:
-                    return Effect(value: .createPasswordRequiredAlert)
+                    return Effect(value: .createSetIconsAlert)
                     
                 default:
                     break
                 }
                 return Effect(value: .save)
                 
+            // MARK:- SetIcons
+            
+            case .setSystemApplications:
+                state.inFlight = true
+                return environment.setIcons(applications: state.macOSApplications, color: state.selectedColor)
+                
+            case .setSystemApplicationsResult(.success):
+                state.macOSApplications = state.macOSApplications
+                    .reduce(set: \.modified, to: \.modified.inverse, where: \.selected)
+                
+                state.inFlight = false
+                return Effect(value: .deselectAll)
+                
+            case let .setSystemApplicationsResult(.failure(error)):
+                state.inFlight = false
+                return Effect(value: .deselectAll)
+                
+            case .cancelSetSystemApplications:
+                state.inFlight = false
+                return .cancel(id: GridRequestId())
+                
+            // MARK:- SetIcons - alert
 
-            // MARK:- modifySystemApplications
-            case .modifySystemApplications:
+            case .createSetIconsAlert:
+                state.alert = .init(
+                    title: "Password Required",
+                    message: "Requesting permission to modify system icons.",
+                    primaryButton: .destructive("Continue", send: .setSystemApplications),
+                    secondaryButton: .cancel()
+                )
+                return .none
+
+            case .dismissSetIconsAlert:
+                state.alert = nil
+                return .none
+
+            // MARK:- ResetIcons
+            
+            case .resetSystemApplications:
                 state.inFlight = true
-                return environment.modifyIcons(applications: state.macOSApplications, color: state.selectedColor)
+                return environment.resetIcons(applications: state.macOSApplications)
                 
-            case .modifySystemApplicationsResult(.success):
+            case .resetSystemApplicationsResult(.success):
                 state.macOSApplications = state.macOSApplications
-                    .reduce(set: \.iconURL, to: { $0.modified ? $0.defaultIconURL : $0.modifiedIconURL }, where: \.selected)
                     .reduce(set: \.modified, to: \.modified.inverse, where: \.selected)
                 
                 state.inFlight = false
                 return Effect(value: .deselectAll)
                 
-            case let .modifySystemApplicationsResult(.failure(error)):
+            case let .resetSystemApplicationsResult(.failure(error)):
                 state.inFlight = false
                 return Effect(value: .deselectAll)
                 
-            case .cancelModifySystemApplications:
+            case .cancelResetSystemApplications:
                 state.inFlight = false
                 return .cancel(id: GridRequestId())
                 
-            // MARK:- applyCustomIcons
-            case .applyCustomIcons:
-                state.inFlight = true
-                return environment.modifyIcons(applications: state.macOSApplications, color: state.selectedColor)
-                
-            case .applyCustomIconsResult(.success):
-                state.macOSApplications = state.macOSApplications
-                    .reduce(set: \.iconURL, to: { $0.modified ? $0.defaultIconURL : $0.modifiedIconURL }, where: \.selected)
-                    .reduce(set: \.modified, to: \.modified.inverse, where: \.selected)
-                
-                state.inFlight = false
-                return Effect(value: .deselectAll)
-                
-            case let .applyCustomIconsResult(.failure(error)):
-                state.inFlight = false
-                return Effect(value: .deselectAll)
-                
-            case .cancelApplyCustomIcons:
-                state.inFlight = false
-                return .cancel(id: GridRequestId())
+            // MARK:- ResetIcons - alert
+
+            case .createResetIconsAlert:
+                state.alert = .init(
+                    title: "Password Required",
+                    message: "Requesting permission to modify system icons.",
+                    primaryButton: .destructive("Continue", send: .resetSystemApplications),
+                    secondaryButton: .cancel()
+                )
+                return .none
+
+            case .dismissResetIconsAlert:
+                state.alert = nil
+                return .none
 
             // MARK:- select
+            
             case .selectAllButtonTapped:
                 state.macOSApplications =
                     state.macOSApplications.reduce(
@@ -276,11 +279,11 @@ extension Grid {
                 return .none
                 
             // MARK:- color
+            
             case let .updateSelectedColor(color):
                 state.selectedColor = color
+                
                 return .none
-                
-                
             }
         }
     )

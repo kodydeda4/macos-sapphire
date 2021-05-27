@@ -17,6 +17,7 @@ extension NSUserAppleScriptTask {
     /// Writes command to ~/ApplicationScripts/`AppName`/Applescript.osa file & executes it
     func execute(_ command: String) -> AnyPublisher<Result<Bool, AppleScriptError>, Never> {
         let rv = PassthroughSubject<Result<Bool, AppleScriptError>, Never>()
+        let command = "do shell script \"\(command)\" with administrator privileges"
 
         var url: URL {
             try! FileManager.default.url(

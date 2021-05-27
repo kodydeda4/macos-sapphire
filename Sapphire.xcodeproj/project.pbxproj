@@ -23,6 +23,7 @@
 		33C25BF2265EA1C20016C813 /* Bool+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C25BF1265EA1C20016C813 /* Bool+Extensions.swift */; };
 		33C25BF6265EBF200016C813 /* DynamicColor in Frameworks */ = {isa = PBXBuildFile; productRef = 33C25BF5265EBF200016C813 /* DynamicColor */; };
 		33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C25BF7265EBFF40016C813 /* ColorSelectorView.swift */; };
+		33C77B76265FD783006BFA4D /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B75265FD783006BFA4D /* Color+Extensions.swift */; };
 		33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */; };
 		33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* SapphireApp.swift */; };
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		33BEC31A2655AA830066851E /* ApplyingChangesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyingChangesView.swift; sourceTree = "<group>"; };
 		33C25BF1265EA1C20016C813 /* Bool+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extensions.swift"; sourceTree = "<group>"; };
 		33C25BF7265EBFF40016C813 /* ColorSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectorView.swift; sourceTree = "<group>"; };
+		33C77B75265FD783006BFA4D /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* Sapphire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sapphire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* SapphireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SapphireApp.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				33A6BDC0265DA5E800C13231 /* URL+Extensions.swift */,
 				33A15A83265E80F400D2D380 /* Array+Extensions.swift */,
 				33C25BF1265EA1C20016C813 /* Bool+Extensions.swift */,
+				33C77B75265FD783006BFA4D /* Color+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */,
 				3336D54726557D690064F5D9 /* GridMainView.swift in Sources */,
+				33C77B76265FD783006BFA4D /* Color+Extensions.swift in Sources */,
 				33A6BDC1265DA5E800C13231 /* URL+Extensions.swift in Sources */,
 				33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */,
 				33E7FDEA2656B8E4002DD5B8 /* FetchImageView.swift in Sources */,

@@ -27,8 +27,13 @@ struct GridDetailView: View {
                     ColorSelectorView(selection: viewStore.binding(get: \.selectedColor, send: Grid.Action.updateSelectedColor))
                         .padding(.bottom)
                     
-                    Button("Apply Changes") {
-                        viewStore.send(.createPasswordRequiredAlert)
+                    HStack {
+                        Button("Reset") {
+                            viewStore.send(.createResetIconsAlert)
+                        }
+                        Button("Apply") {
+                            viewStore.send(.createSetIconsAlert)
+                        }
                     }
 
                     
@@ -37,7 +42,7 @@ struct GridDetailView: View {
                         .font(.title)
                         .foregroundColor(Color(.disabledControlTextColor))
                     Button("Create Icon") {
-                        viewStore.send(.modifySystemApplications)
+                        viewStore.send(.setSystemApplications)
                     }
                 }
                 Spacer()
