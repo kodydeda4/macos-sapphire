@@ -10,7 +10,6 @@ import ComposableArchitecture
 
 struct SelectedMacOSApplicationView: View {
     let store: Store<MacOSApplication.State, MacOSApplication.Action>
-
     @Binding var color: Color
     
     var body: some View {
@@ -48,3 +47,5 @@ struct SelectedMacOSApplicationView_Previews: PreviewProvider {
         SelectedMacOSApplicationView(store: MacOSApplication.defaultStore, color: .constant(.white))
     }
 }
+
+
