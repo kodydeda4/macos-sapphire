@@ -1,6 +1,7 @@
 # 💎 Sapphire
 
-![banner](https://user-images.githubusercontent.com/45678211/119885604-0b92b000-bf00-11eb-841a-4445a0765498.png)
+![banner](https://user-images.githubusercontent.com/45678211/119984333-48f24e80-bf8f-11eb-858f-32b666702f6a.png)
+
 
 ## About Sapphire
 
@@ -12,9 +13,7 @@
 * Pick a color you like
 * Click Apply
 
-
 <img width="1170" alt="selection" src="https://user-images.githubusercontent.com/45678211/119981448-a5536f00-bf8b-11eb-8ecf-6cb2592999f2.png">
-
 
 <img width="1170" alt="password_required" src="https://user-images.githubusercontent.com/45678211/119981883-227ee400-bf8c-11eb-916e-cf506a0c7dc9.png">
 
