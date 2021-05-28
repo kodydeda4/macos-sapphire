@@ -4,17 +4,17 @@
 
 ## About
 
-Sapphire lets you create adaptive and colorful icons for all your macOS apps.
+`Sapphire` is a macOS app that easily generates macOS Big Sur styled adaptive icons for third-party apps. The icons are automatically scaled to standard size, with options to change the background color.
 
-## 🍎 Create Adaptive Icons
+<img width="1170" alt="selection" src="https://user-images.githubusercontent.com/45678211/119981448-a5536f00-bf8b-11eb-8ecf-6cb2592999f2.png">
 
-![preview](https://user-images.githubusercontent.com/45678211/119882171-1cd9bd80-befc-11eb-99c0-6e76cf3946a0.gif)
 
-Embrace Big Sur's new UI by creating adaptive and colorful icons for all your apps. Sapphire will automatically resizes your icon to fit the new shape. You can also pick a custom color if you like.
+<img width="1170" alt="password_required" src="https://user-images.githubusercontent.com/45678211/119981883-227ee400-bf8c-11eb-916e-cf506a0c7dc9.png">
 
-## ⏪ Reset Defaults
+<img width="1126" alt="applying_changes" src="https://user-images.githubusercontent.com/45678211/119981879-214db700-bf8c-11eb-8fad-cbdcbaf8fa08.png">
 
-![reset](https://user-images.githubusercontent.com/45678211/119882037-f2880000-befb-11eb-8ffd-e58b02782e49.gif)
 
-Change your mind? You can reset icons back to their factory defaults easily by clicking "Select Modified" and then "Reset".
 
+### Color
+
+![color](https://user-images.githubusercontent.com/45678211/119981437-9ff62480-bf8b-11eb-8530-064b76ae5cc1.gif)
