@@ -20,11 +20,13 @@
 <img width="1126" alt="applying_changes" src="https://user-images.githubusercontent.com/45678211/119981879-214db700-bf8c-11eb-8fad-cbdcbaf8fa08.png">
 
 ### Before
-![before](https://user-images.githubusercontent.com/45678211/119987803-6d502a00-bf93-11eb-993a-210dfdd73015.png)
+![before_new](https://user-images.githubusercontent.com/45678211/119990333-362f4800-bf96-11eb-8136-2d08afc65e4e.png)
 
 ### After
+![after_new](https://user-images.githubusercontent.com/45678211/119990339-36c7de80-bf96-11eb-8224-8f11dca8cc5a.png)
 
-![after](https://user-images.githubusercontent.com/45678211/119987790-69bca300-bf93-11eb-8674-a764aa5660d0.png)
+
+
 
 ## Reset Defaults
 
