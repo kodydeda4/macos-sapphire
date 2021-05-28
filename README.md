@@ -20,7 +20,7 @@
 <img width="1126" alt="applying_changes" src="https://user-images.githubusercontent.com/45678211/119981879-214db700-bf8c-11eb-8fad-cbdcbaf8fa08.png">
 
 ### Before & After
-![b4aftr](https://user-images.githubusercontent.com/45678211/119995039-31b95e00-bf9b-11eb-944d-94dd5f5f3606.gif)
+![b4aftr](https://user-images.githubusercontent.com/45678211/119995698-da67bd80-bf9b-11eb-8237-bfd99fe8a156.gif)
 
 ## Reset Defaults
 
