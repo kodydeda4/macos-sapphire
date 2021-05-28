@@ -19,6 +19,9 @@
 
 <img width="1126" alt="applying_changes" src="https://user-images.githubusercontent.com/45678211/119981879-214db700-bf8c-11eb-8fad-cbdcbaf8fa08.png">
 
+![after](https://user-images.githubusercontent.com/45678211/119987790-69bca300-bf93-11eb-8674-a764aa5660d0.png)
+![before](https://user-images.githubusercontent.com/45678211/119987803-6d502a00-bf93-11eb-993a-210dfdd73015.png)
+
 
 ## Reset Defaults
 
