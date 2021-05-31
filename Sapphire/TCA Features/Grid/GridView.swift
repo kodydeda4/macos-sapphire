@@ -27,7 +27,7 @@ struct GridView: View {
 }
 
 // MARK:- SwiftUI_Previews
-struct RootView_Previews: PreviewProvider {
+struct GridView_Previews: PreviewProvider {
     static var previews: some View {
         GridView(store: Grid.defaultStore)
     }

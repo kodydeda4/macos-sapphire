@@ -46,7 +46,7 @@ struct GridMainView: View {
 }
  
 
-struct GridView_Previews: PreviewProvider {
+struct GridMainView_Previews: PreviewProvider {
     static var previews: some View {
         GridMainView(store: Grid.defaultStore)
     }
