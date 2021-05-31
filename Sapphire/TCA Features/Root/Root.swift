@@ -7,14 +7,18 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Firebase
 
 struct Root {
     struct State: Equatable {
-        // state
+        var email = ""
+        var password = ""
     }
     
     enum Action: Equatable {
-        // action
+        case updateEmail(String)
+        case updatePassword(String)
+        case loginButtonTapped
     }
     
     struct Environment {
@@ -28,6 +32,23 @@ extension Root {
         Reducer { state, action, environment in
             switch action {
             
+            case let .updateEmail(value):
+                state.email = value
+                return .none
+                
+            case let .updatePassword(value):
+                state.password = value
+                return .none
+                
+            case .loginButtonTapped:
+                Auth.auth().signIn(withEmail: state.email, password: state.password) { result, error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("success")
+                    }
+                }
+                return .none
             }
         }
     )
@@ -48,7 +69,18 @@ struct RootView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            
+            List {
+                TextField("Email", text: viewStore.binding(get: \.email, send: Root.Action.updateEmail))
+                TextField("Password", text: viewStore.binding(get: \.password, send: Root.Action.updatePassword))
+                
+            }
+            .toolbar {
+                ToolbarItem {
+                    Button("Login") {
+                        viewStore.send(.loginButtonTapped)
+                    }
+                }
+            }
         }
     }
 }

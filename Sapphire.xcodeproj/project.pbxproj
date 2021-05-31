@@ -26,6 +26,9 @@
 		33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */; };
 		33D7A8E72665531500989E01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33D7A8E62665531500989E01 /* GoogleService-Info.plist */; };
 		33D7A8E92665532F00989E01 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7A8E82665532F00989E01 /* Root.swift */; };
+		33D7A8EC266555FF00989E01 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 33D7A8EB266555FF00989E01 /* FirebaseAuth */; };
+		33D7A8EE266555FF00989E01 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 33D7A8ED266555FF00989E01 /* FirebaseFirestore */; };
+		33D7A8F0266555FF00989E01 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 33D7A8EF266555FF00989E01 /* FirebaseDatabase */; };
 		33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* SapphireApp.swift */; };
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
@@ -71,9 +74,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				33C25BF6265EBF200016C813 /* DynamicColor in Frameworks */,
+				33D7A8EC266555FF00989E01 /* FirebaseAuth in Frameworks */,
 				3336D541265573DA0064F5D9 /* FetchImage in Frameworks */,
 				B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */,
 				33A15A80265E731A00D2D380 /* Overture in Frameworks */,
+				33D7A8F0266555FF00989E01 /* FirebaseDatabase in Frameworks */,
+				33D7A8EE266555FF00989E01 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +227,9 @@
 				3336D540265573DA0064F5D9 /* FetchImage */,
 				33A15A7F265E731A00D2D380 /* Overture */,
 				33C25BF5265EBF200016C813 /* DynamicColor */,
+				33D7A8EB266555FF00989E01 /* FirebaseAuth */,
+				33D7A8ED266555FF00989E01 /* FirebaseFirestore */,
+				33D7A8EF266555FF00989E01 /* FirebaseDatabase */,
 			);
 			productName = AdaptiveIcons;
 			productReference = 33E1B1782589600000A1FDC1 /* Sapphire.app */;
@@ -254,6 +263,7 @@
 				3336D53F265573DA0064F5D9 /* XCRemoteSwiftPackageReference "FetchImage" */,
 				33A15A7E265E731A00D2D380 /* XCRemoteSwiftPackageReference "swift-overture" */,
 				33C25BF4265EBF200016C813 /* XCRemoteSwiftPackageReference "DynamicColor" */,
+				33D7A8EA266555FF00989E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 33E1B1792589600000A1FDC1 /* Products */;
 			projectDirPath = "";
@@ -519,6 +529,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		33D7A8EA266555FF00989E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
@@ -544,6 +562,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 33C25BF4265EBF200016C813 /* XCRemoteSwiftPackageReference "DynamicColor" */;
 			productName = DynamicColor;
+		};
+		33D7A8EB266555FF00989E01 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33D7A8EA266555FF00989E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		33D7A8ED266555FF00989E01 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33D7A8EA266555FF00989E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		33D7A8EF266555FF00989E01 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 33D7A8EA266555FF00989E01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
 		};
 		B7453A352594E99900F8BE5A /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
