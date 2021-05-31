@@ -11,7 +11,6 @@ import ComposableArchitecture
 struct GridDetailView: View {
     let store: Store<Grid.State, Grid.Action>
     
-    
     var body: some View {
         WithViewStore(store) { viewStore in
             switch viewStore.macOSApplications.filter(\.selected).count {
@@ -26,7 +25,6 @@ struct GridDetailView: View {
                     GroupBox {
                         GridSelectionView(store: store)
                     }
-                    
                     
                     GroupBox {
                         ColorSelectorView(

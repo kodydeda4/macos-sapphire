@@ -25,7 +25,9 @@ struct MacOSApplicationView: View {
                         
                         FetchImageView(url: viewStore.iconURL)
                             .padding(viewStore.modified ? 10 : 0)
+                            
                     }
+                    .shadow(color: Color.black.opacity(viewStore.modified ? 0.2 : 0), radius: 0.5, y: 0.5)
                     
                     Text(viewStore.name)
                         .font(.caption)

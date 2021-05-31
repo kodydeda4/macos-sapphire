@@ -48,8 +48,6 @@ struct Grid {
         case cancelResetSystemApplications
         case createResetIconsAlert
         case dismissResetIconsAlert
-
-
     }
     
     struct Environment {

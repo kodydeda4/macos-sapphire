@@ -29,6 +29,7 @@ struct GridSelectionView: View {
                                             .scaledToFill()
                                             .padding(5)
                                             .foregroundColor(viewStore.selectedColor)
+                                            .shadow(color: Color.black.opacity(0.25), radius: 0.75, y: 0.75)
                                             
                                         
                                         FetchImageView(url: childViewStore.iconURL)
