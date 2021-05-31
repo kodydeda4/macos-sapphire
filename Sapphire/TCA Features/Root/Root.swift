@@ -70,9 +70,10 @@ struct RootView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             List {
+                VStack {
                 TextField("Email", text: viewStore.binding(get: \.email, send: Root.Action.updateEmail))
                 TextField("Password", text: viewStore.binding(get: \.password, send: Root.Action.updatePassword))
-                
+                }
             }
             .toolbar {
                 ToolbarItem {
