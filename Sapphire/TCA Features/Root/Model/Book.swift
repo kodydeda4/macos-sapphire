@@ -63,6 +63,15 @@ class BooksViewModel: ObservableObject {
         }
     }
     
+    private func removeBook(book: Book) {
+        if let documentId = book.id {
+            db.collection("books").document(documentId).delete { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
     
     func toggleCompleted(book: Book) {
         if let id = book.id {
@@ -79,17 +88,7 @@ class BooksViewModel: ObservableObject {
             }
         }
     }
-    
-    private func removeBook(book: Book) {
-        if let documentId = book.id {
-            db.collection("books").document(documentId).delete { error in
-                if let error = error {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
-    
+        
     func clearCompleted() {
         books.filter(\.completed).forEach(removeBook)
     }
