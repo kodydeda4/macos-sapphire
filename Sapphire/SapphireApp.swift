@@ -17,8 +17,7 @@ struct SapphireApp: App {
     var body: some Scene {
         WindowGroup {
             //GridView(store: Grid.defaultStore)
-            //RootView(store: Root.defaultStore)
-            BooksListView()
+            BooksListView(store: BooksList.defaultStore)
         }
     }
 }

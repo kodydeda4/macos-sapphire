@@ -30,7 +30,7 @@
 		33CAFEF326666B8900D0F098 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CAFEF226666B8900D0F098 /* Book.swift */; };
 		33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */; };
 		33D7A8E72665531500989E01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33D7A8E62665531500989E01 /* GoogleService-Info.plist */; };
-		33D7A8E92665532F00989E01 /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7A8E82665532F00989E01 /* Root.swift */; };
+		33D7A8E92665532F00989E01 /* UserAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7A8E82665532F00989E01 /* UserAuthentication.swift */; };
 		33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* SapphireApp.swift */; };
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
@@ -58,7 +58,7 @@
 		33CAFEF226666B8900D0F098 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		33D7A8E62665531500989E01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		33D7A8E82665532F00989E01 /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
+		33D7A8E82665532F00989E01 /* UserAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthentication.swift; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* Sapphire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sapphire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* SapphireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SapphireApp.swift; sourceTree = "<group>"; };
 		33E1B17F2589600100A1FDC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Sapphire/Assets.xcassets; sourceTree = SOURCE_ROOT; };
@@ -105,7 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				33CAFEE4266657A500D0F098 /* Model */,
-				33D7A8E82665532F00989E01 /* Root.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -155,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				33CAFEF226666B8900D0F098 /* Book.swift */,
+				33D7A8E82665532F00989E01 /* UserAuthentication.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -306,7 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33D7A8E92665532F00989E01 /* Root.swift in Sources */,
+				33D7A8E92665532F00989E01 /* UserAuthentication.swift in Sources */,
 				33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */,
 				33E7FDE82656A412002DD5B8 /* JSONDecoder+Extensions.swift in Sources */,
 				3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */,

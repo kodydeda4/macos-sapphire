@@ -12,7 +12,7 @@ import Firebase
 
 // MARK:- Setup
 
-struct Root {
+struct UserAuthentication {
     struct State: Equatable {
         var email = ""
         var password = ""
@@ -29,7 +29,7 @@ struct Root {
     }
 }
 
-extension Root {
+extension UserAuthentication {
     static let reducer = Reducer<State, Action, Environment>.combine(
         // pullbacks
         Reducer { state, action, environment in
@@ -57,7 +57,7 @@ extension Root {
     )
 }
 
-extension Root {
+extension UserAuthentication {
     static let defaultStore = Store(
         initialState: .init(),
         reducer: reducer,
@@ -67,15 +67,15 @@ extension Root {
 
 // MARK:- RootView
 
-struct RootView: View {
-    let store: Store<Root.State, Root.Action>
+struct UserAuthenticationView: View {
+    let store: Store<UserAuthentication.State, UserAuthentication.Action>
     
     var body: some View {
         WithViewStore(store) { viewStore in
             List {
                 VStack {
-                TextField("Email", text: viewStore.binding(get: \.email, send: Root.Action.updateEmail))
-                TextField("Password", text: viewStore.binding(get: \.password, send: Root.Action.updatePassword))
+                TextField("Email", text: viewStore.binding(get: \.email, send: UserAuthentication.Action.updateEmail))
+                TextField("Password", text: viewStore.binding(get: \.password, send: UserAuthentication.Action.updatePassword))
                 }
             }
             .toolbar {
@@ -89,8 +89,8 @@ struct RootView: View {
     }
 }
 
-struct RootView_Previews: PreviewProvider {
+struct UserAuthentication_Previews: PreviewProvider {
     static var previews: some View {
-        RootView(store: Root.defaultStore)
+        UserAuthenticationView(store: UserAuthentication.defaultStore)
     }
 }
