@@ -9,6 +9,9 @@ import SwiftUI
 import ComposableArchitecture
 import Firebase
 
+
+// MARK:- Setup
+
 struct Root {
     struct State: Equatable {
         var email = ""
