@@ -62,6 +62,16 @@ class BooksViewModel: ObservableObject {
             print(error)
         }
     }
+    
+    func removeBook(book: Book) {
+        if let documentId = book.id {
+            db.collection("books").document(documentId).delete { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
 }
 
 // MARK:- View
@@ -74,14 +84,18 @@ struct BooksListView: View {
     var body: some View {
         
         List(viewModel.books) { book in
-            
-            VStack(alignment: .leading) {
-                Text(book.title)
-                    .font(.headline)
-                Text(book.author)
-                    .font(.subheadline)
-                Text("\(book.numberOfPages) pages")
-                    .font(.subheadline)
+            HStack {
+                Button("Remove") {
+                    self.viewModel.removeBook(book: book)
+                }
+                VStack(alignment: .leading) {
+                    Text(book.title)
+                        .font(.headline)
+                    Text(book.author)
+                        .font(.subheadline)
+                    Text("\(book.numberOfPages) pages")
+                        .font(.subheadline)
+                }
             }
         }
         .onAppear() {
@@ -92,7 +106,7 @@ struct BooksListView: View {
                 Button("add") {
                     self.viewModel.addBook(
                         book: Book.init(
-                            title: "Foo",
+                            title: "Title",
                             author: "Author",
                             numberOfPages: 12309
                         )
