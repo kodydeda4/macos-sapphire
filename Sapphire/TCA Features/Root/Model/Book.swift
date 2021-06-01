@@ -28,7 +28,7 @@ struct Book: Identifiable, Codable {
     var title: String
     var author: String
     var numberOfPages: Int
-    
+    var completed: Bool = false
 }
 
 // MARK:- ViewModel
@@ -63,7 +63,24 @@ class BooksViewModel: ObservableObject {
         }
     }
     
-    func removeBook(book: Book) {
+    
+    func toggleCompleted(book: Book) {
+        if let id = book.id {
+            let docRef = db.collection("books").document(id)
+            do {
+                
+                var book2 = book
+                book2.completed.toggle()
+                
+                try docRef.setData(from: book2)
+            }
+            catch {
+                print(error)
+            }
+        }
+    }
+    
+    private func removeBook(book: Book) {
         if let documentId = book.id {
             db.collection("books").document(documentId).delete { error in
                 if let error = error {
@@ -71,6 +88,10 @@ class BooksViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func clearCompleted() {
+        books.filter(\.completed).forEach(removeBook)
     }
 }
 
@@ -84,33 +105,43 @@ struct BooksListView: View {
     var body: some View {
         
         List(viewModel.books) { book in
-            HStack {
-                Button("Remove") {
-                    self.viewModel.removeBook(book: book)
+            Button(action: { viewModel.toggleCompleted(book: book) }) {
+                HStack {
+                    Image(systemName: book.completed ? "largecircle.fill.circle" : "circle")
+                    
+                    VStack(alignment: .leading) {
+                        Text(book.title)
+                            .font(.headline)
+                        Text(book.author)
+                            .font(.subheadline)
+                        Text("\(book.numberOfPages) pages")
+                            .font(.subheadline)
+                    }
+                    .foregroundColor(book.completed ? .gray : .primary)
+                    
                 }
-                VStack(alignment: .leading) {
-                    Text(book.title)
-                        .font(.headline)
-                    Text(book.author)
-                        .font(.subheadline)
-                    Text("\(book.numberOfPages) pages")
-                        .font(.subheadline)
-                }
+                .background(GroupBox { Color.clear }.opacity(0.0001))
             }
+            .buttonStyle(PlainButtonStyle())
         }
         .onAppear() {
-            self.viewModel.fetchData()
+            viewModel.fetchData()
         }
         .toolbar {
             ToolbarItem {
                 Button("add") {
-                    self.viewModel.addBook(
+                    viewModel.addBook(
                         book: Book.init(
                             title: "Title",
                             author: "Author",
                             numberOfPages: 12309
                         )
                     )
+                }
+            }
+            ToolbarItem {
+                Button("Clear Completed") {
+                    viewModel.clearCompleted()
                 }
             }
         }

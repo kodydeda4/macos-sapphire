@@ -23,8 +23,6 @@
 		33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C25BF7265EBFF40016C813 /* ColorSelectorView.swift */; };
 		33C77B76265FD783006BFA4D /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B75265FD783006BFA4D /* Color+Extensions.swift */; };
 		33C77B85266009E5006BFA4D /* GridSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B84266009E5006BFA4D /* GridSelectionView.swift */; };
-		33CAFEE6266657AE00D0F098 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CAFEE5266657AE00D0F098 /* Task.swift */; };
-		33CAFEE82666581100D0F098 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CAFEE72666581100D0F098 /* ContentView.swift */; };
 		33CAFEEB2666683000D0F098 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 33CAFEEA2666683000D0F098 /* FirebaseFirestoreSwift-Beta */; };
 		33CAFEED2666683000D0F098 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 33CAFEEC2666683000D0F098 /* FirebaseAuth */; };
 		33CAFEEF2666683000D0F098 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 33CAFEEE2666683000D0F098 /* FirebaseFirestore */; };
@@ -57,8 +55,6 @@
 		33C25BF7265EBFF40016C813 /* ColorSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectorView.swift; sourceTree = "<group>"; };
 		33C77B75265FD783006BFA4D /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		33C77B84266009E5006BFA4D /* GridSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSelectionView.swift; sourceTree = "<group>"; };
-		33CAFEE5266657AE00D0F098 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		33CAFEE72666581100D0F098 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		33CAFEF226666B8900D0F098 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		33D7A8E62665531500989E01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -158,8 +154,6 @@
 		33CAFEE4266657A500D0F098 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				33CAFEE5266657AE00D0F098 /* Task.swift */,
-				33CAFEE72666581100D0F098 /* ContentView.swift */,
 				33CAFEF226666B8900D0F098 /* Book.swift */,
 			);
 			path = Model;
@@ -325,7 +319,6 @@
 				33C77B85266009E5006BFA4D /* GridSelectionView.swift in Sources */,
 				33A15A84265E80F400D2D380 /* Array+Extensions.swift in Sources */,
 				33BEC31B2655AA830066851E /* ApplyingChangesView.swift in Sources */,
-				33CAFEE82666581100D0F098 /* ContentView.swift in Sources */,
 				33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */,
 				3336D54726557D690064F5D9 /* GridMainView.swift in Sources */,
@@ -333,7 +326,6 @@
 				33A6BDC1265DA5E800C13231 /* URL+Extensions.swift in Sources */,
 				33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */,
 				33E7FDEA2656B8E4002DD5B8 /* FetchImageView.swift in Sources */,
-				33CAFEE6266657AE00D0F098 /* Task.swift in Sources */,
 				33335646265D4CA400252A36 /* ButtonStyle+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
