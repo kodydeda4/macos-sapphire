@@ -44,32 +44,31 @@ struct BooksList {
     
     enum Action: Equatable {
         case fetchData
-        case fetchDataResult(Result<[Book], AppleScriptError>)
+        case fetchDataResult(Result<[Book], AppError>)
         case addBook
         case removeBook(Book)
         case toggleCompleted(Book)
         case clearCompleted
-        case clearCompletedResult(Result<[Book], AppleScriptError>)
+        case clearCompletedResult(Result<[Book], AppError>)
+        case changeTitle(Result<[Book], AppError>)
     }
     
     struct Environment {
-        var db = Firestore.firestore()
+        private var db = Firestore.firestore()
         
         func fetchData() -> Effect<Action, Never> {
-            let rv = PassthroughSubject<Result<[Book], AppleScriptError>, Never>()
+            let rv = PassthroughSubject<Result<[Book], AppError>, Never>()
             
-            db.collection("books").addSnapshotListener { (querySnapshot, error) in
-                guard let documents = querySnapshot?.documents
-                else {
-                    rv.send(.failure(AppleScriptError.error(error!.localizedDescription)))
-                    return
+            db.collection("books").addSnapshotListener { querySnapshot, error in
+                if let books = querySnapshot?
+                    .documents
+                    .compactMap({ try? $0.data(as: Book.self) }) {
+                    
+                    rv.send(.success(books))
+                    
+                } else {
+                    rv.send(.failure(AppError(error!)))
                 }
-                
-                let newBooks = documents.compactMap { queryDocumentSnapshot -> Book? in
-                    return try? queryDocumentSnapshot.data(as: Book.self)
-                }
-                
-                rv.send(.success(newBooks))
             }
             
             return rv
@@ -77,18 +76,14 @@ struct BooksList {
                 .map(Action.fetchDataResult)
                 .receive(on: DispatchQueue.main)
                 .eraseToEffect()
-            
         }
+        
+        
         
         func addBook() {
             let book = Book.init(title: "Title", author: "Author", numberOfPages: 256)
-            
-            do {
-                let _ = try db.collection("books").addDocument(from: book)
-            }
-            catch {
-                print(error)
-            }
+            do { let _ = try db.collection("books").addDocument(from: book) }
+            catch { print(error) }
         }
         
         func removeBook(book: Book) {
@@ -102,15 +97,17 @@ struct BooksList {
         }
         
         func toggleCompleted(book: Book) {
+            var book2 = book
+            book2.completed.toggle()
+            
             if let id = book.id {
-                let docRef = db.collection("books").document(id)
                 do {
-                    
-                    var book2 = book
-                    book2.completed.toggle()
-                    
-                    try docRef.setData(from: book2)
+                    try db
+                        .collection("books")
+                        .document(id)
+                        .setData(from: book2)
                 }
+                
                 catch {
                     print(error)
                 }
@@ -118,12 +115,12 @@ struct BooksList {
         }
         
         func clearCompleted() -> Effect<Action, Never> {
-            let rv = PassthroughSubject<Result<[Book], AppleScriptError>, Never>()
+            let rv = PassthroughSubject<Result<[Book], AppError>, Never>()
             
             db.collection("books").addSnapshotListener { (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents
                 else {
-                    rv.send(.failure(AppleScriptError.error(error!.localizedDescription)))
+                    rv.send(.failure(AppError(error!)))
                     return
                 }
                 
@@ -179,6 +176,10 @@ extension BooksList {
                 return .none
                 
             case let .clearCompletedResult(.failure(error)):
+                return .none
+                
+            case let .changeTitle(value):
+                
                 return .none
             }
         }

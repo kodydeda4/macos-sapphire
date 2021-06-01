@@ -8,15 +8,19 @@
 import Foundation
 import Combine
 
-enum AppleScriptError: Error, Equatable {
-    case error(String)
+struct AppError: Error, Equatable {
+    var error: String
+    
+    init(_ error: Error) {
+        self.error = error.localizedDescription
+    }
 }
 
 extension NSUserAppleScriptTask {
     
     /// Writes command to ~/ApplicationScripts/`AppName`/Applescript.osa file & executes it
-    func execute(_ command: String) -> AnyPublisher<Result<Bool, AppleScriptError>, Never> {
-        let rv = PassthroughSubject<Result<Bool, AppleScriptError>, Never>()
+    func execute(_ command: String) -> AnyPublisher<Result<Bool, AppError>, Never> {
+        let rv = PassthroughSubject<Result<Bool, AppError>, Never>()
         let command = "do shell script \"\(command)\" with administrator privileges"
 
         var url: URL {
@@ -38,11 +42,11 @@ extension NSUserAppleScriptTask {
                     rv.send(.success(true))
                     return
                 }
-                rv.send(.failure(AppleScriptError.error(error.localizedDescription)))
+                rv.send(.failure(AppError(error)))
             })
         }
         catch {
-            rv.send(.failure(AppleScriptError.error(error.localizedDescription)))
+            rv.send(.failure(AppError(error)))
         }
         
         return rv.eraseToAnyPublisher()

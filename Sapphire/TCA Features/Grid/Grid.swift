@@ -37,14 +37,14 @@ struct Grid {
 
         // Set Icons
         case setSystemApplications
-        case setSystemApplicationsResult(Result<Bool, AppleScriptError>)
+        case setSystemApplicationsResult(Result<Bool, AppError>)
         case cancelSetSystemApplications
         case createSetIconsAlert
         case dismissSetIconsAlert
         
         // Reset Icons
         case resetSystemApplications
-        case resetSystemApplicationsResult(Result<Bool, AppleScriptError>)
+        case resetSystemApplicationsResult(Result<Bool, AppError>)
         case cancelResetSystemApplications
         case createResetIconsAlert
         case dismissResetIconsAlert
