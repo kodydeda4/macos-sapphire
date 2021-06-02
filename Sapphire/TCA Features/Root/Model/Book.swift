@@ -34,11 +34,13 @@ struct BooksList {
         case addBook
         case removeBook(Book)
         case toggleCompleted(Book)
+        case clearCompleted
 
-        case didFetchBooks (Result<[Book], Firestore.DBError>)
-        case didAddBook    (Result<Bool,   Firestore.DBError>)
-        case didRemoveBook (Result<Bool,   Firestore.DBError>)
-        case didUpdateBook (Result<Bool,   Firestore.DBError>)
+        case didFetchBooks  (Result<[Book], Firestore.DBError>)
+        case didAddBook     (Result<Bool,   Firestore.DBError>)
+        case didRemoveBook  (Result<Bool,   Firestore.DBError>)
+        case didRemoveBooks (Result<Bool,   Firestore.DBError>)
+        case didUpdateBook  (Result<Bool,   Firestore.DBError>)
     }
     
     struct Environment {
@@ -59,6 +61,12 @@ struct BooksList {
         
         func removeBook(_ book: Book) -> Effect<Action, Never> {
             db.remove(book.id!, from: collection)
+                .map(Action.didRemoveBook)
+                .eraseToEffect()
+        }
+        
+        func removeBooks(_ books: [Book]) -> Effect<Action, Never> {
+            db.remove(books.map(\.id!), from: collection)
                 .map(Action.didRemoveBook)
                 .eraseToEffect()
         }
@@ -94,21 +102,26 @@ extension BooksList {
                 book2.completed.toggle()
                 
                 return environment.updateBook(book, to: book2)
+                
+            case .clearCompleted:
+                return environment.removeBooks(state.books.filter(\.completed))
 
             // Result
             case let .didFetchBooks(.success(books)):
                 state.books = books
                 return .none
                 
-            case .didAddBook        (.success),
-                 .didRemoveBook     (.success),
-                 .didUpdateBook     (.success):
+            case .didAddBook         (.success),
+                 .didRemoveBook      (.success),
+                 .didRemoveBooks     (.success),
+                 .didUpdateBook      (.success):
                 return .none
 
-            case let .didFetchBooks (.failure(error)),
-                 let .didAddBook    (.failure(error)),
-                 let .didRemoveBook (.failure(error)),
-                 let .didUpdateBook (.failure(error)):
+            case let .didFetchBooks  (.failure(error)),
+                 let .didAddBook     (.failure(error)),
+                 let .didRemoveBook  (.failure(error)),
+                 let .didRemoveBooks (.failure(error)),
+                 let .didUpdateBook  (.failure(error)):
                 state.error = error
                 return .none
             }
@@ -160,11 +173,11 @@ struct BooksListView: View {
                 ToolbarItem {
                     Button("Add") { viewStore.send(.addBook) }
                 }
-//                ToolbarItem {
-//                    Button("Clear Completed") {
-//                        viewStore.send(.clearCompleted)
-//                    }
-//                }
+                ToolbarItem {
+                    Button("Clear Completed") {
+                        viewStore.send(.clearCompleted)
+                    }
+                }
             }
         }
     }

@@ -77,6 +77,23 @@ extension Firestore {
         return rv.eraseToAnyPublisher()
     }
     
+    func remove(_ documentIDs: [String], from collection: String) -> AnyPublisher<Result<Bool, DBError>, Never> {
+        let rv = PassthroughSubject<Result<Bool, DBError>, Never>()
+        
+        documentIDs.forEach { id in
+            self.collection(collection).document(id).delete { error in
+                switch error {
+                case .none:
+                    rv.send(.success(true))
+                case .some:
+                    rv.send(.failure(.remove))
+                }
+            }
+        }
+        
+        return rv.eraseToAnyPublisher()
+    }
+    
     func set<A>(_ documentID: String, to value: A, in collection: String) -> AnyPublisher<Result<Bool, DBError>, Never> where A: Codable {
         let rv = PassthroughSubject<Result<Bool, DBError>, Never>()
         do {
