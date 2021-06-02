@@ -13,6 +13,7 @@ extension Firestore {
         case fetch
         case add
         case set
+        case remove
     }
 
     func fetchData<A>(ofType: A.Type, from collection: String) -> AnyPublisher<Result<[A], DBError>, Never> where A: Codable {
@@ -33,21 +34,33 @@ extension Firestore {
         return rv.eraseToAnyPublisher()
     }
     
-    func add<A>(_ value: A, to collection: String) where A: Codable {
+    func add<A>(_ value: A, to collection: String) -> AnyPublisher<Result<Bool, DBError>, Never> where A: Codable {
+        let rv = PassthroughSubject<Result<Bool, DBError>, Never>()
+        
         do {
             let _ = try self.collection(collection).addDocument(from: value)
+            rv.send(.success(true))
         }
         catch {
-            print(error)
+            rv.send(.failure(.add))
         }
+        
+        return rv.eraseToAnyPublisher()
     }
     
-    func remove(_ documentID: String, from collection: String) {
+    func remove(_ documentID: String, from collection: String) -> AnyPublisher<Result<Bool, DBError>, Never> {
+        let rv = PassthroughSubject<Result<Bool, DBError>, Never>()
+        
         self.collection(collection).document(documentID).delete { error in
-            if let error = error {
-                print(error.localizedDescription)
+            switch error {
+            case .none:
+                rv.send(.success(true))
+            case .some:
+                rv.send(.failure(.remove))
             }
         }
+        
+        return rv.eraseToAnyPublisher()
     }
     
     func set<A>(_ documentID: String, to value: A, in collection: String) where A: Codable {

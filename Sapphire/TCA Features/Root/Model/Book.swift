@@ -37,8 +37,6 @@ struct Book: Equatable, Identifiable, Codable {
     var completed: Bool = false
 }
 
-// MARK:- TCA
-
 struct BooksList {
     struct State: Equatable {
         var books = [Book]()
@@ -47,11 +45,16 @@ struct BooksList {
     
     enum Action: Equatable {
         case onAppear
+        
         case fetchBooks
-        case fetchBooksResult(Result<[Book], Firestore.DBError>)
         case addBook
         case removeBook(Book)
         case toggleCompleted(Book)
+
+        case didFetchBooks(Result<[Book], Firestore.DBError>)
+        case didAddBook(Result<Bool, Firestore.DBError>)
+        case didRemoveBook(Result<Bool, Firestore.DBError>)
+        
     }
     
     struct Environment {
@@ -72,37 +75,51 @@ extension BooksList {
             case .fetchBooks:
                 return environment.db
                     .fetchData(ofType: Book.self, from: environment.books)
-                    .map(Action.fetchBooksResult)
+                    .map(Action.didFetchBooks)
                     .receive(on: DispatchQueue.main)
                     .eraseToEffect()
-
-            case let .fetchBooksResult(.success(books)):
-                state.books = books
-                return .none
-                
-            case let .fetchBooksResult(.failure(error)):
-                state.error = error
-                return .none
                 
             case .addBook:
                 let book = Book.init(title: "Title", author: "Author", numberOfPages: 256)
-
-                environment.db.add(book, to: environment.books)
-                return .none
+                
+                return environment.db.add(book, to: environment.books)
+                    .map(Action.didAddBook)
+                    .receive(on: DispatchQueue.main)
+                    .eraseToEffect()
                 
             case let .removeBook(book):
-                environment.db.remove(book.id!, from: environment.books)
-                return .none
+                return environment.db.remove(book.id!, from: environment.books)
+                    .map(Action.didRemoveBook)
+                    .receive(on: DispatchQueue.main)
+                    .eraseToEffect()
                 
             case let .toggleCompleted(book):
                 var book2 = book
                 book2.completed.toggle()
-
+                
                 environment.db.set(book.id!, to: book2, in: environment.books)
                 return .none
+
+
+            // Results
+            case let .didFetchBooks(.success(books)):
+                state.books = books
+                return .none
                 
+            case .didAddBook    (.success),
+                 .didRemoveBook (.success):
+                
+                return .none
+
+            case let .didFetchBooks (.failure(error)),
+                 let .didAddBook    (.failure(error)),
+                 let .didRemoveBook (.failure(error)):
+                
+                state.error = error
+                return .none
             }
         }
+        .debug()
     )
 }
 
