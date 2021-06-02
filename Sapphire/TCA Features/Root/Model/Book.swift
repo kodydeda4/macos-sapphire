@@ -51,21 +51,45 @@ struct BooksList {
         case removeBook(Book)
         case toggleCompleted(Book)
 
-        case didFetchBooks(Result<[Book], Firestore.DBError>)
-        case didAddBook(Result<Bool, Firestore.DBError>)
-        case didRemoveBook(Result<Bool, Firestore.DBError>)
-        
+        case didFetchBooks (Result<[Book], Firestore.DBError>)
+        case didAddBook    (Result<Bool,   Firestore.DBError>)
+        case didRemoveBook (Result<Bool,   Firestore.DBError>)
+        case didUpdateBook (Result<Bool,   Firestore.DBError>)
     }
     
     struct Environment {
         var db = Firestore.firestore()
-        let books = "books"
+        let collection = "books"
+        
+        var fetchData: Effect<Action, Never> {
+            db.fetchData(ofType: Book.self, from: collection)
+                .map(Action.didFetchBooks)
+                .eraseToEffect()
+        }
+        
+        func addBook(_ book: Book) -> Effect<Action, Never> {
+            db.add(book, to: collection)
+                .map(Action.didAddBook)
+                .eraseToEffect()
+        }
+        
+        func removeBook(_ book: Book) -> Effect<Action, Never> {
+            db.remove(book.id!, from: collection)
+                .map(Action.didRemoveBook)
+                .eraseToEffect()
+        }
+        
+        func updateBook(_ oldBook: Book, to newBook: Book) -> Effect<Action, Never> {
+            db.set(oldBook.id!, to: newBook, in: collection)
+                .map(Action.didUpdateBook)
+                .eraseToEffect()
+        }
     }
 }
 
 extension BooksList {
     static let reducer = Reducer<State, Action, Environment>.combine(
-
+        
         Reducer { state, action, environment in
             switch action {
             
@@ -73,48 +97,34 @@ extension BooksList {
                 return Effect(value: .fetchBooks)
                 
             case .fetchBooks:
-                return environment.db
-                    .fetchData(ofType: Book.self, from: environment.books)
-                    .map(Action.didFetchBooks)
-                    .receive(on: DispatchQueue.main)
-                    .eraseToEffect()
+                return environment.fetchData
                 
             case .addBook:
-                let book = Book.init(title: "Title", author: "Author", numberOfPages: 256)
-                
-                return environment.db.add(book, to: environment.books)
-                    .map(Action.didAddBook)
-                    .receive(on: DispatchQueue.main)
-                    .eraseToEffect()
+                return environment.addBook(Book(title: "Title", author: "Author", numberOfPages: 256))
                 
             case let .removeBook(book):
-                return environment.db.remove(book.id!, from: environment.books)
-                    .map(Action.didRemoveBook)
-                    .receive(on: DispatchQueue.main)
-                    .eraseToEffect()
+                return environment.removeBook(book)
                 
             case let .toggleCompleted(book):
                 var book2 = book
                 book2.completed.toggle()
                 
-                environment.db.set(book.id!, to: book2, in: environment.books)
-                return .none
-
+                return environment.updateBook(book, to: book2)
 
             // Results
             case let .didFetchBooks(.success(books)):
                 state.books = books
                 return .none
                 
-            case .didAddBook    (.success),
-                 .didRemoveBook (.success):
-                
+            case .didAddBook        (.success),
+                 .didRemoveBook     (.success),
+                 .didUpdateBook     (.success):
                 return .none
 
             case let .didFetchBooks (.failure(error)),
                  let .didAddBook    (.failure(error)),
-                 let .didRemoveBook (.failure(error)):
-                
+                 let .didRemoveBook (.failure(error)),
+                 let .didUpdateBook (.failure(error)):
                 state.error = error
                 return .none
             }
@@ -156,8 +166,7 @@ struct BooksListView: View {
                         Text("\(book.numberOfPages) pages")
                             .font(.subheadline)
                     }
-                    .foregroundColor(book.completed ? .gray : .primary)
-                    
+                    .opacity(book.completed ? 0.25 : 1)
                 }
             }
             .onAppear() {
@@ -167,11 +176,11 @@ struct BooksListView: View {
                 ToolbarItem {
                     Button("Add") { viewStore.send(.addBook) }
                 }
-                //                ToolbarItem {
-                //                    Button("Clear Completed") {
-                //                        viewStore.send(.clearCompleted)
-                //                    }
-                //                }
+//                ToolbarItem {
+//                    Button("Clear Completed") {
+//                        viewStore.send(.clearCompleted)
+//                    }
+//                }
             }
         }
     }

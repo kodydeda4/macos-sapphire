@@ -63,15 +63,19 @@ extension Firestore {
         return rv.eraseToAnyPublisher()
     }
     
-    func set<A>(_ documentID: String, to value: A, in collection: String) where A: Codable {
+    func set<A>(_ documentID: String, to value: A, in collection: String) -> AnyPublisher<Result<Bool, DBError>, Never> where A: Codable {
+        let rv = PassthroughSubject<Result<Bool, DBError>, Never>()
         do {
             try self
                 .collection(collection)
                 .document(documentID)
                 .setData(from: value)
+            rv.send(.success(true))
         }
         catch {
             print(error)
+            rv.send(.failure(.set))
         }
+        return rv.eraseToAnyPublisher()
     }
 }
