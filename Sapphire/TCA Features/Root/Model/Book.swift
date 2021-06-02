@@ -48,13 +48,17 @@ struct BooksList {
         case addBook
         case removeBook(Book)
         case toggleCompleted(Book)
-        case clearCompleted
-        case clearCompletedResult(Result<[Book], AppError>)
+//        case clearCompleted
+//        case clearCompletedResult(Result<[Book], AppError>)
         case changeTitle(Result<[Book], AppError>)
     }
     
     struct Environment {
         private var db = Firestore.firestore()
+        
+        enum DBCollection: String {
+            case books = "books"
+        }
         
         func fetchData() -> Effect<Action, Never> {
             let rv = PassthroughSubject<Result<[Book], AppError>, Never>()
@@ -78,20 +82,19 @@ struct BooksList {
                 .eraseToEffect()
         }
         
-        
-        
-        func addBook() {
-            let book = Book.init(title: "Title", author: "Author", numberOfPages: 256)
-            do { let _ = try db.collection("books").addDocument(from: book) }
-            catch { print(error) }
+        func add<A>(_ value: A, to collection: DBCollection) where A: Codable {
+            do {
+                let _ = try db.collection(collection.rawValue).addDocument(from: value)
+            }
+            catch {
+                print(error)
+            }
         }
-        
-        func removeBook(book: Book) {
-            if let documentId = book.id {
-                db.collection("books").document(documentId).delete { error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    }
+                
+        func remove(_ documentId: String, from collection: DBCollection) {
+            db.collection(collection.rawValue).document(documentId).delete { error in
+                if let error = error {
+                    print(error.localizedDescription)
                 }
             }
         }
@@ -114,29 +117,29 @@ struct BooksList {
             }
         }
         
-        func clearCompleted() -> Effect<Action, Never> {
-            let rv = PassthroughSubject<Result<[Book], AppError>, Never>()
-            
-            db.collection("books").addSnapshotListener { (querySnapshot, error) in
-                guard let documents = querySnapshot?.documents
-                else {
-                    rv.send(.failure(AppError(error!)))
-                    return
-                }
-                
-                documents
-                    .compactMap { try? $0.data(as: Book.self) }
-                    .filter(\.completed)
-                    .forEach(removeBook)
-            }
-            
-            return rv
-                .eraseToAnyPublisher()
-                .map(Action.clearCompletedResult)
-                .receive(on: DispatchQueue.main)
-                .eraseToEffect()
-            
-        }
+//        func clearCompleted() -> Effect<Action, Never> {
+//            let rv = PassthroughSubject<Result<[Book], AppError>, Never>()
+//
+//            db.collection("books").addSnapshotListener { (querySnapshot, error) in
+//                guard let documents = querySnapshot?.documents
+//                else {
+//                    rv.send(.failure(AppError(error!)))
+//                    return
+//                }
+//
+//                documents
+//                    .compactMap { try? $0.data(as: Book.self) }
+//                    .filter(\.completed)
+//                    //.forEach(removeBook)
+//            }
+//
+//            return rv
+//                .eraseToAnyPublisher()
+//                .map(Action.clearCompletedResult)
+//                .receive(on: DispatchQueue.main)
+//                .eraseToEffect()
+//
+//        }
     }
 }
 
@@ -158,25 +161,28 @@ extension BooksList {
                 return .none
                 
             case .addBook:
-                environment.addBook()
+                let book = Book.init(title: "Title", author: "Author", numberOfPages: 256)
+
+                environment.add(book, to: .books)
                 return .none
                 
             case let .removeBook(book):
+                environment.remove(book.id!, from: .books)
                 return .none
                 
             case let .toggleCompleted(book):
                 environment.toggleCompleted(book: book)
                 return .none
                 
-            case .clearCompleted:
-                return environment.clearCompleted()
-                
-            case let .clearCompletedResult(.success(books)):
-                state.books = books
-                return .none
-                
-            case let .clearCompletedResult(.failure(error)):
-                return .none
+//            case .clearCompleted:
+//                return environment.clearCompleted()
+//
+//            case let .clearCompletedResult(.success(books)):
+//                state.books = books
+//                return .none
+//
+//            case let .clearCompletedResult(.failure(error)):
+//                return .none
                 
             case let .changeTitle(value):
                 
@@ -202,24 +208,30 @@ struct BooksListView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             List(viewStore.books) { book in
-                Button(action: { viewStore.send(.toggleCompleted(book)) }) {
-                    HStack {
+                
+                HStack {
+                    Button(action: { viewStore.send(.toggleCompleted(book)) }) {
                         Image(systemName: book.completed ? "largecircle.fill.circle" : "circle")
-                        
-                        VStack(alignment: .leading) {
-                            Text(book.title)
-                                .font(.headline)
-                            Text(book.author)
-                                .font(.subheadline)
-                            Text("\(book.numberOfPages) pages")
-                                .font(.subheadline)
-                        }
-                        .foregroundColor(book.completed ? .gray : .primary)
-                        
                     }
-                    .background(GroupBox { Color.clear }.opacity(0.0001))
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button("remove") { viewStore.send(.removeBook(book)) }
+                        
+                    
+
+                    
+                    
+                    VStack(alignment: .leading) {
+                        Text(book.title)
+                            .font(.headline)
+                        Text(book.author)
+                            .font(.subheadline)
+                        Text("\(book.numberOfPages) pages")
+                            .font(.subheadline)
+                    }
+                    .foregroundColor(book.completed ? .gray : .primary)
+                    
                 }
-                .buttonStyle(PlainButtonStyle())
             }
             .onAppear() {
                 viewStore.send(.fetchData)
@@ -228,11 +240,11 @@ struct BooksListView: View {
                 ToolbarItem {
                     Button("Add") { viewStore.send(.addBook) }
                 }
-                ToolbarItem {
-                    Button("Clear Completed") {
-                        viewStore.send(.clearCompleted)
-                    }
-                }
+                //                ToolbarItem {
+                //                    Button("Clear Completed") {
+                //                        viewStore.send(.clearCompleted)
+                //                    }
+                //                }
             }
         }
     }
