@@ -37,20 +37,27 @@ struct Book: Equatable, Identifiable, Codable {
     var completed: Bool = false
 }
 
+// MARK:- TCA
+
+enum FirebaseError: Error, Equatable {
+    case fetch
+    case add
+    case set
+}
+
 struct BooksList {
     struct State: Equatable {
         var books = [Book]()
     }
     
     enum Action: Equatable {
-        case fetchData
-        case fetchDataResult(Result<[Book], AppError>)
+        case fetchBooksData
+        case fetchBooksResult(Result<[Book], FirebaseError>)
         case addBook
         case removeBook(Book)
         case toggleCompleted(Book)
 //        case clearCompleted
 //        case clearCompletedResult(Result<[Book], AppError>)
-        case changeTitle(Result<[Book], AppError>)
     }
     
     struct Environment {
@@ -60,8 +67,8 @@ struct BooksList {
             case books = "books"
         }
         
-        func fetchData<A>(ofType: A.Type, from collection: DBCollection) -> AnyPublisher<Result<[A], AppError>, Never> where A: Codable {
-            let rv = PassthroughSubject<Result<[A], AppError>, Never>()
+        func fetchData<A>(ofType: A.Type, from collection: DBCollection) -> AnyPublisher<Result<[A], FirebaseError>, Never> where A: Codable {
+            let rv = PassthroughSubject<Result<[A], FirebaseError>, Never>()
             
             db.collection(collection.rawValue).addSnapshotListener { querySnapshot, error in
                 if let values = querySnapshot?
@@ -71,7 +78,7 @@ struct BooksList {
                     rv.send(.success(values))
                     
                 } else {
-                    rv.send(.failure(AppError(error!)))
+                    rv.send(.failure(.fetch))
                 }
             }
             
@@ -157,18 +164,18 @@ extension BooksList {
         Reducer { state, action, environment in
             switch action {
             
-            case .fetchData:
+            case .fetchBooksData:
                 return environment
                     .fetchData(ofType: Book.self, from: .books)
-                    .map(Action.fetchDataResult)
+                    .map(Action.fetchBooksResult)
                     .receive(on: DispatchQueue.main)
                     .eraseToEffect()
                 
-            case let .fetchDataResult(.success(books)):
+            case let .fetchBooksResult(.success(books)):
                 state.books = books
                 return .none
                 
-            case let .fetchDataResult(.failure(error)):
+            case let .fetchBooksResult(.failure(error)):
                 print(error.localizedDescription)
                 return .none
                 
@@ -198,9 +205,6 @@ extension BooksList {
 //
 //            case let .clearCompletedResult(.failure(error)):
 //                return .none
-                
-            case let .changeTitle(value):
-                return .none
             }
         }
     )
@@ -244,7 +248,7 @@ struct BooksListView: View {
                 }
             }
             .onAppear() {
-                viewStore.send(.fetchData)
+                viewStore.send(.fetchBooksData)
             }
             .toolbar {
                 ToolbarItem {

@@ -10,6 +10,8 @@ import Combine
 import ComposableArchitecture
 import DynamicColor
 
+
+
 struct Grid {
     struct State: Equatable {
         var macOSApplications: [MacOSApplication.State] = .allCases
@@ -37,14 +39,14 @@ struct Grid {
 
         // Set Icons
         case setSystemApplications
-        case setSystemApplicationsResult(Result<Bool, AppError>)
+        case setSystemApplicationsResult(Result<Bool, NSUserAppleScriptTaskError>)
         case cancelSetSystemApplications
         case createSetIconsAlert
         case dismissSetIconsAlert
         
         // Reset Icons
         case resetSystemApplications
-        case resetSystemApplicationsResult(Result<Bool, AppError>)
+        case resetSystemApplicationsResult(Result<Bool, NSUserAppleScriptTaskError>)
         case cancelResetSystemApplications
         case createResetIconsAlert
         case dismissResetIconsAlert

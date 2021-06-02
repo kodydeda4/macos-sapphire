@@ -8,7 +8,9 @@
 import Foundation
 import Combine
 
-struct AppError: Error, Equatable {
+
+
+struct NSUserAppleScriptTaskError: Error, Equatable {
     var error: String
     
     init(_ error: Error) {
@@ -19,8 +21,8 @@ struct AppError: Error, Equatable {
 extension NSUserAppleScriptTask {
     
     /// Writes command to ~/ApplicationScripts/`AppName`/Applescript.osa file & executes it
-    func execute(_ command: String) -> AnyPublisher<Result<Bool, AppError>, Never> {
-        let rv = PassthroughSubject<Result<Bool, AppError>, Never>()
+    func execute(_ command: String) -> AnyPublisher<Result<Bool, NSUserAppleScriptTaskError>, Never> {
+        let rv = PassthroughSubject<Result<Bool, NSUserAppleScriptTaskError>, Never>()
         let command = "do shell script \"\(command)\" with administrator privileges"
 
         var url: URL {
@@ -42,11 +44,11 @@ extension NSUserAppleScriptTask {
                     rv.send(.success(true))
                     return
                 }
-                rv.send(.failure(AppError(error)))
+                rv.send(.failure(NSUserAppleScriptTaskError(error)))
             })
         }
         catch {
-            rv.send(.failure(AppError(error)))
+            rv.send(.failure(NSUserAppleScriptTaskError(error)))
         }
         
         return rv.eraseToAnyPublisher()
