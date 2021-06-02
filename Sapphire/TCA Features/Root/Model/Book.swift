@@ -26,8 +26,8 @@ import FirebaseFirestoreSwift
  
  ------------------------------------------------------------------------------------------*/
 
-
 // MARK:- Model
+
 struct Book: Equatable, Identifiable, Codable {
     @DocumentID var id: String?
     @ServerTimestamp var createdAt: Date?
@@ -60,26 +60,22 @@ struct BooksList {
             case books = "books"
         }
         
-        func fetchData() -> Effect<Action, Never> {
-            let rv = PassthroughSubject<Result<[Book], AppError>, Never>()
+        func fetchData<A>(ofType: A.Type, from collection: DBCollection) -> AnyPublisher<Result<[A], AppError>, Never> where A: Codable {
+            let rv = PassthroughSubject<Result<[A], AppError>, Never>()
             
-            db.collection("books").addSnapshotListener { querySnapshot, error in
-                if let books = querySnapshot?
+            db.collection(collection.rawValue).addSnapshotListener { querySnapshot, error in
+                if let values = querySnapshot?
                     .documents
-                    .compactMap({ try? $0.data(as: Book.self) }) {
+                    .compactMap({ try? $0.data(as: A.self) }) {
                     
-                    rv.send(.success(books))
+                    rv.send(.success(values))
                     
                 } else {
                     rv.send(.failure(AppError(error!)))
                 }
             }
             
-            return rv
-                .eraseToAnyPublisher()
-                .map(Action.fetchDataResult)
-                .receive(on: DispatchQueue.main)
-                .eraseToEffect()
+            return rv.eraseToAnyPublisher()
         }
         
         func add<A>(_ value: A, to collection: DBCollection) where A: Codable {
@@ -91,31 +87,43 @@ struct BooksList {
             }
         }
                 
-        func remove(_ documentId: String, from collection: DBCollection) {
-            db.collection(collection.rawValue).document(documentId).delete { error in
+        func remove(_ documentID: String, from collection: DBCollection) {
+            db.collection(collection.rawValue).document(documentID).delete { error in
                 if let error = error {
                     print(error.localizedDescription)
                 }
             }
         }
         
-        func toggleCompleted(book: Book) {
-            var book2 = book
-            book2.completed.toggle()
-            
-            if let id = book.id {
-                do {
-                    try db
-                        .collection("books")
-                        .document(id)
-                        .setData(from: book2)
-                }
-                
-                catch {
-                    print(error)
-                }
+        func set<A>(_ documentID: String, to value: A, in collection: DBCollection) where A: Codable {
+            do {
+                try db
+                    .collection(collection.rawValue)
+                    .document(documentID)
+                    .setData(from: value)
+            }
+            catch {
+                print(error)
             }
         }
+        
+//        func toggleCompleted(book: Book) {
+//            var book2 = book
+//            book2.completed.toggle()
+//
+//            if let id = book.id {
+//                do {
+//                    try db
+//                        .collection("books")
+//                        .document(id)
+//                        .setData(from: book2)
+//                }
+//
+//                catch {
+//                    print(error)
+//                }
+//            }
+//        }
         
 //        func clearCompleted() -> Effect<Action, Never> {
 //            let rv = PassthroughSubject<Result<[Book], AppError>, Never>()
@@ -150,7 +158,11 @@ extension BooksList {
             switch action {
             
             case .fetchData:
-                return environment.fetchData()
+                return environment
+                    .fetchData(ofType: Book.self, from: .books)
+                    .map(Action.fetchDataResult)
+                    .receive(on: DispatchQueue.main)
+                    .eraseToEffect()
                 
             case let .fetchDataResult(.success(books)):
                 state.books = books
@@ -171,7 +183,10 @@ extension BooksList {
                 return .none
                 
             case let .toggleCompleted(book):
-                environment.toggleCompleted(book: book)
+                var book2 = book
+                book2.completed.toggle()
+
+                environment.set(book.id!, to: book2, in: .books)
                 return .none
                 
 //            case .clearCompleted:
@@ -185,7 +200,6 @@ extension BooksList {
 //                return .none
                 
             case let .changeTitle(value):
-                
                 return .none
             }
         }
@@ -216,11 +230,7 @@ struct BooksListView: View {
                     .buttonStyle(PlainButtonStyle())
                     
                     Button("remove") { viewStore.send(.removeBook(book)) }
-                        
-                    
 
-                    
-                    
                     VStack(alignment: .leading) {
                         Text(book.title)
                             .font(.headline)
