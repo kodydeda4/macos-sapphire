@@ -8,14 +8,8 @@
 import Foundation
 import Combine
 
-
-
-struct NSUserAppleScriptTaskError: Error, Equatable {
-    var error: String
-    
-    init(_ error: Error) {
-        self.error = error.localizedDescription
-    }
+enum NSUserAppleScriptTaskError: Error, Equatable {
+    case execute
 }
 
 extension NSUserAppleScriptTask {
@@ -39,16 +33,16 @@ extension NSUserAppleScriptTask {
         do {
             try command.write(to: url, atomically: true, encoding: .utf8)
             try NSUserAppleScriptTask(url: url).execute(completionHandler: { error in
-                guard let error = error
+                guard error != nil
                 else {
                     rv.send(.success(true))
                     return
                 }
-                rv.send(.failure(NSUserAppleScriptTaskError(error)))
+                rv.send(.failure(.execute))
             })
         }
         catch {
-            rv.send(.failure(NSUserAppleScriptTaskError(error)))
+            rv.send(.failure(.execute))
         }
         
         return rv.eraseToAnyPublisher()
