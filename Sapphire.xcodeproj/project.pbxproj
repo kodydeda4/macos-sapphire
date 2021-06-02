@@ -28,6 +28,7 @@
 		33CAFEEF2666683000D0F098 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 33CAFEEE2666683000D0F098 /* FirebaseFirestore */; };
 		33CAFEF12666683000D0F098 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 33CAFEF02666683000D0F098 /* FirebaseDatabase */; };
 		33CAFEF326666B8900D0F098 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CAFEF226666B8900D0F098 /* Book.swift */; };
+		33CDBBD42667B3880079AF67 /* FireStore + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CDBBD32667B3880079AF67 /* FireStore + Extensions.swift */; };
 		33CEEEF226552E490084D3BD /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */; };
 		33D7A8E72665531500989E01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33D7A8E62665531500989E01 /* GoogleService-Info.plist */; };
 		33D7A8E92665532F00989E01 /* UserAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D7A8E82665532F00989E01 /* UserAuthentication.swift */; };
@@ -56,6 +57,7 @@
 		33C77B75265FD783006BFA4D /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		33C77B84266009E5006BFA4D /* GridSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSelectionView.swift; sourceTree = "<group>"; };
 		33CAFEF226666B8900D0F098 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		33CDBBD32667B3880079AF67 /* FireStore + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FireStore + Extensions.swift"; sourceTree = "<group>"; };
 		33CEEEF126552E490084D3BD /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		33D7A8E62665531500989E01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		33D7A8E82665532F00989E01 /* UserAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthentication.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				33A6BDC0265DA5E800C13231 /* URL+Extensions.swift */,
 				33A15A83265E80F400D2D380 /* Array+Extensions.swift */,
 				33C77B75265FD783006BFA4D /* Color+Extensions.swift */,
+				33CDBBD32667B3880079AF67 /* FireStore + Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				33C77B85266009E5006BFA4D /* GridSelectionView.swift in Sources */,
 				33A15A84265E80F400D2D380 /* Array+Extensions.swift in Sources */,
 				33BEC31B2655AA830066851E /* ApplyingChangesView.swift in Sources */,
+				33CDBBD42667B3880079AF67 /* FireStore + Extensions.swift in Sources */,
 				33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */,
 				3336D54726557D690064F5D9 /* GridMainView.swift in Sources */,

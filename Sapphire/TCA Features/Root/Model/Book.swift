@@ -39,172 +39,68 @@ struct Book: Equatable, Identifiable, Codable {
 
 // MARK:- TCA
 
-enum FirebaseError: Error, Equatable {
-    case fetch
-    case add
-    case set
-}
-
 struct BooksList {
     struct State: Equatable {
         var books = [Book]()
+        var error: Firestore.DBError?
     }
     
     enum Action: Equatable {
-        case fetchBooksData
-        case fetchBooksResult(Result<[Book], FirebaseError>)
+        case onAppear
+        case fetchBooks
+        case fetchBooksResult(Result<[Book], Firestore.DBError>)
         case addBook
         case removeBook(Book)
         case toggleCompleted(Book)
-//        case clearCompleted
-//        case clearCompletedResult(Result<[Book], AppError>)
     }
     
     struct Environment {
-        private var db = Firestore.firestore()
-        
-        enum DBCollection: String {
-            case books = "books"
-        }
-        
-        func fetchData<A>(ofType: A.Type, from collection: DBCollection) -> AnyPublisher<Result<[A], FirebaseError>, Never> where A: Codable {
-            let rv = PassthroughSubject<Result<[A], FirebaseError>, Never>()
-            
-            db.collection(collection.rawValue).addSnapshotListener { querySnapshot, error in
-                if let values = querySnapshot?
-                    .documents
-                    .compactMap({ try? $0.data(as: A.self) }) {
-                    
-                    rv.send(.success(values))
-                    
-                } else {
-                    rv.send(.failure(.fetch))
-                }
-            }
-            
-            return rv.eraseToAnyPublisher()
-        }
-        
-        func add<A>(_ value: A, to collection: DBCollection) where A: Codable {
-            do {
-                let _ = try db.collection(collection.rawValue).addDocument(from: value)
-            }
-            catch {
-                print(error)
-            }
-        }
-                
-        func remove(_ documentID: String, from collection: DBCollection) {
-            db.collection(collection.rawValue).document(documentID).delete { error in
-                if let error = error {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-        
-        func set<A>(_ documentID: String, to value: A, in collection: DBCollection) where A: Codable {
-            do {
-                try db
-                    .collection(collection.rawValue)
-                    .document(documentID)
-                    .setData(from: value)
-            }
-            catch {
-                print(error)
-            }
-        }
-        
-//        func toggleCompleted(book: Book) {
-//            var book2 = book
-//            book2.completed.toggle()
-//
-//            if let id = book.id {
-//                do {
-//                    try db
-//                        .collection("books")
-//                        .document(id)
-//                        .setData(from: book2)
-//                }
-//
-//                catch {
-//                    print(error)
-//                }
-//            }
-//        }
-        
-//        func clearCompleted() -> Effect<Action, Never> {
-//            let rv = PassthroughSubject<Result<[Book], AppError>, Never>()
-//
-//            db.collection("books").addSnapshotListener { (querySnapshot, error) in
-//                guard let documents = querySnapshot?.documents
-//                else {
-//                    rv.send(.failure(AppError(error!)))
-//                    return
-//                }
-//
-//                documents
-//                    .compactMap { try? $0.data(as: Book.self) }
-//                    .filter(\.completed)
-//                    //.forEach(removeBook)
-//            }
-//
-//            return rv
-//                .eraseToAnyPublisher()
-//                .map(Action.clearCompletedResult)
-//                .receive(on: DispatchQueue.main)
-//                .eraseToEffect()
-//
-//        }
+        var db = Firestore.firestore()
+        let books = "books"
     }
 }
 
 extension BooksList {
     static let reducer = Reducer<State, Action, Environment>.combine(
-        // pullbacks
+
         Reducer { state, action, environment in
             switch action {
             
-            case .fetchBooksData:
-                return environment
-                    .fetchData(ofType: Book.self, from: .books)
+            case .onAppear:
+                return Effect(value: .fetchBooks)
+                
+            case .fetchBooks:
+                return environment.db
+                    .fetchData(ofType: Book.self, from: environment.books)
                     .map(Action.fetchBooksResult)
                     .receive(on: DispatchQueue.main)
                     .eraseToEffect()
-                
+
             case let .fetchBooksResult(.success(books)):
                 state.books = books
                 return .none
                 
             case let .fetchBooksResult(.failure(error)):
-                print(error.localizedDescription)
+                state.error = error
                 return .none
                 
             case .addBook:
                 let book = Book.init(title: "Title", author: "Author", numberOfPages: 256)
 
-                environment.add(book, to: .books)
+                environment.db.add(book, to: environment.books)
                 return .none
                 
             case let .removeBook(book):
-                environment.remove(book.id!, from: .books)
+                environment.db.remove(book.id!, from: environment.books)
                 return .none
                 
             case let .toggleCompleted(book):
                 var book2 = book
                 book2.completed.toggle()
 
-                environment.set(book.id!, to: book2, in: .books)
+                environment.db.set(book.id!, to: book2, in: environment.books)
                 return .none
                 
-//            case .clearCompleted:
-//                return environment.clearCompleted()
-//
-//            case let .clearCompletedResult(.success(books)):
-//                state.books = books
-//                return .none
-//
-//            case let .clearCompletedResult(.failure(error)):
-//                return .none
             }
         }
     )
@@ -248,7 +144,7 @@ struct BooksListView: View {
                 }
             }
             .onAppear() {
-                viewStore.send(.fetchBooksData)
+                viewStore.send(.onAppear)
             }
             .toolbar {
                 ToolbarItem {
