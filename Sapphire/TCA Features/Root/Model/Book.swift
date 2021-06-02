@@ -12,22 +12,6 @@ import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-/*------------------------------------------------------------------------------------------
- 
- SwiftUI: Fetching Data from Firestore in Real Time (April 2020)
- https://peterfriese.dev/swiftui-firebase-fetch-data/
- 
- 
- SwiftUI: Mapping Firestore Documents using Swift Codable (May 2020)
- https://peterfriese.dev/swiftui-firebase-codable/
- 
- Mapping Firestore Data in Swift
- https://peterfriese.dev/firestore-codable-the-comprehensive-guide/
- 
- ------------------------------------------------------------------------------------------*/
-
-// MARK:- Model
-
 struct Book: Equatable, Identifiable, Codable {
     @DocumentID var id: String?
     @ServerTimestamp var createdAt: Date?
@@ -111,7 +95,8 @@ extension BooksList {
                 
                 return environment.updateBook(book, to: book2)
 
-            // Results
+            // Result
+            
             case let .didFetchBooks(.success(books)):
                 state.books = books
                 return .none

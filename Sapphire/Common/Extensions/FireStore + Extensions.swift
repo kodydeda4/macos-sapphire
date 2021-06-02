@@ -8,6 +8,20 @@
 import Firebase
 import Combine
 
+/*------------------------------------------------------------------------------------------
+ 
+ SwiftUI: Fetching Data from Firestore in Real Time (April 2020)
+ https://peterfriese.dev/swiftui-firebase-fetch-data/
+ 
+ 
+ SwiftUI: Mapping Firestore Documents using Swift Codable (May 2020)
+ https://peterfriese.dev/swiftui-firebase-codable/
+ 
+ Mapping Firestore Data in Swift
+ https://peterfriese.dev/firestore-codable-the-comprehensive-guide/
+ 
+ ------------------------------------------------------------------------------------------*/
+
 extension Firestore {
     enum DBError: Error, Equatable {
         case fetch
@@ -79,3 +93,6 @@ extension Firestore {
         return rv.eraseToAnyPublisher()
     }
 }
+
+
+
