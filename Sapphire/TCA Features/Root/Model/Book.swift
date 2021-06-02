@@ -42,7 +42,7 @@ struct BooksList {
     }
     
     struct Environment {
-        var db = Firestore.firestore()
+        let db = Firestore.firestore()
         let collection = "books"
         
         var fetchData: Effect<Action, Never> {
@@ -96,7 +96,6 @@ extension BooksList {
                 return environment.updateBook(book, to: book2)
 
             // Result
-            
             case let .didFetchBooks(.success(books)):
                 state.books = books
                 return .none
