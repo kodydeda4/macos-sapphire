@@ -10,8 +10,6 @@ import Combine
 import ComposableArchitecture
 import DynamicColor
 
-
-
 struct Grid {
     struct State: Equatable {
         var macOSApplications: [MacOSApplication.State] = .allCases
@@ -56,21 +54,21 @@ struct Grid {
         let stateURL = URL.ApplicationSupport
             .appendingPathComponent("GridState.json")
         
-        let iconsurURL = URL.ApplicationScripts
-            .appendingPathComponent("iconsur2")
+        let scriptURL = URL.ApplicationScripts
+            .appendingPathComponent("sapphire")
         
         /// Executes modifyIconsCommand as Effect
         func setIcons(applications: [MacOSApplication.State], color: Color) -> Effect<Action, Never> {
             let command = applications
                 .filter(\.selected)
                 .map { application in
-                    let iconsur = iconsurURL.appleScriptPath
+                    let iconsur = scriptURL.appleScriptPath
                     let app = application.bundleURL.appleScriptPath
                     
                     return "\(iconsur) set \(app) -l -s 0.8 -c \(color.hex); "
                 }
                 .joined()
-                .appending("\(iconsurURL.appleScriptPath) cache")
+                .appending("\(scriptURL.appleScriptPath) cache")
 
             return NSUserAppleScriptTask()
                 .execute(command)
@@ -85,13 +83,13 @@ struct Grid {
             let command = applications
                 .filter(\.selected)
                 .map { application in
-                    let iconsur = iconsurURL.appleScriptPath
+                    let iconsur = scriptURL.appleScriptPath
                     let app = application.bundleURL.appleScriptPath
                     
                     return "\(iconsur) unset \(app); "
                 }
                 .joined()
-                .appending("\(iconsurURL.appleScriptPath) cache")
+                .appending("\(scriptURL.appleScriptPath) cache")
             
             return NSUserAppleScriptTask()
                 .execute(command)
@@ -280,6 +278,7 @@ extension Grid {
                 return .none
             }
         }
+        .debug()
     )
 }
 
