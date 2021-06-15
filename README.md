@@ -16,7 +16,7 @@
 
 ![pwreq](https://user-images.githubusercontent.com/45678211/122048169-f3031080-cdae-11eb-9cbd-e1d5d846b005.png)
 
-<img width="1126" alt="applying_changes" src="https://user-images.githubusercontent.com/45678211/119981879-214db700-bf8c-11eb-8fad-cbdcbaf8fa08.png">
+![applychanges](https://user-images.githubusercontent.com/45678211/122048416-378eac00-cdaf-11eb-9dcd-44010dbf06f5.png)
 
 ### Before & After
 ![b4aftr](https://user-images.githubusercontent.com/45678211/119995039-31b95e00-bf9b-11eb-944d-94dd5f5f3606.gif)
