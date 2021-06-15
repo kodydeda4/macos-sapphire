@@ -1,7 +1,6 @@
 # 💎 Sapphire
 
-![banner](https://user-images.githubusercontent.com/45678211/119984333-48f24e80-bf8f-11eb-858f-32b666702f6a.png)
-
+![sapphirebanner](https://user-images.githubusercontent.com/45678211/122047859-9e5f9580-cdae-11eb-90b7-96db97e6a015.png)
 
 ## About Sapphire
 
