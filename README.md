@@ -14,7 +14,7 @@
 
 <img width="1170" alt="selection" src="https://user-images.githubusercontent.com/45678211/119981448-a5536f00-bf8b-11eb-8ecf-6cb2592999f2.png">
 
-<img width="1170" alt="password_required" src="https://user-images.githubusercontent.com/45678211/119981883-227ee400-bf8c-11eb-916e-cf506a0c7dc9.png">
+![pwreq](https://user-images.githubusercontent.com/45678211/122048169-f3031080-cdae-11eb-9cbd-e1d5d846b005.png)
 
 <img width="1126" alt="applying_changes" src="https://user-images.githubusercontent.com/45678211/119981879-214db700-bf8c-11eb-8fad-cbdcbaf8fa08.png">
 
