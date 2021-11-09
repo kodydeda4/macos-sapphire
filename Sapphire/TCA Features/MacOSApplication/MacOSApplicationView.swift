@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct MacOSApplicationView: View {
-  let store: Store<MacOSApplication.State, MacOSApplication.Action>
+  let store: Store<MacOSApplicationState, MacOSApplicationAction>
   
   var body: some View {
     WithViewStore(store) { viewStore in
@@ -46,6 +46,6 @@ struct MacOSApplicationView: View {
 
 struct MacOSApplicationView_Previews: PreviewProvider {
   static var previews: some View {
-    MacOSApplicationView(store: MacOSApplication.defaultStore)
+    MacOSApplicationView(store: MacOSApplicationState.defaultStore)
   }
 }

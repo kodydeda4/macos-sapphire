@@ -11,7 +11,7 @@ import ComposableArchitecture
 import DynamicColor
 
 struct GridState: Equatable {
-  var macOSApplications: [MacOSApplication.State] = .allCases
+  var macOSApplications: [MacOSApplicationState] = .allCases
   var alert: AlertState<GridAction>?
   var inFlight = false
   var selectedColor = Color.white
@@ -25,7 +25,7 @@ enum GridAction: Equatable {
   case load
   
   // macOSApplication
-  case macOSApplication(index: Int, action: MacOSApplication.Action)
+  case macOSApplication(index: Int, action: MacOSApplicationAction)
   
   // Grid
   case selectAllButtonTapped
@@ -57,7 +57,7 @@ struct GridEnvironment {
     .appendingPathComponent("sapphire")
   
   /// Executes modifyIconsCommand as Effect
-  func setIcons(applications: [MacOSApplication.State], color: Color) -> Effect<GridAction, Never> {
+  func setIcons(applications: [MacOSApplicationState], color: Color) -> Effect<GridAction, Never> {
     let command = applications
       .filter(\.selected)
       .map { application in
@@ -78,7 +78,7 @@ struct GridEnvironment {
   }
   
   /// Executes modifyIconsCommand as Effect
-  func resetIcons(applications: [MacOSApplication.State]) -> Effect<GridAction, Never> {
+  func resetIcons(applications: [MacOSApplicationState]) -> Effect<GridAction, Never> {
     let command = applications
       .filter(\.selected)
       .map { application in
@@ -100,7 +100,7 @@ struct GridEnvironment {
 }
 
 let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
-  MacOSApplication.reducer.forEach(
+  macOSApplicationReducer.forEach(
     state: \.macOSApplications,
     action: /GridAction.macOSApplication(index:action:),
     environment: { _ in () }
@@ -125,7 +125,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       
     case .load:
       switch JSONDecoder().decodeState(
-        ofType: [MacOSApplication.State].self,
+        ofType: [MacOSApplicationState].self,
         from: environment.stateURL
       ) {
       case let .success(decodedState):
