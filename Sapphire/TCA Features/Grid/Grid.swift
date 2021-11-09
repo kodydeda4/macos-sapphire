@@ -43,13 +43,13 @@ enum GridAction: Equatable {
   
   // Set Icons
   case setSystemApplications
-  case setSystemApplicationsResult(Result<Bool, NSUserAppleScriptTaskError>)
+  case setSystemApplicationsResult(Result<Bool, AppError>)
   case createSetIconsAlert
   case dismissSetIconsAlert
   
   // Reset Icons
   case resetSystemApplications
-  case resetSystemApplicationsResult(Result<Bool, NSUserAppleScriptTaskError>)
+  case resetSystemApplicationsResult(Result<Bool, AppError>)
   case createResetIconsAlert
   case dismissResetIconsAlert
 }
@@ -229,16 +229,39 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
     .debug()
 )
 
+
+/// ~/Library/Application Support/`KSWIFTSapphire`
+var applicationSupport: URL {
+  let directory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("KSWIFTSapphire", isDirectory: true)
+  
+  if !FileManager.default.fileExists(atPath: directory.path) {
+    do {
+      try FileManager.default.createDirectory(
+        atPath: directory.path,
+        withIntermediateDirectories: true,
+        attributes: nil
+      )
+    } catch {
+      print(error.localizedDescription)
+    }
+  }
+  
+  return directory
+}
+
 extension GridState {
   static let defaultStore = Store(
     initialState: .init(),
     reducer: gridReducer,
     environment: .init(
-      localDataClient: .live(url: URL.ApplicationSupport.appendingPathComponent("GridState.json")),
+      localDataClient: .live(url: applicationSupport.appendingPathComponent("GridState.json")),
       iconsurClient: .live,
       scheduler: .main
     )
   )
 }
+
+
+
 
 

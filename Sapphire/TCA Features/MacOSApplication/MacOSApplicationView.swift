@@ -44,8 +44,8 @@ struct MacOSApplicationView: View {
   }
 }
 
-struct MacOSApplicationView_Previews: PreviewProvider {
-  static var previews: some View {
-    MacOSApplicationView(store: MacOSApplicationState.defaultStore)
-  }
-}
+//struct MacOSApplicationView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    MacOSApplicationView(store: MacOSApplicationState.defaultStore)
+//  }
+//}
