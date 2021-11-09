@@ -53,7 +53,7 @@ enum GridAction: Equatable {
 struct GridEnvironment {
   let stateURL: URL = URL.ApplicationSupport.appendingPathComponent("GridState.json")
   let client: AppIconCustomizerClient
-//  let scheduler: AnySchedulerOf<DispatchQueue>
+  let scheduler: AnySchedulerOf<DispatchQueue>
 }
 
 
@@ -66,11 +66,9 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
   Reducer { state, action, environment in
     struct GridRequestId: Hashable {}
     
-    
     switch action {
       
-      // MARK:- root
-      
+    // MARK: - Root
     case .onAppear:
       return Effect(value: .load)
       
@@ -80,15 +78,17 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       
     case .load:
       switch JSONDecoder().decodeState(ofType: [MacOSApplicationState].self, from: environment.stateURL) {
+        
       case let .success(decodedState):
         state.macOSApplications = decodedState
+        
       case let .failure(error):
         print(error.localizedDescription)
+        
       }
       return .none
       
-      // MARK:- macOSApplication
-      
+    // MARK: - macOSApplication
     case let .macOSApplication(index, action):
       switch action {
         
@@ -104,8 +104,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       }
       return Effect(value: .save)
       
-      // MARK:- SetIcons
-      
+    // MARK: - Set
     case .setSystemApplications:
       state.inFlight = true
       return environment.client.setIcons(state.macOSApplications, state.selectedColor)
@@ -126,14 +125,12 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       state.inFlight = false
       return .cancel(id: GridRequestId())
       
-      // MARK:- SetIcons - alert
-      
     case .createSetIconsAlert:
       state.alert = AlertState(
-        title: "Password Required",
-        message: "Requesting permission to modify system icons.",
-        primaryButton: .destructive("Continue", send: .setSystemApplications),
-        secondaryButton: .cancel()
+        title: TextState("Password Required"),
+        message: TextState("Requesting permission to modify system icons."),
+        primaryButton: .destructive(TextState("Continue"), action: .send(.setSystemApplications)),
+        secondaryButton: .cancel(TextState("Cancel"))
       )
       return .none
       
@@ -141,7 +138,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       state.alert = nil
       return .none
       
-      // MARK:- ResetIcons
+    // MARK: - Reset
     case .resetSystemApplications:
       state.inFlight = true
       return environment.client.resetIcons(state.macOSApplications)
@@ -159,14 +156,12 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       state.inFlight = false
       return .cancel(id: GridRequestId())
       
-      // MARK:- ResetIcons - alert
-      
     case .createResetIconsAlert:
       state.alert = .init(
-        title: "Password Required",
-        message: "Requesting permission to modify system icons.",
-        primaryButton: .destructive("Continue", send: .resetSystemApplications),
-        secondaryButton: .cancel()
+        title: TextState("Password Required"),
+        message: TextState("Requesting permission to modify system icons."),
+        primaryButton: .destructive(TextState("Continue"), action: .send(.resetSystemApplications)),
+        secondaryButton: .cancel(TextState("Cancel"))
       )
       return .none
       
@@ -174,11 +169,9 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       state.alert = nil
       return .none
       
-      // MARK:- select
-      
+    // MARK: - Select
     case .selectAllButtonTapped:
-      state.macOSApplications =
-      state.macOSApplications.reduce(set: \.selected, to: !state.macOSApplications.allSatisfy(\.selected))
+      state.macOSApplications = state.macOSApplications.reduce(set: \.selected, to: !state.macOSApplications.allSatisfy(\.selected))
       return .none
       
     case .selectAll:
@@ -205,8 +198,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       }
       return .none
       
-      // MARK:- color
-      
+    // MARK: - Color
     case let .updateSelectedColor(color):
       state.selectedColor = color
       
@@ -221,8 +213,8 @@ extension GridState {
     initialState: .init(),
     reducer: gridReducer,
     environment: .init(
-      client: .live//,
-//      scheduler: .main
+      client: .live,
+      scheduler: .main
     )
   )
 }
