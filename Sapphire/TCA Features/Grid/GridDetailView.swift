@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct GridDetailView: View {
-  let store: Store<Grid.State, Grid.Action>
+  let store: Store<GridState, GridAction>
   
   var body: some View {
     WithViewStore(store) { viewStore in
@@ -30,7 +30,7 @@ struct GridDetailView: View {
             ColorSelectorView(
               selection: viewStore.binding(
                 get: \.selectedColor,
-                send: Grid.Action.updateSelectedColor
+                send: GridAction.updateSelectedColor
               )
             )
               .frame(maxWidth: .infinity)
@@ -58,6 +58,6 @@ struct GridDetailView: View {
 // MARK:- SwiftUI_Previews
 struct GridDetailView_Previews: PreviewProvider {
   static var previews: some View {
-    GridDetailView(store: Grid.defaultStore)
+    GridDetailView(store: GridState.defaultStore)
   }
 }

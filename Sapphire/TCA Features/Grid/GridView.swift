@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct GridView: View {
-  let store: Store<Grid.State, Grid.Action>
+  let store: Store<GridState, GridAction>
   
   var body: some View {
     WithViewStore(store) { viewStore in
@@ -29,7 +29,7 @@ struct GridView: View {
 // MARK:- SwiftUI_Previews
 struct GridView_Previews: PreviewProvider {
   static var previews: some View {
-    GridView(store: Grid.defaultStore)
+    GridView(store: GridState.defaultStore)
   }
 }
 

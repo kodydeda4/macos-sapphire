@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct GridMainView: View {
-  let store: Store<Grid.State, Grid.Action>
+  let store: Store<GridState, GridAction>
   
   var body: some View {
     WithViewStore(store) { viewStore in
@@ -17,7 +17,7 @@ struct GridMainView: View {
         LazyVGrid(columns: [GridItem](repeating: .init(.fixed(90)), count: 6)) {
           ForEachStore(store.scope(
             state: \.macOSApplications,
-            action: Grid.Action.macOSApplication(index:action:)
+            action: GridAction.macOSApplication(index:action:)
           ), content: MacOSApplicationView.init)
         }
         .frame(width: 600)
@@ -48,6 +48,6 @@ struct GridMainView: View {
 
 struct GridMainView_Previews: PreviewProvider {
   static var previews: some View {
-    GridMainView(store: Grid.defaultStore)
+    GridMainView(store: GridState.defaultStore)
   }
 }

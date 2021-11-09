@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ApplyingChangesView: View {
-  let store: Store<Grid.State, Grid.Action>
+  let store: Store<GridState, GridAction>
   @State var opacity = true
   
   var body: some View {
@@ -41,7 +41,7 @@ struct ApplyingChangesView: View {
 
 struct ApplyingChangesView_Previews: PreviewProvider {
   static var previews: some View {
-    ApplyingChangesView(store: Grid.defaultStore)
+    ApplyingChangesView(store: GridState.defaultStore)
   }
 }
 
