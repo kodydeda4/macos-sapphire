@@ -9,14 +9,14 @@ import SwiftUI
 import DynamicColor
 
 extension Color {
-    var hex: String {
-        "\(DynamicColor(self).toHexString().dropFirst())"
-    }
+  var hex: String {
+    "\(DynamicColor(self).toHexString().dropFirst())"
+  }
 }
 
 
 extension Color {
-    init(fromHex hex: String) {
-        self.init(DynamicColor(hexString: hex).cgColor)
-    }
+  init(fromHex hex: String) {
+    self.init(DynamicColor(hexString: hex).cgColor)
+  }
 }

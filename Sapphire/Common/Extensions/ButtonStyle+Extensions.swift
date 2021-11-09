@@ -8,28 +8,28 @@
 import SwiftUI
 
 struct RoundedRectangleButtonStyle: ButtonStyle {
-    var color: Color = Color.primary
-    
-    func makeBody(configuration: Configuration) -> some View {
-        RoundedRectangle(cornerRadius: 10)
-            .frame(height: 40)
-            .foregroundColor(color)
-            .overlay(configuration.label.foregroundColor(color == Color.primary ? .secondary : .white))
-            .scaleEffect(configuration.isPressed ? 0.99 : 1)
-    }
+  var color: Color = Color.primary
+  
+  func makeBody(configuration: Configuration) -> some View {
+    RoundedRectangle(cornerRadius: 10)
+      .frame(height: 40)
+      .foregroundColor(color)
+      .overlay(configuration.label.foregroundColor(color == Color.primary ? .secondary : .white))
+      .scaleEffect(configuration.isPressed ? 0.99 : 1)
+  }
 }
 
 struct ButtonStyle_Extensions_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        VStack {
-            Button("Tap Me") {}
-                .buttonStyle(RoundedRectangleButtonStyle())
-
-            Button("Tap Me") {}
-                .buttonStyle(RoundedRectangleButtonStyle(color: .accentColor))
-            
-        }
-        .padding()
+  static var previews: some View {
+    
+    VStack {
+      Button("Tap Me") {}
+      .buttonStyle(RoundedRectangleButtonStyle())
+      
+      Button("Tap Me") {}
+      .buttonStyle(RoundedRectangleButtonStyle(color: .accentColor))
+      
     }
+    .padding()
+  }
 }

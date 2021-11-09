@@ -9,27 +9,27 @@ import SwiftUI
 import ComposableArchitecture
 
 struct GridView: View {
-    let store: Store<Grid.State, Grid.Action>
-    
-    var body: some View {
-        WithViewStore(store) { viewStore in
-            NavigationView {
-                GridMainView(store: store)
-                GridDetailView(store: store)
-            }
-            .navigationViewStyle(DoubleColumnNavigationViewStyle())
-            .alert(store.scope(state: \.alert), dismiss: .dismissSetIconsAlert)
-            .sheet(isPresented: .constant(viewStore.inFlight)) {
-                ApplyingChangesView(store: store)
-            }
-        }
+  let store: Store<Grid.State, Grid.Action>
+  
+  var body: some View {
+    WithViewStore(store) { viewStore in
+      NavigationView {
+        GridMainView(store: store)
+        GridDetailView(store: store)
+      }
+      .navigationViewStyle(DoubleColumnNavigationViewStyle())
+      .alert(store.scope(state: \.alert), dismiss: .dismissSetIconsAlert)
+      .sheet(isPresented: .constant(viewStore.inFlight)) {
+        ApplyingChangesView(store: store)
+      }
     }
+  }
 }
 
 // MARK:- SwiftUI_Previews
 struct GridView_Previews: PreviewProvider {
-    static var previews: some View {
-        GridView(store: Grid.defaultStore)
-    }
+  static var previews: some View {
+    GridView(store: Grid.defaultStore)
+  }
 }
 
