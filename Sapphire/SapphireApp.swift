@@ -10,10 +10,10 @@ import ComposableArchitecture
 
 @main
 struct SapphireApp: App {
-    var body: some Scene {
-        WindowGroup {
-            GridView(store: GridState.defaultStore)
-        }
+  var body: some Scene {
+    WindowGroup {
+      GridView(store: GridState.defaultStore)
     }
+  }
 }
 

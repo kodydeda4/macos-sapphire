@@ -10,8 +10,7 @@ import ComposableArchitecture
 
 struct ColorSelectorView: View {
   @Binding var selection: Color
-  let colors: [Color] =
-  [.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white]
+  let colors: [Color] = [.blue, .purple, .pink, .red, .orange, .yellow, .green, .gray, .black, .white]
   
   var body: some View {
     HStack {

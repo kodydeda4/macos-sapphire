@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 import ComposableArchitecture
 import DynamicColor
+import CombineSchedulers
 
 struct GridState: Equatable {
   var macOSApplications: [MacOSApplicationState] = .allCases
@@ -50,54 +51,11 @@ enum GridAction: Equatable {
 }
 
 struct GridEnvironment {
-  let stateURL = URL.ApplicationSupport
-    .appendingPathComponent("GridState.json")
-  
-  let scriptURL = URL.ApplicationScripts
-    .appendingPathComponent("sapphire")
-  
-  /// Executes modifyIconsCommand as Effect
-  func setIcons(applications: [MacOSApplicationState], color: Color) -> Effect<GridAction, Never> {
-    let command = applications
-      .filter(\.selected)
-      .map { application in
-        let iconsur = scriptURL.appleScriptPath
-        let app = application.bundleURL.appleScriptPath
-        
-        return "\(iconsur) set \(app) -l -s 0.8 -c \(color.hex); "
-      }
-      .joined()
-      .appending("\(scriptURL.appleScriptPath) cache")
-    
-    return NSUserAppleScriptTask()
-      .execute(command)
-      .map(GridAction.setSystemApplicationsResult)
-      .receive(on: DispatchQueue.main)
-      .eraseToEffect()
-    //      .cancellable(id: GridRequestId())
-  }
-  
-  /// Executes modifyIconsCommand as Effect
-  func resetIcons(applications: [MacOSApplicationState]) -> Effect<GridAction, Never> {
-    let command = applications
-      .filter(\.selected)
-      .map { application in
-        let iconsur = scriptURL.appleScriptPath
-        let app = application.bundleURL.appleScriptPath
-        
-        return "\(iconsur) unset \(app); "
-      }
-      .joined()
-      .appending("\(scriptURL.appleScriptPath) cache")
-    
-    return NSUserAppleScriptTask()
-      .execute(command)
-      .map(GridAction.resetSystemApplicationsResult)
-      .receive(on: DispatchQueue.main)
-      .eraseToEffect()
-    //      .cancellable(id: GridRequestId())
-  }
+  let stateURL: URL = URL.ApplicationSupport.appendingPathComponent("GridState.json")
+  let client: AppIconCustomizerClient
+//  let scheduler: AnySchedulerOf<DispatchQueue>
 }
+
 
 let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
   macOSApplicationReducer.forEach(
@@ -117,17 +75,11 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       return Effect(value: .load)
       
     case .save:
-      let _ = JSONEncoder().writeState(
-        state.macOSApplications,
-        to: environment.stateURL
-      )
+      let _ = JSONEncoder().writeState(state.macOSApplications, to: environment.stateURL)
       return .none
       
     case .load:
-      switch JSONDecoder().decodeState(
-        ofType: [MacOSApplicationState].self,
-        from: environment.stateURL
-      ) {
+      switch JSONDecoder().decodeState(ofType: [MacOSApplicationState].self, from: environment.stateURL) {
       case let .success(decodedState):
         state.macOSApplications = decodedState
       case let .failure(error):
@@ -156,7 +108,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       
     case .setSystemApplications:
       state.inFlight = true
-      return environment.setIcons(applications: state.macOSApplications, color: state.selectedColor)
+      return environment.client.setIcons(state.macOSApplications, state.selectedColor)
       
     case .setSystemApplicationsResult(.success):
       state.macOSApplications = state.macOSApplications
@@ -190,15 +142,12 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       return .none
       
       // MARK:- ResetIcons
-      
     case .resetSystemApplications:
       state.inFlight = true
-      return environment.resetIcons(applications: state.macOSApplications)
+      return environment.client.resetIcons(state.macOSApplications)
       
     case .resetSystemApplicationsResult(.success):
-      state.macOSApplications = state.macOSApplications
-        .reduce(set: \.modified, to: false, where: \.selected)
-      
+      state.macOSApplications = state.macOSApplications.reduce(set: \.modified, to: false, where: \.selected)
       state.inFlight = false
       return Effect(value: .deselectAll)
       
@@ -229,18 +178,12 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       
     case .selectAllButtonTapped:
       state.macOSApplications =
-      state.macOSApplications.reduce(
-        set: \.selected,
-        to: !state.macOSApplications.allSatisfy(\.selected)
-      )
+      state.macOSApplications.reduce(set: \.selected, to: !state.macOSApplications.allSatisfy(\.selected))
       return .none
       
     case .selectAll:
       state.macOSApplications =
-      state.macOSApplications.reduce(
-        set: \.selected,
-        to: true
-      )
+      state.macOSApplications.reduce(set: \.selected, to: true)
       return .none
       
     case .deselectAll:
@@ -252,18 +195,13 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       return Effect(value: .save)
       
     case .selectModifiedButtonTapped:
-      switch state.macOSApplications.filter(\.modified).allSatisfy(\.selected)
-      && state.macOSApplications.filter(\.selected).allSatisfy(\.modified) {
+      switch state.macOSApplications.filter(\.modified).allSatisfy(\.selected) && state.macOSApplications.filter(\.selected).allSatisfy(\.modified) {
         
       case true:
         return Effect(value: .deselectAll)
         
       case false:
-        state.macOSApplications =
-        state.macOSApplications.reduce(
-          set: \.selected,
-          to: \.modified
-        )
+        state.macOSApplications = state.macOSApplications.reduce(set: \.selected, to: \.modified)
       }
       return .none
       
@@ -282,7 +220,10 @@ extension GridState {
   static let defaultStore = Store(
     initialState: .init(),
     reducer: gridReducer,
-    environment: .init()
+    environment: .init(
+      client: .live//,
+//      scheduler: .main
+    )
   )
 }
 

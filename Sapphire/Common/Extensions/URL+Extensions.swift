@@ -11,12 +11,7 @@ extension URL {
   
   /// ~/Library/Application Support/`KSWIFTSapphire`
   static var ApplicationSupport: URL {
-    let directory =
-    FileManager.default.urls(
-      for: .applicationSupportDirectory,
-         in: .userDomainMask
-    )[0]
-      .appendingPathComponent("KSWIFTSapphire", isDirectory: true)
+    let directory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("KSWIFTSapphire", isDirectory: true)
     
     if !FileManager.default.fileExists(atPath: directory.path) {
       do {
@@ -35,12 +30,9 @@ extension URL {
   
   /// ~/Library/Application Scripts/`KSWIFTSapphire`
   static var ApplicationScripts: URL {
-    try! FileManager.default.url(
-      for: .applicationScriptsDirectory,
-         in: .userDomainMask,
-         appropriateFor: nil,
-         create: true
-    )
+    let a = try! FileManager.default.url(for: .applicationScriptsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+    print(a.description)
+    return a
   }
 }
 

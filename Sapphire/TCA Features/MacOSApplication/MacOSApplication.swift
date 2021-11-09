@@ -13,7 +13,7 @@ struct MacOSApplicationState : Equatable, Identifiable, Hashable, Codable {
   var bundleURL  : URL
   let name       : String
   var iconURL    : URL
-  var colorHex      = "ffffff"
+  var colorHex   = "ffffff"
   var selected   = false
   var modified   = false
 }
@@ -46,8 +46,8 @@ extension MacOSApplicationState {
   static let defaultStore = Store(
     initialState: .init(
       bundleURL: Bundle.allBundleURLs.first!,
-      name: Bundle.getName(from: Bundle.allBundleURLs.first!),
-      iconURL: Bundle.getIcon(from: Bundle.allBundleURLs.first!)
+      name:      Bundle.getName(from: Bundle.allBundleURLs.first!),
+      iconURL:   Bundle.getIcon(from: Bundle.allBundleURLs.first!)
     ),
     reducer: macOSApplicationReducer,
     environment: ()
@@ -57,7 +57,7 @@ extension MacOSApplicationState {
 
 extension Array where Element == MacOSApplicationState {
   
-  /// Returns [MacOSApplication.State] containing all MacOSApplications.
+  /// Returns [MacOSApplicationState] containing all MacOSApplications.
   static var allCases: [MacOSApplicationState] {
     Bundle.allBundleURLs.map {
       MacOSApplicationState(

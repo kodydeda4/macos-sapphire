@@ -9,17 +9,18 @@
 /* Begin PBXBuildFile section */
 		332B84E926549CD900B7633B /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B84E826549CD900B7633B /* GridView.swift */; };
 		33335646265D4CA400252A36 /* ButtonStyle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */; };
-		3336D541265573DA0064F5D9 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 3336D540265573DA0064F5D9 /* SwiftPackageProductDependency */; };
+		3336D541265573DA0064F5D9 /* FetchImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3336D540265573DA0064F5D9 /* FetchImage */; };
 		3336D54726557D690064F5D9 /* GridMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54626557D690064F5D9 /* GridMainView.swift */; };
 		3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54826557E020064F5D9 /* GridDetailView.swift */; };
 		3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54A2655834C0064F5D9 /* Button+Extensions.swift */; };
 		339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */; };
-		33A15A80265E731A00D2D380 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 33A15A7F265E731A00D2D380 /* SwiftPackageProductDependency */; };
+		33A15A80265E731A00D2D380 /* Overture in Frameworks */ = {isa = PBXBuildFile; productRef = 33A15A7F265E731A00D2D380 /* Overture */; };
 		33A15A84265E80F400D2D380 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A15A83265E80F400D2D380 /* Array+Extensions.swift */; };
 		33A6BDC1265DA5E800C13231 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A6BDC0265DA5E800C13231 /* URL+Extensions.swift */; };
+		33B28CE9273ABC0A00ABE9D3 /* IconsurClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B28CE8273ABC0A00ABE9D3 /* IconsurClient.swift */; };
 		33BEC3192655AA4F0066851E /* NSUserAppleScriptTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC3182655AA4F0066851E /* NSUserAppleScriptTask+Extensions.swift */; };
 		33BEC31B2655AA830066851E /* ApplyingChangesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC31A2655AA830066851E /* ApplyingChangesView.swift */; };
-		33C25BF6265EBF200016C813 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 33C25BF5265EBF200016C813 /* SwiftPackageProductDependency */; };
+		33C25BF6265EBF200016C813 /* DynamicColor in Frameworks */ = {isa = PBXBuildFile; productRef = 33C25BF5265EBF200016C813 /* DynamicColor */; };
 		33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C25BF7265EBFF40016C813 /* ColorSelectorView.swift */; };
 		33C77B76265FD783006BFA4D /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B75265FD783006BFA4D /* Color+Extensions.swift */; };
 		33C77B85266009E5006BFA4D /* GridSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B84266009E5006BFA4D /* GridSelectionView.swift */; };
@@ -29,7 +30,7 @@
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
 		33E7FDE82656A412002DD5B8 /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E7FDE72656A412002DD5B8 /* JSONDecoder+Extensions.swift */; };
 		33E7FDEA2656B8E4002DD5B8 /* FetchImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E7FDE92656B8E4002DD5B8 /* FetchImageView.swift */; };
-		B7453A362594E99900F8BE5A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = B7453A352594E99900F8BE5A /* SwiftPackageProductDependency */; };
+		B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = B7453A352594E99900F8BE5A /* ComposableArchitecture */; };
 		B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D94D2594E9FB000FDB10 /* Grid.swift */; };
 		B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationView.swift; sourceTree = "<group>"; };
 		33A15A83265E80F400D2D380 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		33A6BDC0265DA5E800C13231 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
+		33B28CE8273ABC0A00ABE9D3 /* IconsurClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsurClient.swift; sourceTree = "<group>"; };
 		33BEC3182655AA4F0066851E /* NSUserAppleScriptTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserAppleScriptTask+Extensions.swift"; sourceTree = "<group>"; };
 		33BEC31A2655AA830066851E /* ApplyingChangesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyingChangesView.swift; sourceTree = "<group>"; };
 		33C25BF7265EBFF40016C813 /* ColorSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectorView.swift; sourceTree = "<group>"; };
@@ -66,10 +68,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33C25BF6265EBF200016C813 /* BuildFile in Frameworks */,
-				3336D541265573DA0064F5D9 /* BuildFile in Frameworks */,
-				B7453A362594E99900F8BE5A /* BuildFile in Frameworks */,
-				33A15A80265E731A00D2D380 /* BuildFile in Frameworks */,
+				33C25BF6265EBF200016C813 /* DynamicColor in Frameworks */,
+				3336D541265573DA0064F5D9 /* FetchImage in Frameworks */,
+				B7453A362594E99900F8BE5A /* ComposableArchitecture in Frameworks */,
+				33A15A80265E731A00D2D380 /* Overture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,17 +83,8 @@
 			children = (
 				33E7FDED2656BFF8002DD5B8 /* Grid */,
 				3336D53C26556EE60064F5D9 /* MacOSApplication */,
-				33335644265D4A9500252A36 /* Sheet */,
 			);
 			path = "TCA Features";
-			sourceTree = "<group>";
-		};
-		33335644265D4A9500252A36 /* Sheet */ = {
-			isa = PBXGroup;
-			children = (
-				33BEC31A2655AA830066851E /* ApplyingChangesView.swift */,
-			);
-			path = Sheet;
 			sourceTree = "<group>";
 		};
 		3336D53C26556EE60064F5D9 /* MacOSApplication */ = {
@@ -116,6 +109,34 @@
 				33C77B75265FD783006BFA4D /* Color+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		33B28CE4273ABBE200ABE9D3 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				33B28CE7273ABBF500ABE9D3 /* IconsurClient */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		33B28CE7273ABBF500ABE9D3 /* IconsurClient */ = {
+			isa = PBXGroup;
+			children = (
+				33B28CE8273ABC0A00ABE9D3 /* IconsurClient.swift */,
+			);
+			path = IconsurClient;
+			sourceTree = "<group>";
+		};
+		33B28CED273ABCB100ABE9D3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				332B84E826549CD900B7633B /* GridView.swift */,
+				3336D54626557D690064F5D9 /* GridMainView.swift */,
+				3336D54826557E020064F5D9 /* GridDetailView.swift */,
+				33C77B84266009E5006BFA4D /* GridSelectionView.swift */,
+				33BEC31A2655AA830066851E /* ApplyingChangesView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		33C25BF3265EB0E00016C813 /* Views */ = {
@@ -147,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				33E1B17B2589600000A1FDC1 /* SapphireApp.swift */,
+				33B28CE4273ABBE200ABE9D3 /* Clients */,
 				332B84E6265496B000B7633B /* TCA Features */,
 				B757D9CF2594ED42000FDB10 /* Common */,
 				33E1B17F2589600100A1FDC1 /* Assets.xcassets */,
@@ -169,10 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				B757D94D2594E9FB000FDB10 /* Grid.swift */,
-				332B84E826549CD900B7633B /* GridView.swift */,
-				3336D54626557D690064F5D9 /* GridMainView.swift */,
-				3336D54826557E020064F5D9 /* GridDetailView.swift */,
-				33C77B84266009E5006BFA4D /* GridSelectionView.swift */,
+				33B28CED273ABCB100ABE9D3 /* Views */,
 			);
 			path = Grid;
 			sourceTree = "<group>";
@@ -203,10 +222,10 @@
 			);
 			name = Sapphire;
 			packageProductDependencies = (
-				B7453A352594E99900F8BE5A /* SwiftPackageProductDependency */,
-				3336D540265573DA0064F5D9 /* SwiftPackageProductDependency */,
-				33A15A7F265E731A00D2D380 /* SwiftPackageProductDependency */,
-				33C25BF5265EBF200016C813 /* SwiftPackageProductDependency */,
+				B7453A352594E99900F8BE5A /* ComposableArchitecture */,
+				3336D540265573DA0064F5D9 /* FetchImage */,
+				33A15A7F265E731A00D2D380 /* Overture */,
+				33C25BF5265EBF200016C813 /* DynamicColor */,
 			);
 			productName = AdaptiveIcons;
 			productReference = 33E1B1782589600000A1FDC1 /* Sapphire.app */;
@@ -236,10 +255,10 @@
 			);
 			mainGroup = 33E1B16F2589600000A1FDC1;
 			packageReferences = (
-				B7453A342594E99900F8BE5A /* RemoteSwiftPackageReference */,
-				3336D53F265573DA0064F5D9 /* RemoteSwiftPackageReference */,
-				33A15A7E265E731A00D2D380 /* RemoteSwiftPackageReference */,
-				33C25BF4265EBF200016C813 /* RemoteSwiftPackageReference */,
+				B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				3336D53F265573DA0064F5D9 /* XCRemoteSwiftPackageReference "FetchImage" */,
+				33A15A7E265E731A00D2D380 /* XCRemoteSwiftPackageReference "swift-overture" */,
+				33C25BF4265EBF200016C813 /* XCRemoteSwiftPackageReference "DynamicColor" */,
 			);
 			productRefGroup = 33E1B1792589600000A1FDC1 /* Products */;
 			projectDirPath = "";
@@ -277,6 +296,7 @@
 				B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */,
 				33C77B85266009E5006BFA4D /* GridSelectionView.swift in Sources */,
 				33A15A84265E80F400D2D380 /* Array+Extensions.swift in Sources */,
+				33B28CE9273ABC0A00ABE9D3 /* IconsurClient.swift in Sources */,
 				33BEC31B2655AA830066851E /* ApplyingChangesView.swift in Sources */,
 				33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */,
@@ -479,7 +499,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3336D53F265573DA0064F5D9 /* RemoteSwiftPackageReference */ = {
+		3336D53F265573DA0064F5D9 /* XCRemoteSwiftPackageReference "FetchImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/FetchImage";
 			requirement = {
@@ -487,7 +507,7 @@
 				minimumVersion = 0.4.1;
 			};
 		};
-		33A15A7E265E731A00D2D380 /* RemoteSwiftPackageReference */ = {
+		33A15A7E265E731A00D2D380 /* XCRemoteSwiftPackageReference "swift-overture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-overture";
 			requirement = {
@@ -495,7 +515,7 @@
 				minimumVersion = 0.5.0;
 			};
 		};
-		33C25BF4265EBF200016C813 /* RemoteSwiftPackageReference */ = {
+		33C25BF4265EBF200016C813 /* XCRemoteSwiftPackageReference "DynamicColor" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yannickl/DynamicColor";
 			requirement = {
@@ -503,7 +523,7 @@
 				minimumVersion = 5.0.1;
 			};
 		};
-		B7453A342594E99900F8BE5A /* RemoteSwiftPackageReference */ = {
+		B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
 			requirement = {
@@ -514,24 +534,24 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3336D540265573DA0064F5D9 /* SwiftPackageProductDependency */ = {
+		3336D540265573DA0064F5D9 /* FetchImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3336D53F265573DA0064F5D9 /* RemoteSwiftPackageReference */;
+			package = 3336D53F265573DA0064F5D9 /* XCRemoteSwiftPackageReference "FetchImage" */;
 			productName = FetchImage;
 		};
-		33A15A7F265E731A00D2D380 /* SwiftPackageProductDependency */ = {
+		33A15A7F265E731A00D2D380 /* Overture */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 33A15A7E265E731A00D2D380 /* RemoteSwiftPackageReference */;
+			package = 33A15A7E265E731A00D2D380 /* XCRemoteSwiftPackageReference "swift-overture" */;
 			productName = Overture;
 		};
-		33C25BF5265EBF200016C813 /* SwiftPackageProductDependency */ = {
+		33C25BF5265EBF200016C813 /* DynamicColor */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 33C25BF4265EBF200016C813 /* RemoteSwiftPackageReference */;
+			package = 33C25BF4265EBF200016C813 /* XCRemoteSwiftPackageReference "DynamicColor" */;
 			productName = DynamicColor;
 		};
-		B7453A352594E99900F8BE5A /* SwiftPackageProductDependency */ = {
+		B7453A352594E99900F8BE5A /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B7453A342594E99900F8BE5A /* RemoteSwiftPackageReference */;
+			package = B7453A342594E99900F8BE5A /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
