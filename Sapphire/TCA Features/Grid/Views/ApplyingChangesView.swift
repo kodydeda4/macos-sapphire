@@ -30,7 +30,7 @@ struct ApplyingChangesView: View {
         .animation(Animation.easeInOut(duration: 1.25).repeatForever(), value: opacity)
         
         Button("Cancel") {
-          viewStore.send(.cancelSetSystemApplications)
+//          viewStore.send(.cancelSetSystemApplications)
         }
       }
       .padding(30)

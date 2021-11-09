@@ -15,30 +15,22 @@ struct GridMainView: View {
     WithViewStore(store) { viewStore in
       ScrollView {
         LazyVGrid(columns: [GridItem](repeating: .init(.fixed(90)), count: 6)) {
-          ForEachStore(
-            store.scope(state: \.macOSApplications, action: GridAction.macOSApplication(id:action:)),
-            content: MacOSApplicationView.init
-          )
+          ForEachStore(store.scope(
+            state: \.macOSApplications,
+            action: GridAction.macOSApplication(id:action:)
+          ), content: MacOSApplicationView.init)
         }
         .frame(width: 600)
         .padding()
       }
       .onAppear { viewStore.send(.onAppear) }
       .toolbar {
-        ToolbarItem {
-          Spacer()
+        Spacer()
+        Button("Select Modified") {
+          viewStore.send(.selectModifiedButtonTapped)
         }
-        ToolbarItem {
-          Button("Select Modified") {
-            viewStore.send(.selectModifiedButtonTapped)
-          }
-          .help("Select All")
-        }
-        ToolbarItem {
-          Button("Select All") {
-            viewStore.send(.selectAllButtonTapped)
-          }
-          .help("Select All")
+        Button("Select All") {
+          viewStore.send(.selectAllButtonTapped)
         }
       }
     }

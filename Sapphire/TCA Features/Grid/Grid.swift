@@ -22,20 +22,19 @@ struct GridState: Equatable {
 enum GridAction: Equatable {
   
   // Root
+  case macOSApplication(id: MacOSApplicationState.ID, action: MacOSApplicationAction)
+  
+  // macOSApplication
   case onAppear
   case getSystemIcons
+  case didGetSystemIcons(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
+
+  // Grid
   case saveGridState
   case loadGridState
-  
-  
-  case didGetSystemIcons(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
   case didSaveGridState(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
   case didLoadGridState(Result<Bool, AppError>)
   
-  // macOSApplication
-  case macOSApplication(id: MacOSApplicationState.ID, action: MacOSApplicationAction)
-  
-  // Grid
   case selectAllButtonTapped
   case selectModifiedButtonTapped
   case selectAll
@@ -45,14 +44,12 @@ enum GridAction: Equatable {
   // Set Icons
   case setSystemApplications
   case setSystemApplicationsResult(Result<Bool, NSUserAppleScriptTaskError>)
-  case cancelSetSystemApplications
   case createSetIconsAlert
   case dismissSetIconsAlert
   
   // Reset Icons
   case resetSystemApplications
   case resetSystemApplicationsResult(Result<Bool, NSUserAppleScriptTaskError>)
-  case cancelResetSystemApplications
   case createResetIconsAlert
   case dismissResetIconsAlert
 }
@@ -150,9 +147,9 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       state.inFlight = false
       return Effect(value: .deselectAll)
       
-    case .cancelSetSystemApplications:
-      state.inFlight = false
-      return .cancel(id: GridRequestId())
+//    case .cancelSetSystemApplications:
+//      state.inFlight = false
+//      return .cancel(id: GridRequestId())
       
     case .createSetIconsAlert:
       state.alert = AlertState(
@@ -181,9 +178,9 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       state.inFlight = false
       return Effect(value: .deselectAll)
       
-    case .cancelResetSystemApplications:
-      state.inFlight = false
-      return .cancel(id: GridRequestId())
+//    case .cancelResetSystemApplications:
+//      state.inFlight = false
+//      return .cancel(id: GridRequestId())
       
     case .createResetIconsAlert:
       state.alert = .init(
