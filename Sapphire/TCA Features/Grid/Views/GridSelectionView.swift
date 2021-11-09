@@ -17,7 +17,7 @@ struct GridSelectionView: View {
         LazyVGrid(columns: [GridItem](repeating: .init(.fixed(100)), count: 3)) {
           ForEachStore(store.scope(
             state: { $0.macOSApplications.filter(\.selected) },
-            action: GridAction.macOSApplication(index:action:)
+            action: GridAction.macOSApplication(id:action:)
           )) { childStore in
             
             WithViewStore(childStore) { childViewStore in

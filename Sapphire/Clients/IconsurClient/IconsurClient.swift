@@ -8,12 +8,12 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct AppIconCustomizerClient {
-  let setIcons:   (_ applications: [MacOSApplicationState], _ color: Color) -> Effect<GridAction, Never>
-  let resetIcons: ([MacOSApplicationState])                                 -> Effect<GridAction, Never>
+struct IconsurClient {
+  let setIcons:   (_ applications: IdentifiedArrayOf<MacOSApplicationState>, _ color: Color) -> Effect<GridAction, Never>
+  let resetIcons: (IdentifiedArrayOf<MacOSApplicationState>)                                 -> Effect<GridAction, Never>
 }
 
-extension AppIconCustomizerClient {
+extension IconsurClient {
   static var live: Self {
     let scriptURL: URL = URL.ApplicationScripts.appendingPathComponent("sapphire")
     

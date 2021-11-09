@@ -12,7 +12,7 @@ import DynamicColor
 import CombineSchedulers
 
 struct GridState: Equatable {
-  var macOSApplications: [MacOSApplicationState] = .allCases
+  var macOSApplications: IdentifiedArrayOf<MacOSApplicationState> = IdentifiedArray(uniqueElements: [MacOSApplicationState].allCases)
   var alert: AlertState<GridAction>?
   var inFlight = false
   var selectedColor = Color.white
@@ -26,7 +26,7 @@ enum GridAction: Equatable {
   case load
   
   // macOSApplication
-  case macOSApplication(index: Int, action: MacOSApplicationAction)
+  case macOSApplication(id: MacOSApplicationState.ID, action: MacOSApplicationAction)
   
   // Grid
   case selectAllButtonTapped
@@ -52,7 +52,7 @@ enum GridAction: Equatable {
 
 struct GridEnvironment {
   let stateURL: URL = URL.ApplicationSupport.appendingPathComponent("GridState.json")
-  let client: AppIconCustomizerClient
+  let client: IconsurClient
   let scheduler: AnySchedulerOf<DispatchQueue>
 }
 
@@ -60,7 +60,7 @@ struct GridEnvironment {
 let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
   macOSApplicationReducer.forEach(
     state: \.macOSApplications,
-    action: /GridAction.macOSApplication(index:action:),
+    action: /GridAction.macOSApplication(id:action:),
     environment: { _ in () }
   ),
   Reducer { state, action, environment in
@@ -77,7 +77,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       return .none
       
     case .load:
-      switch JSONDecoder().decodeState(ofType: [MacOSApplicationState].self, from: environment.stateURL) {
+      switch JSONDecoder().decodeState(ofType: IdentifiedArrayOf<MacOSApplicationState>.self, from: environment.stateURL) {
         
       case let .success(decodedState):
         state.macOSApplications = decodedState
@@ -89,11 +89,11 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       return .none
       
     // MARK: - macOSApplication
-    case let .macOSApplication(index, action):
+    case let .macOSApplication(id, action):
       switch action {
         
       case .toggleSelected:
-        state.macOSApplications[index].selected.toggle()
+        state.macOSApplications[id: id]!.selected.toggle()
         return .none
         
       case .modifyIconButtonTapped:
@@ -110,10 +110,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       return environment.client.setIcons(state.macOSApplications, state.selectedColor)
       
     case .setSystemApplicationsResult(.success):
-      state.macOSApplications = state.macOSApplications
-        .reduce(set: \.modified, to: true, where: \.selected)
-        .reduce(set: \.colorHex, to: state.selectedColor.hex, where: \.selected)
-      
+      state.macOSApplications = state.macOSApplications.reduce(set: \.modified, to: true, where: \.selected).reduce(set: \.colorHex, to: state.selectedColor.hex, where: \.selected)
       state.inFlight = false
       return Effect(value: .deselectAll)
       
@@ -175,16 +172,11 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       return .none
       
     case .selectAll:
-      state.macOSApplications =
-      state.macOSApplications.reduce(set: \.selected, to: true)
+      state.macOSApplications = state.macOSApplications.reduce(set: \.selected, to: true)
       return .none
       
     case .deselectAll:
-      state.macOSApplications =
-      state.macOSApplications.reduce(
-        set: \.selected,
-        to: false
-      )
+      state.macOSApplications = state.macOSApplications.reduce(set: \.selected, to: false)
       return Effect(value: .save)
       
     case .selectModifiedButtonTapped:

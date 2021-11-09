@@ -15,10 +15,10 @@ struct GridMainView: View {
     WithViewStore(store) { viewStore in
       ScrollView {
         LazyVGrid(columns: [GridItem](repeating: .init(.fixed(90)), count: 6)) {
-          ForEachStore(store.scope(
-            state: \.macOSApplications,
-            action: GridAction.macOSApplication(index:action:)
-          ), content: MacOSApplicationView.init)
+          ForEachStore(
+            store.scope(state: \.macOSApplications, action: GridAction.macOSApplication(id:action:)),
+            content: MacOSApplicationView.init
+          )
         }
         .frame(width: 600)
         .padding()
