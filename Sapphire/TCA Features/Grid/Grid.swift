@@ -20,7 +20,7 @@ struct AppError: Equatable, Error {
 }
 
 struct GridState: Equatable {
-  var macOSApplications: IdentifiedArrayOf<MacOSApplicationState> = IdentifiedArray(uniqueElements: [MacOSApplicationState].allCases)
+  var macOSApplications: IdentifiedArrayOf<MacOSApplicationState> = []
   var alert: AlertState<GridAction>?
   var inFlight = false
   var selectedColor = Color.white
@@ -32,6 +32,8 @@ enum GridAction: Equatable {
   case onAppear
   case save
   case load
+  case getIcons
+  case didGetIcons(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
   case didRead(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
   case didWrite(Result<Bool, AppError>)
   
@@ -80,7 +82,23 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       
       // MARK: - Root
     case .onAppear:
+      return Effect(value: .getIcons)
+//      return Effect(value: .load)
+      
+    case .getIcons:
+      return environment.iconsurClient.getIcons()
+        .mapError(AppError.init)
+        .receive(on: environment.scheduler)
+        .catchToEffect()
+        .map(GridAction.didGetIcons)
+
+    case let .didGetIcons(.success(icons)):
+      state.macOSApplications = icons
       return Effect(value: .load)
+
+    case let .didGetIcons(.failure(error)):
+      print(error.localizedDescription)
+      return .none
       
     case .save:
       return environment.localDataClient.write(state.macOSApplications)

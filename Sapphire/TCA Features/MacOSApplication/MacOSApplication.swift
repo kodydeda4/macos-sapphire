@@ -55,17 +55,3 @@ extension MacOSApplicationState {
 }
 
 
-extension Array where Element == MacOSApplicationState {
-  
-  /// Returns [MacOSApplicationState] containing all MacOSApplications.
-  static var allCases: [MacOSApplicationState] {
-    Bundle.allBundleURLs.map {
-      MacOSApplicationState(
-        bundleURL: $0,
-        name: Bundle.getName(from: $0),
-        iconURL: Bundle.getIcon(from: $0)
-      )
-    }
-    .sorted(by: { $0.name < $1.name })
-  }
-}
