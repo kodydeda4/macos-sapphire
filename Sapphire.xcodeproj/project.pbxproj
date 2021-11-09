@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3303474F273AC91400791DD3 /* LocalDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3303474E273AC91400791DD3 /* LocalDataClient.swift */; };
 		332B84E926549CD900B7633B /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B84E826549CD900B7633B /* GridView.swift */; };
 		33335646265D4CA400252A36 /* ButtonStyle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */; };
 		3336D541265573DA0064F5D9 /* FetchImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3336D540265573DA0064F5D9 /* FetchImage */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3303474E273AC91400791DD3 /* LocalDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataClient.swift; sourceTree = "<group>"; };
 		332B84E826549CD900B7633B /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonStyle+Extensions.swift"; sourceTree = "<group>"; };
 		3336D54626557D690064F5D9 /* GridMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridMainView.swift; sourceTree = "<group>"; };
@@ -78,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3303474D273AC90800791DD3 /* LocalDataClient */ = {
+			isa = PBXGroup;
+			children = (
+				3303474E273AC91400791DD3 /* LocalDataClient.swift */,
+			);
+			path = LocalDataClient;
+			sourceTree = "<group>";
+		};
 		332B84E6265496B000B7633B /* TCA Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +124,7 @@
 		33B28CE4273ABBE200ABE9D3 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				3303474D273AC90800791DD3 /* LocalDataClient */,
 				33B28CE7273ABBF500ABE9D3 /* IconsurClient */,
 			);
 			path = Clients;
@@ -288,6 +299,7 @@
 			files = (
 				33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */,
 				33E7FDE82656A412002DD5B8 /* JSONDecoder+Extensions.swift in Sources */,
+				3303474F273AC91400791DD3 /* LocalDataClient.swift in Sources */,
 				3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */,
 				33BEC3192655AA4F0066851E /* NSUserAppleScriptTask+Extensions.swift in Sources */,
 				339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */,

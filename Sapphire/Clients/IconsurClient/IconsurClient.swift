@@ -58,3 +58,12 @@ extension IconsurClient {
     )
   }
 }
+
+
+private extension URL {
+  
+  /// Returns path formatted for Applescript.
+  var appleScriptPath: String {
+    "\\\"\(self.path)\\\""
+  }
+}

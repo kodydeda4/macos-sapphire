@@ -29,17 +29,5 @@ extension URL {
   }
   
   /// ~/Library/Application Scripts/`KSWIFTSapphire`
-  static var ApplicationScripts: URL {
-    let a = try! FileManager.default.url(for: .applicationScriptsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-    print(a.description)
-    return a
-  }
-}
-
-extension URL {
-  
-  /// Returns path formatted for Applescript.
-  var appleScriptPath: String {
-    "\\\"\(self.path)\\\""
-  }
+  static let ApplicationScripts: URL = try! FileManager.default.url(for: .applicationScriptsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 }

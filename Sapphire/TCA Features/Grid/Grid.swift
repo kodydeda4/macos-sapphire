@@ -10,6 +10,14 @@ import Combine
 import ComposableArchitecture
 import DynamicColor
 import CombineSchedulers
+import IdentifiedCollections
+
+struct AppError: Equatable, Error {
+  let rawValue: String
+  init(_ error: Error) {
+    self.rawValue = error.localizedDescription
+  }
+}
 
 struct GridState: Equatable {
   var macOSApplications: IdentifiedArrayOf<MacOSApplicationState> = IdentifiedArray(uniqueElements: [MacOSApplicationState].allCases)
@@ -24,6 +32,8 @@ enum GridAction: Equatable {
   case onAppear
   case save
   case load
+  case didRead(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
+  case didWrite(Result<Bool, AppError>)
   
   // macOSApplication
   case macOSApplication(id: MacOSApplicationState.ID, action: MacOSApplicationAction)
@@ -51,42 +61,10 @@ enum GridAction: Equatable {
 }
 
 struct GridEnvironment {
-  let localDataClient = LocalDataClient()
+  let localDataClient: LocalDataClient<IdentifiedArrayOf<MacOSApplicationState>>
   let iconsurClient: IconsurClient
   let scheduler: AnySchedulerOf<DispatchQueue>
 }
-
-
-struct LocalDataClient {
-  let stateURL: URL = URL.ApplicationSupport.appendingPathComponent("GridState.json")
-  
-  /// Decode a `Codable` struct from a url.
-  func decodeState<State>(ofType type: State.Type) -> Result<State, Error> where State: Codable {
-    do {
-      let decoded = try JSONDecoder().decode(type.self, from: Data(contentsOf: stateURL))
-      return .success(decoded)
-    }
-    catch {
-      return .failure(error)
-    }
-  }
-  func writeState<State>(_ state: State) -> Result<Bool, Error> where State: Codable {
-    do {
-      try JSONEncoder().encode(state).write(to: stateURL)
-      return .success(true)
-    } catch {
-      return .failure(error)
-    }
-  }
-}
-
-
-
-
-
-
-
-
 
 
 let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
@@ -100,27 +78,37 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
     
     switch action {
       
-    // MARK: - Root
+      // MARK: - Root
     case .onAppear:
       return Effect(value: .load)
       
     case .save:
-      let _ = environment.localDataClient.writeState(state.macOSApplications)
-      return .none
+      return environment.localDataClient.write(state.macOSApplications)
+        .mapError(AppError.init)
+        .receive(on: environment.scheduler)
+        .catchToEffect()
+        .map(GridAction.didWrite)
       
     case .load:
-      switch environment.localDataClient.decodeState(ofType: IdentifiedArrayOf<MacOSApplicationState>.self) {
-        
-      case let .success(decodedState):
-        state.macOSApplications = decodedState
-        
-      case let .failure(error):
-        print(error.localizedDescription)
-        
-      }
+      return environment.localDataClient.read()
+        .mapError(AppError.init)
+        .receive(on: environment.scheduler)
+        .catchToEffect()
+        .map(GridAction.didRead)
+      
+    case let .didRead(.success(items)):
+      state.macOSApplications = items
       return .none
       
-    // MARK: - macOSApplication
+    case let .didRead(.failure(error)):
+      print(error.localizedDescription)
+      return .none
+      
+    case .didWrite:
+      return .none
+
+      
+      // MARK: - macOSApplication
     case let .macOSApplication(id, action):
       switch action {
         
@@ -136,7 +124,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       }
       return Effect(value: .save)
       
-    // MARK: - Set
+      // MARK: - Set
     case .setSystemApplications:
       state.inFlight = true
       return environment.iconsurClient.setIcons(state.macOSApplications, state.selectedColor)
@@ -167,7 +155,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       state.alert = nil
       return .none
       
-    // MARK: - Reset
+      // MARK: - Reset
     case .resetSystemApplications:
       state.inFlight = true
       return environment.iconsurClient.resetIcons(state.macOSApplications)
@@ -198,7 +186,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       state.alert = nil
       return .none
       
-    // MARK: - Select
+      // MARK: - Select
     case .selectAllButtonTapped:
       state.macOSApplications = state.macOSApplications.reduce(set: \.selected, to: !state.macOSApplications.allSatisfy(\.selected))
       return .none
@@ -222,14 +210,14 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       }
       return .none
       
-    // MARK: - Color
+      // MARK: - Color
     case let .updateSelectedColor(color):
       state.selectedColor = color
       
       return .none
     }
   }
-  .debug()
+    .debug()
 )
 
 extension GridState {
@@ -237,6 +225,7 @@ extension GridState {
     initialState: .init(),
     reducer: gridReducer,
     environment: .init(
+      localDataClient: .live(url: URL.ApplicationSupport.appendingPathComponent("GridState.json")),
       iconsurClient: .live,
       scheduler: .main
     )
