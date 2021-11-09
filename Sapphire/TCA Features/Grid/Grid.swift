@@ -12,13 +12,6 @@ import DynamicColor
 import CombineSchedulers
 import IdentifiedCollections
 
-struct AppError: Equatable, Error {
-  let rawValue: String
-  init(_ error: Error) {
-    self.rawValue = error.localizedDescription
-  }
-}
-
 struct GridState: Equatable {
   var macOSApplications: IdentifiedArrayOf<MacOSApplicationState> = []
   var alert: AlertState<GridAction>?
@@ -30,12 +23,14 @@ enum GridAction: Equatable {
   
   // Root
   case onAppear
-  case save
-  case load
-  case getIcons
-  case didGetIcons(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
-  case didRead(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
-  case didWrite(Result<Bool, AppError>)
+  case getSystemIcons
+  case saveGridState
+  case loadGridState
+  
+  
+  case didGetSystemIcons(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
+  case didSaveGridState(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
+  case didLoadGridState(Result<Bool, AppError>)
   
   // macOSApplication
   case macOSApplication(id: MacOSApplicationState.ID, action: MacOSApplicationAction)
@@ -82,47 +77,46 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       
       // MARK: - Root
     case .onAppear:
-      return Effect(value: .getIcons)
-//      return Effect(value: .load)
+      return Effect(value: .getSystemIcons)
       
-    case .getIcons:
+    case .getSystemIcons:
       return environment.iconsurClient.getIcons()
         .mapError(AppError.init)
         .receive(on: environment.scheduler)
         .catchToEffect()
-        .map(GridAction.didGetIcons)
+        .map(GridAction.didGetSystemIcons)
 
-    case let .didGetIcons(.success(icons)):
+    case let .didGetSystemIcons(.success(icons)):
       state.macOSApplications = icons
-      return Effect(value: .load)
+      return Effect(value: .loadGridState)
 
-    case let .didGetIcons(.failure(error)):
+    case let .didGetSystemIcons(.failure(error)):
       print(error.localizedDescription)
       return .none
       
-    case .save:
-      return environment.localDataClient.write(state.macOSApplications)
+    case .saveGridState:
+      return environment.localDataClient.save(state.macOSApplications)
         .mapError(AppError.init)
         .receive(on: environment.scheduler)
         .catchToEffect()
-        .map(GridAction.didWrite)
+        .map(GridAction.didLoadGridState)
       
-    case .load:
-      return environment.localDataClient.read()
+    case .loadGridState:
+      return environment.localDataClient.load()
         .mapError(AppError.init)
         .receive(on: environment.scheduler)
         .catchToEffect()
-        .map(GridAction.didRead)
+        .map(GridAction.didSaveGridState)
       
-    case let .didRead(.success(items)):
+    case let .didSaveGridState(.success(items)):
       state.macOSApplications = items
       return .none
       
-    case let .didRead(.failure(error)):
+    case let .didSaveGridState(.failure(error)):
       print(error.localizedDescription)
       return .none
       
-    case .didWrite:
+    case .didLoadGridState:
       return .none
 
       
@@ -140,7 +134,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       default:
         break
       }
-      return Effect(value: .save)
+      return Effect(value: .saveGridState)
       
       // MARK: - Set
     case .setSystemApplications:
@@ -215,7 +209,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       
     case .deselectAll:
       state.macOSApplications = state.macOSApplications.reduce(set: \.selected, to: false)
-      return Effect(value: .save)
+      return Effect(value: .saveGridState)
       
     case .selectModifiedButtonTapped:
       switch state.macOSApplications.filter(\.modified).allSatisfy(\.selected) && state.macOSApplications.filter(\.selected).allSatisfy(\.modified) {

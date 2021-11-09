@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3303474F273AC91400791DD3 /* LocalDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3303474E273AC91400791DD3 /* LocalDataClient.swift */; };
+		33034751273ACEDD00791DD3 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33034750273ACEDD00791DD3 /* AppError.swift */; };
 		332B84E926549CD900B7633B /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B84E826549CD900B7633B /* GridView.swift */; };
 		33335646265D4CA400252A36 /* ButtonStyle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */; };
 		3336D541265573DA0064F5D9 /* FetchImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3336D540265573DA0064F5D9 /* FetchImage */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		3303474E273AC91400791DD3 /* LocalDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataClient.swift; sourceTree = "<group>"; };
+		33034750273ACEDD00791DD3 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		332B84E826549CD900B7633B /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonStyle+Extensions.swift"; sourceTree = "<group>"; };
 		3336D54626557D690064F5D9 /* GridMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridMainView.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 		B757D9CF2594ED42000FDB10 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				33034750273ACEDD00791DD3 /* AppError.swift */,
 				33C25BF3265EB0E00016C813 /* Views */,
 				3336D545265578250064F5D9 /* Extensions */,
 			);
@@ -305,6 +308,7 @@
 				339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */,
 				332B84E926549CD900B7633B /* GridView.swift in Sources */,
 				3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */,
+				33034751273ACEDD00791DD3 /* AppError.swift in Sources */,
 				B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */,
 				33C77B85266009E5006BFA4D /* GridSelectionView.swift in Sources */,
 				33A15A84265E80F400D2D380 /* Array+Extensions.swift in Sources */,
