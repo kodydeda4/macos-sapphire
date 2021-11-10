@@ -46,9 +46,9 @@ extension IconsurClient {
         
         return NSUserAppleScriptTask()
           .execute(command)
-          .map(GridAction.didSetSystemApplications)
-          .receive(on: DispatchQueue.main)
-          .eraseToEffect()
+          .map(GridAction.didSetSystemApplications) // <-- wot 0
+          .receive(on: DispatchQueue.main)          // <-- wot 1
+          .eraseToEffect()                          // <-- wot 2
         
       },
       resetIcons: { applications in
@@ -82,28 +82,20 @@ private extension NSUserAppleScriptTask {
   /// Writes command to ~/ApplicationScripts/`AppName`/Applescript.osa file & executes it
   func execute(_ command: String) -> AnyPublisher<Result<Bool, AppError>, Never> {
     let rv = PassthroughSubject<Result<Bool, AppError>, Never>()
-    let command = "do shell script \"\(command)\" with administrator privileges"
     
-    var url: URL {
-      try! FileManager.default.url(
-        for: .applicationScriptsDirectory,
-           in: .userDomainMask,
-           appropriateFor: nil,
-           create: true
-      )
-        .appendingPathComponent("AppleScript")
-        .appendingPathExtension(for: .osaScript)
-    }
+    let url = try! FileManager.default.url(for: .applicationScriptsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+      .appendingPathComponent("AppleScript")
+      .appendingPathExtension(for: .osaScript)
+    
     
     do {
-      try command.write(to: url, atomically: true, encoding: .utf8)
+      try "do shell script \"\(command)\" with administrator privileges".write(to: url, atomically: true, encoding: .utf8)
       try NSUserAppleScriptTask(url: url).execute(completionHandler: { error in
         guard error != nil
         else {
           rv.send(.success(true))
           return
         }
-        //        rv.send(.failure(.init(error)))
       })
     }
     catch {
@@ -113,6 +105,36 @@ private extension NSUserAppleScriptTask {
     return rv.eraseToAnyPublisher()
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // MARK: - Bundle+Extensions
