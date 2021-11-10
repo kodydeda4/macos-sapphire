@@ -22,15 +22,8 @@ struct GridDetailView: View {
           GroupBox {
             GridSelectionView(store: store)
           }
-          
           GroupBox {
-            ColorSelectorView(
-              selection: viewStore.binding(
-                get: \.selectedColor,
-                send: GridAction.updateSelectedColor
-              )
-            )
-              .frame(maxWidth: .infinity)
+            ColorSelectorView(selection: viewStore.binding(\.$selectedColor))
           }
           .padding(.vertical)
         }

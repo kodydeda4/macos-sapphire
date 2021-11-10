@@ -30,6 +30,7 @@ struct ColorSelectorView: View {
       }
     }
     .padding()
+    .frame(maxWidth: .infinity)
   }
 }
 

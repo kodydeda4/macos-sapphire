@@ -6,21 +6,19 @@
 //
 
 import SwiftUI
-import Combine
 import ComposableArchitecture
 import DynamicColor
-import CombineSchedulers
-import IdentifiedCollections
 
 struct GridState: Equatable {
   var macOSApplications: IdentifiedArrayOf<MacOSApplicationState> = []
   var alert: AlertState<GridAction>?
   var inFlight = false
-  var selectedColor = Color.white
+  @BindableState var selectedColor = Color.white
 }
 
-enum GridAction: Equatable {
-  case updateSelectedColor(Color)
+enum GridAction: BindableAction, Equatable {
+  // binding
+  case binding(BindingAction<GridState>)
   
   // children
   case macOSApplication(id: MacOSApplicationState.ID, action: MacOSApplicationAction)
@@ -46,7 +44,11 @@ enum GridAction: Equatable {
 
 struct GridEnvironment {
   let localDataClient: LocalDataClient<IdentifiedArrayOf<MacOSApplicationState>> =
-    .live(url: FileManager.applicationSupportDirectory(named: "KSWIFTSapphire").appendingPathComponent("GridState.json"))
+    .live(
+      url: FileManager
+        .applicationSupportDirectory(named: "KSWIFTSapphire")
+        .appendingPathComponent("GridState.json")
+    )
   let iconsurClient: IconsurClient = .live
   let scheduler: AnySchedulerOf<DispatchQueue> = .main
 }
@@ -62,7 +64,10 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
     struct GridRequestId: Hashable {}
     
     switch action {
-          
+      
+    case .binding:
+      return .none
+      
     case .getSystemIcons:
       return environment.iconsurClient.getIcons()
         .mapError(AppError.init)
@@ -102,8 +107,8 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       
     case .didLoadGridState:
       return .none
-            
-    // MARK: - macOSApplication
+      
+      // MARK: - macOSApplication
     case let .macOSApplication(id, action):
       switch action {
         
@@ -118,8 +123,8 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
         break
       }
       return Effect(value: .saveGridState)
-    
-    // MARK: - Set
+      
+      // MARK: - Set
     case .setSystemApplications:
       state.inFlight = true
       return environment.iconsurClient.setIcons(state.macOSApplications.filter(\.selected), state.selectedColor)
@@ -197,14 +202,13 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
         state.macOSApplications = state.macOSApplications.reduce(set: \.selected, to: \.modified)
       }
       return .none
-      
-      // MARK: - Color
-    case let .updateSelectedColor(color):
-      state.selectedColor = color
-      return .none
+
     }
   }
-).debug()
+    .binding()
+    .debug()
+)
+
 
 
 extension GridState {
