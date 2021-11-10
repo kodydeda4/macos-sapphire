@@ -13,14 +13,11 @@ struct GridDetailView: View {
   
   var body: some View {
     WithViewStore(store) { viewStore in
-      switch viewStore.macOSApplications.filter(\.selected).count {
-        
-      case 0:
+      if viewStore.macOSApplications.filter(\.selected).isEmpty {
         Text("No Selection")
           .font(.title)
           .foregroundColor(Color(.disabledControlTextColor))
-        
-      default:
+      } else {
         VStack {
           GroupBox {
             GridSelectionView(store: store)

@@ -18,7 +18,7 @@ struct GridView: View {
         GridDetailView(store: store)
       }
       .navigationViewStyle(DoubleColumnNavigationViewStyle())
-      .alert(store.scope(state: \.alert), dismiss: .dismissSetIconsAlert)
+      .alert(store.scope(state: \.alert), dismiss: .didDismissSetIconsAlert)
       .sheet(isPresented: .constant(viewStore.inFlight)) {
         ApplyingChangesView(store: store)
       }

@@ -23,7 +23,7 @@ struct GridMainView: View {
         .frame(width: 600)
         .padding()
       }
-      .onAppear { viewStore.send(.onAppear) }
+      .onAppear { viewStore.send(.getSystemIcons) }
       .toolbar {
         Spacer()
         Button("Select Modified") {

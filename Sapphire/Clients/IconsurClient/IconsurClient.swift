@@ -37,7 +37,6 @@ extension IconsurClient {
       },
       setIcons: { applications, color in
         let command = applications
-          .filter(\.selected)
           .map { application in
             let iconsur = scriptURL.appleScriptPath
             let app = application.bundleURL.appleScriptPath
@@ -49,14 +48,13 @@ extension IconsurClient {
         
         return NSUserAppleScriptTask()
           .execute(command)
-          .map(GridAction.setSystemApplicationsResult)
+          .map(GridAction.didSetSystemApplications)
           .receive(on: DispatchQueue.main)
           .eraseToEffect()
         
       },
       resetIcons: { applications in
         let command = applications
-          .filter(\.selected)
           .map { application in
             let iconsur = scriptURL.appleScriptPath
             let app = application.bundleURL.appleScriptPath
@@ -68,7 +66,7 @@ extension IconsurClient {
         
         return NSUserAppleScriptTask()
           .execute(command)
-          .map(GridAction.resetSystemApplicationsResult)
+          .map(GridAction.didResetSystemApplications)
           .receive(on: DispatchQueue.main)
           .eraseToEffect()
       }

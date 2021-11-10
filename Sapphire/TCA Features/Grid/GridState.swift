@@ -20,42 +20,33 @@ struct GridState: Equatable {
 }
 
 enum GridAction: Equatable {
-  
-  // Root
-  case macOSApplication(id: MacOSApplicationState.ID, action: MacOSApplicationAction)
-  
-  // macOSApplication
-  case onAppear
-  case getSystemIcons
-  case didGetSystemIcons(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
-
-  // Grid
-  case saveGridState
-  case loadGridState
-  case didSaveGridState(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
-  case didLoadGridState(Result<Bool, AppError>)
-  
-  case selectAllButtonTapped
-  case selectModifiedButtonTapped
-  case selectAll
-  case deselectAll
   case updateSelectedColor(Color)
   
-  // Set Icons
-  case setSystemApplications
-  case setSystemApplicationsResult(Result<Bool, AppError>)
-  case createSetIconsAlert
-  case dismissSetIconsAlert
+  // children
+  case macOSApplication(id: MacOSApplicationState.ID, action: MacOSApplicationAction)
   
-  // Reset Icons
-  case resetSystemApplications
-  case resetSystemApplicationsResult(Result<Bool, AppError>)
-  case createResetIconsAlert
-  case dismissResetIconsAlert
+  // get icons
+  case getSystemIcons          ; case didGetSystemIcons(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
+  
+  // save/load gridstate
+  case saveGridState           ; case didSaveGridState(Result<IdentifiedArrayOf<MacOSApplicationState>, AppError>)
+  case loadGridState           ; case didLoadGridState(Result<Bool, AppError>)
+  
+  // selection
+  case selectAllButtonTapped   ; case selectModifiedButtonTapped ; case selectAll ; case deselectAll
+  
+  // set/reset icons
+  case setSystemApplications   ; case didSetSystemApplications(Result<Bool, AppError>)
+  case resetSystemApplications ; case didResetSystemApplications(Result<Bool, AppError>)
+  
+  // create/dismiss alerts
+  case createSetIconsAlert     ; case didDismissSetIconsAlert
+  case createResetIconsAlert   ; case didDismissResetIconsAlert
 }
 
 struct GridEnvironment {
-  let localDataClient: LocalDataClient<IdentifiedArrayOf<MacOSApplicationState>> = .live(url: FileManager.applicationSupportDirectory(named: "KSWIFTSapphire").appendingPathComponent("GridState.json"))
+  let localDataClient: LocalDataClient<IdentifiedArrayOf<MacOSApplicationState>> =
+    .live(url: FileManager.applicationSupportDirectory(named: "KSWIFTSapphire").appendingPathComponent("GridState.json"))
   let iconsurClient: IconsurClient = .live
   let scheduler: AnySchedulerOf<DispatchQueue> = .main
 }
@@ -71,22 +62,18 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
     struct GridRequestId: Hashable {}
     
     switch action {
-      
-      // MARK: - Root
-    case .onAppear:
-      return Effect(value: .getSystemIcons)
-      
+          
     case .getSystemIcons:
       return environment.iconsurClient.getIcons()
         .mapError(AppError.init)
         .receive(on: environment.scheduler)
         .catchToEffect()
         .map(GridAction.didGetSystemIcons)
-
+      
     case let .didGetSystemIcons(.success(icons)):
       state.macOSApplications = icons
       return Effect(value: .loadGridState)
-
+      
     case let .didGetSystemIcons(.failure(error)):
       print(error.localizedDescription)
       return .none
@@ -115,9 +102,8 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       
     case .didLoadGridState:
       return .none
-
-      
-      // MARK: - macOSApplication
+            
+    // MARK: - macOSApplication
     case let .macOSApplication(id, action):
       switch action {
         
@@ -132,24 +118,20 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
         break
       }
       return Effect(value: .saveGridState)
-      
-      // MARK: - Set
+    
+    // MARK: - Set
     case .setSystemApplications:
       state.inFlight = true
-      return environment.iconsurClient.setIcons(state.macOSApplications, state.selectedColor)
+      return environment.iconsurClient.setIcons(state.macOSApplications.filter(\.selected), state.selectedColor)
       
-    case .setSystemApplicationsResult(.success):
+    case .didSetSystemApplications(.success):
       state.macOSApplications = state.macOSApplications.reduce(set: \.modified, to: true, where: \.selected).reduce(set: \.colorHex, to: state.selectedColor.hex, where: \.selected)
       state.inFlight = false
       return Effect(value: .deselectAll)
       
-    case let .setSystemApplicationsResult(.failure(error)):
+    case let .didSetSystemApplications(.failure(error)):
       state.inFlight = false
       return Effect(value: .deselectAll)
-      
-//    case .cancelSetSystemApplications:
-//      state.inFlight = false
-//      return .cancel(id: GridRequestId())
       
     case .createSetIconsAlert:
       state.alert = AlertState(
@@ -160,27 +142,24 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       )
       return .none
       
-    case .dismissSetIconsAlert:
+    case .didDismissSetIconsAlert:
       state.alert = nil
       return .none
       
       // MARK: - Reset
     case .resetSystemApplications:
       state.inFlight = true
-      return environment.iconsurClient.resetIcons(state.macOSApplications)
+      return environment.iconsurClient
+        .resetIcons(state.macOSApplications.filter(\.selected))
       
-    case .resetSystemApplicationsResult(.success):
+    case .didResetSystemApplications(.success):
       state.macOSApplications = state.macOSApplications.reduce(set: \.modified, to: false, where: \.selected)
       state.inFlight = false
       return Effect(value: .deselectAll)
       
-    case let .resetSystemApplicationsResult(.failure(error)):
+    case let .didResetSystemApplications(.failure(error)):
       state.inFlight = false
       return Effect(value: .deselectAll)
-      
-//    case .cancelResetSystemApplications:
-//      state.inFlight = false
-//      return .cancel(id: GridRequestId())
       
     case .createResetIconsAlert:
       state.alert = .init(
@@ -191,7 +170,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       )
       return .none
       
-    case .dismissResetIconsAlert:
+    case .didDismissResetIconsAlert:
       state.alert = nil
       return .none
       
@@ -225,8 +204,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       return .none
     }
   }
-    .debug()
-)
+).debug()
 
 
 extension GridState {

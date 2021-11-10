@@ -62,6 +62,7 @@
 		33CC54DD273BFE86008B3980 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
 		33CC54DF273C0005008B3980 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		33CC54E1273C003C008B3980 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		33CC54E3273C02B7008B3980 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* Sapphire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sapphire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* SapphireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SapphireApp.swift; sourceTree = "<group>"; };
 		33E1B17F2589600100A1FDC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Sapphire/Assets.xcassets; sourceTree = SOURCE_ROOT; };
@@ -213,6 +214,7 @@
 		33E1B17A2589600000A1FDC1 /* Sapphire */ = {
 			isa = PBXGroup;
 			children = (
+				33CC54E3273C02B7008B3980 /* TODO.md */,
 				33E1B17B2589600000A1FDC1 /* SapphireApp.swift */,
 				33B28CE4273ABBE200ABE9D3 /* Clients */,
 				332B84E6265496B000B7633B /* TCA Features */,
