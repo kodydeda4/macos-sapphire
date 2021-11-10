@@ -14,3 +14,9 @@ struct AppError: Equatable, Error {
     self.rawValue = error.localizedDescription
   }
 }
+
+extension AppError {
+  init(rawValue: String) {
+    self.rawValue = rawValue
+  }
+}

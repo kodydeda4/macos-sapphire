@@ -11,8 +11,8 @@ import Combine
 
 struct IconsurClient {
   let getIcons:   ()                                                                         -> Effect <IdentifiedArrayOf<MacOSApplicationState>, Error>
-  let setIcons:   (_ applications: IdentifiedArrayOf<MacOSApplicationState>, _ color: Color) -> Effect<GridAction, Never>
-  let resetIcons: (IdentifiedArrayOf<MacOSApplicationState>)                                 -> Effect<GridAction, Never>
+  let setIcons:  (_ applications: IdentifiedArrayOf<MacOSApplicationState>, _ color: Color) -> Effect<Bool, AppError>
+  let resetIcons: (IdentifiedArrayOf<MacOSApplicationState>)                                 -> Effect<Bool, AppError>
 }
 
 extension IconsurClient {
@@ -20,7 +20,12 @@ extension IconsurClient {
     let iconsur = try! FileManager.default
       .url(for: .applicationScriptsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
       .appendingPathComponent("sapphire")
-      .formattedForApplescript
+      .appleScriptFormat
+    
+    let applescriptURL = try! FileManager.default
+      .url(for: .applicationScriptsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+      .appendingPathComponent("AppleScript")
+      .appendingPathExtension(for: .osaScript)
     
     return Self.init(
       getIcons: {
@@ -39,29 +44,43 @@ extension IconsurClient {
         }
       },
       setIcons: { applications, color in
-        let command = applications
-          .map { "\(iconsur) set \($0.bundleURL.formattedForApplescript) -l -s 0.8 -c \(color.hex); " }
-          .joined()
-          .appending("\(iconsur) cache")
-        
-        return NSUserAppleScriptTask()
-          .execute(command)
-          .map(GridAction.didSetSystemApplications) // <-- wot 0
-          .receive(on: DispatchQueue.main)          // <-- wot 1
-          .eraseToEffect()                          // <-- wot 2
-        
+        Effect.future { callback in
+          // Command |> writeToUrl >>> execute
+          // Create a publisher that tries to do all of it.
+
+          let command = applications
+            .map { "\(iconsur) set \($0.bundleURL.appleScriptFormat) -l -s 0.8 -c \(color.hex); " }
+            .joined()
+            .appending("\(iconsur) cache")
+
+          try! "do shell script \"\(command)\" with administrator privileges".write(to: applescriptURL, atomically: true, encoding: .utf8)
+          
+          try! NSUserAppleScriptTask(url: applescriptURL).execute(completionHandler: { error in
+            if let error = error {
+              callback(.failure(.init(error)))
+            } else {
+              callback(.success(true))
+            }
+          })
+        }
       },
       resetIcons: { applications in
-        let command = applications
-          .map { "\(iconsur) unset \($0.bundleURL.formattedForApplescript); " }
-          .joined()
-          .appending("\(iconsur) cache")
-        
-        return NSUserAppleScriptTask()
-          .execute(command)
-          .map(GridAction.didResetSystemApplications)
-          .receive(on: DispatchQueue.main)
-          .eraseToEffect()
+        Effect.future { callback in
+          let command = applications
+            .map { "\(iconsur) unset \($0.bundleURL.appleScriptFormat); " }
+            .joined()
+            .appending("\(iconsur) cache")
+
+          try! "do shell script \"\(command)\" with administrator privileges".write(to: applescriptURL, atomically: true, encoding: .utf8)
+          
+          try! NSUserAppleScriptTask(url: applescriptURL).execute(completionHandler: { error in
+            if let error = error {
+              callback(.failure(.init(error)))
+            } else {
+              callback(.success(true))
+            }
+          })
+        }
       }
     )
   }
@@ -71,69 +90,10 @@ extension IconsurClient {
 private extension URL {
   
   /// Returns path formatted for Applescript.
-  var formattedForApplescript: String {
+  var appleScriptFormat: String {
     "\\\"\(self.path)\\\""
   }
 }
-
-// MARK: - NSUserAppleScriptTask+Extensions
-private extension NSUserAppleScriptTask {
-  
-  /// Writes command to ~/ApplicationScripts/`AppName`/Applescript.osa file & executes it
-  func execute(_ command: String) -> AnyPublisher<Result<Bool, AppError>, Never> {
-    let rv = PassthroughSubject<Result<Bool, AppError>, Never>()
-    
-    let url = try! FileManager.default.url(for: .applicationScriptsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-      .appendingPathComponent("AppleScript")
-      .appendingPathExtension(for: .osaScript)
-    
-    
-    do {
-      try "do shell script \"\(command)\" with administrator privileges".write(to: url, atomically: true, encoding: .utf8)
-      try NSUserAppleScriptTask(url: url).execute(completionHandler: { error in
-        guard error != nil
-        else {
-          rv.send(.success(true))
-          return
-        }
-      })
-    }
-    catch {
-      rv.send(.failure(.init(error)))
-    }
-    
-    return rv.eraseToAnyPublisher()
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

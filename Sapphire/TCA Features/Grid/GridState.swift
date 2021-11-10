@@ -43,16 +43,10 @@ enum GridAction: BindableAction, Equatable {
 }
 
 struct GridEnvironment {
-  let localDataClient: LocalDataClient<IdentifiedArrayOf<MacOSApplicationState>> =
-    .live(
-      url: FileManager
-        .applicationSupportDirectory(named: "KSWIFTSapphire")
-        .appendingPathComponent("GridState.json")
-    )
+  let localDataClient: LocalDataClient<IdentifiedArrayOf<MacOSApplicationState>> = .live(url: FileManager.applicationSupportDirectory(named: "KSWIFTSapphire").appendingPathComponent("GridState.json"))
   let iconsurClient: IconsurClient = .live
   let scheduler: AnySchedulerOf<DispatchQueue> = .main
 }
-
 
 let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
   macOSApplicationReducer.forEach(
@@ -61,7 +55,7 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
     environment: { _ in () }
   ),
   Reducer { state, action, environment in
-    struct GridRequestId: Hashable {}
+    struct EffectID: Hashable {}
     
     switch action {
       
@@ -128,7 +122,11 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
     case .setSystemApplications:
       state.inFlight = true
       return environment.iconsurClient.setIcons(state.macOSApplications.filter(\.selected), state.selectedColor)
-      
+        .receive(on: environment.scheduler)
+        .catchToEffect()
+        .cancellable(id: EffectID())
+        .map(GridAction.didSetSystemApplications)
+
     case .didSetSystemApplications(.success):
       state.macOSApplications = state.macOSApplications.reduce(set: \.modified, to: true, where: \.selected).reduce(set: \.colorHex, to: state.selectedColor.hex, where: \.selected)
       state.inFlight = false
@@ -154,9 +152,12 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       // MARK: - Reset
     case .resetSystemApplications:
       state.inFlight = true
-      return environment.iconsurClient
-        .resetIcons(state.macOSApplications.filter(\.selected))
-      
+      return environment.iconsurClient.resetIcons(state.macOSApplications.filter(\.selected))
+        .receive(on: environment.scheduler)
+        .catchToEffect()
+        .cancellable(id: EffectID())
+        .map(GridAction.didResetSystemApplications)
+
     case .didResetSystemApplications(.success):
       state.macOSApplications = state.macOSApplications.reduce(set: \.modified, to: false, where: \.selected)
       state.inFlight = false
