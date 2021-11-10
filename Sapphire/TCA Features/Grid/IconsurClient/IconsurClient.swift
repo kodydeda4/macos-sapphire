@@ -47,39 +47,32 @@ extension IconsurClient {
         Effect.future { callback in
           // Command |> writeToUrl >>> execute
           // Create a publisher that tries to do all of it.
-
-          let command = applications
-            .map { "\(iconsur) set \($0.bundleURL.appleScriptFormat) -l -s 0.8 -c \(color.hex); " }
+          applications
+            .reduce(into: []) { $0.append("\(iconsur) set \($1.bundleURL.appleScriptFormat) -l -s 0.8 -c \(color.hex); ") }
             .joined()
             .appending("\(iconsur) cache")
-
-          try! "do shell script \"\(command)\" with administrator privileges".write(to: applescriptURL, atomically: true, encoding: .utf8)
-          
-          try! NSUserAppleScriptTask(url: applescriptURL).execute(completionHandler: { error in
-            if let error = error {
-              callback(.failure(.init(error)))
-            } else {
-              callback(.success(true))
+            .pipe { "do shell script \"\($0)\" with administrator privileges" }
+            .write(to: applescriptURL)
+            .pipe { try! NSUserAppleScriptTask(url: $0) }
+            .execute {
+              if let e = $0 { return callback(.failure(.init(e)))}
+              else { return callback(.success(true)) }
             }
-          })
         }
       },
       resetIcons: { applications in
         Effect.future { callback in
-          let command = applications
-            .map { "\(iconsur) unset \($0.bundleURL.appleScriptFormat); " }
+          applications
+            .reduce(into: []) { $0.append("\(iconsur) unset \($1.bundleURL.appleScriptFormat); ") }
             .joined()
             .appending("\(iconsur) cache")
-
-          try! "do shell script \"\(command)\" with administrator privileges".write(to: applescriptURL, atomically: true, encoding: .utf8)
-          
-          try! NSUserAppleScriptTask(url: applescriptURL).execute(completionHandler: { error in
-            if let error = error {
-              callback(.failure(.init(error)))
-            } else {
-              callback(.success(true))
+            .pipe { "do shell script \"\($0)\" with administrator privileges" }
+            .write(to: applescriptURL)
+            .pipe { try! NSUserAppleScriptTask(url: $0) }
+            .execute {
+              if let e = $0 { return callback(.failure(.init(e)))}
+              else { return callback(.success(true)) }
             }
-          })
         }
       }
     )
@@ -87,11 +80,32 @@ extension IconsurClient {
 }
 
 
+// MARK: Pipe
 private extension URL {
-  
+  func pipe<T>(_ f: (Self) -> T) -> T {
+    f(self)
+  }
+}
+
+extension String {
+  func pipe<T>(_ f: (Self) -> T) -> T {
+    f(self)
+  }
+}
+
+
+// MARK: extra
+extension URL {
   /// Returns path formatted for Applescript.
   var appleScriptFormat: String {
     "\\\"\(self.path)\\\""
+  }
+}
+
+extension String {
+  func write(to url: URL) -> URL {
+    try! self.write(to: url, atomically: true, encoding: .utf8)
+    return url
   }
 }
 

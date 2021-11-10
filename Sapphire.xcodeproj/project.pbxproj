@@ -32,6 +32,8 @@
 		33CC54DE273BFE86008B3980 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54DD273BFE86008B3980 /* UserState.swift */; };
 		33CC54E0273C0005008B3980 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54DF273C0005008B3980 /* RootView.swift */; };
 		33CC54E2273C003C008B3980 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54E1273C003C008B3980 /* UserView.swift */; };
+		33CC54E6273C1B97008B3980 /* fowardApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54E5273C1B97008B3980 /* fowardApplication.swift */; };
+		33CC54E8273C1BBA008B3980 /* forwardComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54E7273C1BBA008B3980 /* forwardComposition.swift */; };
 		33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* SapphireApp.swift */; };
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
@@ -63,6 +65,8 @@
 		33CC54DF273C0005008B3980 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		33CC54E1273C003C008B3980 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		33CC54E3273C02B7008B3980 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
+		33CC54E5273C1B97008B3980 /* fowardApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fowardApplication.swift; sourceTree = "<group>"; };
+		33CC54E7273C1BBA008B3980 /* forwardComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = forwardComposition.swift; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* Sapphire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sapphire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* SapphireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SapphireApp.swift; sourceTree = "<group>"; };
 		33E1B17F2589600100A1FDC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Sapphire/Assets.xcassets; sourceTree = SOURCE_ROOT; };
@@ -194,6 +198,15 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		33CC54E4273C1B7B008B3980 /* Functional Operators */ = {
+			isa = PBXGroup;
+			children = (
+				33CC54E5273C1B97008B3980 /* fowardApplication.swift */,
+				33CC54E7273C1BBA008B3980 /* forwardComposition.swift */,
+			);
+			path = "Functional Operators";
+			sourceTree = "<group>";
+		};
 		33E1B16F2589600000A1FDC1 = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +260,7 @@
 		B757D9CF2594ED42000FDB10 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				33CC54E4273C1B7B008B3980 /* Functional Operators */,
 				33034750273ACEDD00791DD3 /* AppError.swift */,
 				33C25BF3265EB0E00016C813 /* Views */,
 				3336D545265578250064F5D9 /* Extensions */,
@@ -337,6 +351,7 @@
 			files = (
 				33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */,
 				3303474F273AC91400791DD3 /* LocalDataClient.swift in Sources */,
+				33CC54E6273C1B97008B3980 /* fowardApplication.swift in Sources */,
 				33CC54E2273C003C008B3980 /* UserView.swift in Sources */,
 				3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */,
 				339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */,
@@ -352,6 +367,7 @@
 				33CC54D3273BF7B1008B3980 /* URL+Extensions.swift in Sources */,
 				33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* GridState.swift in Sources */,
+				33CC54E8273C1BBA008B3980 /* forwardComposition.swift in Sources */,
 				33CC54D6273BFAD3008B3980 /* RootState.swift in Sources */,
 				33CC54D9273BFDBB008B3980 /* AuthenticationState.swift in Sources */,
 				33CC54DE273BFE86008B3980 /* UserState.swift in Sources */,
