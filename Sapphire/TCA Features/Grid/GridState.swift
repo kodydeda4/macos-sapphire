@@ -55,9 +55,9 @@ enum GridAction: Equatable {
 }
 
 struct GridEnvironment {
-  let localDataClient: LocalDataClient<IdentifiedArrayOf<MacOSApplicationState>>
-  let iconsurClient: IconsurClient
-  let scheduler: AnySchedulerOf<DispatchQueue>
+  let localDataClient: LocalDataClient<IdentifiedArrayOf<MacOSApplicationState>> = .live(url: FileManager.applicationSupportDirectory(named: "KSWIFTSapphire").appendingPathComponent("GridState.json"))
+  let iconsurClient: IconsurClient = .live
+  let scheduler: AnySchedulerOf<DispatchQueue> = .main
 }
 
 
@@ -222,7 +222,6 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
       // MARK: - Color
     case let .updateSelectedColor(color):
       state.selectedColor = color
-      
       return .none
     }
   }
@@ -234,11 +233,7 @@ extension GridState {
   static let defaultStore = Store(
     initialState: .init(),
     reducer: gridReducer,
-    environment: .init(
-      localDataClient: .live(url: FileManager.applicationSupportDirectory(named: "KSWIFTSapphire").appendingPathComponent("GridState.json")),
-      iconsurClient: .live,
-      scheduler: .main
-    )
+    environment: .init()
   )
 }
 

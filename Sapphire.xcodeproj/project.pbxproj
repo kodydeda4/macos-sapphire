@@ -26,12 +26,18 @@
 		33C77B76265FD783006BFA4D /* DynamicColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B75265FD783006BFA4D /* DynamicColor+Extensions.swift */; };
 		33C77B85266009E5006BFA4D /* GridSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B84266009E5006BFA4D /* GridSelectionView.swift */; };
 		33CC54D3273BF7B1008B3980 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54D2273BF7B1008B3980 /* URL+Extensions.swift */; };
+		33CC54D6273BFAD3008B3980 /* RootState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54D5273BFAD3008B3980 /* RootState.swift */; };
+		33CC54D9273BFDBB008B3980 /* AuthenticationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54D8273BFDBB008B3980 /* AuthenticationState.swift */; };
+		33CC54DB273BFDD6008B3980 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54DA273BFDD6008B3980 /* AuthenticationView.swift */; };
+		33CC54DE273BFE86008B3980 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54DD273BFE86008B3980 /* UserState.swift */; };
+		33CC54E0273C0005008B3980 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54DF273C0005008B3980 /* RootView.swift */; };
+		33CC54E2273C003C008B3980 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54E1273C003C008B3980 /* UserView.swift */; };
 		33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* SapphireApp.swift */; };
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
 		33E7FDEA2656B8E4002DD5B8 /* FetchImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E7FDE92656B8E4002DD5B8 /* FetchImageView.swift */; };
-		B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D94D2594E9FB000FDB10 /* Grid.swift */; };
-		B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */; };
+		B757D94E2594E9FB000FDB10 /* GridState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D94D2594E9FB000FDB10 /* GridState.swift */; };
+		B757D95C2594EAF9000FDB10 /* MacOSApplicationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B757D95B2594EAF9000FDB10 /* MacOSApplicationState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +56,12 @@
 		33C77B75265FD783006BFA4D /* DynamicColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicColor+Extensions.swift"; sourceTree = "<group>"; };
 		33C77B84266009E5006BFA4D /* GridSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSelectionView.swift; sourceTree = "<group>"; };
 		33CC54D2273BF7B1008B3980 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
+		33CC54D5273BFAD3008B3980 /* RootState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootState.swift; sourceTree = "<group>"; };
+		33CC54D8273BFDBB008B3980 /* AuthenticationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationState.swift; sourceTree = "<group>"; };
+		33CC54DA273BFDD6008B3980 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		33CC54DD273BFE86008B3980 /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
+		33CC54DF273C0005008B3980 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		33CC54E1273C003C008B3980 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* Sapphire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sapphire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* SapphireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SapphireApp.swift; sourceTree = "<group>"; };
 		33E1B17F2589600100A1FDC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Sapphire/Assets.xcassets; sourceTree = SOURCE_ROOT; };
@@ -57,8 +69,8 @@
 		33E1B1842589600100A1FDC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		33E1B1852589600100A1FDC1 /* Sapphire.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sapphire.entitlements; sourceTree = "<group>"; };
 		33E7FDE92656B8E4002DD5B8 /* FetchImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImageView.swift; sourceTree = "<group>"; };
-		B757D94D2594E9FB000FDB10 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
-		B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplication.swift; sourceTree = "<group>"; };
+		B757D94D2594E9FB000FDB10 /* GridState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridState.swift; sourceTree = "<group>"; };
+		B757D95B2594EAF9000FDB10 /* MacOSApplicationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +99,9 @@
 		332B84E6265496B000B7633B /* TCA Features */ = {
 			isa = PBXGroup;
 			children = (
+				33CC54D4273BFAAA008B3980 /* Root */,
+				33CC54D7273BFDB0008B3980 /* Authentication */,
+				33CC54DC273BFE7C008B3980 /* User */,
 				33E7FDED2656BFF8002DD5B8 /* Grid */,
 				3336D53C26556EE60064F5D9 /* MacOSApplication */,
 			);
@@ -96,7 +111,7 @@
 		3336D53C26556EE60064F5D9 /* MacOSApplication */ = {
 			isa = PBXGroup;
 			children = (
-				B757D95B2594EAF9000FDB10 /* MacOSApplication.swift */,
+				B757D95B2594EAF9000FDB10 /* MacOSApplicationState.swift */,
 				339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */,
 			);
 			path = MacOSApplication;
@@ -152,6 +167,33 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		33CC54D4273BFAAA008B3980 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				33CC54D5273BFAD3008B3980 /* RootState.swift */,
+				33CC54DF273C0005008B3980 /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		33CC54D7273BFDB0008B3980 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				33CC54D8273BFDBB008B3980 /* AuthenticationState.swift */,
+				33CC54DA273BFDD6008B3980 /* AuthenticationView.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		33CC54DC273BFE7C008B3980 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				33CC54DD273BFE86008B3980 /* UserState.swift */,
+				33CC54E1273C003C008B3980 /* UserView.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		33E1B16F2589600000A1FDC1 = {
 			isa = PBXGroup;
 			children = (
@@ -194,7 +236,7 @@
 		33E7FDED2656BFF8002DD5B8 /* Grid */ = {
 			isa = PBXGroup;
 			children = (
-				B757D94D2594E9FB000FDB10 /* Grid.swift */,
+				B757D94D2594E9FB000FDB10 /* GridState.swift */,
 				33B28CED273ABCB100ABE9D3 /* Views */,
 			);
 			path = Grid;
@@ -293,20 +335,26 @@
 			files = (
 				33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */,
 				3303474F273AC91400791DD3 /* LocalDataClient.swift in Sources */,
+				33CC54E2273C003C008B3980 /* UserView.swift in Sources */,
 				3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */,
 				339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */,
 				332B84E926549CD900B7633B /* GridView.swift in Sources */,
 				3336D54B2655834C0064F5D9 /* SFSymbolButton.swift in Sources */,
 				33034751273ACEDD00791DD3 /* AppError.swift in Sources */,
-				B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */,
+				B757D95C2594EAF9000FDB10 /* MacOSApplicationState.swift in Sources */,
+				33CC54E0273C0005008B3980 /* RootView.swift in Sources */,
 				33C77B85266009E5006BFA4D /* GridSelectionView.swift in Sources */,
 				33A15A84265E80F400D2D380 /* IdentifiedArray+Extensions.swift in Sources */,
 				33B28CE9273ABC0A00ABE9D3 /* IconsurClient.swift in Sources */,
 				33BEC31B2655AA830066851E /* ApplyingChangesView.swift in Sources */,
 				33CC54D3273BF7B1008B3980 /* URL+Extensions.swift in Sources */,
 				33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */,
-				B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */,
+				B757D94E2594E9FB000FDB10 /* GridState.swift in Sources */,
+				33CC54D6273BFAD3008B3980 /* RootState.swift in Sources */,
+				33CC54D9273BFDBB008B3980 /* AuthenticationState.swift in Sources */,
+				33CC54DE273BFE86008B3980 /* UserState.swift in Sources */,
 				3336D54726557D690064F5D9 /* GridMainView.swift in Sources */,
+				33CC54DB273BFDD6008B3980 /* AuthenticationView.swift in Sources */,
 				33C77B76265FD783006BFA4D /* DynamicColor+Extensions.swift in Sources */,
 				33E7FDEA2656B8E4002DD5B8 /* FetchImageView.swift in Sources */,
 				33335646265D4CA400252A36 /* RoundedRectangleButtonStyle.swift in Sources */,
