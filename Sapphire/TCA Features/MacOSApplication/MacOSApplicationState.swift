@@ -41,17 +41,3 @@ let macOSApplicationReducer = Reducer<MacOSApplicationState, MacOSApplicationAct
     }
   }
 )
-//
-//extension MacOSApplicationState {
-//  static let defaultStore = Store(
-//    initialState: .init(
-//      bundleURL: Bundle.allBundleURLs.first!,
-//      name:      Bundle.getName(from: Bundle.allBundleURLs.first!),
-//      iconURL:   Bundle.getIcon(from: Bundle.allBundleURLs.first!)
-//    ),
-//    reducer: macOSApplicationReducer,
-//    environment: ()
-//  )
-//}
-//
-//

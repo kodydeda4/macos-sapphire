@@ -29,7 +29,7 @@ struct GridView: View {
 // MARK:- SwiftUI_Previews
 struct GridView_Previews: PreviewProvider {
   static var previews: some View {
-    GridView(store: GridState.defaultStore)
+    GridView(store: .default)
   }
 }
 

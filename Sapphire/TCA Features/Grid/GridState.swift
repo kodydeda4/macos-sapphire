@@ -210,17 +210,13 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
 )
 
 
-
-extension GridState {
-  static let defaultStore = Store(
+extension Store where State == GridState, Action == GridAction {
+  static let `default` = Store(
     initialState: .init(),
     reducer: gridReducer,
     environment: .init()
   )
 }
-
-
-
 
 
 

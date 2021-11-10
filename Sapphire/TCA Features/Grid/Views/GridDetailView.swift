@@ -48,6 +48,6 @@ struct GridDetailView: View {
 // MARK:- SwiftUI_Previews
 struct GridDetailView_Previews: PreviewProvider {
   static var previews: some View {
-    GridDetailView(store: GridState.defaultStore)
+    GridDetailView(store: .default)
   }
 }

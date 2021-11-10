@@ -17,34 +17,32 @@ struct IconsurClient {
 
 extension IconsurClient {
   static var live: Self {
-    let scriptURL = try! FileManager.default.url(for: .applicationScriptsDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("sapphire")
+    let iconsur = try! FileManager.default
+      .url(for: .applicationScriptsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+      .appendingPathComponent("sapphire")
+      .formattedForApplescript
     
     return Self.init(
       getIcons: {
         Effect.future { callback in
           let a = Bundle.allBundleURLs
-          .map {
-            MacOSApplicationState(
-              bundleURL: $0,
-              name: Bundle.getName(from: $0),
-              iconURL: Bundle.getIcon(from: $0)
-            )
-          }
-          .sorted(by: { $0.name < $1.name })
-        
+            .map {
+              MacOSApplicationState(
+                bundleURL: $0,
+                name: Bundle.getName(from: $0),
+                iconURL: Bundle.getIcon(from: $0)
+              )
+            }
+            .sorted(by: { $0.name < $1.name })
+          
           return callback(.success(IdentifiedArray(uniqueElements: a)))
         }
       },
       setIcons: { applications, color in
         let command = applications
-          .map { application in
-            let iconsur = scriptURL.appleScriptPath
-            let app = application.bundleURL.appleScriptPath
-            
-            return "\(iconsur) set \(app) -l -s 0.8 -c \(color.hex); "
-          }
+          .map { "\(iconsur) set \($0.bundleURL.formattedForApplescript) -l -s 0.8 -c \(color.hex); " }
           .joined()
-          .appending("\(scriptURL.appleScriptPath) cache")
+          .appending("\(iconsur) cache")
         
         return NSUserAppleScriptTask()
           .execute(command)
@@ -55,14 +53,9 @@ extension IconsurClient {
       },
       resetIcons: { applications in
         let command = applications
-          .map { application in
-            let iconsur = scriptURL.appleScriptPath
-            let app = application.bundleURL.appleScriptPath
-            
-            return "\(iconsur) unset \(app); "
-          }
+          .map { "\(iconsur) unset \($0.bundleURL.formattedForApplescript); " }
           .joined()
-          .appending("\(scriptURL.appleScriptPath) cache")
+          .appending("\(iconsur) cache")
         
         return NSUserAppleScriptTask()
           .execute(command)
@@ -78,7 +71,7 @@ extension IconsurClient {
 private extension URL {
   
   /// Returns path formatted for Applescript.
-  var appleScriptPath: String {
+  var formattedForApplescript: String {
     "\\\"\(self.path)\\\""
   }
 }
@@ -93,13 +86,13 @@ private extension NSUserAppleScriptTask {
     
     var url: URL {
       try! FileManager.default.url(
-       for: .applicationScriptsDirectory,
-       in: .userDomainMask,
-       appropriateFor: nil,
-       create: true
+        for: .applicationScriptsDirectory,
+           in: .userDomainMask,
+           appropriateFor: nil,
+           create: true
       )
-      .appendingPathComponent("AppleScript")
-      .appendingPathExtension(for: .osaScript)
+        .appendingPathComponent("AppleScript")
+        .appendingPathExtension(for: .osaScript)
     }
     
     do {
@@ -110,7 +103,7 @@ private extension NSUserAppleScriptTask {
           rv.send(.success(true))
           return
         }
-//        rv.send(.failure(.init(error)))
+        //        rv.send(.failure(.init(error)))
       })
     }
     catch {

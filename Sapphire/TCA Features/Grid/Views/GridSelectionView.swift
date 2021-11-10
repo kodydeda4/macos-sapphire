@@ -55,7 +55,7 @@ struct GridSelectionView: View {
 // MARK:- SwiftUI_Previews
 struct GridSelectionView_Previews: PreviewProvider {
   static var previews: some View {
-    GridSelectionView(store: GridState.defaultStore)
+    GridSelectionView(store: .default)
   }
 }
 

@@ -41,7 +41,7 @@ struct ApplyingChangesView: View {
 
 struct ApplyingChangesView_Previews: PreviewProvider {
   static var previews: some View {
-    ApplyingChangesView(store: GridState.defaultStore)
+    ApplyingChangesView(store: .default)
   }
 }
 

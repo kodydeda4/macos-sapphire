@@ -40,6 +40,6 @@ struct GridMainView: View {
 
 struct GridMainView_Previews: PreviewProvider {
   static var previews: some View {
-    GridMainView(store: GridState.defaultStore)
+    GridMainView(store: .default)
   }
 }

@@ -26,7 +26,6 @@ struct ColorSelectorView: View {
               .shadow(color: Color.black.opacity(0.6), radius: 2)
           }
         }.buttonStyle(BorderlessButtonStyle())
-        
       }
     }
     .padding()
