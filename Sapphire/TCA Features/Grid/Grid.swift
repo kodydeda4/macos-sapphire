@@ -230,36 +230,19 @@ let gridReducer = Reducer<GridState, GridAction, GridEnvironment>.combine(
 )
 
 
-/// ~/Library/Application Support/`KSWIFTSapphire`
-var applicationSupport: URL {
-  let directory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("KSWIFTSapphire", isDirectory: true)
-  
-  if !FileManager.default.fileExists(atPath: directory.path) {
-    do {
-      try FileManager.default.createDirectory(
-        atPath: directory.path,
-        withIntermediateDirectories: true,
-        attributes: nil
-      )
-    } catch {
-      print(error.localizedDescription)
-    }
-  }
-  
-  return directory
-}
-
 extension GridState {
   static let defaultStore = Store(
     initialState: .init(),
     reducer: gridReducer,
     environment: .init(
-      localDataClient: .live(url: applicationSupport.appendingPathComponent("GridState.json")),
+      localDataClient: .live(url: FileManager.applicationSupportDirectory(named: "KSWIFTSapphire").appendingPathComponent("GridState.json")),
       iconsurClient: .live,
       scheduler: .main
     )
   )
 }
+
+
 
 
 

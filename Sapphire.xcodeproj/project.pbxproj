@@ -10,11 +10,11 @@
 		3303474F273AC91400791DD3 /* LocalDataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3303474E273AC91400791DD3 /* LocalDataClient.swift */; };
 		33034751273ACEDD00791DD3 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33034750273ACEDD00791DD3 /* AppError.swift */; };
 		332B84E926549CD900B7633B /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332B84E826549CD900B7633B /* GridView.swift */; };
-		33335646265D4CA400252A36 /* ButtonStyle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */; };
+		33335646265D4CA400252A36 /* RoundedRectangleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33335645265D4CA400252A36 /* RoundedRectangleButtonStyle.swift */; };
 		3336D541265573DA0064F5D9 /* FetchImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3336D540265573DA0064F5D9 /* FetchImage */; };
 		3336D54726557D690064F5D9 /* GridMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54626557D690064F5D9 /* GridMainView.swift */; };
 		3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54826557E020064F5D9 /* GridDetailView.swift */; };
-		3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54A2655834C0064F5D9 /* Button+Extensions.swift */; };
+		3336D54B2655834C0064F5D9 /* SFSymbolButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3336D54A2655834C0064F5D9 /* SFSymbolButton.swift */; };
 		339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */; };
 		33A15A80265E731A00D2D380 /* Overture in Frameworks */ = {isa = PBXBuildFile; productRef = 33A15A7F265E731A00D2D380 /* Overture */; };
 		33A15A84265E80F400D2D380 /* IdentifiedArray+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A15A83265E80F400D2D380 /* IdentifiedArray+Extensions.swift */; };
@@ -23,8 +23,9 @@
 		33BEC31B2655AA830066851E /* ApplyingChangesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC31A2655AA830066851E /* ApplyingChangesView.swift */; };
 		33C25BF6265EBF200016C813 /* DynamicColor in Frameworks */ = {isa = PBXBuildFile; productRef = 33C25BF5265EBF200016C813 /* DynamicColor */; };
 		33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C25BF7265EBFF40016C813 /* ColorSelectorView.swift */; };
-		33C77B76265FD783006BFA4D /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B75265FD783006BFA4D /* Color+Extensions.swift */; };
+		33C77B76265FD783006BFA4D /* DynamicColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B75265FD783006BFA4D /* DynamicColor+Extensions.swift */; };
 		33C77B85266009E5006BFA4D /* GridSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C77B84266009E5006BFA4D /* GridSelectionView.swift */; };
+		33CC54D3273BF7B1008B3980 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC54D2273BF7B1008B3980 /* URL+Extensions.swift */; };
 		33E1B17C2589600000A1FDC1 /* SapphireApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E1B17B2589600000A1FDC1 /* SapphireApp.swift */; };
 		33E1B1802589600100A1FDC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B17F2589600100A1FDC1 /* Assets.xcassets */; };
 		33E1B1832589600100A1FDC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33E1B1822589600100A1FDC1 /* Preview Assets.xcassets */; };
@@ -37,17 +38,18 @@
 		3303474E273AC91400791DD3 /* LocalDataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataClient.swift; sourceTree = "<group>"; };
 		33034750273ACEDD00791DD3 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		332B84E826549CD900B7633B /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
-		33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ButtonStyle+Extensions.swift"; sourceTree = "<group>"; };
+		33335645265D4CA400252A36 /* RoundedRectangleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedRectangleButtonStyle.swift; sourceTree = "<group>"; };
 		3336D54626557D690064F5D9 /* GridMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridMainView.swift; sourceTree = "<group>"; };
 		3336D54826557E020064F5D9 /* GridDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridDetailView.swift; sourceTree = "<group>"; };
-		3336D54A2655834C0064F5D9 /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
+		3336D54A2655834C0064F5D9 /* SFSymbolButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolButton.swift; sourceTree = "<group>"; };
 		339666B7259697EB00AA5E79 /* MacOSApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSApplicationView.swift; sourceTree = "<group>"; };
 		33A15A83265E80F400D2D380 /* IdentifiedArray+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IdentifiedArray+Extensions.swift"; sourceTree = "<group>"; };
 		33B28CE8273ABC0A00ABE9D3 /* IconsurClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsurClient.swift; sourceTree = "<group>"; };
 		33BEC31A2655AA830066851E /* ApplyingChangesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyingChangesView.swift; sourceTree = "<group>"; };
 		33C25BF7265EBFF40016C813 /* ColorSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectorView.swift; sourceTree = "<group>"; };
-		33C77B75265FD783006BFA4D /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		33C77B75265FD783006BFA4D /* DynamicColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicColor+Extensions.swift"; sourceTree = "<group>"; };
 		33C77B84266009E5006BFA4D /* GridSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridSelectionView.swift; sourceTree = "<group>"; };
+		33CC54D2273BF7B1008B3980 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		33E1B1782589600000A1FDC1 /* Sapphire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sapphire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33E1B17B2589600000A1FDC1 /* SapphireApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SapphireApp.swift; sourceTree = "<group>"; };
 		33E1B17F2589600100A1FDC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Sapphire/Assets.xcassets; sourceTree = SOURCE_ROOT; };
@@ -103,10 +105,11 @@
 		3336D545265578250064F5D9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				3336D54A2655834C0064F5D9 /* Button+Extensions.swift */,
-				33335645265D4CA400252A36 /* ButtonStyle+Extensions.swift */,
+				3336D54A2655834C0064F5D9 /* SFSymbolButton.swift */,
+				33335645265D4CA400252A36 /* RoundedRectangleButtonStyle.swift */,
 				33A15A83265E80F400D2D380 /* IdentifiedArray+Extensions.swift */,
-				33C77B75265FD783006BFA4D /* Color+Extensions.swift */,
+				33C77B75265FD783006BFA4D /* DynamicColor+Extensions.swift */,
+				33CC54D2273BF7B1008B3980 /* URL+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -293,19 +296,20 @@
 				3336D54926557E020064F5D9 /* GridDetailView.swift in Sources */,
 				339666B8259697EB00AA5E79 /* MacOSApplicationView.swift in Sources */,
 				332B84E926549CD900B7633B /* GridView.swift in Sources */,
-				3336D54B2655834C0064F5D9 /* Button+Extensions.swift in Sources */,
+				3336D54B2655834C0064F5D9 /* SFSymbolButton.swift in Sources */,
 				33034751273ACEDD00791DD3 /* AppError.swift in Sources */,
 				B757D95C2594EAF9000FDB10 /* MacOSApplication.swift in Sources */,
 				33C77B85266009E5006BFA4D /* GridSelectionView.swift in Sources */,
 				33A15A84265E80F400D2D380 /* IdentifiedArray+Extensions.swift in Sources */,
 				33B28CE9273ABC0A00ABE9D3 /* IconsurClient.swift in Sources */,
 				33BEC31B2655AA830066851E /* ApplyingChangesView.swift in Sources */,
+				33CC54D3273BF7B1008B3980 /* URL+Extensions.swift in Sources */,
 				33C25BF8265EBFF40016C813 /* ColorSelectorView.swift in Sources */,
 				B757D94E2594E9FB000FDB10 /* Grid.swift in Sources */,
 				3336D54726557D690064F5D9 /* GridMainView.swift in Sources */,
-				33C77B76265FD783006BFA4D /* Color+Extensions.swift in Sources */,
+				33C77B76265FD783006BFA4D /* DynamicColor+Extensions.swift in Sources */,
 				33E7FDEA2656B8E4002DD5B8 /* FetchImageView.swift in Sources */,
-				33335646265D4CA400252A36 /* ButtonStyle+Extensions.swift in Sources */,
+				33335646265D4CA400252A36 /* RoundedRectangleButtonStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
